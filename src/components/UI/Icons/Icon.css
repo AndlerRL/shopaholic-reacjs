@@ -1,0 +1,9 @@
+.Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Icon {
+  margin: 1.2rem;
+}

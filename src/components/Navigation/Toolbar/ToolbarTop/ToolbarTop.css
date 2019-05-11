@@ -1,0 +1,134 @@
+.onlyMobile {
+  display: flex;
+  flex-direction: flex-start;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.onlyMobile h1 {
+  letter-spacing: 5px;
+  color: #ff5252;
+}
+
+.ToolbarTop {
+  display: none;
+  transition: all ease-in-out 1s;
+}
+
+
+@media screen and (min-width: 700px) {
+  .onlyMobile {
+    display: none;
+  }
+
+  .ToolbarTop {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    display: flex;
+    background-color: #fafafa;
+    transition: all ease-in-out .25s 100ms;
+    height: 4.5rem;
+    z-index: 1500;
+  }
+  
+  .ToolbarTop > .SignInUp > h5 > a {
+    text-decoration: none;
+  }
+  
+  .ToolbarTop > .SignInUp > h5 > a > span {
+    color: #ff1744;
+  }
+  
+  .ToolbarTop > .SignInUp > h5 > a > span:hover {
+    color: #ff8a80;
+  }
+  
+  .ToolbarTop > .AddLinks {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  
+  .ToolbarTop > .Currency {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .ToolbarTop > .ShoppingCar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .ToolbarTop > .ShoppingCar > .shopItems {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -30px;
+    margin-top: -12px;
+    font-weight: 700;
+    font-size: .5rem;
+    padding: 5px;
+    border-radius: 50%;
+    height: .75rem;
+    width: .75rem;
+    background-color: #ff1744;
+    color: #f5f5f5
+  }
+  
+  .NavigationItem {
+    margin: 0;
+    box-sizing: border-box;
+    display: block;
+    height: auto;
+    width: 100%;
+  }
+  
+  .NavigationItem > a {
+    color: #212121 !important;
+    text-decoration: none;
+    width: 100%;
+    border-right: 4px solid transparent;
+    border-bottom: 1px solid #afb42b6a;
+    box-sizing: border-box;
+    display: block;
+    transition: all .33s ease-in-out !important;
+  }
+  
+  .NavigationItem a:hover,
+  .NavigationItem a:active,
+  .NavigationItem a.active {
+    border-right: 4px solid #434343;
+  }
+  
+  @media (min-width: 500px) {
+    .NavigationItem {
+      margin: 0;
+      display: flex;
+      height: 100%;
+      align-items: center;
+      width: auto;
+    }
+    
+    .NavigationItem > a {
+      height: 100%;
+      padding: 0 14px;
+      border-right: none;
+      border-bottom: 4px solid transparent;
+      transition: all .33s ease-in-out !important;
+    }
+    
+    .NavigationItem a:hover,
+    .NavigationItem a:active,
+    .NavigationItem a.active {
+      border-right: none;
+      border-bottom: 4px solid #434343;
+    }
+  }
+}
