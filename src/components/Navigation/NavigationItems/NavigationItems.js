@@ -10,31 +10,31 @@ const navigationItems = props => (
       exact
       link="/women"
       clicked={props.clicked}>
-      <h4>Women</h4>
+      Women
     </NavigationItem>
     <NavigationItem
       exact
       link="/men"
       clicked={props.clicked}>
-      <h4>Men</h4>
+      Men
     </NavigationItem>
     <NavigationItem
       exact
       link="/shoes"
       clicked={props.clicked}>
-      <h4>Shoes</h4>
+      Shoes
     </NavigationItem>
     <NavigationItem
       exact
       link="/kids"
       clicked={props.clicked}>
-      <h4>Kids</h4>
+      Kids
     </NavigationItem>
     <NavigationItem
       exact
       link="/brands"
       clicked={props.clicked}>
-      <h4>Brands</h4>
+      Brands
     </NavigationItem>
     
   </ul>

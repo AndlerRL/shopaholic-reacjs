@@ -5,9 +5,9 @@ import css from './Icon.css';
 
 const iconM = props => {
   return (
-    <div className={css.Container}>
+    <div className={css.Container} onClick={props.clicked}>
       <Icons 
-        className={[css.Icon, props.hoverClass].join(' ')}
+        className={[props.prefix, css.Icon].join(' ')}
         color={props.color}
         fontSize={props.size}>
         { props.icon }

@@ -1,40 +1,50 @@
-.Toolbar {
-  display: none;
+.OnlyMobile {
+  display: flex;
+  flex-direction: flex-start;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  height: 6rem;
 }
 
-@media screen and (min-width: 700px) {
+.OnlyMobile p {
+  letter-spacing: 5px;
+  color: #ff5252;
+  font-size: 2.5rem;
+}
+
+.Toolbar {
+  display: none;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 750px) {
+  .OnlyMobile {
+    display: none;
+  }
+
   .Toolbar {
     flex-grow: 1;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding: 0 32px;
     height: 6rem;
-    z-index: 1500;
+    z-index: 1400;
     background-color: #212121;
     transition: all cubic-bezier(0.165, 0.84, 0.44, 1) .5s 100ms !important;
   }
   
-  .Toolbar h5 {
+  .Toolbar ul > li > a {
     letter-spacing: 1px;
-    color: #f5f5f5;
+    color: #f5f5f5 !important;
+    font-size: 1.33rem;
   }
   
-  .Toolbar h4 {
-    color: #f5f5f5;
-  }
-  
-  .Toolbar h2 {
+  .Toolbar p.Title {
     letter-spacing: 5px;
+    font-size: 2.5rem;
     color: #ff5252;
-  }
-
-  .Nav {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px;
   }
 }

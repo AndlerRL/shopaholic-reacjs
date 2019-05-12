@@ -1,4 +1,5 @@
 .App {
   text-align: inherit;
-  transition: all ease-in-out 1s !important;
+  flex: 1;
+  flex-grow: 1;
 }

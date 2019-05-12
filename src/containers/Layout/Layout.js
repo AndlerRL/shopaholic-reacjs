@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
+import Footer from '../../components/UI/Footer/Footer';
 
 import css from './Layout.css';
 
@@ -13,14 +14,18 @@ const Layout = props => {
   }
 
   return (
-    <React.Fragment>
+    <div className={css.Layout}>
       <Toolbar 
         toggleMenu={sideDrawerToggleHandler} />
       <SideDrawer 
         open={showSideDrawer}
         closed={sideDrawerToggleHandler}
         back={sideDrawerToggleHandler}/>
-    </React.Fragment>
+      <main>
+        { props.children }
+      </main>
+      <Footer />
+    </div>
   )
 };
 

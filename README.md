@@ -42,6 +42,12 @@
 
 <h3>CHANGE_LOG</h3>
 
+<b><code>[v.0.1.01]</code></b>
+
+<p>Toolbar UI/UX finished. now it is totally responsive. Also add more components and divided the toolbar into different components; Sidebar has now all components that toolbar has and some interactions with states.</p>
+
+<p>I have started to work with the footer section and there is some adjustment that needs to be finished soon.</p>
+
 <b><code>[v.0.0.7]</code></b>
 
 <p>Started to create components, principally the Layout and has some responsive interactions. like:</p>
