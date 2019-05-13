@@ -10,13 +10,13 @@ const shoppingCar = props => (
       <IconM 
         color="action"
         icon="shopping_basket"
-        size="default" />
+        size={window.outerWidth > 750 ? "small" : "default"} />
       <span className={css.Items}>
-        99
+        {props.itemsCar}
       </span>
     </div>
     <p>
-      Your bag: <span>$999.99</span>
+      Your bag: <span>${props.totalBag}</span>
     </p>
   </div>
 );

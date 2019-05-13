@@ -1,6 +1,6 @@
 {
   "name": "shopaholic-app",
-  "version": "0.1.01",
+  "version": "0.1.04",
   "private": true,
   "dependencies": {
     "@babel/core": "7.4.3",

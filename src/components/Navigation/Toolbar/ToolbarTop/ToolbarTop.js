@@ -47,8 +47,10 @@ const toolbarTop = props => (
         </NavLink>
       </li>
     </div>
-    <Currency />
-    <ShoppingCar />
+    <Currency currency="USD" />
+    <ShoppingCar 
+      totalBag={9.99}
+      itemsCar={1} />
   </div>
 );
 

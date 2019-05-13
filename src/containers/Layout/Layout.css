@@ -1,3 +1,7 @@
+main {
+  min-height: 100rem;
+}
+
 .Layout {
   flex: 1;
 }

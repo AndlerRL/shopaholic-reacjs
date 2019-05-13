@@ -8,7 +8,7 @@ const search = props => (
   <Input 
     type="submit"
     placeholder="search anything"
-    cssName={css.Search}
+    cssName={[css.Search, props.show].join(' ')}
     iconSearch="search"
     clicked={props.clicked} />
 );

@@ -12,7 +12,7 @@ const currency = props => (
       type="fas"
       icon="flag-usa" />
     <p>
-      $ USD
+      $ {props.currency}
     </p>
   </div>
 );

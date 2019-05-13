@@ -35,8 +35,15 @@ const sideDrawer = props => {
             </NavLink>
           </p>
         </div>
-        <Currency clicked={props.currency} />
-        <ShoppingCar clicked={props.shoppingCar} />
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <Currency 
+            clicked={props.currency}
+            currency="USD" />
+          <ShoppingCar 
+            clicked={props.shoppingCar}
+            itemsCar={1}
+            totalBag={9.99} />
+        </div>
         <Search clicked={props.search} />
         <nav>
           <NavigationItems

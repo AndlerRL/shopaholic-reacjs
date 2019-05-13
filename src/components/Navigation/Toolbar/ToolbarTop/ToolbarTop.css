@@ -1,6 +1,6 @@
 p {
   font-family: 'Titillium Web', sans-serif;
-  font-size: 1rem;
+  font-size: .9rem;
   letter-spacing: 1px;
 }
 
@@ -14,12 +14,14 @@ p {
 @media screen and (min-width: 750px) {
   .ToolbarTop {
     align-items: center;
+    position: relative;
+    width: 100%;
     flex-direction: row;
     justify-content: space-around;
     display: flex;
     background-color: #fafafa;
     transition: all ease-in-out .25s 100ms;
-    height: 4rem;
+    height: 3rem;
     z-index: 1500;
   }
   

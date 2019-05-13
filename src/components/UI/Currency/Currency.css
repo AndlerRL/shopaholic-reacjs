@@ -10,7 +10,7 @@
   font-family: 'Dosis', sans-serif;
   font-weight: 600;
   letter-spacing: 1px;
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 .Currency > div > i {
@@ -19,4 +19,11 @@
 
 .Currency > div > i:hover {
   color: #03a9f4 !important;
+}
+
+@media screen and (min-width: 750px) {
+  .Currency > p,
+  .Currency > div > i {
+    font-size: .9rem !important;
+  }
 }

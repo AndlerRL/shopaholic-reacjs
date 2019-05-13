@@ -13,20 +13,42 @@
 .Subscription {
   display: inline-flex;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
-  height: 3rem;
+  height: auto;
   top: 0;
 }
 
 .Subscription > p,
-.Subscription > div {
-  width: 41.999%;
+.Subscription > .Subs {
+  width: 100%;
+}
+
+.Subscription > .Subs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.Subscription > .Subs > div {
+  width: 66.66%;
+}
+
+.Subscription > .Subs > button {
+  width: 33.33%;
 }
 
 .Container {
   display: inline-flex;
   flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.License {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   justify-content: space-evenly;
 }
 
@@ -57,4 +79,33 @@
 .License > li:not(:first-child) {
   opacity: .6;
   font-weight: 400;
+}
+
+@media screen and (min-width: 600px) {
+  .Subscription {
+    flex-direction: row;
+  }
+  
+  .Subscription > p,
+  .Subscription > .Subs {
+    width: 50%;
+  }
+
+  .Subscription > .Subs {
+    flex-direction: row;
+  }
+
+  .Subscription > .Subs > div {
+    width: 75%;
+  }
+
+  .Subscription > .Subs > button {
+    width: 25%;
+  }
+
+  .License {
+    width: 300px;
+    justify-content: space-between;
+    margin: 1rem auto;
+  }
 }

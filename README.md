@@ -42,7 +42,13 @@
 
 <h3>CHANGE_LOG</h3>
 
-<b><code>[v.0.1.01]</code></b>
+<b><code>[v0.1.04]</code></b>
+
+<p>Rendering Home screen! For now has the main product sale fully rendered for all screens (desktop to mobile) and layout is completed now. Let's focus now on the pages now! ;)</p>
+
+<p>Some additional routing has been added to.</p>
+
+<b><code>[v0.1.01]</code></b>
 
 <p>Toolbar UI/UX finished. now it is totally responsive. Also add more components and divided the toolbar into different components; Sidebar has now all components that toolbar has and some interactions with states.</p>
 

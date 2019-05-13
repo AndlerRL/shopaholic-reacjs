@@ -8,22 +8,6 @@ import Search from '../../UI/Form/Search/Search';
 import css from './Toolbar.css';
 
 const Toolbar = props => {
-  let navigation = null;
-
-  if (window.outerWidth > 700)
-    navigation = (
-      <React.Fragment>
-        <ToolbarTop toggleMenu={props.toggleMenu} />
-          <div className={css.Toolbar}>
-            <p className={css.Title}>
-              SHOPAHOLIC
-            </p> 
-            <NavigationItems />
-            <Search />
-        </div>
-      </React.Fragment>
-    )
-
   return (
     <React.Fragment>
       <div className={css.OnlyMobile}>
@@ -43,7 +27,16 @@ const Toolbar = props => {
             size="large" />
         </div>
       </div>
-      { navigation }
+      <div className={css.OnlyDesktop}>
+        <ToolbarTop toggleMenu={props.toggleMenu} />
+        <div className={css.Toolbar}>
+          <p className={css.Title}>
+            SHOPAHOLIC
+          </p> 
+          <NavigationItems show={css.Show} />
+          <Search show={css.Show} />
+        </div>
+      </div>
     </React.Fragment>
   )
 };

@@ -9,8 +9,12 @@ const footer = props => (
   <footer className={css.Footer}>
     <div className={css.Subscription}>
       <p>Subscribe for shop news, updates and special offers.</p>
-      <Subscription />
-      <Btn>DefaultBtn</Btn>
+      <div className={css.Subs}>
+        <Subscription />
+        <Btn btnType="contained" btnColor="primary">
+          subscribe
+        </Btn>
+      </div>
     </div>
     <div className={css.Container}>
       <ul className={css.Query}>
@@ -32,18 +36,18 @@ const footer = props => (
         <li>Twitter</li>
         <li>YouTube</li>
       </ul>
-      <ul className={css.License}>
-        <li>
-          © Shopaholic Ltd
-        </li>
-        <li>
-          • Contact
-        </li>
-        <li>
-          • Privacy Policy
-        </li>
-      </ul>
     </div>
+    <ul className={css.License}>
+      <li>
+        © Shopaholic Ltd
+      </li>
+      <li>
+        • Contact
+      </li>
+      <li>
+        • Privacy Policy
+      </li>
+    </ul>
   </footer>
 );
 
