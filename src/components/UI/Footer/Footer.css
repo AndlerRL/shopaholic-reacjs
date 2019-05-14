@@ -6,17 +6,47 @@
   justify-content: center;
   box-sizing: border-box;
   width: 100%;
-  padding: 0 24px 24px;
-  background-color: #f5f5f5;
+  padding: 0;
+  background-color: #fff;
 }
 
-.Subscription {
+.Subscription,
+.HomeSubscription {
   display: inline-flex;
   align-items: center;
   flex-direction: column;
   width: 100%;
   height: auto;
+  padding: 8px 16px;
   top: 0;
+  background-color: #f5f5f5;
+}
+
+.HomeSubscription {
+  padding: 48px;
+}
+
+.HomeSubscription > b {
+  font-size: 2.15rem;
+  font-family: 'Tajawal', sans-serif;
+  font-weight: 500;
+  color: #ff5252;
+}
+
+.HomeSubscription > p {
+  width: 100%;
+  font-size: 1.15rem;
+  font-family: 'Tajawal', sans-serif;
+  font-weight: 500;
+  text-align: center;
+}
+
+.HomeSubscription  > .Subs {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .Subscription > p,
@@ -31,11 +61,13 @@
   align-items: center;
 }
 
-.Subscription > .Subs > div {
+.Subscription > .Subs > div,
+.HomeSubscription > .Subs > div {
   width: 66.66%;
 }
 
-.Subscription > .Subs > button {
+.Subscription > .Subs > button,
+.HomeSubscription > .Subs > button {
   width: 33.33%;
 }
 
@@ -43,6 +75,7 @@
   display: inline-flex;
   flex-direction: row;
   justify-content: space-evenly;
+  padding: 0 16px 24px;
 }
 
 .License {
@@ -50,6 +83,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  margin-bottom: 24px;
 }
 
 .Query > li:first-child {
@@ -83,6 +117,15 @@
 
 @media screen and (min-width: 600px) {
   .Subscription {
+    flex-direction: row;
+  }
+
+  .HomeSubscription > p {
+    width: 600px;
+  }
+  
+  .HomeSubscription  > .Subs {
+    width: 500px;
     flex-direction: row;
   }
   

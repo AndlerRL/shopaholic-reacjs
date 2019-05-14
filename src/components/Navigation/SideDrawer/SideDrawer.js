@@ -27,11 +27,17 @@ const sideDrawer = props => {
             Hi!{' '}
             <NavLink
               to="/sign-in">
-                <span>Sign In</span>
+                <span
+                  onClick={props.auth}>
+                  Sign In
+                </span>
             </NavLink>{' '}or{' '} 
             <NavLink
               to="/register">
-              <span>Register</span>
+              <span
+                onClick={props.auth}>
+                Register
+              </span>
             </NavLink>
           </p>
         </div>

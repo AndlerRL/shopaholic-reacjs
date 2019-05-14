@@ -17,7 +17,8 @@ const Toolbar = props => {
           icon="chevron_left"
           size="large" />
         </div>
-        <p>
+        <p onClick={props.clicked}
+          style={{ cursor: 'pointer' }}>
           SHOPAHOLIC
         </p>
         <div style={{ cursor: 'pointer' }}
@@ -28,9 +29,15 @@ const Toolbar = props => {
         </div>
       </div>
       <div className={css.OnlyDesktop}>
-        <ToolbarTop toggleMenu={props.toggleMenu} />
+        <ToolbarTop 
+          toggleMenu={props.toggleMenu}
+          signIn={props.signIn}
+          signUp={props.signUp} />
         <div className={css.Toolbar}>
-          <p className={css.Title}>
+          <p 
+            className={css.Title} 
+            onClick={props.clicked} 
+            style={{ cursor: 'pointer' }}>
             SHOPAHOLIC
           </p> 
           <NavigationItems show={css.Show} />

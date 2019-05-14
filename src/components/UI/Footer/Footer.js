@@ -7,15 +7,31 @@ import css from './Footer.css';
 
 const footer = props => (
   <footer className={css.Footer}>
-    <div className={css.Subscription}>
-      <p>Subscribe for shop news, updates and special offers.</p>
-      <div className={css.Subs}>
-        <Subscription />
-        <Btn btnType="contained" btnColor="primary">
-          subscribe
-        </Btn>
-      </div>
-    </div>
+    { props.home ? (
+        <div className={css.HomeSubscription}>
+          <b>10% Discount for your subscription</b>
+          <p>
+            Carry the day in style with this extra-large tote crafted in our chic B.B Collection textured PVC. Featuring colorful faux leather trim, this tote offers a roomy interior plus just enough perfectly placed.
+          </p>
+          <div className={css.Subs}>
+            <Subscription />
+            <Btn btnType="contained" btnColor="primary">
+              subscribe
+            </Btn>
+          </div>
+        </div>
+      ) :(
+        <div className={css.Subscription}>
+          <p>Subscribe for shop news, updates and special offers.</p>
+          <div className={css.Subs}>
+            <Subscription />
+            <Btn btnType="contained" btnColor="primary">
+              subscribe
+            </Btn>
+          </div>
+        </div>
+      ) }
+      
     <div className={css.Container}>
       <ul className={css.Query}>
         <li>Questions?</li>

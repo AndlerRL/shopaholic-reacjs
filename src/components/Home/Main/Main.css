@@ -1,6 +1,6 @@
 .MainSale {
   width: 91.666%;
-  height: 42rem;
+  height: 44rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -8,13 +8,14 @@
   margin: 7.5rem auto 1.5rem;
   background-color: #fff;
   box-shadow: -2px 3px 5px #2221;
+  animation: slide cubic-bezier(0.175, 0.885, 0.32, 1.14) 1s forwards;
 }
 
 .MainSale > .Product {
   background: url(../../../assets/images/home/img-home2.png) no-repeat;
   background-size: contain;
   background-position: center;
-  min-height: 20rem;
+  height: 20rem;
   width: 91.666%;
   margin: 1rem auto;
   display: flex;
@@ -65,10 +66,131 @@
   margin: 0 0 0 -1rem;
 }
 
+.MainContent {
+  width: 91.666%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.MainContent > .Sales {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  animation: slide cubic-bezier(0.175, 0.885, 0.32, 1.14) 1s forwards;
+}
+
+.MainContent > .Sales > div {
+  width: 100%;
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #eee1;
+  box-shadow: -2px 3px 5px #2222;
+  font-family: 'Franklin Gothic Medium';
+  font-weight: 600;
+  font-size: 2.5rem;
+  background-color: #90caf9;
+  cursor: pointer;
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s 200ms;
+}
+
+.MainContent > .Sales > div:hover {
+  transform: scale(1.025);
+  box-shadow: -2px 3px 6px #2221;
+}
+
+.MainContent > .Sales > div:last-child {
+  color: #f5f5f5;
+  background: url(../../../assets/images/home/img-home-4.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+  margin: 1rem 0 0;
+}
+
+.MainContent > .Sales > div > span {
+  font-size: 1.75rem;
+  font-family: 'Dosis', sans-serif;
+  font-weight: 500;
+  width: 100px;
+  text-align: center;
+  color: #e53935;
+}
+
+.MainContent > .Blog {
+  width: 100%;
+  border: 1px solid #2221;
+  margin: 1rem 0;
+  box-shadow: -2px 3px 5px #2221;
+  animation: slide cubic-bezier(0.175, 0.885, 0.32, 1.14) 1s forwards;
+}
+
+.MainContent > .Blog > .Img {
+  background: url(../../../assets/images/home/img-home3.png) no-repeat;
+  background-size: 100%;
+  background-position: top;
+  width: 100%;
+  height: 34.5vh;
+  cursor: pointer;
+  transition: all cubic-bezier(0.23, 1, 0.320, 1) 1s 100ms;
+}
+
+.MainContent > .Blog > .Img:hover {
+  background-position: top;
+  background-size: 115%;
+}
+
+.MainContent > .Blog > .Img > span {
+  width: 45px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-align: center;
+  position: absolute;
+  margin: 1.5rem;
+  background-color: #e53935;
+}
+
+.MainContent > .Blog > .Content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 1.75rem 4rem;
+}
+
+.MainContent > .Blog > .Content > b {
+  font-size: 3rem;
+  font-family: 'Franklin Gothic Medium';
+}
+
+.MainContent > .Blog > .Content > p {
+  font-size: 1.015rem;
+  font-family: 'Dosis', sans-serif;
+  font-weight: 600;
+}
+
+@media screen and (min-width: 600px) {
+  .MainContent > .Sales {
+    flex-direction: row;
+  }
+  
+  .MainContent > .Blog > .Img {
+    height: 44.5vh;
+  }
+}
+
 @media screen and (min-width: 700px) {
   .MainSale {
     width: 100%;
     height: 15rem;
+    margin: 1.5rem auto 1.5rem;
     flex-direction: row;
   }
 
@@ -85,6 +207,18 @@
     width: calc(100% - 13rem);
     padding: .5rem 1.5rem;
   }
+
+  .MainContent > .Sales > div {
+    width: 45%;
+  }
+
+  .MainContent > .Sales > div:last-child {
+    margin: 0;
+  }
+
+  .MainContent > .Blog > .Img {
+    height: 54vh;
+  }
 }
 
 @media screen and (min-width: 800px) {
@@ -97,6 +231,7 @@
   .MainSale > .Product {
     height: 15rem;
     width: 15rem;
+    margin: 1rem .5rem;
   }
 
   .MainSale > .Product > span {
@@ -107,12 +242,36 @@
     width: calc(100% - 15rem);
     padding: .5rem 1rem 0;
   }
+
+  .MainContent {
+    width: 600px;
+    flex-direction: column;
+  }
+
+  .MainContent > .Sales {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .MainContent > .Sales > div {
+    width: 41.999%;
+  }
+
+  .MainContent > .Sales > div:last-child {
+    margin: 0;
+  }
+
+  .MainContent > .Blog {
+    width: 600px;
+    margin: 1rem 0;
+  }
 }
 
 
 @media screen and (min-width: 1000px) {
   .MainSale {
     width: 800px;
+    height: 20rem;
     flex-direction: row;
   }
   
@@ -129,5 +288,67 @@
   .MainSale > .ProductDetail {
     width: calc(100% - 20rem);
     padding: 3rem 2.8rem;
+  }
+
+  .MainContent {
+    width: 800px;
+    margin: 0 auto;
+    flex-direction: row;
+  }
+  
+  .MainContent > .Sales {
+    flex-direction: column;
+    width: 260px;
+  }
+  
+  .MainContent > .Sales > div {
+    width: 100%;
+    height: 260px;
+  }
+  
+  .MainContent > .Sales > div:last-child {
+    margin: 3.3rem 0 0;
+  }
+  
+  .MainContent > .Blog {
+    width: 540px;
+    margin: 0 0 0 1rem;
+  }
+  
+  .MainContent > .Blog > .Img {
+    height: 348px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .MainSale {
+    width: 1000px;
+  }
+
+  .MainContent {
+    width: 1000px;
+  }
+
+  .MainContent > .Blog {
+    width: 740px;
+  }
+
+  .MainContent > .Blog > .Img {
+    height: 479px;
+  }
+
+  .MainContent > .Sales > div:last-child {
+    margin-top: 12.3rem;
+  }
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

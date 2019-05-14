@@ -13,11 +13,17 @@ const toolbarTop = props => (
         Hi!{' '}
         <NavLink
           to="/sign-in">
-            <span>Sign In</span>
+            <span 
+              onClick={props.signIn}>
+              Sign In
+            </span>
         </NavLink>{' '}or{' '} 
         <NavLink
           to="/register">
-          <span>Register</span>
+          <span 
+            onClick={props.signUp}>
+            Register
+          </span>
         </NavLink>
       </p>
     </div>
@@ -50,7 +56,8 @@ const toolbarTop = props => (
     <Currency currency="USD" />
     <ShoppingCar 
       totalBag={9.99}
-      itemsCar={1} />
+      itemsCar={1}
+      clicked={props.shoppingCar} />
   </div>
 );
 

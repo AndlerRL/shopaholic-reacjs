@@ -3,14 +3,24 @@ import React from 'react';
 import Header from '../../components/Home/Header/Header';
 import Main from '../../components/Home/Main/Main';
 
-const home = props => {
+class Home extends React.Component {
+  componentDidMount () {
+    console.log(this.props);
+  }
 
-  return (
-    <React.Fragment>
-      <Header />
-      <Main />
-    </React.Fragment>
-  );
+  seeSaleHandler = () => {
+    this.props.history.push('/women');
+  }
+  
+  render () {
+    return (
+      <React.Fragment>
+        <Header />
+        <Main 
+          seeSale={this.seeSaleHandler} />
+      </React.Fragment>
+    );
+  }
 };
 
-export default home;
+export default Home;

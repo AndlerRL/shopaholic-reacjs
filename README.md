@@ -42,6 +42,12 @@
 
 <h3>CHANGE_LOG</h3>
 
+<b><code>[v0.1.11]</code></b>
+
+<p>Home screen fully rendered! Now it can be appreciate the whole home screen and started to continue with the rest of the screens.</p>
+
+<p>Also took the time to double check some UI bugs that I encountered while changing on various type of screens (mobile, laptop, tablet, etc...) so, it should look perfect on each of them ;)</p>
+
 <b><code>[v0.1.04]</code></b>
 
 <p>Rendering Home screen! For now has the main product sale fully rendered for all screens (desktop to mobile) and layout is completed now. Let's focus now on the pages now! ;)</p>
