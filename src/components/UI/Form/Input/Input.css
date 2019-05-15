@@ -53,3 +53,9 @@
   margin: -1.75rem 0 1rem;
   float: left;
 }
+
+.ErrorMsg > div {
+  display: flex;
+  flex-direction: column;
+  width: 33.33%;
+}

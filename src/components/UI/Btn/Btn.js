@@ -9,7 +9,7 @@ const btn = props => (
     variant={props.btnType}
     size={props.size}
     onClick={props.clicked}
-    className={[css.Btn, props.btnColor === 'primary' ? css.Primary : css.Secondary]}>
+    className={[css.Btn, props.btnColor === 'primary' ? css.Primary : css.Secondary].join(' ')}>
     {props.children}
   </Button>
 );

@@ -5,8 +5,8 @@ import Modal from '../../../components/UI/Modal/Modal';
 const SignUp = props => {
   return (
     <Modal
-      modalClosed={props.signInClosed}
-      show={props.showSignIn}>
+    modalClosed={props.signUpClosed}
+    show={props.showSignUp}>
       <h1>Sign Up Screen</h1>
     </Modal>
   );

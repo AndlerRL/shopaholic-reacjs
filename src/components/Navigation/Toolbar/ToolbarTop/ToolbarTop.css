@@ -25,15 +25,18 @@ p {
     z-index: 1500;
   }
   
-  .ToolbarTop > .SignInUp > p > a {
+  .ToolbarTop > .SignInUp > p > li {
     text-decoration: none;
+    cursor: pointer;
+    list-style-type: none;
+    display: inline-block;
   }
   
-  .ToolbarTop > .SignInUp > p > a > span {
+  .ToolbarTop > .SignInUp > p > li > span {
     color: #ff1744;
   }
   
-  .ToolbarTop > .SignInUp > p > a > span:hover {
+  .ToolbarTop > .SignInUp > p > li > span:hover {
     color: #ff8a80;
   }
   

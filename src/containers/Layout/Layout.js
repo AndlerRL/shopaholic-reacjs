@@ -33,12 +33,10 @@ const Layout = props => {
 
   const authScreenHandler = () => {
     setShowSideDrawer(false);
-    return props.loginHandler
   }
 
   const shoppingCarHandler = () => {
     setShowSideDrawer(false);
-    return props.scHandler
   }
 
   return (
@@ -49,7 +47,7 @@ const Layout = props => {
         back={goBackHandler}
         signIn={props.signIn}
         signUp={props.signUp}
-        shoppingCar={shoppingCarHandler} />
+        shoppingCar={props.shoppingCar} />
       <SideDrawer 
         open={showSideDrawer}
         closed={sideDrawerToggleHandler}

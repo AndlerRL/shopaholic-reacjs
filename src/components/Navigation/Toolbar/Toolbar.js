@@ -32,7 +32,8 @@ const Toolbar = props => {
         <ToolbarTop 
           toggleMenu={props.toggleMenu}
           signIn={props.signIn}
-          signUp={props.signUp} />
+          signUp={props.signUp}
+          shoppingCar={props.shoppingCar} />
         <div className={css.Toolbar}>
           <p 
             className={css.Title} 

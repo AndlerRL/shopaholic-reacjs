@@ -42,6 +42,10 @@
 
 <h3>CHANGE_LOG</h3>
 
+<b><code>[v0.1.13]</code></b>
+
+<p>Beginning with redux! Sign In / Register screen (Modal) is partially rendered and UI fixes are done by now.</p>
+
 <b><code>[v0.1.11]</code></b>
 
 <p>Home screen fully rendered! Now it can be appreciate the whole home screen and started to continue with the rest of the screens.</p>

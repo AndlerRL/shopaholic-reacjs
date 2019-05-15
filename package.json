@@ -1,6 +1,6 @@
 {
   "name": "shopaholic-app",
-  "version": "0.1.11",
+  "version": "0.1.13",
   "private": true,
   "dependencies": {
     "@babel/core": "7.4.3",
@@ -16,6 +16,7 @@
     "babel-loader": "8.0.5",
     "babel-plugin-named-asset-import": "^0.3.2",
     "babel-preset-react-app": "^9.0.0",
+    "body-scroll-lock": "^2.6.1",
     "camelcase": "^5.2.0",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "classnames": "^2.2.6",
@@ -40,6 +41,7 @@
     "jest-environment-jsdom-fourteen": "0.1.0",
     "jest-resolve": "24.7.1",
     "jest-watch-typeahead": "0.3.0",
+    "materialize-css": "^1.0.0-rc.2",
     "mini-css-extract-plugin": "0.5.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pnp-webpack-plugin": "1.2.1",
