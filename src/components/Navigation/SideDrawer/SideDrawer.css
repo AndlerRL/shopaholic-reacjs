@@ -22,15 +22,17 @@
   margin-bottom: 1rem;
 }
 
-.SideDrawer > .SignInUp > p > a {
-  text-decoration: none;
+.SideDrawer > .SignInUp > p > li {
+  cursor: pointer;
+  list-style-type: none;
+  display: inline-block;
 }
 
-.SideDrawer > .SignInUp > p > a > span {
+.SideDrawer > .SignInUp > p > li > span {
   color: #ff1744;
 }
 
-.SideDrawer > .SignInUp > p > a > span:hover {
+.SideDrawer > .SignInUp > p > li > span:hover {
   color: #ff8a80;
 }
 
@@ -41,14 +43,14 @@
   justify-content: space-between;
 }
 
-.SideDrawer > .ShoppingCar {
+.SideDrawer > .ShoppingCart {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-.SideDrawer > .ShoppingCar > .shopItems {
+.SideDrawer > .ShoppingCart > .shopItems {
   display: flex;
   justify-content: center;
   align-items: center;

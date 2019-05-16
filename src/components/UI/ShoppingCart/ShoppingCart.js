@@ -2,10 +2,10 @@ import React from 'react';
 
 import IconM from '../Icons/IconM';
 
-import css from './ShoppingCar.css';
+import css from './ShoppingCart.css';
 
-const shoppingCar = props => (
-  <div className={css.ShoppingCar} onClick={props.clicked}>
+const shoppingCart = props => (
+  <div className={css.ShoppingCart} onClick={props.clicked}>
     <div className={css.Icon}>
       <IconM 
         color="action"
@@ -21,4 +21,4 @@ const shoppingCar = props => (
   </div>
 );
 
-export default shoppingCar;
+export default shoppingCart;

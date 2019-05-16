@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 
-import ShoppingCar from '../../../UI/ShoppingCar/ShoppingCar';
+import ShoppingCart from '../../../UI/ShoppingCart/ShoppingCart';
 import Currency from '../../../UI/Currency/Currency';
 
 import css from './ToolbarTop.css';
@@ -58,10 +58,10 @@ const toolbarTop = props => {
         </li>
       </div>
       <Currency currency="USD" />
-      <ShoppingCar 
+      <ShoppingCart 
         totalBag={9.99}
         itemsCar={1}
-        clicked={props.shoppingCar} />
+        clicked={props.shoppingCart} />
     </div>
   )
 };

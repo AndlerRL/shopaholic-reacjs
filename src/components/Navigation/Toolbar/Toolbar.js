@@ -33,7 +33,7 @@ const Toolbar = props => {
           toggleMenu={props.toggleMenu}
           signIn={props.signIn}
           signUp={props.signUp}
-          shoppingCar={props.shoppingCar} />
+          shoppingCart={props.shoppingCart} />
         <div className={css.Toolbar}>
           <p 
             className={css.Title} 

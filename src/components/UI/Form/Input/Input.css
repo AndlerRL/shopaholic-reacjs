@@ -50,12 +50,11 @@
 
 .ErrorMsg {
   color: #d50000;
-  margin: -1.75rem 0 1rem;
-  float: left;
-}
-
-.ErrorMsg > div {
+  margin: -2.75rem 0 0;
+  position: absolute;
   display: flex;
-  flex-direction: column;
-  width: 33.33%;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  transition: all linear .5s 100ms;
 }

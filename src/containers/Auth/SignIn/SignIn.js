@@ -47,8 +47,8 @@ const SignIn = props => {
   const [isSignup, setIsSignup] = useState(false);
 
   useEffect(() => {
-    /* if (!props.building && props.authRedirectPath !== '/')
-      props.onSetAuthRedirectPath(); */
+    if (!props.building && props.authRedirectPath !== '/')
+      props.onSetAuthRedirectPath();
   }, [])
 
   const inputChangedHandler = (e, controlName) => {
@@ -65,6 +65,10 @@ const SignIn = props => {
 
   const submitHandler = e => {
     e.preventDefault();
+  }
+
+  const switchAuthModeHandler = () => {
+    setIsSignup(true);
   }
 
   const formEleArray = [];
@@ -105,17 +109,20 @@ const SignIn = props => {
       <form 
       className={css.SignIn}
       onSubmit={submitHandler}>
+        <h4 className={css.Title}>Please, Login to Shopaholic</h4>
         { error }
         { form }
         <div className={css.BtnContainer}>
           <Btn 
             btnColor="secondary"
-            btnType="contained">
+            btnType="contained"
+            clicked={props.backShop}>
             Back to Shop
           </Btn>
           <Btn 
             btnColor="primary"
-            btnType="contained">
+            btnType="contained"
+            clicked={switchAuthModeHandler}>
             Login
           </Btn>
         </div>

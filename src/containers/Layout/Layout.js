@@ -35,7 +35,7 @@ const Layout = props => {
     setShowSideDrawer(false);
   }
 
-  const shoppingCarHandler = () => {
+  const shoppingCartHandler = () => {
     setShowSideDrawer(false);
   }
 
@@ -47,13 +47,15 @@ const Layout = props => {
         back={goBackHandler}
         signIn={props.signIn}
         signUp={props.signUp}
-        shoppingCar={props.shoppingCar} />
+        shoppingCart={props.shoppingCart} />
       <SideDrawer 
         open={showSideDrawer}
         closed={sideDrawerToggleHandler}
         auth={authScreenHandler}
-        shoppingCar={shoppingCarHandler}
-        back={sideDrawerToggleHandler}/>
+        shoppingCart={shoppingCartHandler}
+        back={sideDrawerToggleHandler}
+        signIn={props.signIn}
+        signUp={props.signUp} />
       <main>
         { props.children }
       </main>

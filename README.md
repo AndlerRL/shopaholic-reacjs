@@ -21,7 +21,15 @@
 
 <p>On this project I have divided into 3 main folders, <code>Components</code>, <code>Containers</code> and <code>Store</code>. Also some additional ones, as the Higher Order Components (hoc), the Utilities Functions (share) and Assets folder.</p>
 
-<p>As it looks, has UI, Navigation and soon, Pages components within it and will be connected to the containers folder, where all logic goes.</p>
+<p>This projects will follow the Turing ECommerce API structure, so files will be structured as it is, witch is:</p>
+
+<ol>
+  <li>Each Model presented on the API has his how Actions & Reduces.</li>
+  <li>Each Action & Reducers will contain basically all the logic and will pass through the index of each of them (Actions & Reduces) so all logic will be focus son the Sagas.</li>
+  <li>Sagas will control and yield each actions that users will have through all the e-commerce app.</li>
+  <li>As is expected, Redux will hold the global states, witch are some animations, loadings, queries, etc...</li>
+  <li>While the watchers takes control of all the actions with sagas, the interaction should and hope, will be smooth as you machine allows you!</li>
+</ol>
 
 <h6>How to run it?</h6>
 
@@ -41,6 +49,10 @@
 <hr/>
 
 <h3>CHANGE_LOG</h3>
+
+<b><code>[v0.2.15]</code><b>
+
+<p>A lot of content has been added to the project, witch is Redux––all across the components. Each section has now different actions and reducers; it's a good opportunity to update docs!</p>
 
 <b><code>[v0.1.13]</code></b>
 

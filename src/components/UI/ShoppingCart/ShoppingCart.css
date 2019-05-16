@@ -1,18 +1,18 @@
-.ShoppingCar {
+.ShoppingCart {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
 }
 
-.ShoppingCar > p {
+.ShoppingCart > p {
   font-family: 'Dosis', sans-serif;
   font-weight: 500;
   letter-spacing: 1px;
   font-size: 1rem;
 }
 
-.ShoppingCar > .Icon {
+.ShoppingCart > .Icon {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -21,11 +21,11 @@
   transition: all cubic-bezier(0.175, 0.885, 0.32, 1.001) .5s 100ms !important;
 }
 
-.ShoppingCar > .Icon:hover {
+.ShoppingCart > .Icon:hover {
   transform: scale(1.2);
 }
 
-.ShoppingCar > .Icon > .Items {
+.ShoppingCart > .Icon > .Items {
   position: flex;
   align-items: center;
   justify-content: center;
@@ -44,7 +44,7 @@
 }
 
 @media screen and (min-width: 750px) {
-  .ShoppingCar > p {
+  .ShoppingCart > p {
     font-size: .9rem !important;
   }
 }

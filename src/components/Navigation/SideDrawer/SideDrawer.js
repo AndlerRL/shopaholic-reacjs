@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import Backdrop from '../../UI/Backdrop/Backdrop';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import Search from '../../UI/Form/Search/Search';
-import ShoppingCar from '../../UI/ShoppingCar/ShoppingCar';
+import ShoppingCart from '../../UI/ShoppingCart/ShoppingCart';
 
 import css from './SideDrawer.css';
 import Currency from '../../UI/Currency/Currency';
@@ -25,28 +25,30 @@ const sideDrawer = props => {
         <div className={css.SignInUp}>
           <p>
             Hi!{' '}
-            <NavLink
-              to="/sign-in">
-                <span
-                  onClick={props.auth}>
+            <li
+              to={{
+                pathname: '#sign-in',
+                exact: false
+              }}>
+                <span 
+                  onClick={props.signIn}>
                   Sign In
                 </span>
-            </NavLink>{' '}or{' '} 
-            <NavLink
-              to="/register">
-              <span
-                onClick={props.auth}>
+            </li>{' '}or{' '} 
+            <li>
+              <span 
+                onClick={props.signUp}>
                 Register
               </span>
-            </NavLink>
+            </li>
           </p>
         </div>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <Currency 
             clicked={props.currency}
             currency="USD" />
-          <ShoppingCar 
-            clicked={props.shoppingCar}
+          <ShoppingCart 
+            clicked={props.shoppingCart}
             itemsCar={1}
             totalBag={9.99} />
         </div>

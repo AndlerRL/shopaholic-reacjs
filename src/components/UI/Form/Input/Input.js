@@ -14,20 +14,22 @@ const input = props => {
 
   if (props.invalid && props.touched)
     validationError = (
-      <span 
-        className={"helper-text " + css.ErrorMsg}>
+      <div className={css.ErrorMsg}>
         <IconM size="tiny" icon="report" />
-        Please, enter a valid {props.label}.
-      </span>
+        <span className={"helper-text"}>
+          Please, enter a valid {props.label}.
+        </span>
+      </div>
     )
 
   if (props.invalid && props.touched && props.label === 'Confirm Password')
     validationError = (
-      <span 
-        className={"helper-text " + css.ErrorMsg}>
+      <div className={css.ErrorMsg}>
         <IconM size="tiny" icon="report" />
-        Please, re-enter and confirm your Password.
-      </span>
+        <span className={"helper-text"}>
+          Please, re-enter and confirm your Password.
+        </span>
+      </div>
     )
 
   switch (props.elementType) {
