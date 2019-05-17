@@ -1,6 +1,6 @@
 {
   "name": "shopaholic-app",
-  "version": "0.2.15",
+  "version": "0.2.7",
   "private": true,
   "dependencies": {
     "@babel/core": "7.4.3",
@@ -60,6 +60,7 @@
     "react-thunk": "^1.0.0",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
+    "redux-thunk": "^2.3.0",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semver": "6.0.0",

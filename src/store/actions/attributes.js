@@ -1,34 +1,27 @@
 import * as actionTypes from './actionTypes';
 
-export const attributeStart = () => {
+export const attributeSuccess = (attrId, name) => {
   return {
-    type: actionTypes.ATTRIBUTES_START
-  }
-}
-export const attributeSuccess = () => {
-  return {
-    type: actionTypes.ATTRIBUTES_SUCCESS
+    type: actionTypes.FETCH_ATTRIBUTES,
+    attributeId: attrId,
+    name: name
   }
 }
 export const attributeFail = error => {
   return {
-    type: actionTypes.ATTRIBUTES_FAIL
-  }
-}
-export const attributeIdStart = () => {
-  return {
-    type: actionTypes.ATTRIBUTES_ID_START
+    type: actionTypes.FETCH_ATTRIBUTES_FAIL,
+    error: error
   }
 }
 export const attributeIdSuccess = attrId => {
   return {
-    type: actionTypes.ATTRIBUTES_ID_SUCCESS,
+    type: actionTypes.FETCH_ATTRIBUTES_ID,
     attrId: attrId
   }
 }
 export const attributeIdFail = error => {
   return {
-    type: actionTypes.ATTRIBUTES_ID_FAIL,
+    type: actionTypes.FETCH_ATTRIBUTES_ID_FAIL,
     error: error
   }
 }

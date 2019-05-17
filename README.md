@@ -50,35 +50,43 @@
 
 <h3>CHANGE_LOG</h3>
 
+<b><code>[v0.2.7]</code></b>
+
+More functionality has been added to the app, for now it's not linked with any page, due there is some functions, action and fetches that must be completed before it.
+
+Images for the Items screen are added for the app; Header and Footer Img.
+
+<b>bug fix:</b> There was an issue with one import that broke the app; it's fixed now :)
+
 <b><code>[v0.2.15]</code><b>
 
-<p>A lot of content has been added to the project, witch is Redux––all across the components. Each section has now different actions and reducers; it's a good opportunity to update docs!</p>
+A lot of content has been added to the project, witch is Redux––all across the components. Each section has now different actions and reducers; it's a good opportunity to update docs!
 
 <b><code>[v0.1.13]</code></b>
 
-<p>Beginning with redux! Sign In / Register screen (Modal) is partially rendered and UI fixes are done by now.</p>
+Beginning with redux! Sign In / Register screen (Modal) is partially rendered and UI fixes are done by now.
 
 <b><code>[v0.1.11]</code></b>
 
-<p>Home screen fully rendered! Now it can be appreciate the whole home screen and started to continue with the rest of the screens.</p>
+Home screen fully rendered! Now it can be appreciate the whole home screen and started to continue with the rest of the screens.
 
-<p>Also took the time to double check some UI bugs that I encountered while changing on various type of screens (mobile, laptop, tablet, etc...) so, it should look perfect on each of them ;)</p>
+Also took the time to double check some UI bugs that I encountered while changing on various type of screens (mobile, laptop, tablet, etc...) so, it should look perfect on each of them ;)
 
 <b><code>[v0.1.04]</code></b>
 
-<p>Rendering Home screen! For now has the main product sale fully rendered for all screens (desktop to mobile) and layout is completed now. Let's focus now on the pages now! ;)</p>
+Rendering Home screen! For now has the main product sale fully rendered for all screens (desktop to mobile) and layout is completed now. Let's focus now on the pages now! ;)
 
-<p>Some additional routing has been added to.</p>
+Some additional routing has been added to.
 
 <b><code>[v0.1.01]</code></b>
 
-<p>Toolbar UI/UX finished. now it is totally responsive. Also add more components and divided the toolbar into different components; Sidebar has now all components that toolbar has and some interactions with states.</p>
+Toolbar UI/UX finished. now it is totally responsive. Also add more components and divided the toolbar into different components; Sidebar has now all components that toolbar has and some interactions with states.
 
-<p>I have started to work with the footer section and there is some adjustment that needs to be finished soon.</p>
+I have started to work with the footer section and there is some adjustment that needs to be finished soon.
 
 <b><code>[v.0.0.7]</code></b>
 
-<p>Started to create components, principally the Layout and has some responsive interactions. like:</p>
+Started to create components, principally the Layout and has some responsive interactions. like:
 <ul>
   <li><b>Sidedrawer for mobile:</b> When screen width is lower than 700px, it turns into mobile web app, where the 2 Toolbars disappears and some of the Navigation Items appears.</li>
   <li><b>Modal and Backdrop created:</b> Custom UI Components that, actually work good!</li>

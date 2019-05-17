@@ -1,14 +1,8 @@
 import * as actionTypes from './actionTypes';
 
-export const categoriesQueryStart = () => {
-  return {
-    type: actionTypes.CATEGORIES_QUERY_START
-  }
-}
-
 export const categoriesQuerySuccess = (orderQuery, pageQuery, limitQuery) => {
   return {
-    type: actionTypes.CATEGORIES_QUERY_SUCCESS,
+    type: actionTypes.CATEGORIES_QUERY,
     orderQuery: orderQuery,
     pageQuery: pageQuery,
     limitQuery: limitQuery

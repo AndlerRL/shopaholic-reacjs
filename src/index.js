@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import thunk from 'react-thunk';
+import thunk from 'redux-thunk';
 
 import * as serviceWorker from './serviceWorker';
 import App from './containers/App/App';

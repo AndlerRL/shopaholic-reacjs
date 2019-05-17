@@ -47,8 +47,8 @@ const SignIn = props => {
   const [isSignup, setIsSignup] = useState(false);
 
   useEffect(() => {
-    if (!props.building && props.authRedirectPath !== '/')
-      props.onSetAuthRedirectPath();
+    /* if (!props.building && props.authRedirectPath !== '/')
+      props.onSetAuthRedirectPath(); */
   }, [])
 
   const inputChangedHandler = (e, controlName) => {

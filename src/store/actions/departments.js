@@ -5,9 +5,10 @@ export const departmentsStart = () => {
     type: actionTypes.DEPARTMENTS_START
   }
 }
-export const departmentsSuccess = () => {
+export const departmentsSuccess = departments => {
   return {
-    type: actionTypes.DEPARTMENTS_SUCCESS
+    type: actionTypes.DEPARTMENTS_SUCCESS,
+    departments: departments
   }
 }
 export const departmentsFail = error => {

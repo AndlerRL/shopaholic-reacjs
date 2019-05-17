@@ -41,9 +41,10 @@ export const ordersCustomerStart = () => {
     type: actionTypes.ORDERS_IN_CUSTOMER_START
   }
 }
-export const ordersCustomerSuccess = () => {
+export const ordersCustomerSuccess = orderData => {
   return {
-    type: actionTypes.ORDERS_IN_CUSTOMER_SUCCESS
+    type: actionTypes.ORDERS_IN_CUSTOMER_SUCCESS,
+    orderData: orderData
   }
 }
 export const ordersCustomerFail = error => {
