@@ -4,12 +4,6 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import M from 'materialize-css';
 
 import Home from '../Home/Home';
-import Women from '../Items/Screens/Women/Women';
-import Men from '../Items/Screens/Men/Men';
-import Kids from '../Items/Screens/Kids/Kids';
-import Brands from '../Items/Screens/Brands/Brands.js';
-import Shoes from '../Items/Screens/Shoes/Shoes';
-import Checkout from '../Checkout/Checkout';
 import Layout from '../Layout/Layout';
 import Loading from '../../components/UI/Loading/Loading';
 
@@ -23,6 +17,15 @@ const SignUp = React.lazy(() => {
 });
 const ShoppingCart = React.lazy(() => {
   return import('../ShoppingCart/ShoppingCart');
+})
+const Items = React.lazy(() => {
+  return import('../Items/Items');
+})
+const Item = React.lazy(() => {
+  return import('../Items/Item/Item');
+})
+const Checkout = React.lazy(() => {
+  return import('../Checkout/Checkout');
 })
 
 class App extends React.Component {
@@ -81,12 +84,9 @@ class App extends React.Component {
     let routes = (
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/women" component={Women} />
-        <Route exact path="/men" component={Men} />
-        <Route exact path="/kids" component={Kids} />
-        <Route exact path="/shoes" component={Shoes} />
-        <Route exact path="/brands" component={Brands} />
-        <Route exact path="/checkout" component={Checkout} />
+        <Route exact path="/products" render={props => <Items {...props} />} />
+        <Route exact path="/product-detail" render={props => <Item {...props} />} />
+        <Route exact path="/checkout" render={props => <Checkout {...props} />} />
       </Switch>
     )
   

@@ -25,11 +25,7 @@ const sideDrawer = props => {
         <div className={css.SignInUp}>
           <p>
             Hi!{' '}
-            <li
-              to={{
-                pathname: '#sign-in',
-                exact: false
-              }}>
+            <li>
                 <span 
                   onClick={props.signIn}>
                   Sign In
@@ -69,7 +65,7 @@ const sideDrawer = props => {
           </li>
           <li className={css.NavigationItem}>
             <NavLink
-              exact to="/sell"
+              exact to="/#sell"
               activeClassName={css.active}
               onClick={props.clicked}>
               <p>Sell</p>

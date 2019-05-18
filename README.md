@@ -50,6 +50,10 @@
 
 <h3>CHANGE_LOG</h3>
 
+<b><code>[v0.2.72]</code></b>
+
+Fixed a routing issue and deleted many components, since I analysed the API, there were no need to add such departments. Also add more Lazy loading to the app.
+
 <b><code>[v0.2.7]</code></b>
 
 More functionality has been added to the app, for now it's not linked with any page, due there is some functions, action and fetches that must be completed before it.

@@ -8,31 +8,31 @@ const navigationItems = props => (
   <ul className={[css.NavigationItems, props.show].join(' ')}>
     <NavigationItem
       exact
-      link="/women"
+      link="/products"
       clicked={props.clicked}>
       Women
     </NavigationItem>
     <NavigationItem
       exact
-      link="/men"
+      link="/products"
       clicked={props.clicked}>
       Men
     </NavigationItem>
     <NavigationItem
       exact
-      link="/shoes"
+      link="/products"
       clicked={props.clicked}>
       Shoes
     </NavigationItem>
     <NavigationItem
       exact
-      link="/kids"
+      link="/products"
       clicked={props.clicked}>
       Kids
     </NavigationItem>
     <NavigationItem
       exact
-      link="/brands"
+      link="/products"
       clicked={props.clicked}>
       Brands
     </NavigationItem>
