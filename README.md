@@ -50,6 +50,12 @@
 
 <h3>CHANGE_LOG</h3>
 
+<b><code>[v0.3.12]</code></b>
+
+Actions and Reducers functions has been added to the project properly. Continuing with Sagas!
+
+More dependencies has been added to the project for the stripe API.
+
 <b><code>[v0.2.72]</code></b>
 
 Fixed a routing issue and deleted many components, since I analysed the API, there were no need to add such departments. Also add more Lazy loading to the app.

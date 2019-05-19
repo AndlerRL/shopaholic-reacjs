@@ -1,8 +1,9 @@
 import * as actionTypes from './actionTypes';
 
-export const fetchShipping = () => {
+export const fetchShipping = regions => {
   return {
-    type: actionTypes.FETCH_SHIPPING
+    type: actionTypes.FETCH_SHIPPING,
+    regions: regions
   }
 }
 export const fetchShippingFail = error => {
@@ -11,10 +12,16 @@ export const fetchShippingFail = error => {
     error: error
   }
 }
-export const shippingId = regionId => {
+export const shippingIdStart = () => {
   return {
-    type: actionTypes.SHIPPING_ID,
-    regionId: regionId
+    type: actionTypes.SHIPPING_ID_START
+  }
+}
+export const shippingIdSuccess = (regionId, shippingOpt) => {
+  return {
+    type: actionTypes.SHIPPING_ID_SUCCESS,
+    regionId: regionId,
+    shippingOpt: shippingOpt
   }
 }
 export const shippingIdFail = error => {

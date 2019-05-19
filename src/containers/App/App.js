@@ -87,6 +87,7 @@ class App extends React.Component {
         <Route exact path="/products" render={props => <Items {...props} />} />
         <Route exact path="/product-detail" render={props => <Item {...props} />} />
         <Route exact path="/checkout" render={props => <Checkout {...props} />} />
+        <Redirect to="/" />
       </Switch>
     )
   

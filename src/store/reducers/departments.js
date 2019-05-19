@@ -17,7 +17,7 @@ const start = (state, action) => {
 const fail = (state, action) => {
   return updateObject(state, {
     isLoading: null,
-    error: true
+    error: action.error
   })
 };
 const fetchDepartments = (state, action) => {

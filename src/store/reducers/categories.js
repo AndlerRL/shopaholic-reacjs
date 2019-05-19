@@ -4,23 +4,23 @@ import * as actionTypes from '../actions/actionTypes';
 const initState = {
   isLoading: null,
   error: null,
+  categoriesQuery: {},
+  categories: [],
+  categoryId: null,
+  productId: null,
+  departmentId: null
 }
 
 const start = (state, action) => {
   return updateObject(state, {
     isLoading: true,
     error: null,
-    categoriesQuery: {},
-    categories: [],
-    categoryId: null,
-    productId: null,
-    departmentId: null
   })
 };
 const fail = (state, action) => {
   return updateObject(state, {
     isLoading: null,
-    error: true
+    error: action.error
   })
 };
 const categoriesQuerySuccess = (state, action) => {

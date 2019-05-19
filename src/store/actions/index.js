@@ -1,13 +1,13 @@
 export {
-  auth,
   authStart,
   authSuccess,
   authFail,
   logout,
   logoutSucceed,
+  checkAuthTimeout,
+  auth,
   setAuthRedirectPath,
   authCheckState,
-  checkAuthTimeout,
   addressStart,
   addressSuccess,
   addressFail,
@@ -19,10 +19,8 @@ export {
   authFbFail
 } from './auth';
 export {
-  attributeStart,
   attributeSuccess,
   attributeFail,
-  attributeIdStart,
   attributeIdSuccess,
   attributeIdFail,
   attributeValuesStart,
@@ -33,15 +31,17 @@ export {
   attributeInProductFail
 } from './attributes';
 export {
+  categoriesQuerySuccess,
+  categoriesQueryFail,
   categoriesStart,
   categoriesSuccess,
   categoriesFail,
   categoriesInDepartmentStart,
   categoriesInDepartmentSuccess,
   categoriesInDepartmentFail,
-  categoriesQueryStart,
-  categoriesQuerySuccess,
-  categoriesQueryFail,
+  categoriesInProductStart,
+  categoriesInProductSuccess,
+  categoriesInProductFail
 } from './categories';
 export {
   departmentsStart,
@@ -55,12 +55,12 @@ export {
   ordersStart,
   ordersSuccess,
   ordersFail,
-  ordersCustomerStart,
-  ordersCustomerSuccess,
-  ordersCustomerFail,
   ordersIdStart,
   ordersIdSuccess,
   ordersIdFail,
+  ordersCustomerStart,
+  ordersCustomerSuccess,
+  ordersCustomerFail,
   ordersShortDetailsStart,
   ordersShortDetailsSuccess,
   ordersShortDetailsFail
@@ -69,6 +69,11 @@ export {
   productsStart,
   productsSuccess,
   productsFail,
+  productsNext,
+  productsNextFail,
+  productsSearchStart,
+  productsSearchSuccess,
+  productsSearchFail,
   productsIdStart,
   productsIdSuccess,
   productsIdFail,
@@ -77,17 +82,65 @@ export {
   productsIdDetailFail,
   productsIdLocationsStart,
   productsIdLocationsSuccess,
-  productsIdLocationsFail
+  productsIdLocationsFail,
+  productsInCategoryStart,
+  productsInCategorySuccess,
+  productsInCategoryFail,
+  productsInDepartmentStart,
+  productsInDepartmentSuccess,
+  productsInDepartmentFail,
+  fetchReviewsStart,
+  fetchReviewsSuccess,
+  fetchReviewsFail,
+  postReviewStart,
+  postReviewSuccess,
+  postReviewFail
 } from './products';
 export {
-
+  fetchShipping,
+  fetchShippingFail,
+  shippingIdStart,
+  shippingIdSuccess,
+  shippingIdFail
 } from './shipping';
 export {
-
+  shoppingCartGenerateIdStart,
+  shoppingCartGenerateIdSuccess,
+  shoppingCartGenerateIdFail,
+  shoppingCartAddStart,
+  shoppingCartAddSuccess,
+  shoppingCartAddFail,
+  shoppingCartStart,
+  shoppingCartSuccess,
+  shoppingCartFail,
+  shoppingCartUpdateAdd,
+  shoppingCartUpdateRemove,
+  shoppingCartRemoveProduct,
+  shoppingCartMoveToCartStart,
+  shoppingCartMoveToCartSuccess,
+  shoppingCartMoveToCartFail,
+  shoppingCartDeleteStart,
+  shoppingCartDeleteSuccess,
+  shoppingCartDeleteFail,
+  shoppingCartTotalSuccess,
+  shoppingCartTotalFail,
+  shoppingCartSaveFav,
+  shoppingCartSaveFavFail,
+  fetchShoppingCartStart,
+  fetchShoppingCartSuccess,
+  fetchShoppingCartFail
 } from './shoppingCart';
 export {
-
+  stripeChargeStart,
+  stripeChargeSuccess,
+  stripeChargeFail,
+  stripeWebhooksStart,
+  stripeWebhooksSuccess,
+  stripeWebhooksFail
 } from './stripe';
 export {
-
+  fetchTax,
+  fetchTaxFail,
+  taxId,
+  taxIdFail
 } from './tax';

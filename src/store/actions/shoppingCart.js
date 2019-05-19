@@ -27,7 +27,8 @@ export const shoppingCartAddSuccess = (generatedId, productId, attributes) => {
     type: actionTypes.SHOPPING_CART_ADD_SUCCESS,
     generatedId: generatedId,
     productId: productId,
-    attributes: attributes
+    attributes: attributes,
+
   }
 }
 export const shoppingCartAddFail = error => {
@@ -137,10 +138,11 @@ export const fetchShoppingCartStart = () => {
     type: actionTypes.SHOPPING_CART_FETCH_SAVE_FAVORITE_START
   }
 }
-export const fetchShoppingCartSuccess = generatedId => {
+export const fetchShoppingCartSuccess = (generatedId, favorites) => {
   return {
     type: actionTypes.SHOPPING_CART_FETCH_SAVE_FAVORITE_SUCCESS,
-    generatedId: generatedId
+    generatedId: generatedId,
+    favorites: favorites
   }
 }
 export const fetchShoppingCartFail = error => {

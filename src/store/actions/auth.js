@@ -20,7 +20,7 @@ export const authFail = error => {
 }
 export const logout = () => {
   return {
-    type: actionTypes.AUTH_INITIATE_LOGOUT
+    type: actionTypes.AUTH_INIT_LOGOUT
   }
 }
 export const logoutSucceed = () => {
