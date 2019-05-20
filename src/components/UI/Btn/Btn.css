@@ -3,9 +3,12 @@
   font-family: 'Dosis', sans-serif !important;
   font-size: 1rem !important;
   margin: 8px 16px !important;
+  padding: 8px !important;
   font-weight: 500 !important;
   border-radius: 25px !important;
+  text-transform: capitalize !important;
   width: 100%;
+  transition: all cubic-bezier(0.215, 0.610, 0.355, 1) .7s 150ms;
 }
 
 .Primary {
@@ -15,4 +18,33 @@
 .Secondary {
   background: linear-gradient(45deg, #eee 33.333%, #bdbdbd 83.333%) !important;
   color: #212121 !important;
+  font-weight: 400 !important;
+}
+
+.Pagination {
+  border-radius: 0px !important;
+  background-color: transparent !important;
+  font-weight: 500 !important;
+  color: #212121 !important;
+}
+
+.Pagination:disabled {
+  color: #4343433a !important;
+  cursor: not-allowed !important;
+}
+
+.Pagination:not(:disabled) {
+  animation: enable .5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes enable {
+  0% {
+      transform: scale(1);
+  }
+  60% {
+      transform: scale(1.15);
+  }
+  100% {
+      transform: scale(1);
+  }
 }

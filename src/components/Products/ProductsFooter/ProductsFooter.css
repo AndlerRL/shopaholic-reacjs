@@ -1,0 +1,37 @@
+.ProductsFooter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 25rem;
+  width: 100%;
+  border: 1px solid #2221;
+  background: url(../../../assets/images/items/img-footer-items.png) no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.ProductsFooter > .FooterContainer {
+  flex-direction: column;
+}
+
+.FooterContainer > p {
+  font-size: 1.33rem;
+  font-weight: 600;
+  font-family: 'Dosis', sans-serif;
+  margin: 0;
+}
+
+.FooterContainer > .BtnContainer {
+  width: 133px;
+}
+
+.BtnContainer > button {
+  margin-left: 0 !important;
+}
+
+@media screen and (min-width: 750px) {
+  .ProductsFooter > .FooterContainer > p {
+    font-size: 1.8rem;
+  }
+}

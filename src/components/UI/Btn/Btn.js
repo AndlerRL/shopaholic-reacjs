@@ -9,9 +9,14 @@ const btn = props => (
     variant={props.btnType}
     size={props.size}
     onClick={props.clicked}
-    className={[css.Btn, props.btnColor === 'primary' ? css.Primary : css.Secondary].join(' ')}>
+    disabled={props.disabled}
+    className={[
+      css.Btn, 
+      props.btnColor === 'primary' ? css.Primary : null,
+      props.btnColor === 'secondary' ? css.Secondary : null,
+      props.btnColor === 'pagination' ? css.Pagination : null].join(' ')}>
     {props.children}
   </Button>
 );
 
-export default btn
+export default btn;

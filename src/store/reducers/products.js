@@ -4,7 +4,6 @@ import * as actionTypes from '../actions/actionTypes';
 const initState = {
   isLoading: null,
   error: null,
-  productsQuery: {},
   searchQuery: {},
   products: [],
   reviews: [],
@@ -31,11 +30,7 @@ const productsSuccess = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    productsQuery: {
-      page: action.pageQuery,
-      limit: action.limitQuery,
-      description_length: action.desLengthQuery,
-    },
+    page: action.page,
     products: action.products
   })
 }
@@ -43,11 +38,15 @@ const productsNext = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    productsQuery: {
-      page: action.pageQuery,
-      limit: action.limitQuery,
-      description_length: action.desLengthQuery
-    },
+    page: action.page,
+    products: action.products
+  })
+}
+const productsPrev = (state, action) => {
+  return updateObject(state, {
+    isLoading: null,
+    error: null,
+    page: action.page,
     products: action.products
   })
 }
@@ -177,9 +176,17 @@ const reducer = (state = initState, action) => {
       return start(state, action);
     case actionTypes.PRODUCTS_ID_LOCATIONS_SUCCESS:
       return productIdLocation(state, action);
-    case actionTypes.PRODUCTS_NEXT: 
+    case actionTypes.PRODUCTS_NEXT_START:
+      return start(state, action);
+    case actionTypes.PRODUCTS_NEXT_SUCCESS: 
       return productsNext(state, action);
     case actionTypes.PRODUCTS_NEXT_FAIL:
+      return fail(state, action);
+    case actionTypes.PRODUCTS_PREV_START:
+      return start(state, action);
+    case actionTypes.PRODUCTS_PREV_SUCCESS:
+      return productsPrev(state, action);
+    case actionTypes.PRODUCTS_PREV_FAIL:
       return fail(state, action);
     default:
       return state;

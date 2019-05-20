@@ -18,11 +18,11 @@ const SignUp = React.lazy(() => {
 const ShoppingCart = React.lazy(() => {
   return import('../ShoppingCart/ShoppingCart');
 })
-const Items = React.lazy(() => {
-  return import('../Items/Items');
+const Products = React.lazy(() => {
+  return import('../Products/Products');
 })
-const Item = React.lazy(() => {
-  return import('../Items/Item/Item');
+const Product = React.lazy(() => {
+  return import('../Products/Product/Product');
 })
 const Checkout = React.lazy(() => {
   return import('../Checkout/Checkout');
@@ -84,8 +84,8 @@ class App extends React.Component {
     let routes = (
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/products" render={props => <Items {...props} />} />
-        <Route exact path="/product-detail" render={props => <Item {...props} />} />
+        <Route exact path="/products" render={props => <Products {...props} />} />
+        <Route exact path="/product-detail" render={props => <Product {...props} />} />
         <Route exact path="/checkout" render={props => <Checkout {...props} />} />
         <Redirect to="/" />
       </Switch>

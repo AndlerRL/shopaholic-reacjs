@@ -50,6 +50,10 @@
 
 <h3>CHANGE_LOG</h3>
 
+<b><code>[v0.4.01]</code></b>
+
+Products Fetch! now the products screen has the starting fetched products and has also his own filters, like the discounts, etc. There is a lot work to do, but project is going to the right way!
+
 <b><code>[v0.3.12]</code></b>
 
 Actions and Reducers functions has been added to the project properly. Continuing with Sagas!

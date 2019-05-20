@@ -5,12 +5,10 @@ export const productsStart = () => {
     type: actionTypes.PRODUCTS_START
   }
 }
-export const productsSuccess = (pageQuery, limitQuery, desLengthQuery, productsData) => {
+export const productsSuccess = (page, productsData) => {
   return {
     type: actionTypes.PRODUCTS_SUCCESS,
-    pageQuery: pageQuery,
-    limitQuery: limitQuery,
-    desLengthQuery: desLengthQuery,
+    page: page,
     products: productsData
   }
 }
@@ -20,12 +18,21 @@ export const productsFail = error => {
     error: error
   }
 }
-export const productsNext = (pageQuery, limitQuery, desLengthQuery, productsData) => {
+export const fetchProducts = productsData => {
   return {
-    type: actionTypes.PRODUCTS_NEXT,
-    pageQuery: pageQuery,
-    limitQuery: limitQuery,
-    desLengthQuery: desLengthQuery,
+    type: actionTypes.FETCH_PRODUCTS,
+    products: productsData
+  }
+}
+export const productsNextStart = () => {
+  return {
+    type: actionTypes.PRODUCTS_NEXT_START
+  }
+}
+export const productsNextSuccess = (page, productsData) => {
+  return {
+    type: actionTypes.PRODUCTS_NEXT_SUCCESS,
+    page: page,
     products: productsData
   }
 }
@@ -33,6 +40,38 @@ export const productsNextFail = error => {
   return {
     type: actionTypes.PRODUCTS_NEXT_FAIL,
     error: error
+  }
+}
+export const productsNext = (page, productsData) => {
+  return {
+    type: actionTypes.PRODUCTS_NEXT,
+    page: page,
+    products: productsData
+  }
+}
+export const productsPrevStart = () => {
+  return {
+    type: actionTypes.PRODUCTS_PREV_START
+  }
+}
+export const productsPrevSuccess = (page, productsData) => {
+  return {
+    type: actionTypes.PRODUCTS_PREV_SUCCESS,
+    page: page,
+    products: productsData
+  }
+}
+export const productsPrevFail = error => {
+  return {
+    type: actionTypes.PRODUCTS_PREV_FAIL,
+    error: error
+  }
+}
+export const productsPrev = (page, productsData) => {
+  return {
+    type: actionTypes.PRODUCTS_PREV,
+    page: page,
+    products: productsData
   }
 }
 export const productsSearchStart = () => {

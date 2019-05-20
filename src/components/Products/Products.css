@@ -1,0 +1,302 @@
+.Products {
+  flex: 1;
+  width: 100%;
+  padding: 24px;
+  margin-top: 6.5rem;
+}
+
+.ProductsMain {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  min-height: 100vh;
+  margin-bottom: 1.5rem;
+}
+
+.ProductsMain > .Filter,
+.ProductsHot {
+  border: 1px solid #2223;
+}
+
+.ProductsMain > .Filter {
+  height: 25rem;
+  overflow: auto;
+  width: 100%;
+}
+
+.ProductsMain > .ProductsItems {
+  flex: 1;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 4.166666%;
+}
+
+.ProductsItems:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.Item,
+.Hover {
+  width: 205px;
+  height: 305px;
+  float: left;
+  box-sizing: border-box;
+  padding: 0 .75rem;
+  border: 1px solid #2222;
+  background-color: #fff;
+  margin: 0 .75rem .75rem;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(23, 23, 23, 0.14),
+    0 3px 1px -2px rgba(23, 23, 23, 0.12),
+    0 1px 5px 0 rgba(23, 23, 23, 0.2);
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) .33s 100ms;
+}
+
+.Item > div > .Hot {
+  width: 40px;
+  background-color: #ff1744;
+  position: absolute;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  margin: 1rem .5rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border: 1px solid #2222;
+}
+
+.Item > p {
+  text-align: center;
+  margin: 0;
+  font-weight: 500;
+  font-size: 1.1rem;
+  font-family: 'Dosis', sans-serif;
+}
+
+.Item > p.Discount {
+  text-decoration-line: line-through;
+  font-size: .66rem;
+  opacity: .5;
+}
+
+.Item {
+  z-index: 0;
+  animation: fade cubic-bezier(0.175, 0.885, 0.32, 1.06) .75s forwards;
+}
+
+.Item > h6,
+.Hover > h5 {
+  text-align: center;
+}
+
+.Hover {
+  margin-top: -1px;
+  margin-left: -11px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  z-index: 0;
+  opacity: 0;
+}
+
+.Hover > span {
+  cursor: pointer;
+  color: #ff1744;
+}
+
+.Hover > p {
+  font-size: 1.3rem;
+  margin: 0;
+  font-family: 'Dosis', sans-serif;
+  font-weight: 500;
+}
+
+.Hover button {
+  width: 66.66%;
+}
+
+.Item:hover {
+  z-index: -20;
+  display: hidden;
+  box-shadow: none;
+  transform: scale(1.025);
+}
+
+.Hover:hover {
+  z-index: 100;
+  display: flex;
+  background-color: #fafafaef;
+  opacity: 1;
+  transform: scale(1.025);
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
+    0 6px 30px 5px rgba(0, 0, 0, 0.12),
+    0 8px 10px -7px rgba(0, 0, 0, 0.2);
+}
+
+.ProductsMain > .ProductsItems > .Item > h6 {
+  text-align: center;
+}
+
+.Colors {
+  width: 100%;
+  margin: .5rem 4.16666%;
+}
+
+.Colors:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.Colors > div {
+  width: 17px;
+  height: 17px;
+  padding: 2px;
+  float: left;
+  border: 1px solid #2222;
+  background-color: #eeeeee;
+  margin: 1px;
+  border-radius: 50%;
+}
+
+.Colors > div > div {
+  border-radius: 50%;
+  min-width: 10px;
+  min-height: 11px;
+}
+
+.Pagination {
+  position: static;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 1.5rem auto;
+  background-color: #ff17443f;
+  z-index: 50;
+}
+
+.Pagination > .Page {
+  padding: .5rem 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all cubic-bezier(0.19, 1, 0.22, 1) .6s 150ms;
+}
+
+.Pagination > div {
+  width: 33.33%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  transition: all cubic-bezier(0.19, 1, 0.22, 1) .6s 150ms;
+}
+
+.Pagination > div > li {
+  font-size: 1.1rem;
+  padding: .5rem 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.Pagination > div > li.Active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  background-color: #ff1744;
+  color: #f5f5f5;
+  border-radius: 50%;
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
+.Pagination button {
+  width: 190px;
+  padding-left: 0; 
+  padding-right: 0;
+  margin: 0; 
+}
+
+.Pagination button:first-child:after {
+  content: "Previous Page";
+  width: 150px;
+}
+
+.Pagination button:last-child:before {
+  content: "Next Page";
+  width: 150px;
+}
+
+.Pagination > .Page:hover,
+.PageActive {
+  background-color: #ff1744;
+  color: #f5f5f5;
+}
+
+.ProductsHot {
+  height: 25rem;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+@media screen and (min-width: 750px) {
+  .Products {
+    margin-top: 0;
+  }
+  
+  .ProductsMain {
+    flex-direction: row;
+  }
+  
+  .ProductsMain > .Filter {
+    width: 33%;
+    min-height: 50rem;
+    margin-bottom: 0;
+  }
+  
+  .ProductsMain > .ProductsItems {
+    width: 66%;
+  }
+
+  .ProductsFooter > .FooterContainer > p {
+    font-size: 1.8rem;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .ProductsMain > .Filter {
+    width: 21.25%;
+  }
+  
+  .ProductsMain > .ProductsItems {
+    width: 71.25%;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateX(100vw);
+    z-index: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+    z-index: 10;
+  }
+}

@@ -7,7 +7,7 @@ import Currency from '../../../UI/Currency/Currency';
 import css from './ToolbarTop.css';
 
 const toolbarTop = props => {
-  console.log(props);
+  //console.log(props);
   return (
     <div className={css.ToolbarTop}>
       <div className={css.SignInUp}>
