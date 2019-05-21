@@ -19,10 +19,13 @@ export {
   authFbFail
 } from './auth';
 export {
+  fetchAttributes,
+  attributesStart,
   attributeSuccess,
   attributeFail,
   attributeIdSuccess,
   attributeIdFail,
+  attributeValues,
   attributeValuesStart,
   attributeValuesSuccess,
   attributeValuesFail,
@@ -33,6 +36,7 @@ export {
 export {
   categoriesQuerySuccess,
   categoriesQueryFail,
+  fetchCategories,
   categoriesStart,
   categoriesSuccess,
   categoriesFail,

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
+import * as actions from '../../store/actions';
 import Btn from '../UI/Btn/Btn';
 import BtnIcon from '../UI/Btn/BtnIcon';
 import Loading from '../UI/Loading/Loading';
@@ -8,6 +9,7 @@ import IconF from '../UI/Icons/IconF';
 import ProductsHeader from './ProductsHeader/ProductsHeader';
 import ProductsFooter from './ProductsFooter/ProductsFooter';
 import ProductsHot from './ProductsHot/ProductsHot';
+import Filter from './Filter/Filter';
 
 import css from './Products.css';
 
@@ -18,9 +20,9 @@ const Products = props => {
     setIsHover(!isHover);
   }
 
-  const colors = props.colorsAttr.map((color, key) => (
-    <div key={key}>
-      <div style={{ backgroundColor: color}}></div>
+  const colors = props.colorsAttr.map(color => (
+    <div key={color.attribute_value_id}>
+      <div style={{ backgroundColor: color.value}}></div>
     </div>
   ));
 
@@ -33,7 +35,7 @@ const Products = props => {
       <div
         className={css.Item}
         key={product.product_id}>
-        <div class={css.Hover}>
+        <div className={css.Hover}>
           <h5>{ product.name }</h5>
           <p>USD $ { product.discounted_price > 0 ? product.discounted_price : product.price }</p>
           <span 
@@ -84,7 +86,9 @@ const Products = props => {
 
       <div className={css.ProductsMain}>
         <aside className={css.Filter}>
-
+          <Filter 
+            filter={props.filter}
+            count={props.count} />
         </aside>
         <div className={css.ProductsItems}>
           { fetchedProducts }
@@ -131,7 +135,7 @@ const Products = props => {
         productDetail={props.productDetail}
         addFav={props.addFav}
         colorsAttr={props.colorsAttr}
-      />
+        sizesAttr={props.sizesAttr} />
       <ProductsFooter />
     </div>
   )
@@ -144,4 +148,11 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Products);
+const mapDispatchToProps = dispatch => {
+  return {
+    onGetAttributes: (size, color) => dispatch(actions.fetchAttributes(size, color)),
+    onAttributesValues: (sizeVal, colVal) => dispatch(actions.attributeValues(sizeVal, colVal))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Products);

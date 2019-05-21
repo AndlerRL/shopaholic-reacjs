@@ -5,11 +5,12 @@ export const productsStart = () => {
     type: actionTypes.PRODUCTS_START
   }
 }
-export const productsSuccess = (page, productsData) => {
+export const productsSuccess = (page, productsData, count) => {
   return {
     type: actionTypes.PRODUCTS_SUCCESS,
     page: page,
-    products: productsData
+    products: productsData,
+    count: count
   }
 }
 export const productsFail = error => {
@@ -18,10 +19,11 @@ export const productsFail = error => {
     error: error
   }
 }
-export const fetchProducts = productsData => {
+export const fetchProducts = (productsData, count) => {
   return {
     type: actionTypes.FETCH_PRODUCTS,
-    products: productsData
+    products: productsData,
+    count: count
   }
 }
 export const productsNextStart = () => {

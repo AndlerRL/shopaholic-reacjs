@@ -5,6 +5,7 @@ const initState = {
   isLoading: null,
   error: null,
   searchQuery: {},
+  count: null,
   products: [],
   reviews: [],
   productId: null,
@@ -31,7 +32,8 @@ const productsSuccess = (state, action) => {
     isLoading: null,
     error: null,
     page: action.page,
-    products: action.products
+    products: action.products,
+    count: action.count
   })
 }
 const productsNext = (state, action) => {

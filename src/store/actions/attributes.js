@@ -1,10 +1,15 @@
 import * as actionTypes from './actionTypes';
 
-export const attributeSuccess = (attrId, name) => {
+export const attributesStart = () => {
   return {
-    type: actionTypes.FETCH_ATTRIBUTES,
-    attributeId: attrId,
-    name: name
+    type: actionTypes.FETCH_ATTRIBUTES_START
+  }
+}
+export const attributeSuccess = (size, color) => {
+  return {
+    type: actionTypes.FETCH_ATTRIBUTES_SUCCESS,
+    size: size,
+    color: color
   }
 }
 export const attributeFail = error => {
@@ -13,10 +18,25 @@ export const attributeFail = error => {
     error: error
   }
 }
-export const attributeIdSuccess = attrId => {
+export const fetchAttributes = (size, color) => {
+  return {
+    type: actionTypes.FETCH_ATTRIBUTES,
+    size: size,
+    color: color
+  }
+}
+export const attributeId = (sizeId, colorId) => {
   return {
     type: actionTypes.FETCH_ATTRIBUTES_ID,
-    attrId: attrId
+    sizeId: sizeId,
+    colorId: colorId
+  }
+}
+export const attributeIdSuccess = (sizeId, colorId) => {
+  return {
+    type: actionTypes.FETCH_ATTRIBUTES_ID_SUCCESS,
+    sizeId: sizeId,
+    colorId: colorId
   }
 }
 export const attributeIdFail = error => {
@@ -30,16 +50,24 @@ export const attributeValuesStart = () => {
     type: actionTypes.ATTRIBUTES_VALUES_ID_START
   }
 }
-export const attributeValuesSuccess = valueId => {
+export const attributeValuesSuccess = (sizeVal, colorVal) => {
   return {
     type: actionTypes.ATTRIBUTES_VALUES_ID_SUCCESS,
-    valueId: valueId
+    sizeVal: sizeVal,
+    colorVal: colorVal
   }
 }
 export const attributeValuesFail = error => {
   return {
     type: actionTypes.ATTRIBUTES_VALUES_ID_FAIL,
     error: error
+  }
+}
+export const attributeValues = (sizeVal, colorVal) => {
+  return {
+    type: actionTypes.ATTRIBUTES_VALUES_ID,
+    sizeVal: sizeVal,
+    colorVal: colorVal
   }
 }
 export const attributeInProductStart = () => {

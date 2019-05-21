@@ -2,7 +2,6 @@ import { delay, put, call } from 'redux-saga/effects';
 import Axios from '../../axios-shop';
 
 import * as actions from '../actions';
-import { updateObject } from '../../share/utility';
 
 export function* fetchProductsSaga(action) {
   yield put(actions.productsStart());
@@ -11,9 +10,11 @@ export function* fetchProductsSaga(action) {
     yield localStorage.setItem('page', JSON.stringify(1));
     const response = yield Axios.get('/products' + queryParams);
     const fetchedProducts = response.data.rows;
+    const count = response.data.count;
+    action.counts = count
     action.products = fetchedProducts;
-    console.log('FETCHING PRODUCTS LOCALLY', fetchedProducts);
-    yield put(actions.productsSuccess(localStorage.getItem('page'), fetchedProducts));
+    //console.log('FETCHING PRODUCTS LOCALLY', fetchedProducts);
+    yield put(actions.productsSuccess(localStorage.getItem('page'), fetchedProducts, count));
   } catch (error) {
     console.error(error);
     yield put(actions.productsFail(error));

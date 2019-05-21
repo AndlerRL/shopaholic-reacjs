@@ -28,7 +28,7 @@ This projects will follow the Turing ECommerce API structure, so files will be s
 4. As is expected, Redux will hold the global states, witch are some animations, loadings, queries, etc.
 5. While the watchers takes control of all the actions with sagas, the interaction should and hope, will be smooth as you machine allows you.
 
-### How to run it? ###
+### How to run it ###
 
 If you have npm package installed, just follow this steps:
 
@@ -45,6 +45,12 @@ Now, let's go to the changelog!
 - - - -
 
 ### CHANGE_LOG ###
+
+__`[v0.4.52]`__
+
+Products screen is taking his body! Now has the mayority of components fetched from the API and has some UI/UX interactions/animations. Started to implement the filters, but actually I'm think to re-design the toolbar and change all navigation options to make them match for the current API, so it could look great! Obviously Filter will be only on Products, due it's the main area.
+
+__Observation:__ Sagas are been implemented time to time, instead one time only.
 
 __`[v0.4.01]`__
 

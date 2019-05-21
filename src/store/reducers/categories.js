@@ -38,7 +38,7 @@ const categoriesSuccess = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    categoryId: action.catId
+    categories: action.categories
   })
 };
 const categoriesInProductSuccess = (state, action) => {

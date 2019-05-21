@@ -19,16 +19,22 @@ export const categoriesStart = () => {
     type: actionTypes.CATEGORIES_START
   }
 }
-export const categoriesSuccess = catId => {
+export const categoriesSuccess = categories => {
   return {
     type: actionTypes.CATEGORIES_SUCCESS,
-    catId: catId
+    categories: categories
   }
 }
 export const categoriesFail = error => {
   return {
     type: actionTypes.CATEGORIES_FAIL,
     error: error
+  }
+}
+export const fetchCategories = categories => {
+  return {
+    type: actionTypes.FETCH_CATEGORIES,
+    categories: categories
   }
 }
 export const categoriesInDepartmentStart = () => {
