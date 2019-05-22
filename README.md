@@ -46,9 +46,13 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v0.4.91]`__
+
+Filter half way! Added different filters, such as categories and departments. now still working on that and later will implement price range and search.
+
 __`[v0.4.52]`__
 
-Products screen is taking his body! Now has the mayority of components fetched from the API and has some UI/UX interactions/animations. Started to implement the filters, but actually I'm think to re-design the toolbar and change all navigation options to make them match for the current API, so it could look great! Obviously Filter will be only on Products, due it's the main area.
+Products screen is taking his body! Now has the majority of components fetched from the API and has some UI/UX interactions/animations. Started to implement the filters, but actually I'm think to re-design the toolbar and change all navigation options to make them match for the current API, so it could look great! Obviously Filter will be only on Products, due it's the main area.
 
 __Observation:__ Sagas are been implemented time to time, instead one time only.
 

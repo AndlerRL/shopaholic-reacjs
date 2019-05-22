@@ -16,7 +16,7 @@
 }
 
 .ProductsMain > .Filter {
-  height: 25rem;
+  height: 50vh;
   overflow: auto;
   width: 100%;
   border: 1px solid #2221;
@@ -174,12 +174,14 @@
 .Pagination {
   position: static;
   display: flex;
+  height: 5rem;
+  border-radius: 2px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin: 1.5rem auto;
-  background-color: #ff17443f;
+  margin: 1.5rem auto 3rem;
+  background-color: #ff9e80;
   z-index: 50;
 }
 

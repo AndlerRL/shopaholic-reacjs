@@ -19,9 +19,10 @@ export const productsFail = error => {
     error: error
   }
 }
-export const fetchProducts = (productsData, count) => {
+export const fetchProducts = (page, productsData, count) => {
   return {
     type: actionTypes.FETCH_PRODUCTS,
+    page: page,
     products: productsData,
     count: count
   }
@@ -31,10 +32,11 @@ export const productsNextStart = () => {
     type: actionTypes.PRODUCTS_NEXT_START
   }
 }
-export const productsNextSuccess = (page, productsData) => {
+export const productsNextSuccess = (page, totalPage, productsData) => {
   return {
     type: actionTypes.PRODUCTS_NEXT_SUCCESS,
     page: page,
+    totalPage: totalPage,
     products: productsData
   }
 }
@@ -44,10 +46,11 @@ export const productsNextFail = error => {
     error: error
   }
 }
-export const productsNext = (page, productsData) => {
+export const productsNext = (page, totalPage, productsData) => {
   return {
     type: actionTypes.PRODUCTS_NEXT,
     page: page,
+    totalPage: totalPage,
     products: productsData
   }
 }

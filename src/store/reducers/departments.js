@@ -5,6 +5,7 @@ const initState = {
   isLoading: null,
   error: null,
   departments: [],
+  department: [],
   departmentId: null
 }
 
@@ -31,7 +32,10 @@ const departmentIdSuccess = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    departmentId: action.depId
+    departmentId: updateObject(state.departmentId, {
+      [action.departmentId]: state.departmentId
+    }),
+    department: state.department.concat(action.department)
   })
 };
 

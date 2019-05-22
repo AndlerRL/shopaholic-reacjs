@@ -17,20 +17,34 @@ export const departmentsFail = error => {
     error: error
   }
 }
+export const fetchDepartments = departments => {
+  return {
+    type: actionTypes.FETCH_DEPARTMENTS,
+    departments: departments
+  }
+}
 export const departmentsIdStart = () => {
   return {
     type: actionTypes.DEPARTMENTS_BY_ID_START
   }
 }
-export const departmentsIdSuccess = depId => {
+export const departmentsIdSuccess = (departmentId, department) => {
   return {
     type: actionTypes.DEPARTMENTS_BY_ID_SUCCESS,
-    depId: depId
+    departmentId: departmentId,
+    department: department
   }
 }
 export const departmentsIdFail = error => {
   return {
     type: actionTypes.DEPARTMENTS_BY_ID_FAIL,
     error: error
+  }
+}
+export const fetchDepartmentsId = (departmentId, department) => {
+  return {
+    type: actionTypes.FETCH_DEPARTMENTS_ID,
+    departmentId: departmentId,
+    department: department
   }
 }

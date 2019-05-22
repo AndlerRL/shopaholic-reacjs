@@ -11,23 +11,25 @@ const Items = props => {
     props.onGetAttributes(props.size, props.color);
     props.onAttributesValues(props.sizeVals, props.colorVals);
     props.onFetchCategories(props.categories);
+    props.onFetchDepartments(props.departments);
   }, []);
 
   const nextPageHandler = () => {
-    props.onNextPage(props.page, props.products);
+    props.onNextPage(props.page, props.totalPage, props.products);
     window.scroll(0, 430);
   }
 
   const prevPageHandler = () => {
-    props.onPrevPage(props.page, props.products);
+    props.onPrevPage(props.page, props.totalPage, props.products);
     window.scroll(0, 430);
   }
 
   const color = props.colorVals.map(color => color);
   const size = props.sizeVals.map(size => size);
-  const filter = props.categories.map(filter => filter);
+  const filterCat = props.categories.map(filter => filter);
+  const filterDep = props.departments.map(filter => filter);
 
-  console.log(props.categories, filter);
+  //console.log(props.departments)
 
   return (
     <Products
@@ -36,7 +38,8 @@ const Items = props => {
       nextPage={nextPageHandler}
       colorsAttr={color}
       sizesAttr={size}
-      filter={filter}
+      filterCat={filterCat}
+      filterDep={filterDep}
       count={props.count} />
   )
 };
@@ -44,13 +47,15 @@ const Items = props => {
 const mapStateToProps = state => {
   return {
     products: state.products.products,
-    count: state.products.count,
-    page: state.products.page,
+    count: state.products.meta.count,
+    page: state.products.meta.page,
+    totalPage: state.products.meta.totalPage,
     size: state.attributes.size,
     color: state.attributes.color,
     sizeVals: state.attributes.sizeVals,
     colorVals: state.attributes.colorVals,
-    categories: state.categories.categories
+    categories: state.categories.categories,
+    departments: state.departments.departments
   }
 }
 
@@ -61,7 +66,8 @@ const mapDispatchToProps = dispatch => {
     onPrevPage: (page, products) => dispatch(actions.productsPrev(page, products)),
     onGetAttributes: (size, color) => dispatch(actions.fetchAttributes(size, color)),
     onAttributesValues: (sizeVal, colVal) => dispatch(actions.attributeValues(sizeVal, colVal)),
-    onFetchCategories: categories => dispatch(actions.fetchCategories(categories))
+    onFetchCategories: categories => dispatch(actions.fetchCategories(categories)),
+    onFetchDepartments: departments => dispatch(actions.fetchDepartments(departments))
   }
 }
 

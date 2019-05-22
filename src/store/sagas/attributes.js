@@ -1,4 +1,4 @@
-import { delay, put, call, all } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 import Axios from '../../axios-shop';
 
 import * as actions from '../actions';
@@ -19,8 +19,9 @@ export function* fetchAttributesSaga(action) {
     yield localStorage.setItem('colorVal', action.color.attribute_id);
     yield put(actions.attributeSuccess(attributes[0], attributes[1]))
     yield put(actions.attributeIdSuccess(action.size.attribute_id, action.color.attribute_id))
-    console.log('SIZE ', action.size)
-    console.log('COLOR ', action.color)
+    
+    //console.log('SIZE ', action.size)
+    //console.log('COLOR ', action.color)
   } catch(error) {
     console.log(error);
     yield put(actions.attributeFail(error));
@@ -34,17 +35,8 @@ export function* fetchAttributesValuesSaga(action) {
     const color = localStorage.getItem('colorVal');
     const sizeRes = yield Axios.get(`/attributes/values/${size}`);
     const colorRes = yield Axios.get(`/attributes/values/${color}`);
-    const fetchedSize = [];
-    const fetchedColor = [];
-    console.log('SIZE RES', sizeRes.data)
-    console.log('COLOR RES', colorRes.data)
-    for (let key in sizeRes.data) {
-      fetchedSize.push(sizeRes.data[key])
-    }
-    for (let key in colorRes.data) {
-      fetchedColor.push(colorRes.data[key]);
-    }
-    yield put(actions.attributeValuesSuccess(fetchedSize, fetchedColor))
+    
+    yield put(actions.attributeValuesSuccess(sizeRes.data, colorRes.data))
   } catch(error) {
     console.log(error);
     yield put(actions.attributeValuesFail(error));

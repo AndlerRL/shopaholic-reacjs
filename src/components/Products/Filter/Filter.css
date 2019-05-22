@@ -2,15 +2,18 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   height: 100%;
+  overflow-x: auto;
   background-color: #fff;
 }
 
 .FilterHead {
   border-bottom: 2px solid #222;
+  width: 100%;
+  text-align: center;
 }
 
 .FilterHead > ul > li {
@@ -27,6 +30,11 @@
 .FilterHead > ul > li > div:hover {
   color: #2226;
   animation: turn cubic-bezier(0.175, 0.885, 0.32, 1.275) 2s;
+}
+
+.FilterBody {
+  width: 100%;
+  padding: 16px;
 }
 
 @keyframes turn {

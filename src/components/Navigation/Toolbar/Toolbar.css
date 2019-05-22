@@ -37,6 +37,9 @@
 
   .Show {
     display: flex;
+    justify-content: space-evenly;
+    max-width: 200px;
+    margin: auto;
   }
 
   .Toolbar {
@@ -46,12 +49,16 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     padding: 0 32px;
     height: 6rem;
     z-index: 1400;
     background-color: #212121;
     transition: all cubic-bezier(0.165, 0.84, 0.44, 1) .5s 100ms !important;
+  }
+
+  .Toolbar ul {
+    margin: auto;
   }
   
   .Toolbar ul > li > a {
@@ -64,5 +71,6 @@
     letter-spacing: 5px;
     font-size: 2rem;
     color: #ff5252;
+    margin: auto;
   }
 }

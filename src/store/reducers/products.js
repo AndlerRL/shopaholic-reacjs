@@ -1,9 +1,21 @@
 import { updateObject } from '../../share/utility';
 import * as actionTypes from '../actions/actionTypes';
 
+const INIT_PAGE = 1;
+const INIT_LIMIT = 10;
+const INIT_COUNT = 101;
+const INIT_DESCRIPTION = 200;
+
 const initState = {
   isLoading: null,
   error: null,
+  meta: {
+    page: INIT_PAGE,
+    totalPage: Math.ceil(INIT_COUNT / INIT_LIMIT),
+    limit: INIT_LIMIT,
+    count: INIT_COUNT,
+    description: INIT_DESCRIPTION
+  },
   searchQuery: {},
   count: null,
   products: [],
@@ -31,16 +43,29 @@ const productsSuccess = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    page: action.page,
+    meta: {
+      page: state.meta.page,
+      totalPage: state.meta.totalPage,
+      limit: state.meta.limit,
+      count: state.meta.count,
+      description: state.meta.description
+    },
     products: action.products,
     count: action.count
   })
 }
 const productsNext = (state, action) => {
+  const updateMeta = updateObject(state.meta, {
+    limit: state.meta.limit,
+    count: state.meta.count,
+    description: state.meta.description,
+    page: state.meta.page + 1,
+    [action.totalPage]: Math.ceil(state.meta.count / state.meta.limit),
+  });
   return updateObject(state, {
     isLoading: null,
     error: null,
-    page: action.page,
+    meta: updateMeta,
     products: action.products
   })
 }
@@ -48,7 +73,13 @@ const productsPrev = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    page: action.page,
+    meta: {
+      page: state.meta.page - 1,
+      totalPage: Math.ceil(state.meta.count / state.meta.limit ),
+      limit: state.meta.limit,
+      count: state.meta.count,
+      description: state.meta.description
+    },
     products: action.products
   })
 }

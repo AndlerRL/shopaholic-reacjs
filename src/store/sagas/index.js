@@ -4,6 +4,7 @@ import * as actionTypes from '../actions/actionTypes';
 import { fetchProductsSaga, paginationNextSaga, paginationPrevSaga } from './products';
 import { fetchAttributesSaga, fetchAttributesValuesSaga } from './attributes';
 import { fetchCategoriesSaga } from './categories';
+import { fetchDepartmentsSaga, fetchDepartmentIdSaga } from './departments';
 
 export function* watchAttributes() {
   yield takeEvery(actionTypes.FETCH_ATTRIBUTES, fetchAttributesSaga)
@@ -19,7 +20,8 @@ export function* watchCategories() {
 }
 
 export function* watchDepartments() {
-  
+  yield takeEvery(actionTypes.FETCH_DEPARTMENTS, fetchDepartmentsSaga);
+  yield takeEvery(actionTypes.FETCH_DEPARTMENTS_ID, fetchDepartmentIdSaga);
 }
 
 export function* watchOrders() {
@@ -27,9 +29,11 @@ export function* watchOrders() {
 }
 
 export function* watchProducts() {
-  yield takeEvery(actionTypes.FETCH_PRODUCTS, fetchProductsSaga);
-  yield takeEvery(actionTypes.PRODUCTS_NEXT, paginationNextSaga);
-  yield takeEvery(actionTypes.PRODUCTS_PREV, paginationPrevSaga);
+  yield all([
+    takeEvery(actionTypes.FETCH_PRODUCTS, fetchProductsSaga),
+    takeEvery(actionTypes.PRODUCTS_NEXT, paginationNextSaga),
+    takeEvery(actionTypes.PRODUCTS_PREV, paginationPrevSaga)
+  ])
 }
 
 export function* watchShoppingCart() {

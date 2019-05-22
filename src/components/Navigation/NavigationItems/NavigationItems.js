@@ -10,33 +10,20 @@ const navigationItems = props => (
       exact
       link="/products"
       clicked={props.clicked}>
-      Women
+      PRODUCTS
     </NavigationItem>
     <NavigationItem
       exact
-      link="/products"
+      link="/categories"
       clicked={props.clicked}>
-      Men
+      CATEGORIES
     </NavigationItem>
     <NavigationItem
       exact
-      link="/products"
+      link="/departments"
       clicked={props.clicked}>
-      Shoes
+      DEPARTMENTS
     </NavigationItem>
-    <NavigationItem
-      exact
-      link="/products"
-      clicked={props.clicked}>
-      Kids
-    </NavigationItem>
-    <NavigationItem
-      exact
-      link="/products"
-      clicked={props.clicked}>
-      Brands
-    </NavigationItem>
-    
   </ul>
 );
 

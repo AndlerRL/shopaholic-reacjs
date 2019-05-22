@@ -87,7 +87,8 @@ const Products = props => {
       <div className={css.ProductsMain}>
         <aside className={css.Filter}>
           <Filter 
-            filter={props.filter}
+            filterCat={props.filterCat}
+            filterDep={props.filterDep}
             count={props.count} />
         </aside>
         <div className={css.ProductsItems}>
@@ -101,7 +102,7 @@ const Products = props => {
           icon="arrow-left"
           btnColor="pagination"
           clicked={props.prevPage}
-          disabled={props.page == 1}>
+          disabled={props.page <= 1}>
         </BtnIcon>
         <div>
           <li>
@@ -114,11 +115,11 @@ const Products = props => {
             { props.page }
           </li>
           <li>
-            { props.page < 11 ? `${parseInt(props.page) + 1}` : null }
+            { props.page !== props.totalPage ? `${parseInt(props.page) + 1}` : null }
           </li>
           <li>
-            { props.page < 10 ? `${parseInt(props.page) + 2}` : null }
-            { props.page < 9 ? ' ... ' : null }
+            { props.page < (props.totalPage - 1) ? `${parseInt(props.page) + 2}` : null }
+            { props.page < (props.totalPage - 2) ? ' ... ' : null }
           </li>
         </div>
         <BtnIcon 
@@ -127,7 +128,7 @@ const Products = props => {
           icon="arrow-right"
           btnColor="pagination"
           clicked={props.nextPage}
-          disabled={props.page == 11}>
+          disabled={props.page === props.totalPage}>
         </BtnIcon>
       </ul>
       <ProductsHot 
@@ -144,7 +145,8 @@ const Products = props => {
 const mapStateToProps = state => {
   return {
     isLoading: state.products.isLoading,
-    page: state.products.page
+    page: state.products.meta.page,
+    totalPage: state.products.meta.totalPage,
   }
 }
 

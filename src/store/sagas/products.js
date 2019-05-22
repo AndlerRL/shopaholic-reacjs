@@ -1,20 +1,16 @@
-import { delay, put, call } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 import Axios from '../../axios-shop';
 
 import * as actions from '../actions';
 
 export function* fetchProductsSaga(action) {
   yield put(actions.productsStart());
-  const queryParams = `?page=1&limit=10&description_length=50`;
+  const queryParams = `?page=${action.page}&limit=10&description_length=50`;
   try {
     yield localStorage.setItem('page', JSON.stringify(1));
     const response = yield Axios.get('/products' + queryParams);
-    const fetchedProducts = response.data.rows;
-    const count = response.data.count;
-    action.counts = count
-    action.products = fetchedProducts;
-    //console.log('FETCHING PRODUCTS LOCALLY', fetchedProducts);
-    yield put(actions.productsSuccess(localStorage.getItem('page'), fetchedProducts, count));
+    
+    yield put(actions.productsSuccess(action.page, response.data.rows, response.data.count));
   } catch (error) {
     console.error(error);
     yield put(actions.productsFail(error));
@@ -23,15 +19,12 @@ export function* fetchProductsSaga(action) {
 
 export function* paginationNextSaga(action) {
   yield put(actions.productsNextStart())
-  let nextPage = JSON.parse(localStorage.getItem('page'));
-  let updatePage = nextPage + 1;
-  yield localStorage.setItem('page', JSON.stringify(updatePage));
-  const queryParams = `?page=${updatePage}&limit=10&description_length=50`;
   try {
+    console.log(action.page, action.totalPage)
+    const queryParams = `?page=${action.page + 1}&limit=10&description_length=50`;
     const response = yield Axios.get('/products' + queryParams);
-    const fetchedProducts = response.data.rows;
-    action.products = fetchedProducts
-    yield put(actions.productsNextSuccess(updatePage, fetchedProducts));
+
+    yield put(actions.productsNextSuccess(action.page, action.totalPage, response.data.rows));
   } catch (error) {
     console.error(error);
     yield put(actions.productsNextFail());
@@ -40,17 +33,13 @@ export function* paginationNextSaga(action) {
 
 export function* paginationPrevSaga(action) {
   yield put(actions.productsPrevStart())
-  let prevPage = JSON.parse(localStorage.getItem('page'));
-  let updatePage = prevPage - 1;
-  yield localStorage.setItem('page', JSON.stringify(updatePage));
-  const queryParams = `?page=${updatePage}&limit=10&description_length=50`;
   try {
+    const queryParams = `?page=${action.page - 1}&limit=10&description_length=50`;
     const response = yield Axios.get('/products' + queryParams);
-    const fetchedProducts = response.data.rows;
-    action.products = fetchedProducts
-    yield put(actions.productsPrevSuccess(updatePage, fetchedProducts));
+    
+    yield put(actions.productsPrevSuccess(action.page, response.data.rows));
   } catch (error) {
     console.error(error);
-    yield put(actions.productsPrevFail());
+    yield put(actions.productsPrevFail(error));
   }
 }

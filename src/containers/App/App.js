@@ -7,8 +7,6 @@ import Home from '../Home/Home';
 import Layout from '../Layout/Layout';
 import Loading from '../../components/UI/Loading/Loading';
 
-import css from './App.css';
-
 const SignIn = React.lazy(() => {
   return import('../Auth/SignIn/SignIn');
 });

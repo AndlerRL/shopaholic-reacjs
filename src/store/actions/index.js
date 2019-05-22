@@ -48,9 +48,11 @@ export {
   categoriesInProductFail
 } from './categories';
 export {
+  fetchDepartments,
   departmentsStart,
   departmentsSuccess,
   departmentsFail,
+  fetchDepartmentsId,
   departmentsIdStart,
   departmentsIdSuccess,
   departmentsIdFail
