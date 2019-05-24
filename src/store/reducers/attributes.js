@@ -10,7 +10,8 @@ const initState = {
   colorVals: [],
   sizeId: null,
   colorId: null,
-  productId: []
+  productId: null,
+  productAttributes: []
 }
 
 const start = (state, action) => {
@@ -53,7 +54,8 @@ const attributeInProductSuccess = (state, action) => {
   return updateObject(state, {
     isLoading: false,
     error: null,
-    productId: action.productId
+    productId: action.productId,
+    productAttributes: action.productAttributes
   })
 };
 

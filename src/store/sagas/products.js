@@ -7,7 +7,6 @@ export function* fetchProductsSaga(action) {
   yield put(actions.productsStart());
   const queryParams = `?page=${action.page}&limit=10&description_length=50`;
   try {
-    yield localStorage.setItem('page', JSON.stringify(1));
     const response = yield Axios.get('/products' + queryParams);
     
     yield put(actions.productsSuccess(action.page, response.data.rows, response.data.count));
@@ -20,7 +19,6 @@ export function* fetchProductsSaga(action) {
 export function* paginationNextSaga(action) {
   yield put(actions.productsNextStart())
   try {
-    console.log(action.page, action.totalPage)
     const queryParams = `?page=${action.page + 1}&limit=10&description_length=50`;
     const response = yield Axios.get('/products' + queryParams);
 
@@ -41,5 +39,63 @@ export function* paginationPrevSaga(action) {
   } catch (error) {
     console.error(error);
     yield put(actions.productsPrevFail(error));
+  }
+}
+
+export function* productDataSaga(action) {
+  yield put(actions.productDetailStart())
+  try {
+    const response = yield Axios.get(`/products/${action.productId}/details`);
+
+    yield put(actions.productDetailSuccess(action.productId, response.data))
+  } catch(error) {
+    console.error(error);
+    yield put(actions.productDetailFail(error))
+  }
+}
+
+export function* productLocationSaga(action) {
+  yield put(actions.productLocationStart())
+
+  try {
+    const response = yield Axios.get(`/products/${action.productId}/locations`);
+    console.log('action.productId', action.productId);
+    console.log('response.data', response.data);
+    yield put(actions.productLocationSuccess(action.productId, response.data));
+  } catch(error) {
+    console.log(error);
+    yield put(actions.productLocationFail(error));
+  }
+}
+
+export function* productReviewsSaga(action) {
+  yield put(actions.fetchReviewsStart())
+
+  try {
+    const response = yield Axios.get(`/products/${action.productId}/reviews`);
+
+    yield put(actions.fetchReviewsSuccess(action.productId, response.data));
+  } catch(error) {
+    console.log(error);
+    yield put(actions.fetchReviewsFail(error));
+  }
+}
+
+export function* postProductReviewSaga(action) {
+  yield put(actions.postReviewStart())
+
+  try {
+    const reviewData = {
+      product_id: action.productId,
+      review: action.review,
+      rating: action.rating
+    }
+    const request = yield Axios.post(`/products/${action.productId}/reviews`, reviewData)
+    console.log('posted a Review ', request);
+
+    yield put(actions.postReviewSuccess(action.productId, request.data));
+  } catch(error) {
+    console.log(error);
+    yield put(actions.postReviewFail(error))
   }
 }

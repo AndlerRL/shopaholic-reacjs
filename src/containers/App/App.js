@@ -5,7 +5,7 @@ import M from 'materialize-css';
 
 import Home from '../Home/Home';
 import Layout from '../Layout/Layout';
-import Loading from '../../components/UI/Loading/Loading';
+import { Loading } from '../../components/UI/Loading/Loading';
 
 const SignIn = React.lazy(() => {
   return import('../Auth/SignIn/SignIn');
@@ -83,7 +83,7 @@ class App extends React.Component {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/products" render={props => <Products {...props} />} />
-        <Route exact path="/product-detail" render={props => <Product {...props} />} />
+        <Route exact path={`/product-details`} render={props => <Product {...props} />} />
         <Route exact path="/checkout" render={props => <Checkout {...props} />} />
         <Redirect to="/" />
       </Switch>
@@ -111,6 +111,6 @@ class App extends React.Component {
       </Layout>
     );
   }
-}
+};
 
 export default withRouter(App);

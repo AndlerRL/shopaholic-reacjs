@@ -24,6 +24,20 @@ const Items = props => {
     window.scroll(0, 430);
   }
 
+  const productDetailHandler = () => product => {
+    localStorage.setItem('product_detail_id', JSON.stringify(product.product_id));
+    let product_detail_id = JSON.parse(localStorage.getItem('product_detail_id'));
+
+    if (product_detail_id !== product.product_id) {
+      localStorage.setItem('product_detail_id', JSON.stringify(product.product_id))
+      product_detail_id = JSON.parse(localStorage.getItem('product_detail_id'))
+    }
+
+    props.onFetchProductData(product_detail_id, props.productData);
+    props.history.push('/product-details');
+  }
+
+
   const color = props.colorVals.map(color => color);
   const size = props.sizeVals.map(size => size);
   const filterCat = props.categories.map(filter => filter);
@@ -36,6 +50,7 @@ const Items = props => {
       items={props.products}
       prevPage={prevPageHandler}
       nextPage={nextPageHandler}
+      productDetail={productDetailHandler(props.products)}
       colorsAttr={color}
       sizesAttr={size}
       filterCat={filterCat}
@@ -55,7 +70,8 @@ const mapStateToProps = state => {
     sizeVals: state.attributes.sizeVals,
     colorVals: state.attributes.colorVals,
     categories: state.categories.categories,
-    departments: state.departments.departments
+    departments: state.departments.departments,
+    productData: state.products.productData
   }
 }
 
@@ -67,7 +83,8 @@ const mapDispatchToProps = dispatch => {
     onGetAttributes: (size, color) => dispatch(actions.fetchAttributes(size, color)),
     onAttributesValues: (sizeVal, colVal) => dispatch(actions.attributeValues(sizeVal, colVal)),
     onFetchCategories: categories => dispatch(actions.fetchCategories(categories)),
-    onFetchDepartments: departments => dispatch(actions.fetchDepartments(departments))
+    onFetchDepartments: departments => dispatch(actions.fetchDepartments(departments)),
+    onFetchProductData: (productId, productData) => dispatch(actions.fetchProductDetail(productId, productData))
   }
 }
 

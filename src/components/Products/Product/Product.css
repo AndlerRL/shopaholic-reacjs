@@ -1,0 +1,285 @@
+.ProductDetail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 32px;
+  margin: 32px;
+  width: calc(100% - 64px);
+  min-height: 100vh;
+  border: 1px solid #f5f5f5;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(75, 75, 75, 0.14),
+    0 3px 1px -2px rgba(75, 75, 75, 0.12),
+    0 1px 5px 0 rgba(75, 75, 75, 0.2);
+}
+
+.ProductDetailHead {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+}
+
+.ProductImg {
+  width: 400px;
+  height: 532px;
+  transition: all ease-in-out 1s;
+}
+
+.ActiveImg {
+  width: calc(100% - 32px);
+  height: 384px;
+  margin: 16px 16px;
+  transition: all ease-in-out 1s;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 
+    0 3px 1px -2px rgba(0, 0, 0, 0.12),
+    0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.InactiveImg {
+  display: flex;
+  height: 125px;
+  width: 100%;
+  margin: auto;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.InactiveImg > .ActiveImgThumb {
+  border: 1px solid #ff1744;
+}
+
+.InactiveImg > img {
+  height: 100px;
+  width: 100px;
+  opacity: 1;
+  transition: all ease-in-out 1s;
+}
+
+.InactiveImg > img:last-child {
+  cursor: pointer;
+}
+
+.ProductInfo {
+  width: calc(100% - 400px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 16px;
+}
+
+.Routes {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  user-select: none;
+}
+
+.Routes > li {
+  margin: 0 1rem;
+  color: #80d8ff;
+  opacity: .75;
+  font-weight: 500;
+}
+
+.Routes > li:not(:first-child) {
+  list-style: disc outside;
+}
+
+.Routes > li > span {
+  color: #2226;
+  cursor: pointer;
+  transition: all cubic-bezier(0.19, 1, 0.22, 1) .33s 150ms;
+}
+
+.Routes > li > span:hover {
+  color: #222;
+}
+
+.ProductInfoHead {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-around;
+  user-select: none;
+  text-align: left;
+}
+
+.ProductInfoHead > p {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.75rem;
+  opacity: .75;
+}
+
+.Price {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.Price > span {
+  font-size: 2.1rem;
+  font-family: 'Tajawal', sans-serif;
+  color: #ff1744;
+  font-weight: 500;
+}
+
+.Price > span.DiscountedPrice {
+  font-size: 1.4rem;
+  text-decoration-line: line-through;
+  font-weight: 100;
+  opacity: .75;
+}
+
+.ProductInfoActions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.Attributes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 450px;
+  margin: 2rem;
+}
+
+.Attributes > span {
+  font-size: 1.5rem;
+}
+
+.Attributes > .Colors,
+.Attributes > .Sizes {
+  width: 100%;
+  margin: 1rem auto;
+}
+
+.Attributes > .Colors::after,
+.Attributes > .Sizes::after {
+  clear: both;
+  display: table;
+  content: "";
+}
+
+.Attributes > .Colors > .ColorItem,
+.Attributes > .Sizes > .SizeItem,
+.Attributes .Selected {
+  float: left;
+  box-sizing: border-box;
+  margin: .75rem;
+  padding: 4px;
+  background-color: #f5f5f5;
+  transition: all cubic-bezier(0.23, 1, 0.320, 1) .33s 150ms;
+  cursor: pointer;
+}
+
+.Attributes > .Colors > .ColorItem:hover,
+.Attributes > .Sizes > .SizeItem:hover {
+  background-color: #eeeeee;
+  transform: scale(1.1);
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14),
+    0 1px 7px 0 rgba(0, 0, 0, 0.12), 
+    0 3px 1px -1px rgba(0, 0, 0, 0.2);
+}
+
+.Attributes > .Colors > .ColorItem,
+.Attributes > .Colors > .Selected {
+  border: 1px solid #2224;
+  border-radius: 50%;
+}
+
+.Attributes > .Colors > .Selected {
+  transform: scale(1.1);
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12),
+    0 2px 4px -1px rgba(0, 0, 0, 0.3);
+}
+
+.Attributes > .Colors > .ColorItem > div,
+.Attributes > .Colors > .Selected > div {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+}
+
+.Attributes > .Sizes > .SizeItem,
+.Attributes > .Sizes > .Selected {
+  border: 1px solid #2224;
+  width: 64px;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 2px;
+}
+
+.In {
+  animation: in cubic-bezier(0.755, 0.05, 0.855, 0.06) .5s forwards;
+}
+
+.Out {
+  animation: out cubic-bezier(0.23, 1, 0.320, 1) .5s backwards;
+}
+
+.FadeIn {
+  animation: fadeIn cubic-bezier(0.755, 0.05, 0.855, 0.06) .5s forwards;
+}
+
+.FadeOut {
+  animation: fadeOut cubic-bezier(0.23, 1, 0.320, 1) .5s backwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(.1)
+  }
+  50% {
+    transform: scale(1)
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(.1);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(1)
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes out {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

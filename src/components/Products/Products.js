@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import * as actions from '../../store/actions';
 import Btn from '../UI/Btn/Btn';
 import BtnIcon from '../UI/Btn/BtnIcon';
-import Loading from '../UI/Loading/Loading';
+import { Loading } from '../UI/Loading/Loading';
 import IconF from '../UI/Icons/IconF';
 import ProductsHeader from './ProductsHeader/ProductsHeader';
 import ProductsFooter from './ProductsFooter/ProductsFooter';
@@ -50,7 +50,7 @@ const Products = props => {
           <Btn
             btnType="contained"
             btnColor="primary"
-            clicked={e => props.productDetail(e, product.product_id)}>
+            clicked={() => props.productDetail(product)}>
             quick view
           </Btn>
         </div>

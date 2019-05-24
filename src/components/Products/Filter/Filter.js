@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import * as actions from '../../../store/actions';
-import { updateObject } from '../../../share/utility';
 import { FilterDep, FilterCat } from './FilterConditionals';
 import IconM from '../../UI/Icons/IconM';
 import { Checkbox, FormControl, FormGroup, FormControlLabel, FormLabel } from '@material-ui/core';
@@ -10,77 +9,39 @@ import { Checkbox, FormControl, FormGroup, FormControlLabel, FormLabel } from '@
 import css from './Filter.css';
 
 const Filter = props => {
-  const [categories, setCategories] = useState({
-    French: false,
-    Italian: false,
-    Irish: false,
-    Animal: false,
-    Flower: false,
-    Christmas: false,
-    Valentines: false
-  });
-  const [departments, setDepartments] = useState({
-    Regional: false,
-    Nature: false,
-    Seasonal: false
-  });
-    
-  useEffect(() => {
-  }, []);
-
   const changeDepHandler = department => e => {
-    setDepartments(updateObject(departments, {
-      [department]: e.target.checked
-    }));
-    
-    if (departments)
-      props.onFetchDepartmentId(
-        props.filterDep.find(id => id.name === e.target.value).department_id,
-        props.filterDep.find(id => id.name === e.target.value)
-      )
-    /* else
-      props.onFetchDepartmentId(
-        null,
-        props.filterDep.find(id => id.name === e.target.value).pop()
-      ) */
-
-    getUnique(props.department, 'department_id')
+    props.onFetchDepartmentId(
+      props.filterDep.find(id => id.name === e.target.value).department_id,
+      props.filterDep.find(id => id.name === e.target.value)
+    )
   }
 
   const changeCatHandler = category => e => {
-    setCategories(updateObject(categories, {
-      [category]: e.target.checked
-    }))
+    props.onFetchCategoryId(
+      props.filterCat.find(id => id.name === e.target.value).category_id,
+      props.filterCat.find(id => id.name === e.target.value)
+    )
   }
-
-  const getUnique = (arr, comp) => {
-    const unique = arr.map(e => e[comp])
-      .map((e, i, final) => final.indexOf(e) === i && i)
-      .filter(e => arr[e]).map(e => arr[e]);
-
-    return unique;
-  }
-
-  console.log()
+  
 
   return (
     <div className={css.Filter}>
       <div className={css.FilterHead}>
         <h5>Filter {props.count} items</h5>
         <ul>
-          { categories.Animal || categories.Christmas || categories.Flower || categories.French ||
-            categories.Irish || categories.Italian || categories.Valentines ?
+          { props.hasValueCat.Animal || props.hasValueCat.Christmas || props.hasValueCat.Flower || props.hasValueCat.French ||
+            props.hasValueCat.Irish || props.hasValueCat.Italian || props.hasValueCat["Valentine's"] ?
             <li>
               <IconM icon="clear" 
                 clicked={props.clear} />
-              <FilterCat categories={categories} />
+              <FilterCat categories={props.hasValueCat} />
             </li> : null }
           
-          { departments.Regional || departments.Nature || departments.Seasonal ? 
+          { props.hasValueDep.Regional || props.hasValueDep.Nature || props.hasValueDep.Seasonal ? 
             <li>
               <IconM icon="clear" 
                 clicked={props.clear} />
-              <FilterDep departments={departments} />
+              <FilterDep departments={props.hasValueDep} />
             </li> : null }
         </ul>
       </div>
@@ -92,7 +53,7 @@ const Filter = props => {
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={departments.Regional} 
+                  checked={props.hasValueDep.Regional} 
                   onChange={changeDepHandler("Regional")}
                   value="Regional" />
               }
@@ -100,7 +61,7 @@ const Filter = props => {
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={departments.Nature}
+                  checked={props.hasValueDep.Nature}
                   onChange={changeDepHandler("Nature")}
                   value="Nature" />
               }
@@ -108,7 +69,7 @@ const Filter = props => {
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={departments.Seasonal}
+                  checked={props.hasValueDep.Seasonal}
                   onChange={changeDepHandler("Seasonal")}
                   value="Seasonal" />
               }
@@ -120,7 +81,7 @@ const Filter = props => {
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={categories.Animal} 
+                  checked={props.hasValueCat.Animal} 
                   onChange={changeCatHandler("Animal")}
                   value="Animal" />
               }
@@ -128,7 +89,7 @@ const Filter = props => {
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={categories.Christmas}
+                  checked={props.hasValueCat.Christmas}
                   onChange={changeCatHandler("Christmas")}
                   value="Christmas" />
               }
@@ -136,7 +97,7 @@ const Filter = props => {
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={categories.Flower}
+                  checked={props.hasValueCat.Flower}
                   onChange={changeCatHandler("Flower")}
                   value="Flower" />
               }
@@ -144,7 +105,7 @@ const Filter = props => {
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={categories.French}
+                  checked={props.hasValueCat.French}
                   onChange={changeCatHandler("French")}
                   value="French" />
               }
@@ -152,7 +113,7 @@ const Filter = props => {
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={categories.Italian} 
+                  checked={props.hasValueCat.Italian} 
                   onChange={changeCatHandler("Italian")}
                   value="Italian" />
               }
@@ -160,7 +121,7 @@ const Filter = props => {
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={categories.Irish}
+                  checked={props.hasValueCat.Irish}
                   onChange={changeCatHandler("Irish")}
                   value="Irish" />
               }
@@ -168,9 +129,9 @@ const Filter = props => {
           <FormControlLabel 
             control={
               <Checkbox 
-                checked={categories.Valentines}
-                onChange={changeCatHandler("Valentines")}
-                value="Valentines" />
+                checked={props.hasValueCat["Valentine's"]}
+                onChange={changeCatHandler("Valentine's")}
+                value="Valentine's" />
             }
             label="Valentine's" />
           </FormGroup>
@@ -183,13 +144,18 @@ const Filter = props => {
 const mapStateToProps = state => {
   return {
     department: state.departments.department,
-    departmentId: state.departments.departmentId
+    departmentId: state.departments.departmentId,
+    hasValueDep: state.departments.hasValue,
+    hasValueCat: state.categories.hasValue,
+    category: state.categories.category,
+    categoryId: state.categories.categoryId
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchDepartmentId: departmentId => dispatch(actions.fetchDepartmentsId(departmentId))
+    onFetchDepartmentId: (departmentId, department) => dispatch(actions.fetchDepartmentsId(departmentId, department)),
+    onFetchCategoryId: (categoryId, categories) => dispatch(actions.fetchCategoryId(categoryId, categories))
   }
 }
 

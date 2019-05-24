@@ -70,15 +70,22 @@ export const attributeValues = (sizeVal, colorVal) => {
     colorVal: colorVal
   }
 }
+export const attributesInProduct = productId => {
+  return {
+    type: actionTypes.ATTRIBUTES_IN_PRODUCT,
+    productId: productId
+  }
+}
 export const attributeInProductStart = () => {
   return {
     type: actionTypes.ATTRIBUTES_IN_PRODUCT_START
   }
 }
-export const attributeInProductSuccess = productId => {
+export const attributeInProductSuccess = (productId, productAttributes) => {
   return {
     type: actionTypes.ATTRIBUTES_IN_PRODUCT_SUCCESS,
-    productID: productId
+    productID: productId,
+    productAttributes: productAttributes
   }
 }
 export const attributeInProductFail = error => {

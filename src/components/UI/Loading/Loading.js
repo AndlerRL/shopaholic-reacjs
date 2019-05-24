@@ -2,11 +2,18 @@ import React from 'react';
 
 import css from './Loading.css';
 
-const loading = () => (
+export const Loading = () => (
   <div className={css.LdsCircle}>
     <div></div>
     <span>Loading</span>
   </div>
 );
 
-export default loading;
+export const LoadingText = () => (
+  <div className={css.LdsEllipsis}>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+)

@@ -20,11 +20,16 @@ const initState = {
   count: null,
   products: [],
   reviews: [],
+  reviewData: {
+    product_id: null,
+    review: '',
+    rating: 0
+  },
+  productData: [],
+  productLocation: [],
   productId: null,
   departmentId: null,
   categoryId: null,
-  review: '',
-  rating: null
 }
 
 const start = (state, action) => {
@@ -104,18 +109,20 @@ const productId = (state, action) => {
     productId: action.productId
   })
 };
-const productDetailId = (state, action) => {
+const productDetail = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    productId: action.productId
+    productId: action.productId,
+    productData: action.productData
   })
 };
-const productIdLocation = (state, action) => {
+const productLocation = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    productId: action.productId
+    productId: action.productId,
+    productLocation: action.productLocation
   })
 };
 const productInDepartment = (state, action) => {
@@ -143,7 +150,8 @@ const fetchReviews = (state, action) => {
   })
 };
 const postReview = (state, action) => {
-  const newPost = updateObject(action.reviews, {
+  const newPost = updateObject(state.reviewData, {
+    product_id: action.productId,
     review: action.review,
     rating: action.rating
   })
@@ -151,7 +159,7 @@ const postReview = (state, action) => {
     isLoading: null,
     error: null,
     productId: action.productId,
-    reviews: state.reviews.concat(newPost)
+    reviews: state.reviews.unshift(newPost)
   })
 }
 
@@ -169,11 +177,11 @@ const reducer = (state = initState, action) => {
       return productId(state, action);
     case actionTypes.PRODUCTS_ID_FAIL:
       return fail(state, action);
-    case actionTypes.PRODUCTS_ID_DETAILS_START:
+    case actionTypes.PRODUCT_DETAILS_START:
       return start(state, action);
-    case actionTypes.PRODUCTS_ID_DETAILS_SUCCESS:
-      return productDetailId(state, action);
-    case actionTypes.PRODUCTS_ID_DETAILS_FAIL:
+    case actionTypes.PRODUCT_DETAILS_SUCCESS:
+      return productDetail(state, action);
+    case actionTypes.PRODUCT_DETAILS_FAIL:
       return fail(state, action);
     case actionTypes.PRODUCTS_IN_CATEGORY_START:
       return start(state, action);
@@ -205,10 +213,12 @@ const reducer = (state = initState, action) => {
       return productsSearch(state, action);
     case actionTypes.PRODUCTS_SEARCH_FAIL:
       return fail(state, action);
-    case actionTypes.PRODUCTS_ID_LOCATIONS_START:
+    case actionTypes.PRODUCT_LOCATION_START:
       return start(state, action);
-    case actionTypes.PRODUCTS_ID_LOCATIONS_SUCCESS:
-      return productIdLocation(state, action);
+    case actionTypes.PRODUCT_LOCATION_SUCCESS:
+      return productLocation(state, action);
+    case actionTypes.PRODUCT_LOCATION_FAIL:
+      return fail(state, action);
     case actionTypes.PRODUCTS_NEXT_START:
       return start(state, action);
     case actionTypes.PRODUCTS_NEXT_SUCCESS: 

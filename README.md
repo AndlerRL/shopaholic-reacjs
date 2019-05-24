@@ -46,6 +46,20 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v0.5.73]`__
+
+Added many functionalities for the WebApp, such as:
+  
+* Created sagas for the Categories actions & fetching.
+* Created sagas for the Departments actions & fetching.
+* Created sagas for the Attributes actions & fetching.
+* Created sagas for the Product Detail actions & fetching.
+* Half way! on Product Detail UI/UX.
+* Added localStorage to the project, so customer have more interaction with the app.
+* localStorage saves only ids for the various fetching that require such information in order to work after refresh on a section that did not had any routing.
+
+Product detail UI/UX is half way, but internally is practically completed. time to time will add even more Sagas––Woof, too much to add! Getting anxious to buy a t-shirt already!
+
 __`[v0.4.91]`__
 
 Filter half way! Added different filters, such as categories and departments. now still working on that and later will implement price range and search.

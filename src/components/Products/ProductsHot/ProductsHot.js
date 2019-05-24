@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { useState } from 'react';
 
-import Loading from '../../UI/Loading/Loading';
+import { Loading } from '../../UI/Loading/Loading';
 import IconF from '../../UI/Icons/IconF';
 import Btn from '../../UI/Btn/Btn';
 import { FormControl, InputLabel, Select, OutlinedInput, MenuItem } from '@material-ui/core';
@@ -10,18 +10,18 @@ import css from './ProductsHot.css';
 
 const ProductsHot = props => {
   const [isHover, setIsHover] = useState(false);
-  const [isSize, setIsSize] = useState('');
+  const [isSize, setIsSize] = useState({
+    size: ''
+  });
 
   const heartHandler = () => {
     setIsHover(!isHover);
   }
 
-  const handleChange = e => {
-    // IF MATERIAL UI DOCS CAN DO IT! YOU CAN!!! 
-    // what I intent to do...
-    // this.setState({ [e.target.name]: e.target.value });
-    // How does it works with Class based components??
-    setIsSize(e.target.value);
+  const handleChange = product => e => {
+    setIsSize({
+      [e.target.name]: e.target.value
+    });
   }
 
   const colors = props.colorsAttr.map(color => (
@@ -61,14 +61,17 @@ const ProductsHot = props => {
                     Size
                   </InputLabel>
                   <Select
-                    value={isSize}
-                    onChange={handleChange}
+                    value={isSize.size}
+                    onChange={handleChange(product)}
                     input={
                       <OutlinedInput
                         labelWidth={80}
                         name="size"
                         id="size-value" />
-                    }>
+                    }
+                    inputProps={{
+                      name: 'size'
+                    }}>
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
@@ -79,7 +82,8 @@ const ProductsHot = props => {
               <Btn
                 btnType="contained"
                 btnColor="primary"
-                clicked={e => props.productDetail(e, product.product_id)}>
+                value={product.product_id}
+                clicked={() => props.productDetail(product)}>
                 quick view
               </Btn>
             </div>
@@ -141,36 +145,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(ProductsHot);
-
-
-/* 
-<FormControl variant="outlined" className={classes.formControl}>
-  <InputLabel
-    ref={ref => {
-      this.InputLabelRef = ref;
-    }}
-    htmlFor="outlined-age-simple"
-  >
-    Age
-  </InputLabel>
-  <Select
-    value={this.state.age}
-    onChange={this.handleChange}
-    input={
-      <OutlinedInput
-        labelWidth={this.state.labelWidth}
-        name="age"
-        id="outlined-age-simple"
-      />
-    }
-  >
-    <MenuItem value="">
-      <em>None</em>
-    </MenuItem>
-    <MenuItem value={10}>Ten</MenuItem>
-    <MenuItem value={20}>Twenty</MenuItem>
-    <MenuItem value={30}>Thirty</MenuItem>
-  </Select>
-</FormControl>
-
-*/

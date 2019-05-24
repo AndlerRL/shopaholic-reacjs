@@ -23,16 +23,12 @@ export const fetchDepartments = departments => {
     departments: departments
   }
 }
-export const departmentsIdStart = () => {
-  return {
-    type: actionTypes.DEPARTMENTS_BY_ID_START
-  }
-}
-export const departmentsIdSuccess = (departmentId, department) => {
+export const departmentsIdSuccess = (departmentId, department, name) => {
   return {
     type: actionTypes.DEPARTMENTS_BY_ID_SUCCESS,
     departmentId: departmentId,
-    department: department
+    department: department,
+    name: name
   }
 }
 export const departmentsIdFail = error => {

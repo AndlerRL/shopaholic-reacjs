@@ -47,7 +47,7 @@ export const FilterCat = props => {
     filter.push('Christmas')
   }
   
-  if (props.categories.Valentines) {
+  if (props.categories["Valentine's"]) {
     filter.push("Valentine's")
   }
 

@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { checkValidity, updateObject } from '../../../share/utility';
 import Modal from '../../../components/UI/Modal/Modal';
 import Input from '../../../components/UI/Form/Input/Input';
-import Loading from '../../../components/UI/Loading/Loading';
+import { Loading } from '../../../components/UI/Loading/Loading';
 import Btn from '../../../components/UI/Btn/Btn';
 
 import css from '../Auth.css';

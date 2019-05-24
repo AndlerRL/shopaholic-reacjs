@@ -7,12 +7,11 @@ export function* fetchAttributesSaga(action) {
   yield put(actions.attributesStart())
   try {
     const response = yield Axios.get('/attributes')
-    //console.log(response.data)
     const attributes = []
     for (let key in response.data) {
       attributes.push(response.data[key])
     }
-    //console.log('ATTRIBUTES ', attributes);
+
     action.size = attributes[0];
     action.color = attributes[1];
     yield localStorage.setItem('sizeVal', action.size.attribute_id);
@@ -20,8 +19,6 @@ export function* fetchAttributesSaga(action) {
     yield put(actions.attributeSuccess(attributes[0], attributes[1]))
     yield put(actions.attributeIdSuccess(action.size.attribute_id, action.color.attribute_id))
     
-    //console.log('SIZE ', action.size)
-    //console.log('COLOR ', action.color)
   } catch(error) {
     console.log(error);
     yield put(actions.attributeFail(error));
@@ -43,6 +40,15 @@ export function* fetchAttributesValuesSaga(action) {
   }
 }
 
-export function* updateAttributeIdSaga(action) {
-  
+export function* attributesInProductSaga(action) {
+  yield put(actions.attributeInProductStart())
+
+  try { 
+    const response = yield Axios.get(`/attributes/inProduct/${action.productId}`)
+
+    yield put(actions.attributeInProductSuccess(action.productId, response.data))
+  } catch(error) {
+    console.log(error)
+    yield put(actions.attributeInProductFail(error));
+  }
 }

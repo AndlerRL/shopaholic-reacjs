@@ -17,15 +17,11 @@ export function* fetchDepartmentsSaga(action) {
 }
 
 export function* fetchDepartmentIdSaga(action) {
-  yield put(actions.departmentsIdStart())
-
   try {
     const response = yield Axios.get(`/departments/${action.departmentId}`)
-    //console.log('Fetched ID DEPARTMENT', response)
-    console.log('action.departmentId ', action.departmentId)
-    console.log('action.department ', action.department)
+    //console.log('action.departmentId ', action.departmentId)
 
-    yield put(actions.departmentsIdSuccess(action.departmentId, response.data))
+    yield put(actions.departmentsIdSuccess(action.departmentId, response.data, response.data.name))
   } catch(error) {
     console.log(error);
     yield put(actions.departmentsIdFail(error));

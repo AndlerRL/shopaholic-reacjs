@@ -10,6 +10,7 @@ const btn = props => (
     size={props.size}
     onClick={props.clicked}
     disabled={props.disabled}
+    value={props.value}
     className={[
       css.Btn, 
       props.btnColor === 'primary' ? css.Primary : null,

@@ -118,37 +118,52 @@ export const productsIdFail = error => {
     error: error
   }
 }
-export const productsIdDetailStart = () => {
+export const productDetailStart = () => {
   return {
-    type: actionTypes.PRODUCTS_ID_DETAILS_START
+    type: actionTypes.PRODUCT_DETAILS_START
   }
 }
-export const productsIdDetailSuccess = productId => {
+export const productDetailSuccess = (productId, productData) => {
   return {
-    type: actionTypes.PRODUCTS_ID_DETAILS_SUCCESS,
-    productId: productId
+    type: actionTypes.PRODUCT_DETAILS_SUCCESS,
+    productId: productId,
+    productData: productData
   }
 }
-export const productsIdDetailFail = error => {
+export const productDetailFail = error => {
   return {
-    type: actionTypes.PRODUCTS_ID_DETAILS_FAIL,
+    type: actionTypes.PRODUCT_DETAILS_FAIL,
     error: error
   }
 }
-export const productsIdLocationsStart = () => {
+export const fetchProductDetail = (productId, productData) => {
   return {
-    type: actionTypes.PRODUCTS_ID_LOCATIONS_START
+    type: actionTypes.FETCH_PRODUCT_DETAIL,
+    productId: productId,
+    productData: productData
   }
 }
-export const productsIdLocationsSuccess = productId => {
+export const fetchProductLocation = productId => {
   return {
-    type: actionTypes.PRODUCTS_ID_LOCATIONS_SUCCESS,
+    type: actionTypes.FETCH_PRODUCT_LOCATION,
     productId: productId
   }
 }
-export const productsIdLocationsFail = error => {
+export const productLocationStart = () => {
   return {
-    type: actionTypes.PRODUCTS_ID_LOCATIONS_FAIL,
+    type: actionTypes.PRODUCT_LOCATION_START
+  }
+}
+export const productLocationSuccess = (productId, productLocation) => {
+  return {
+    type: actionTypes.PRODUCT_LOCATION_SUCCESS,
+    productId: productId,
+    productLocation: productLocation
+  }
+}
+export const productLocationFail = error => {
+  return {
+    type: actionTypes.PRODUCT_LOCATION_FAIL,
     error: error
   }
 }
@@ -206,18 +221,22 @@ export const fetchReviewsFail = error => {
     error: error
   }
 }
+export const postReview = (productId, reviewData) => {
+  return {
+    productId: productId,
+    reviewData: reviewData
+  }
+}
 export const postReviewStart = () => {
   return {
     type: actionTypes.POST_PRODUCT_REVIEW_START
   }
 }
-export const postReviewSuccess = (productId, review, rating, reviews) => {
+export const postReviewSuccess = (productId, reviewData) => {
   return {
     type: actionTypes.POST_PRODUCT_REVIEW_SUCCESS,
     productId: productId,
-    review: review,
-    rating: rating,
-    reviews: reviews
+    reviewData: reviewData
   }
 }
 export const postReviewFail = error => {

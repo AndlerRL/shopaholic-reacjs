@@ -4,6 +4,11 @@ import * as actionTypes from '../actions/actionTypes';
 const initState = {
   isLoading: null,
   error: null,
+  hasValue: {
+    Regional: false,
+    Nature: false,
+    Seasonal: false
+  },
   departments: [],
   department: [],
   departmentId: null
@@ -29,13 +34,19 @@ const fetchDepartments = (state, action) => {
   })
 }
 const departmentIdSuccess = (state, action) => {
+  const hasValue = updateObject(state.hasValue, {
+    [action.name]: !state.hasValue[action.name],
+  });
+
   return updateObject(state, {
-    isLoading: null,
     error: null,
-    departmentId: updateObject(state.departmentId, {
-      [action.departmentId]: state.departmentId
-    }),
-    department: state.department.concat(action.department)
+    departmentId: action.departmentId,
+    department: hasValue[action.name] ? 
+      state.department.concat(action.department) :
+      state.department.length && hasValue[action.name] ?
+        state.department.concat(action.department) : 
+        state.department.filter(id => id.department_id !== action.departmentId),
+    hasValue: hasValue
   })
 };
 
@@ -47,8 +58,6 @@ const reducer = (state = initState, action) => {
       return fetchDepartments(state, action);
     case actionTypes.DEPARTMENTS_FAILED:
       return fail(state, action);
-    case actionTypes.DEPARTMENTS_BY_ID_START:
-      return start(state, action);
     case actionTypes.DEPARTMENTS_BY_ID_SUCCESS:
       return departmentIdSuccess(state, action);
     case actionTypes.DEPARTMENTS_BY_ID_FAIL:
