@@ -109,9 +109,11 @@ export {
   productsInDepartmentStart,
   productsInDepartmentSuccess,
   productsInDepartmentFail,
+  fetchReviews,
   fetchReviewsStart,
   fetchReviewsSuccess,
   fetchReviewsFail,
+  postReview,
   postReviewStart,
   postReviewSuccess,
   postReviewFail

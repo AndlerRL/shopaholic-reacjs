@@ -19,7 +19,8 @@ const btnIcon = props => (
     <IconF 
       size={props.iconSize}
       icon={props.icon}
-      type={props.iconType} />
+      type={props.iconType}
+      color={props.iconColor} />
     {props.children}
   </Button>
 );

@@ -1,9 +1,8 @@
 .ProductDetail {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 32px;
   margin: 32px;
   width: calc(100% - 64px);
   min-height: 100vh;
@@ -20,45 +19,71 @@
   display: flex;
   flex-direction: row;
   align-content: space-between;
+  padding: 32px;
 }
 
 .ProductImg {
-  width: 400px;
-  height: 532px;
+  width: 450px;
+  height: 700px;
+  padding: 16px;
   transition: all ease-in-out 1s;
 }
 
+.ProductImg > .ImgContainer {
+  width: 100%;
+  min-height: 530px;
+  max-height: 530px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto 0;
+  border: 1px solid #2222;
+  background-color: #f5f5f5;
+  border-radius: 2px;
+  box-shadow: 0 3px 3px 0 rgba(125, 125, 125, 0.14), 
+    0 1px 7px 0 rgba(125, 125, 125, 0.12), 
+    0 3px 1px -1px rgba(125, 125, 125, 0.2);
+}
+
 .ActiveImg {
-  width: calc(100% - 32px);
-  height: 384px;
-  margin: 16px 16px;
-  transition: all ease-in-out 1s;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 
-    0 3px 1px -2px rgba(0, 0, 0, 0.12),
-    0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: auto;
+  margin: auto 0;
+  transition: all ease-in-out 1s; 
 }
 
 .InactiveImg {
   display: flex;
-  height: 125px;
+  height: 200px;
   width: 100%;
   margin: auto;
   align-items: center;
   justify-content: space-around;
 }
 
-.InactiveImg > .ActiveImgThumb {
-  border: 1px solid #ff1744;
-}
-
-.InactiveImg > img {
-  height: 100px;
-  width: 100px;
+.InactiveImg > .ImgContainer {
+  width: 125px;
+  height: 125px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #2222;
+  border-radius: 2px;
+  background-color: #f5f5f5;
+  box-shadow: 0 3px 3px 0 rgba(125, 125, 125, 0.14), 
+    0 1px 7px 0 rgba(125, 125, 125, 0.12), 
+    0 3px 1px -1px rgba(125, 125, 125, 0.2);
   opacity: 1;
   transition: all ease-in-out 1s;
 }
 
-.InactiveImg > img:last-child {
+.ImgContainer > .ActiveImgThumb {
+  height: 100%;
+  border: 1px solid #ff1744;
+}
+
+.InactiveImg > .ImgContainer:last-child > img {
+  height: 100%;
   cursor: pointer;
 }
 
@@ -124,7 +149,6 @@
 
 .Price > span {
   font-size: 2.1rem;
-  font-family: 'Tajawal', sans-serif;
   color: #ff1744;
   font-weight: 500;
 }
@@ -185,23 +209,32 @@
 .Attributes > .Colors > .ColorItem:hover,
 .Attributes > .Sizes > .SizeItem:hover {
   background-color: #eeeeee;
-  transform: scale(1.1);
-  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14),
-    0 1px 7px 0 rgba(0, 0, 0, 0.12), 
-    0 3px 1px -1px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  box-shadow: 0 3px 3px 0 rgba(75, 75, 75, 0.14),
+    0 1px 7px 0 rgba(75, 75, 75, 0.12), 
+    0 3px 1px -1px rgba(75, 75, 75, 0.2);
 }
 
 .Attributes > .Colors > .ColorItem,
 .Attributes > .Colors > .Selected {
-  border: 1px solid #2224;
+  border: 1px solid #2222;
   border-radius: 50%;
 }
 
 .Attributes > .Colors > .Selected {
-  transform: scale(1.1);
-  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
-    0 1px 10px 0 rgba(0, 0, 0, 0.12),
-    0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+  box-shadow: 0 4px 5px 0 rgba(75, 75, 75, 0.14),
+    0 1px 10px 0 rgba(75, 75, 75, 0.12),
+    0 2px 4px -1px rgba(75, 75, 75, 0.3);
+}
+
+.Attributes > .Sizes > .Selected {
+  transform: scale(1.05);
+  box-shadow: 0 4px 5px 0 rgba(75, 75, 75, 0.14),
+    0 1px 10px 0 rgba(75, 75, 75, 0.12),
+    0 2px 4px -1px rgba(75, 75, 75, 0.3);
+    background-color: #ff1744;
+    color: #f5f5f5;
 }
 
 .Attributes > .Colors > .ColorItem > div,
@@ -213,13 +246,170 @@
 
 .Attributes > .Sizes > .SizeItem,
 .Attributes > .Sizes > .Selected {
-  border: 1px solid #2224;
+  border: 1px solid #2222;
   width: 64px;
+  padding: 6px;
   text-align: center;
   font-weight: 500;
   border-radius: 2px;
 }
 
+.Quantity {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 250px;
+  margin: 2rem;
+  font-size: 1.5rem;
+}
+
+.QuantityContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.QuantityContainer > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(.5);
+}
+
+.QuantityContainer > div button {
+  height: 64px !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.QuantityContainer > span {
+  width: 100px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  text-align: center;
+  border-radius: 30px;
+  background-color: #f5f5f5;
+  border: 1px solid #2222;
+}
+
+.Actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem;
+  width: 100%;
+}
+
+.Actions > .AddCart,
+.Actions > .AddFavorite {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45%;
+}
+
+.Actions > .AddCart > button {
+  padding: 12px !important;
+  font-size: 1.2rem !important;
+}
+
+.Actions > .AddFavorite > button {
+  padding: 0px !important;
+  font-size: 1rem !important;
+  color: #222 !important;
+}
+
+.Actions > .AddFavorite > button:hover,
+.Actions > .AddFavorite > button:active,
+.Actions > .AddFavorite > button:focus {
+  background-color: transparent !important;
+}
+
+
+
+.ProductReviews {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 64px;
+  height: 30rem;
+  width: 100%;
+  background-color: #f5f5f5;
+}
+
+.ProductReviews > .Reviews {
+  height: 20rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow-y: scroll;
+  border-bottom: 1px solid #2222;
+}
+
+.Reviews > .Review {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: calc(100% - 64px);
+  margin-bottom: 3rem;
+}
+
+.Reviews > div:last-child {
+  margin-bottom: 0;
+}
+
+.Reviews > .Review > .ReviewData,
+.Reviews > .Review > .Comment {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.Reviews > .Review > .ReviewData {
+  display: flex;
+  justify-content: space-around;
+  width: 32.5%;
+}
+
+.Reviews > .Review > .Comment {
+  width: 62.5%;
+  padding: 32px;
+}
+
+.Reviews > .Review > .Comment > p {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1.25rem;
+  width: 100%;
+  min-height: 2.5rem;
+}
+
+.Reviews > .Review > .Comment > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(.5);
+  width: 64px;
+  height: 64px;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+
+
+/* ANIMATIONS CLASSES */
 .In {
   animation: in cubic-bezier(0.755, 0.05, 0.855, 0.06) .5s forwards;
 }

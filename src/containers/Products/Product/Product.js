@@ -7,8 +7,7 @@ import { updateObject } from '../../../share/utility';
 import ProductDetail from '../../../components/Products/Product/Product';
 
 const Item = props => {
-  const [selected, setSelected] = useState(false);
-  const [attribute, setAttribute] = useState({
+  const [colorAttributes, setColorAttributes] = useState({
     White: false,
     Black: false,
     Red: false,
@@ -19,6 +18,15 @@ const Item = props => {
     Indigo: false,
     Purple: false
   });
+  const [sizeAttributes, setSizeAttributes] = useState({
+    S: false,
+    M: false,
+    L: false,
+    XL: false,
+    XXL: false
+  })
+  const [quantity, setQuantity] = useState(0);
+  const [addFav, setAddFav] = useState(false);
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -27,6 +35,7 @@ const Item = props => {
     props.onProductLocation(product_detail_id);
     props.onGetDetail(product_detail_id, props.productData);
     props.onProductAttributes(product_detail_id);
+    props.onFetchReviews(product_detail_id);
 
     if (product_detail_id === null) {
       props.history.replace('/products')
@@ -66,13 +75,31 @@ const Item = props => {
     }
   }
   const productAttributes = props.productAttributes.map(attr => attr);
-  const attrSelected = (attribute, id) => e => {
-    console.log(attribute)
-    console.log(id)
-    setSelected(!selected)
-    setAttribute({
-      [attribute]: selected
-    })
+  const attrSelected = (attribute, id) => () => {
+    if (attribute === 'White' || attribute === 'Black' || attribute === 'Red' ||
+    attribute === 'Orange' || attribute === 'Yellow' || attribute === 'Green' || 
+    attribute === 'Blue' || attribute === 'Purple' || attribute === 'Indigo') {
+      setColorAttributes({
+        [attribute]: !colorAttributes[attribute]
+      })
+    }
+
+    if (attribute === 'S' || attribute === 'M' || attribute === 'L' ||
+    attribute === 'XL' || attribute === 'XXL') {
+      setSizeAttributes({
+        [attribute]: !sizeAttributes[attribute]
+      })
+    }
+  }
+  const quantityAction = count => () => {
+    if (count === 'Add')
+      setQuantity(quantity + 1);
+    if (count === 'Reduce')
+      setQuantity(quantity - 1);
+  }
+  const fetchReviews = props.reviews.map(reviews => reviews);
+  const addWishList = () => {
+    setAddFav(!addFav);
   }
 
   return (
@@ -80,18 +107,25 @@ const Item = props => {
       product={productDetail}
       productLoc={productLocation}
       goTo={goToHandler}
-      attribute={attribute}
+      colorAttribute={colorAttributes}
+      sizeAttribute={sizeAttributes}
       attributeSelect={attrSelected}
-      productAttributes={productAttributes} />
+      productAttributes={productAttributes}
+      quantity={quantityAction}
+      count={quantity}
+      addFav={addFav}
+      addToFav={addWishList}
+      reviews={fetchReviews} />
   )
 };
 
 const mapStateToProps = state => {
   return {
+    reviews: state.products.reviews,
     productId: state.products.productId,
     productData: state.products.productData,
     productLocation: state.products.productLocation,
-    productAttributes: state.attributes.productAttributes
+    productAttributes: state.attributes.productAttributes,
   }
 }
 
@@ -99,7 +133,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onGetDetail: (productId, productDetail) => dispatch(actions.fetchProductDetail(productId, productDetail)),
     onProductLocation: productId => dispatch(actions.fetchProductLocation(productId)),
-    onProductAttributes: productId => dispatch(actions.attributesInProduct(productId))
+    onProductAttributes: productId => dispatch(actions.attributesInProduct(productId)),
+    onFetchReviews: productId => dispatch(actions.fetchReviews(productId))
   }
 }
 

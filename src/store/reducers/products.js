@@ -30,6 +30,7 @@ const initState = {
   productId: null,
   departmentId: null,
   categoryId: null,
+  averageStars: 0
 }
 
 const start = (state, action) => {
@@ -146,7 +147,8 @@ const fetchReviews = (state, action) => {
     isLoading: null,
     error: null,
     productId: action.productId,
-    reviews: action.reviews
+    reviews: action.reviews,
+    averageStars: action.averageStars
   })
 };
 const postReview = (state, action) => {

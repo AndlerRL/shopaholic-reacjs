@@ -203,16 +203,23 @@ export const productsInDepartmentFail = error => {
     error: error
   }
 }
+export const fetchReviews = productId => {
+  return {
+    type: actionTypes.FETCH_PRODUCT_REVIEWS,
+    productId: productId
+  }
+}
 export const fetchReviewsStart = () => {
   return {
     type: actionTypes.FETCH_PRODUCT_REVIEWS_START
   }
 }
-export const fetchReviewsSuccess = (productId, reviews) => {
+export const fetchReviewsSuccess = (productId, reviews, averageStars) => {
   return {
     type: actionTypes.FETCH_PRODUCT_REVIEWS_SUCCESS,
     productId: productId,
-    reviews: reviews
+    reviews: reviews,
+    averageStars: averageStars
   }
 }
 export const fetchReviewsFail = error => {

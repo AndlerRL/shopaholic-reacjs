@@ -1,0 +1,12 @@
+.StarsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100px;
+  transform: scale(.75);
+}
+.StarsContainer > div {
+  width: 3rem;
+  height: 3rem;
+}

@@ -46,6 +46,12 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v0.5.81]`__
+
+Working on Product Details –– Reviews:
+__Bug fix:__ There was an issue at the time to click the product attribute in order to proceed the order/add to shopping cart/add wish list, where when you clicked one, worked but when you selected another one, the first one returned to their base value. Now, it's fixed and is free to go! Just customer can click into one only attribute (can be 1 size and 1 colour, of course) of their choice and will update properly after fetching the rest of the Sagas/functions.
+__Bug:__ There is an issue fetching departments. Seems not updating properly after getting it on componentDidMount()/useEffect(). Will work on that soon.
+
 __`[v0.5.73]`__
 
 Added many functionalities for the WebApp, such as:

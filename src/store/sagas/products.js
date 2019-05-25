@@ -72,9 +72,18 @@ export function* productReviewsSaga(action) {
   yield put(actions.fetchReviewsStart())
 
   try {
+    let starCount = 0;
+    const starLength = [];
     const response = yield Axios.get(`/products/${action.productId}/reviews`);
+    
+    response.data.map(review => {
+      starCount += review.rating
+      starLength.push(review.rating)
+    });
+    
+    const averageStar = starCount / starLength.length;
 
-    yield put(actions.fetchReviewsSuccess(action.productId, response.data));
+    yield put(actions.fetchReviewsSuccess(action.productId, response.data, averageStar));
   } catch(error) {
     console.log(error);
     yield put(actions.fetchReviewsFail(error));
