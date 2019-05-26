@@ -37,12 +37,7 @@
   justify-content: center;
   align-items: center;
   margin: auto 0;
-  border: 1px solid #2222;
-  background-color: #f5f5f5;
   border-radius: 2px;
-  box-shadow: 0 3px 3px 0 rgba(125, 125, 125, 0.14), 
-    0 1px 7px 0 rgba(125, 125, 125, 0.12), 
-    0 3px 1px -1px rgba(125, 125, 125, 0.2);
 }
 
 .ActiveImg {
@@ -309,7 +304,7 @@
 .Actions > .AddCart,
 .Actions > .AddFavorite {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 45%;
 }
@@ -317,12 +312,17 @@
 .Actions > .AddCart > button {
   padding: 12px !important;
   font-size: 1.2rem !important;
+  width: 200px;
 }
 
 .Actions > .AddFavorite > button {
   padding: 0px !important;
   font-size: 1rem !important;
   color: #222 !important;
+  width: 180px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .Actions > .AddFavorite > button:hover,
@@ -339,7 +339,7 @@
   justify-content: space-around;
   align-items: flex-start;
   padding: 64px;
-  height: 30rem;
+  height: 60rem;
   width: 100%;
   background-color: #f5f5f5;
 }
@@ -380,7 +380,14 @@
 .Reviews > .Review > .ReviewData {
   display: flex;
   justify-content: space-around;
+  align-items: flex-start;
   width: 32.5%;
+}
+
+.Reviews > .Review > .ReviewData > span {
+  transform: scale(.75);
+  width: 100%;
+  margin-left: -.8rem;
 }
 
 .Reviews > .Review > .Comment {
@@ -395,7 +402,7 @@
   min-height: 2.5rem;
 }
 
-.Reviews > .Review > .Comment > button {
+.Reviews > .Review > .Comment > div > button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -406,6 +413,93 @@
   padding: 0 !important;
   margin: 0 !important;
 }
+
+.Reviews > .Review > .Comment > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  letter-spacing: 1px;
+}
+
+.PostReview {
+  height: 30rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.PostReview > form {
+  width: calc(100% - 64px);
+  padding: 0 16px;
+}
+
+.PostReview > form > div:first-child {
+  height: 10rem;
+}
+
+.PostReview > form > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 5rem;
+}
+
+.PostReview > form > div:first-child > div > textarea,
+.PostReview > form > div:first-child > div {
+  height: 7rem;
+  margin-top: 0 !important; 
+}
+
+.PostReview > form > div:first-child > div > textarea {
+  padding: 8px !important;
+  background-color: #fff;
+}
+
+.PostReview > form > div > span {
+  width: 200px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-size: 1.33rem;
+  font-weight: 500;
+}
+
+.PostReview > form > div > div {
+  width: calc(100% - 200px);
+}
+
+.PostReview > form > button {
+  width: 125px;
+  margin: 1rem 0 0 0 !important;
+}
+
+.Rating {
+  position: absolute;
+  left: -470px;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+
+.Rating > span {
+  user-select: none;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.7rem;
+  margin: 0 .25rem;
+  color: #bdbdbd;
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s 150ms;
+}
+
+.Rating > span:hover:before,
+.Rating > span:hover ~ span:before {
+  content: "\2605";
+  position: absolute;
+  color: #ffea00;
+}
+
 
 
 

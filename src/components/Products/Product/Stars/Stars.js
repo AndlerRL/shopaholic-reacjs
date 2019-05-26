@@ -18,9 +18,8 @@ const Stars = props => {
       { emptyStar }
     </div>
   )
-    
 
-  if (props.stars > 0.00 && props.stars < 0.51)
+  if (props.stars >= 0.01 && props.stars <= 0.51)
     stars = (
       <div className={css.StarsContainer}>
         { halfFilledStar }
@@ -31,7 +30,7 @@ const Stars = props => {
       </div>
     );
 
-  if (props.stars > 0.52 && props.stars < 1)
+  if (props.stars >= 0.52 && props.stars <= 1)
     stars = (
       <div className={css.StarsContainer}>
         { filledStar }
@@ -42,7 +41,7 @@ const Stars = props => {
       </div>
     );
 
-  if (props.stars > 1.01 && props.stars < 1.51)
+  if (props.stars >= 1.01 && props.stars <= 1.51)
     stars = (
       <div className={css.StarsContainer}>
         { filledStar }
@@ -53,7 +52,7 @@ const Stars = props => {
       </div>
     )
 
-  if (props.stars > 1.52 && props.stars < 2)
+  if (props.stars >= 1.52 && props.stars <= 2)
     stars = (
       <div className={css.StarsContainer}>
         { filledStar }
@@ -64,7 +63,7 @@ const Stars = props => {
       </div>
     )
 
-  if (props.stars > 2.01 && props.stars < 2.51)
+  if (props.stars >= 2.01 && props.stars <= 2.51)
     stars = (
       <div className={css.StarsContainer}>
         { filledStar }
@@ -75,7 +74,7 @@ const Stars = props => {
       </div>
     )
 
-  if (props.stars > 2.52 && props.stars < 3)
+  if (props.stars >= 2.52 && props.stars <= 3)
     stars = (
       <div className={css.StarsContainer}>
         { filledStar }
@@ -86,7 +85,7 @@ const Stars = props => {
       </div>
     )
 
-  if (props.stars > 3.01 && props.stars < 3.51)
+  if (props.stars >= 3.01 && props.stars <= 3.51)
     stars = (
       <div className={css.StarsContainer}>
         { filledStar }
@@ -97,7 +96,7 @@ const Stars = props => {
       </div>
     )
 
-  if (props.stars > 3.52 && props.stars < 4)
+  if (props.stars >= 3.52 && props.stars <= 4)
     stars = (
       <div className={css.StarsContainer}>
         { filledStar }
@@ -108,7 +107,7 @@ const Stars = props => {
       </div>
     )
 
-  if (props.stars > 4.01 && props.stars < 4.51)
+  if (props.stars >= 4.01 && props.stars <= 4.51)
     stars = (
       <div className={css.StarsContainer}>
         { filledStar }
@@ -119,7 +118,7 @@ const Stars = props => {
       </div>
     )
 
-  if (props.stars > 4.52 && props.stars <= 5)
+  if (props.stars >= 4.52 && props.stars <= 5)
     stars = (
       <div className={css.StarsContainer}>
         { filledStar }

@@ -1,16 +1,13 @@
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-
 import Btn from '../../UI/Btn/Btn';
 import BtnIcon from '../../UI/Btn/BtnIcon';
-import IconF from '../../UI/Icons/IconF';
-import IconM from '../../UI/Icons/IconM';
-import Stars from './Stars/Stars';
 import { Loading, LoadingText } from '../../UI/Loading/Loading';
+import css from './Product.css';
+import Stars from './Stars/Stars';
 
-import css from './Product.css'
-import { Scope } from '@babel/traverse';
+
 
 const ProductDetail = props => {
   const [animation, setAnimation] = useState(false);
@@ -193,7 +190,7 @@ const ProductDetail = props => {
                     btnColor="primary"
                     btnType="contained"
                     size="large"
-                    clicked={() => props.addCart(product.product_id)}>
+                    clicked={props.addCart}>
                     add to cart
                   </Btn>
                 </div>
@@ -205,7 +202,7 @@ const ProductDetail = props => {
                     iconSize="1.25rem"
                     iconColor="#ff1744"
                     clicked={props.addToFav}>
-                    { props.addFav ? 'On Wish List!' : 'Add to Wish List' }
+                    <span>{ props.addFav ? 'On Wish List!' : 'Add to Wish List' }</span>
                   </BtnIcon>
                 </div>
               </div>
@@ -262,13 +259,15 @@ const ProductDetail = props => {
           </div>
           <div className={css.Comment}>
             <p>{ reviews.review }</p>
-            <BtnIcon 
-              btnType="contained"
-              size="small"
-              iconType="far"
-              icon="heart"
-              iconSize="2rem"
-              iconColor="#ff1744" />
+            <div>
+              <BtnIcon 
+                btnType="contained"
+                size="small"
+                iconType="far"
+                icon="heart"
+                iconSize="2rem"
+                iconColor="#ff1744" /> { Math.floor(Math.random() * 300) + 3 }
+            </div>
           </div>
         </div>
       )
@@ -281,6 +280,47 @@ const ProductDetail = props => {
         <h4>Product Reviews</h4>
         <div className={css.Reviews}>
           { reviews }
+        </div>
+        <div className={css.PostReview}>
+          <h4>Add a Review</h4>
+          <form onSubmit={props.submit} id={props.form}>
+            <div>
+              <span>Your Review</span>
+              { props.review }
+            </div>
+            <div>
+              <span>Overall Rating</span>
+              <div className={css.Rating}>
+                <span onClick={props.rating(5)}
+                  style={{
+                    color: props.rated === 5 ? '#ffea00' : '#bdbdbd',
+                  }}>{ props.rated === 5 ? '★' : '☆' }</span>
+                <span onClick={props.rating(4)}
+                  style={{
+                    color: props.rated >= 4 ? '#ffea00' : '#bdbdbd',
+                  }}>{ props.rated >= 4 ? '★' : '☆' }</span>
+                <span onClick={props.rating(3)}
+                  style={{
+                    color: props.rated >= 3 ? '#ffea00' : '#bdbdbd',
+                  }}>{ props.rated >= 3 ? '★' : '☆' }</span>
+                <span onClick={props.rating(2)}
+                  style={{
+                    color: props.rated >= 2 ? '#ffea00' : '#bdbdbd',
+                  }}>{ props.rated >= 2 ? '★' : '☆' }</span>
+                <span onClick={props.rating(1)}
+                  style={{
+                    color: props.rated >= 1 ? '#ffea00' : '#bdbdbd',
+                  }}>{ props.rated >= 1 ? '★' : '☆' }</span>
+              </div>
+            </div>
+            <Btn
+              disabled={props.btnDisabled}
+              btnType="contained"
+              btnColor="primary"
+              size="medium">
+              Submit
+            </Btn>
+          </form>
         </div>
       </div>
     </div>

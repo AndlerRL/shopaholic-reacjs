@@ -10,10 +10,6 @@
   margin: 4.5rem auto 2rem !important;
 }
 
-.Input label[for="additionalInfo"] {
-  margin: 1rem 0 !important;
-}
-
 .Input input::placeholder,
 .Input select::placeholder,
 .Input textarea::placeholder {

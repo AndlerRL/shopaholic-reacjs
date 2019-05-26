@@ -1,5 +1,6 @@
 import { updateObject } from '../../share/utility';
 import * as actionTypes from '../actions/actionTypes';
+import { arrowFunctionExpression } from '@babel/types';
 
 const initState = {
   isLoading: null,
@@ -11,7 +12,8 @@ const initState = {
   shopping: false,
   quantity: 0,
   totalAmount: 0,
-  favorites: []
+  favorites: [],
+  productData: []
 }
 
 const start = (state, action) => {
@@ -23,6 +25,7 @@ const start = (state, action) => {
 const fail = (state, action) => {
   return updateObject(state, {
     isLoading: null,
+    shopping: false,
     error: action.error
   })
 };
@@ -37,9 +40,8 @@ const addProductToCart = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    cartId: action.generatedId,
-    productId: action.productId,
-    attributes: action.attributes
+    shopping: true,
+    productData: state.productData.concat(action.productData)
   })
 };
 const fetchShoppingCart = (state, action) => {

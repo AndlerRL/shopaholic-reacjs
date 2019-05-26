@@ -22,6 +22,16 @@ const input = props => {
       </div>
     )
 
+  if (props.invalid && props.touched && props.elementConfig.type === 'textarea')
+    validationError = (
+      <div className={css.ErrorMsg}>
+        <IconM size="tiny" icon="report" />
+        <span className={"helper-text"}>
+          [Reminder] {props.elementConfig.placeholder}
+        </span>
+      </div>
+    )
+
   if (props.invalid && props.touched && props.label === 'Confirm Password')
     validationError = (
       <div className={css.ErrorMsg}>

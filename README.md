@@ -46,6 +46,11 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v0.5.96]`__
+Working on Product Details –– Shopping Cart:
+Added more components to the review area and it's practically done, just Hot Products are mussing; There is a validation for the review min-length.
+Also started to create functions for the shopping cart sagas and will be more soon.
+
 __`[v0.5.81]`__
 
 Working on Product Details –– Reviews:

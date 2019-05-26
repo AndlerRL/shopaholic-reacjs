@@ -3,7 +3,8 @@ import { withRouter } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
 import * as actions from '../../../store/actions';
-import { updateObject } from '../../../share/utility';
+import { updateObject, checkValidity } from '../../../share/utility';
+import Input from '../../../components/UI/Form/Input/Input';
 import ProductDetail from '../../../components/Products/Product/Product';
 
 const Item = props => {
@@ -25,8 +26,30 @@ const Item = props => {
     XL: false,
     XXL: false
   })
+  const [productAttr, setProductAttr] = useState({
+    Color: "",
+    Size: ""
+  });
   const [quantity, setQuantity] = useState(0);
   const [addFav, setAddFav] = useState(false);
+  const [review, setReview] = useState({
+    review: {
+      elementType: 'textarea',
+      elementConfig: {
+        type: 'textarea',
+        placeholder: 'Review must be at least 50 characters.'
+      },
+      value: '',
+      validation: {
+        required: true,
+        valid: false,
+        touched: false,
+        minLength: 50
+      }
+    }
+  })
+  const [reviewIsValid, setReviewIsValid] = useState(false);
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -41,8 +64,11 @@ const Item = props => {
       props.history.replace('/products')
     }
   }, [])
+  
   const productDetail = props.productData.map(product => product);
+  
   const productLocation = props.productLocation.map(location => location);
+  
   const goToHandler = location => () => {
     if (location === 'Home')
       props.history.push('/')
@@ -74,13 +100,20 @@ const Item = props => {
       }
     }
   }
+  
   const productAttributes = props.productAttributes.map(attr => attr);
+  
   const attrSelected = (attribute, id) => () => {
     if (attribute === 'White' || attribute === 'Black' || attribute === 'Red' ||
     attribute === 'Orange' || attribute === 'Yellow' || attribute === 'Green' || 
     attribute === 'Blue' || attribute === 'Purple' || attribute === 'Indigo') {
       setColorAttributes({
         [attribute]: !colorAttributes[attribute]
+      })
+
+      setProductAttr({
+        ...productAttr,
+        Color: attribute
       })
     }
 
@@ -89,18 +122,128 @@ const Item = props => {
       setSizeAttributes({
         [attribute]: !sizeAttributes[attribute]
       })
+
+      setProductAttr({
+        ...productAttr,
+        Size: attribute
+      })
     }
   }
+  
   const quantityAction = count => () => {
     if (count === 'Add')
       setQuantity(quantity + 1);
     if (count === 'Reduce')
       setQuantity(quantity - 1);
   }
+  
   const fetchReviews = props.reviews.map(reviews => reviews);
-  const addWishList = () => {
-    setAddFav(!addFav);
+  
+  const addWishList = e => {
+    e.preventDefault();
+    
+    const productAdd = {
+      cart_id: props.cartId,
+      product_id: props.productId,
+      attributes: `${productAttr.Color}, ${productAttr.Size}`
+    };
+    
+    if (!addFav) {
+      setAddFav(true);
+      /* if (props.cartId.trim() === "")
+        props.onGenerateCartId()
+  
+      if (props.cartId.trim() !== "")
+        props.onAddProduct(productAdd)
+  
+      props.onSaveForLater(props.itemId) */
+    }
+
+    if (addFav) {
+      setAddFav(false);
+      /* props.onRemoveProduct(props.itemId) */
+    }
   }
+
+  const inputChangedHandler = (e, inputId) => {
+    let reviewIsValid = true;
+    const updatedFormEle = updateObject(review[inputId], {
+      value: e.target.value,
+      validation: {...review[inputId].validation,
+        valid: checkValidity(e.target.value, review[inputId].validation),
+        touched: true
+      }
+    })
+    const updatedReviewForm = updateObject(review, {
+      [inputId]: updatedFormEle
+    })
+
+    for (let inputIds in updatedReviewForm)
+      reviewIsValid = updatedReviewForm[inputIds].validation.valid && reviewIsValid;
+
+    setReview(updatedReviewForm);
+    setReviewIsValid(reviewIsValid);
+  }
+
+  const ratingProduct = rating => () => {
+    setRating(rating);
+  }
+
+  const addCartHandler = e => {
+    e.preventDefault()
+
+    if (props.cartId.trim() === "")
+      //props.onGenerateCartId()
+
+    if (props.cartId.trim() !== "") {
+      const productAdd = {
+        cart_id: props.cartId,
+        product_id: props.productId,
+        attributes: `${productAttr.Color}, ${productAttr.Size}`
+      };
+
+      //props.onAddProduct(productAdd);
+    }
+  }
+
+  const postReviewHandler = e => {
+    e.preventDefault();
+    const reviewData = {};
+
+    for (let reviewEleId in review)
+      reviewData[reviewEleId] = review[reviewEleId].value;
+
+    const post_review = {
+      product_id: props.productId,
+      review: reviewData,
+      rating: rating
+    }
+
+    //props.onPostReview(post_review);
+  }
+
+  const form = [];
+
+  for (let key in review) {
+    form.push({
+      id: key,
+      config: review[key]
+    })
+  }
+
+  const textarea = form.map(formEle => (
+    <Input 
+      invalid={!formEle.config.validation.valid}
+      shouldValidate={formEle.config.validation}
+      touched={formEle.config.validation.touched}
+      key={formEle.id}
+      elementType={formEle.config.elementType}
+      elementConfig={formEle.config.elementConfig}
+      value={formEle.config.value}
+      for={formEle.id}
+      changed={e => inputChangedHandler(e, formEle.id)}
+    />
+  ))
 
   return (
     <ProductDetail 
@@ -113,9 +256,16 @@ const Item = props => {
       productAttributes={productAttributes}
       quantity={quantityAction}
       count={quantity}
+      addCart={addCartHandler}
       addFav={addFav}
       addToFav={addWishList}
-      reviews={fetchReviews} />
+      reviews={fetchReviews}
+      review={textarea}
+      rating={ratingProduct}
+      rated={rating}
+      btnDisabled={!reviewIsValid}
+      form="Form"
+      submit={postReviewHandler} />
   )
 };
 

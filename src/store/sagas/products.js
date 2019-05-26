@@ -99,10 +99,10 @@ export function* postProductReviewSaga(action) {
       review: action.review,
       rating: action.rating
     }
-    const request = yield Axios.post(`/products/${action.productId}/reviews`, reviewData)
-    console.log('posted a Review ', request);
+    const response = yield Axios.post(`/products/${action.productId}/reviews`, reviewData)
+    console.log('posted a Review ', response);
 
-    yield put(actions.postReviewSuccess(action.productId, request.data));
+    yield put(actions.postReviewSuccess(action.productId, response.data));
   } catch(error) {
     console.log(error);
     yield put(actions.postReviewFail(error))
