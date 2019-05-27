@@ -15,7 +15,7 @@ const input = props => {
   if (props.invalid && props.touched)
     validationError = (
       <div className={css.ErrorMsg}>
-        <IconM size="tiny" icon="report" />
+        <IconM size="small" icon="report" />
         <span className={"helper-text"}>
           Please, enter a valid {props.label}.
         </span>
@@ -25,7 +25,7 @@ const input = props => {
   if (props.invalid && props.touched && props.elementConfig.type === 'textarea')
     validationError = (
       <div className={css.ErrorMsg}>
-        <IconM size="tiny" icon="report" />
+        <IconM size="small" icon="report" />
         <span className={"helper-text"}>
           [Reminder] {props.elementConfig.placeholder}
         </span>
@@ -35,7 +35,7 @@ const input = props => {
   if (props.invalid && props.touched && props.label === 'Confirm Password')
     validationError = (
       <div className={css.ErrorMsg}>
-        <IconM size="tiny" icon="report" />
+        <IconM size="small" icon="report" />
         <span className={"helper-text"}>
           Please, re-enter and confirm your Password.
         </span>

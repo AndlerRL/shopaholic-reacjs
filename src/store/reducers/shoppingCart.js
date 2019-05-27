@@ -1,19 +1,14 @@
 import { updateObject } from '../../share/utility';
 import * as actionTypes from '../actions/actionTypes';
-import { arrowFunctionExpression } from '@babel/types';
 
 const initState = {
   isLoading: null,
   error: null,
-  cartId: null,
-  itemId: null,
-  productId: null,
-  attributes: '',
-  shopping: false,
+  isShopping: false,
   quantity: 0,
   totalAmount: 0,
   favorites: [],
-  productData: []
+  productData: [],
 }
 
 const start = (state, action) => {
@@ -25,7 +20,7 @@ const start = (state, action) => {
 const fail = (state, action) => {
   return updateObject(state, {
     isLoading: null,
-    shopping: false,
+    isShopping: false,
     error: action.error
   })
 };
@@ -40,15 +35,15 @@ const addProductToCart = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    shopping: true,
-    productData: state.productData.concat(action.productData)
+    isShopping: true,
+    productData: action.productData
   })
 };
 const fetchShoppingCart = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    cartId: action.generatedId
+    productData: action.productData
   })
 };
 const addItem = (state, action) => {
@@ -57,7 +52,7 @@ const addItem = (state, action) => {
   const updateState = {
     quantity: updateItem,
     itemId: action.itemId,
-    shopping: true
+    isShopping: true
   }
   return updateObject(state, updateState);
 };
@@ -92,7 +87,6 @@ const moveToCart = (state, action) => {
 };
 const totalAmount = (state, action) => {
   return updateObject(state, {
-    cartId: action.generatedId,
     totalAmount: action.totalAmount
   })
 };

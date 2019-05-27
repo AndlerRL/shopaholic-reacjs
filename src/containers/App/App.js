@@ -1,8 +1,10 @@
+import { connect } from 'react-redux';
 import React, { Suspense } from 'react';
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import M from 'materialize-css';
 
+import * as actions from '../../store/actions';
 import Home from '../Home/Home';
 import Layout from '../Layout/Layout';
 import { Loading } from '../../components/UI/Loading/Loading';
@@ -26,24 +28,35 @@ const Checkout = React.lazy(() => {
   return import('../Checkout/Checkout');
 })
 
+const cart_id = JSON.parse(localStorage.getItem('cart_id'));
+
 class App extends React.Component {
   state = {
     isSignIn: false,
     isSignUp: false,
     isShoppingCart: false,
   }
-
+  
   componentDidMount () {
     M.AutoInit();
+    this.props.onFetchShoppingCart(cart_id);
+    this.props.onFetchTotalAmount();
   }
 
   componentDidUpdate () {
     const root = document.querySelector('#root');
+    const cart = document.querySelector('.ShoppingCart');
     if (this.state.isSignIn || this.state.isSignUp || this.state.isShoppingCart) {
       disableBodyScroll(root);
     } else {
       enableBodyScroll(root);
     }
+
+    if (this.state.isShoppingCart) {
+      enableBodyScroll(cart)
+    }
+
+    this.props.onFetchTotalAmount();
   }
 
   showSignInHandler = () => {
@@ -88,12 +101,17 @@ class App extends React.Component {
         <Redirect to="/" />
       </Switch>
     )
+
+    const totalAmount = this.props.totalAmount
+    const totalCart = this.props.productData.length;
   
     return (
       <Layout
         signIn={this.showSignInHandler}
         signUp={this.showSignUpHandler}
-        shoppingCart={this.showShoppingCartHandler}>
+        shoppingCart={this.showShoppingCartHandler}
+        itemsCart={totalCart}
+        totalBag={totalAmount}>
         <Suspense fallback={<Loading />}>
           <SignIn 
             signInClosed={this.showSignInHandler}
@@ -113,4 +131,18 @@ class App extends React.Component {
   }
 };
 
-export default withRouter(App);
+const mapStateToProps = state => {
+  return {
+    productData: state.shoppingCart.productData,
+    totalAmount: state.shoppingCart.totalAmount
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onFetchShoppingCart: cartId => dispatch(actions.fetchShoppingCart(cartId)),
+    onFetchTotalAmount: () => dispatch(actions.fetchTotalAmount())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(withRouter(App)), (prevProps, nextProps) => nextProps.productData === prevProps.productData && nextProps.totalAmount === prevProps.totalAmount);

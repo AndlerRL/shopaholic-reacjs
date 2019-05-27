@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import React, { useState } from 'react';
+
+import { Loading, LoadingText } from '../../UI/Loading/Loading';
 import Btn from '../../UI/Btn/Btn';
 import BtnIcon from '../../UI/Btn/BtnIcon';
-import { Loading, LoadingText } from '../../UI/Loading/Loading';
-import css from './Product.css';
 import Stars from './Stars/Stars';
+import Reviews from './Reviews/Reviews';
 
-
+import css from './Product.css';
 
 const ProductDetail = props => {
   const [animation, setAnimation] = useState(false);
-  const [averageStars, setAverageStars] = useState(0)
 
   let productLoc = null
 
@@ -101,28 +101,28 @@ const ProductDetail = props => {
           className={css.ProductDetailHead}>
           <div className={css.ProductImg}>
             <div className={css.ImgContainer}>
-              <img src={`https://backendapi.turing.com/images/products/${ !animation ? product.image : product.image_2 }`}
+              { props.loading ? <LoadingText /> : <img src={`https://backendapi.turing.com/images/products/${ !animation ? product.image : product.image_2 }`}
                 className={[
                   css.ActiveImg,
                   !animation ? css.In : null,
                   animation ? css.Out : null
                 ].join(' ')} 
-                alt="Active_Image"/>
+                alt="Active_Image"/> }
             </div>
             <div className={css.InactiveImg}>
               <div className={css.ImgContainer}>
-                <img src={`https://backendapi.turing.com/images/products/${!animation ? product.image : product.image_2 }`}
+                { props.loading ? <LoadingText /> : <img src={`https://backendapi.turing.com/images/products/${!animation ? product.image : product.image_2 }`}
                   className={css.ActiveImgThumb}
-                  alt="Active_Image_thumb" />
+                  alt="Active_Image_thumb" /> }
               </div>
               <div className={css.ImgContainer}>
-                <img src={`https://backendapi.turing.com/images/products/${!animation ? product.image_2 : product.image }`}
+                { props.loading ? <LoadingText /> : <img src={`https://backendapi.turing.com/images/products/${!animation ? product.image_2 : product.image }`}
                   onClick={changeImg}
                   className={[
                     !animation ? css.FadeIn : null,
                     animation ? css.FadeOut : null
                   ].join(' ')}
-                  alt="Inactive_Image" />
+                  alt="Inactive_Image" /> }
               </div>
             </div>
           </div>
@@ -166,7 +166,7 @@ const ProductDetail = props => {
                       btnColor="secondary"
                       size="small"
                       iconSize="1.25rem"
-                      disabled={props.count === 0}
+                      disabled={props.count === 1}
                       clicked={props.quantity('Reduce')}
                     />
                   </div>
@@ -191,7 +191,10 @@ const ProductDetail = props => {
                     btnType="contained"
                     size="large"
                     clicked={props.addCart}>
-                    add to cart
+                    { props.shopLoading ? <LoadingText style={{
+                          top: '-0.916666rem',
+                          left: '-.91666rem'
+                     }}/> : props.shopping ? 'added to cart!' : 'add to cart' }
                   </Btn>
                 </div>
                 <div className={css.AddFavorite}>
@@ -202,7 +205,10 @@ const ProductDetail = props => {
                     iconSize="1.25rem"
                     iconColor="#ff1744"
                     clicked={props.addToFav}>
-                    <span>{ props.addFav ? 'On Wish List!' : 'Add to Wish List' }</span>
+                    { props.shopLoading ? <LoadingText style={{
+                          top: '-0.916666rem',
+                          left: '-.91666rem'
+                     }} /> : <span>{ props.addFav ? 'On Wish List!' : 'Add to Wish List' }</span> }
                   </BtnIcon>
                 </div>
               </div>
@@ -212,117 +218,15 @@ const ProductDetail = props => {
       )
     });
 
-    let avrgStars = 0
-
-    const AverageStar = () => {
-      setAverageStars(avrgStars);
-    }
-
-    const reviews = props.reviews.map((reviews, key) => {
-      const totalRating = [];
-      let ratingVals = 0;
-      ratingVals += reviews.rating;
-      totalRating.push(reviews.rating);
-      avrgStars = ratingVals / totalRating.length
-      
-      let month = [];
-      month[0] = "Jan";
-      month[1] = "Feb";
-      month[2] = "Mar";
-      month[3] = "Apr";
-      month[4] = "May";
-      month[5] = "Jun";
-      month[6] = "Jul";
-      month[7] = "Aug";
-      month[8] = "Sep";
-      month[9] = "Oct";
-      month[10] = "Nov";
-      month[11] = "Dec";
-
-      const dateStr = Date.parse(reviews.created_on)
-      const dateNum = new Date(dateStr)
-      var getMonth = month[dateNum.getMonth()];
-      const parsedDate = `${getMonth}, ${dateNum.getDate()} ${dateNum.getFullYear()} at ${dateNum.getHours()}:${dateNum.getMinutes()}hrs`
-      return (
-        <div 
-          key={key}
-          className={css.Review}
-          onLoad={AverageStar}>
-          <div className={css.ReviewData}>
-            <span>
-              <Stars stars={reviews.rating.toFixed(2)}/>
-            </span>
-            <div>
-              <h6>{ reviews.name }</h6>
-              <span>{ parsedDate }</span>
-            </div>
-          </div>
-          <div className={css.Comment}>
-            <p>{ reviews.review }</p>
-            <div>
-              <BtnIcon 
-                btnType="contained"
-                size="small"
-                iconType="far"
-                icon="heart"
-                iconSize="2rem"
-                iconColor="#ff1744" /> { Math.floor(Math.random() * 300) + 3 }
-            </div>
-          </div>
-        </div>
-      )
-    });
-
   return (
     <div className={css.ProductDetail}>
       { product }
-      <div className={css.ProductReviews}>
-        <h4>Product Reviews</h4>
-        <div className={css.Reviews}>
-          { reviews }
-        </div>
-        <div className={css.PostReview}>
-          <h4>Add a Review</h4>
-          <form onSubmit={props.submit} id={props.form}>
-            <div>
-              <span>Your Review</span>
-              { props.review }
-            </div>
-            <div>
-              <span>Overall Rating</span>
-              <div className={css.Rating}>
-                <span onClick={props.rating(5)}
-                  style={{
-                    color: props.rated === 5 ? '#ffea00' : '#bdbdbd',
-                  }}>{ props.rated === 5 ? '★' : '☆' }</span>
-                <span onClick={props.rating(4)}
-                  style={{
-                    color: props.rated >= 4 ? '#ffea00' : '#bdbdbd',
-                  }}>{ props.rated >= 4 ? '★' : '☆' }</span>
-                <span onClick={props.rating(3)}
-                  style={{
-                    color: props.rated >= 3 ? '#ffea00' : '#bdbdbd',
-                  }}>{ props.rated >= 3 ? '★' : '☆' }</span>
-                <span onClick={props.rating(2)}
-                  style={{
-                    color: props.rated >= 2 ? '#ffea00' : '#bdbdbd',
-                  }}>{ props.rated >= 2 ? '★' : '☆' }</span>
-                <span onClick={props.rating(1)}
-                  style={{
-                    color: props.rated >= 1 ? '#ffea00' : '#bdbdbd',
-                  }}>{ props.rated >= 1 ? '★' : '☆' }</span>
-              </div>
-            </div>
-            <Btn
-              disabled={props.btnDisabled}
-              btnType="contained"
-              btnColor="primary"
-              size="medium">
-              Submit
-            </Btn>
-          </form>
-        </div>
-      </div>
+      <Reviews 
+        reviews={props.reviews}
+        review={props.review}
+        rated={props.rated}
+        rating={props.rating}
+      />
     </div>
   )
 };
@@ -330,6 +234,7 @@ const ProductDetail = props => {
 const mapStateToProps = state => {
   return {
     isLoading: state.products.isLoading,
+    shopLoading: state.shoppingCart.isLoading,
     averageStars: state.products.averageStars
   }
 }

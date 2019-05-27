@@ -59,8 +59,8 @@ const toolbarTop = props => {
       </div>
       <Currency currency="USD" />
       <ShoppingCart 
-        totalBag={9.99}
-        itemsCar={1}
+        totalBag={props.totalBag}
+        itemsCart={props.itemsCart}
         clicked={props.shoppingCart} />
     </div>
   )

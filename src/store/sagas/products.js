@@ -59,8 +59,7 @@ export function* productLocationSaga(action) {
 
   try {
     const response = yield Axios.get(`/products/${action.productId}/locations`);
-    console.log('action.productId', action.productId);
-    console.log('response.data', response.data);
+    
     yield put(actions.productLocationSuccess(action.productId, response.data));
   } catch(error) {
     console.log(error);

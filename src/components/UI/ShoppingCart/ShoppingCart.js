@@ -11,9 +11,10 @@ const shoppingCart = props => (
         color="action"
         icon="shopping_basket"
         size={window.outerWidth > 750 ? "small" : "default"} />
-      <span className={css.Items}>
-        {props.itemsCar}
-      </span>
+      { props.itemsCart >= 1 ? (
+        <span className={css.Items}>
+          {props.itemsCart}
+        </span> ) : null }
     </div>
     <p>
       Your bag: <span>${props.totalBag}</span>

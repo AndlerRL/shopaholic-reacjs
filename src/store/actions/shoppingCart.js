@@ -17,18 +17,20 @@ export const shoppingCartGenerateIdFail = error => {
     error: error
   }
 }
+export const generateCartId = () => {
+  return {
+    type: actionTypes.GENERATE_CART_ID
+  }
+}
 export const shoppingCartAddStart = () => {
   return {
     type: actionTypes.SHOPPING_CART_ADD_START
   }
 }
-export const shoppingCartAddSuccess = (generatedId, productId, attributes) => {
+export const shoppingCartAddSuccess = productData => {
   return {
     type: actionTypes.SHOPPING_CART_ADD_SUCCESS,
-    generatedId: generatedId,
-    productId: productId,
-    attributes: attributes,
-
+    productData: productData
   }
 }
 export const shoppingCartAddFail = error => {
@@ -37,15 +39,27 @@ export const shoppingCartAddFail = error => {
     error: error
   }
 }
+export const addProductToCart = productData => {
+  return {
+    type: actionTypes.ADD_PRODUCT_CART,
+    productData: productData
+  }
+}
+export const fetchShoppingCart = cartId => {
+  return {
+    type: actionTypes.FETCH_SHOPPING_CART,
+    cartId: cartId
+  }
+}
 export const shoppingCartStart = () => {
   return {
     type: actionTypes.SHOPPING_CART_START
   }
 }
-export const shoppingCartSuccess = generatedId => {
+export const shoppingCartSuccess = productData => {
   return {
     type: actionTypes.SHOPPING_CART_SUCCESS,
-    generatedId: generatedId
+    productData: productData
   }
 }
 export const shoppingCartFail = error => {
@@ -108,11 +122,15 @@ export const shoppingCartDeleteFail = error => {
     error: error
   }
 }
-export const shoppingCartTotalSuccess = (totalAmount, generatedId) => {
+export const fetchTotalAmount = () => {
+  return {
+    type: actionTypes.FETCH_SHOPPING_CART_TOTAL
+  }
+}
+export const shoppingCartTotalSuccess = totalAmount => {
   return {
     type: actionTypes.SHOPPING_CART_TOTAL,
-    totalAmount: totalAmount,
-    generatedId: generatedId
+    totalAmount: totalAmount
   }
 }
 export const shoppingCartTotalFail = error => {
@@ -138,10 +156,9 @@ export const fetchShoppingCartStart = () => {
     type: actionTypes.SHOPPING_CART_FETCH_SAVE_FAVORITE_START
   }
 }
-export const fetchShoppingCartSuccess = (generatedId, favorites) => {
+export const fetchShoppingCartSuccess = (favorites) => {
   return {
     type: actionTypes.SHOPPING_CART_FETCH_SAVE_FAVORITE_SUCCESS,
-    generatedId: generatedId,
     favorites: favorites
   }
 }

@@ -126,12 +126,15 @@ export {
   shippingIdFail
 } from './shipping';
 export {
+  generateCartId,
   shoppingCartGenerateIdStart,
   shoppingCartGenerateIdSuccess,
   shoppingCartGenerateIdFail,
+  addProductToCart,
   shoppingCartAddStart,
   shoppingCartAddSuccess,
   shoppingCartAddFail,
+  fetchShoppingCart,
   shoppingCartStart,
   shoppingCartSuccess,
   shoppingCartFail,
@@ -144,6 +147,7 @@ export {
   shoppingCartDeleteStart,
   shoppingCartDeleteSuccess,
   shoppingCartDeleteFail,
+  fetchTotalAmount,
   shoppingCartTotalSuccess,
   shoppingCartTotalFail,
   shoppingCartSaveFav,

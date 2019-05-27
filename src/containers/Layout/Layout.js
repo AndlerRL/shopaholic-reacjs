@@ -47,7 +47,9 @@ const Layout = props => {
         back={goBackHandler}
         signIn={props.signIn}
         signUp={props.signUp}
-        shoppingCart={props.shoppingCart} />
+        shoppingCart={props.shoppingCart}
+        itemsCart={props.itemsCart}
+        totalBag={props.totalBag} />
       <SideDrawer 
         open={showSideDrawer}
         closed={sideDrawerToggleHandler}

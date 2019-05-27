@@ -30,7 +30,7 @@ const Item = props => {
     Color: "",
     Size: ""
   });
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [addFav, setAddFav] = useState(false);
   const [review, setReview] = useState({
     review: {
@@ -150,13 +150,13 @@ const Item = props => {
     
     if (!addFav) {
       setAddFav(true);
-      /* if (props.cartId.trim() === "")
+      if (props.cartId === "")
         props.onGenerateCartId()
   
-      if (props.cartId.trim() !== "")
+      if (props.cartId !== "")
         props.onAddProduct(productAdd)
   
-      props.onSaveForLater(props.itemId) */
+      props.onSaveForLater(props.itemId)
     }
 
     if (addFav) {
@@ -192,17 +192,21 @@ const Item = props => {
   const addCartHandler = e => {
     e.preventDefault()
 
-    if (props.cartId.trim() === "")
-      //props.onGenerateCartId()
+    const cart_id = JSON.parse(localStorage.getItem('cart_id'));
+    const productAdd = {
+      cart_id: cart_id,
+      product_id: props.productId,
+      attributes: `${productAttr.Color}, ${productAttr.Size}`,
+      quantity: quantity
+    };
 
-    if (props.cartId.trim() !== "") {
-      const productAdd = {
-        cart_id: props.cartId,
-        product_id: props.productId,
-        attributes: `${productAttr.Color}, ${productAttr.Size}`
-      };
+    if (!cart_id) {
+      props.onGenerateCartId();
+      props.onAddProduct(productAdd);
+    }
 
-      //props.onAddProduct(productAdd);
+    if (cart_id) {
+      props.onAddProduct(productAdd);
     }
   }
 
@@ -245,6 +249,8 @@ const Item = props => {
     />
   ))
 
+  console.log('generated Item ID ', props.itemId);
+
   return (
     <ProductDetail 
       product={productDetail}
@@ -265,7 +271,8 @@ const Item = props => {
       rated={rating}
       btnDisabled={!reviewIsValid}
       form="Form"
-      submit={postReviewHandler} />
+      submit={postReviewHandler}
+      shopping={props.isShopping} />
   )
 };
 
@@ -276,6 +283,10 @@ const mapStateToProps = state => {
     productData: state.products.productData,
     productLocation: state.products.productLocation,
     productAttributes: state.attributes.productAttributes,
+    cartId: state.shoppingCart.cartId,
+    itemId: state.shoppingCart.itemId,
+    addProduct: state.shoppingCart.productData,
+    isShopping: state.shoppingCart.isShopping
   }
 }
 
@@ -284,7 +295,9 @@ const mapDispatchToProps = dispatch => {
     onGetDetail: (productId, productDetail) => dispatch(actions.fetchProductDetail(productId, productDetail)),
     onProductLocation: productId => dispatch(actions.fetchProductLocation(productId)),
     onProductAttributes: productId => dispatch(actions.attributesInProduct(productId)),
-    onFetchReviews: productId => dispatch(actions.fetchReviews(productId))
+    onFetchReviews: productId => dispatch(actions.fetchReviews(productId)),
+    onGenerateCartId: () => dispatch(actions.generateCartId()),
+    onAddProduct: productData => dispatch(actions.addProductToCart(productData))
   }
 }
 

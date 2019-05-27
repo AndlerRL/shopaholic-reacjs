@@ -46,7 +46,14 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v0.6.33]`__
+
+Shopping Cart component rendered and added to the project! Now clients can click into add to cart in order to be reflected into the Shopping cart component and a UI reaction from the toolbar, showing the total items and amount. If client clicks to the icon, will open the shopping cart showing the current items on the cart.
+
+Products Details is now working just fine and it might some near future add HOT products there.
+
 __`[v0.5.96]`__
+
 Working on Product Details –– Shopping Cart:
 Added more components to the review area and it's practically done, just Hot Products are mussing; There is a validation for the review min-length.
 Also started to create functions for the shopping cart sagas and will be more soon.
