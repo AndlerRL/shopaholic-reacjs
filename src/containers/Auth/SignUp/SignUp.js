@@ -153,6 +153,7 @@ const SignUp = props => {
         <h4 className={css.Title}>Please, Sign Up to Shopaholic</h4>
         { error }
         { form }
+        <p>Already have an account? <span onClick={props.switchSignIn}> Sign In </span> here!</p>
         <div className={css.BtnContainer}>
           <Btn 
             btnColor="secondary"

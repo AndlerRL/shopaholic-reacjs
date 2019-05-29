@@ -2,13 +2,16 @@ import { updateObject } from '../../share/utility';
 import * as actionTypes from '../actions/actionTypes';
 
 const initState = {
+  isShoppingCart: false,
   isLoading: null,
   error: null,
   isShopping: false,
-  quantity: 0,
+  isDeleted: false,
+  isCartDeleted: false,
+  quantity: 1,
   totalAmount: 0,
   favorites: [],
-  productData: [],
+  productData: []
 }
 
 const start = (state, action) => {
@@ -20,10 +23,16 @@ const start = (state, action) => {
 const fail = (state, action) => {
   return updateObject(state, {
     isLoading: null,
-    isShopping: false,
+    isShopping: null,
+    isFavorite: null,
     error: action.error
   })
 };
+const goToShoppingCart = (state, action) => {
+  return updateObject(state, {
+    isShoppingCart: !state.isShoppingCart
+  })
+}
 const generateId = (state, action) => {
   return updateObject(state, {
     isLoading: null,
@@ -39,6 +48,11 @@ const addProductToCart = (state, action) => {
     productData: action.productData
   })
 };
+const confirmAddedProduct = (state, action) => {
+  return updateObject(state, {
+    isShopping: false
+  })
+}
 const fetchShoppingCart = (state, action) => {
   return updateObject(state, {
     isLoading: null,
@@ -46,36 +60,24 @@ const fetchShoppingCart = (state, action) => {
     productData: action.productData
   })
 };
-const addItem = (state, action) => {
-  const addItem = { [action.itemId]: state.itemId[action.quantity] + 1 };
-  const updateItem = updateObject(state.quantity, addItem);
-  const updateState = {
-    quantity: updateItem,
-    itemId: action.itemId,
-    isShopping: true
-  }
-  return updateObject(state, updateState);
-};
-const removeItem = (state, action) => {
-  const removeItem = { [action.itemId]: state.itemId[action.quantity] - 1 };
-  const updateItem = updateObject(state.quantity, removeItem);
-  const updateState = {
-    quantity: updateItem,
-    itemId: action.itemId,
-    shopping: true
-  }
-  return updateObject(state, updateState);
-};
+const shoppingCartUpdateProduct = (state, action) => {
+  return updateObject(state, {
+    isDeleted: false,
+    productData: action.productData
+  })
+}
 const deleteItem = (state, action) => {
   return updateObject(state, {
-    itemId: action.itemId
-  })
+    isDeleted: true,
+    productData: state.productData.filter(id => id.item_id !== action.itemId)
+  });
 };
 const emptyCart = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    cartId: action.generatedId
+    isCartDeleted: true,
+    productData: action.productData
   })
 };
 const moveToCart = (state, action) => {
@@ -92,18 +94,23 @@ const totalAmount = (state, action) => {
 };
 const saveToFav = (state, action) => {
   return updateObject(state, {
-    itemId: action.itemId
+    isLoading: null,
+    error: null,
+    isFavorite: true
   })
 };
 const fetchSaveToFav = (state, action) => {
   return updateObject(state, {
-    cartId: action.generatedId,
+    isLoading: null,
+    error: null,
     favorites: action.favorites
   })
 }
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
+    case actionTypes.GO_TO_SHOPPING_CART:
+      return goToShoppingCart(state, action);
     case actionTypes.SHOPPING_CART_GENERATE_ID_START:
       return start(state, action);
     case actionTypes.SHOPPING_CART_GENERATE_ID_SUCCESS:
@@ -116,16 +123,20 @@ const reducer = (state = initState, action) => {
       return addProductToCart(state, action);
     case actionTypes.SHOPPING_CART_ADD_FAIL:
       return fail(state, action);
+    case actionTypes.SHOPPING_CART_CONFIRM_ADD:
+      return confirmAddedProduct(state, action);
     case actionTypes.SHOPPING_CART_START:
       return start(state, action);
     case actionTypes.SHOPPING_CART_SUCCESS:
       return fetchShoppingCart(state, action);
     case actionTypes.SHOPPING_CART_FAIL:
       return fail(state, action);
-    case actionTypes.SHOPPING_CART_UPDATE_ADD:
-      return addItem(state, action);
-    case actionTypes.SHOPPING_CART_UPDATE_REMOVE:
-      return removeItem(state, action);
+    case actionTypes.SHOPPING_CART_UPDATE_PRODUCT_START:
+      return start(state, action);
+    case actionTypes.SHOPPING_CART_UPDATE_PRODUCT:
+      return shoppingCartUpdateProduct(state, action);
+    case actionTypes.SHOPPING_CART_UPDATE_PRODUCT_FAIL:
+      return fail(state, action);
     case actionTypes.SHOPPING_CART_REMOVE_PRODUCT:
       return deleteItem(state, action);
     case actionTypes.SHOPPING_CART_MOVE_TO_START:
@@ -144,6 +155,8 @@ const reducer = (state = initState, action) => {
       return totalAmount(state, action);
     case actionTypes.SHOPPING_CART_TOTAL_FAIL:
       return fail(state, action);
+    case actionTypes.SHOPPING_CART_SAVE_FAVORITE_START:
+      return start(state, action);
     case actionTypes.SHOPPING_CART_SAVE_FAVORITE:
       return saveToFav(state, action);
     case actionTypes.SHOPPING_CART_SAVE_FAVORITE_FAIL:

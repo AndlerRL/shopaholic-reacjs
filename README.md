@@ -46,6 +46,15 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v0.6.51]`__
+
+There are some important updates on this update/fix, witch is:
+
+* Added conditionals for the Authentication after & before login/registration.
+* Shopping cart, Product Details components are some of them that has some UI updates if there is a client logged in or not. Also added more UX to the Shopping cart component and for now looks great!
+* Home component has proper redirection.
+* There some high value states that were moved to the redux states and are well, global.
+
 __`[v0.6.33]`__
 
 Shopping Cart component rendered and added to the project! Now clients can click into add to cart in order to be reflected into the Shopping cart component and a UI reaction from the toolbar, showing the total items and amount. If client clicks to the icon, will open the shopping cart showing the current items on the cart.

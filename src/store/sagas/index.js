@@ -24,7 +24,11 @@ import {
   generateCartIdSaga,
   addProductToCartSaga, 
   fetchCartSaga,
-  fetchTotalAmountSaga } from './shopping';
+  fetchTotalAmountSaga,
+  updateProductCartSaga,
+  removeProductCartSaga,
+  emptyCartSaga,
+  saveForLaterSaga, } from './shopping';
 
 export function* watchAttributes() {
   yield takeEvery(actionTypes.FETCH_ATTRIBUTES, fetchAttributesSaga)
@@ -65,12 +69,14 @@ export function* watchProducts() {
 }
 
 export function* watchShoppingCart() {
-  yield all([
-    takeEvery(actionTypes.FETCH_SHOPPING_CART, fetchCartSaga),
-    takeEvery(actionTypes.FETCH_SHOPPING_CART_TOTAL, fetchTotalAmountSaga)
-  ])
-  yield takeEvery(actionTypes.GENERATE_CART_ID, generateCartIdSaga)
-  yield takeLatest(actionTypes.ADD_PRODUCT_CART, addProductToCartSaga)
+  yield takeEvery(actionTypes.FETCH_SHOPPING_CART_TOTAL, fetchTotalAmountSaga);
+  yield takeEvery(actionTypes.GENERATE_CART_ID, generateCartIdSaga);
+  yield takeLatest(actionTypes.ADD_PRODUCT_CART, addProductToCartSaga);
+  yield takeLatest(actionTypes.FETCH_SHOPPING_CART, fetchCartSaga);
+  yield takeEvery(actionTypes.PUT_UPDATE_PRODUCT, updateProductCartSaga);
+  yield takeEvery(actionTypes.SHOPPING_CART_REMOVE_PRODUCT, removeProductCartSaga);
+  yield takeEvery(actionTypes.DELETE_SHOPPING_CART, emptyCartSaga);
+  yield takeEvery(actionTypes.SAVE_FOR_LATER, saveForLaterSaga);
 }
 
 export function* watchShipping() {

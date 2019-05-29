@@ -3,8 +3,9 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 32px;
+  margin: 32px auto;
   width: calc(100% - 64px);
+  max-width: 1200px;
   min-height: 100vh;
   border: 1px solid #f5f5f5;
   background-color: #fff;
@@ -247,50 +248,6 @@
   text-align: center;
   font-weight: 500;
   border-radius: 2px;
-}
-
-.Quantity {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 250px;
-  margin: 2rem;
-  font-size: 1.5rem;
-}
-
-.QuantityContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.QuantityContainer > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: scale(.5);
-}
-
-.QuantityContainer > div button {
-  height: 64px !important;
-  border-radius: 50% !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.QuantityContainer > span {
-  width: 100px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.25rem;
-  text-align: center;
-  border-radius: 30px;
-  background-color: #f5f5f5;
-  border: 1px solid #2222;
 }
 
 .Actions {

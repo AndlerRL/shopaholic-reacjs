@@ -1,5 +1,7 @@
+import { connect } from 'react-redux';
 import React from 'react';
 
+import * as actions from '../../store/actions';
 import Header from '../../components/Home/Header/Header';
 import Main from '../../components/Home/Main/Main';
 
@@ -9,18 +11,41 @@ class Home extends React.Component {
   }
 
   seeSaleHandler = () => {
-    this.props.history.push('/women');
+    this.props.history.push('/products');
+  }
+
+  signUpHandler = () => {
+    this.props.onSignUp()
+
+    if (this.props.isSignIn)
+      this.props.onSignIn()
   }
   
   render () {
     return (
       <React.Fragment>
-        <Header />
+        <Header 
+          seeSales={this.seeSaleHandler} />
         <Main 
-          seeSale={this.seeSaleHandler} />
+          seeSale={this.seeSaleHandler}
+          register={this.signUpHandler} />
       </React.Fragment>
     );
   }
 };
 
-export default Home;
+const mapStateToProps = state => {
+  return {
+    isSignUp: state.auth.isSignUp,
+    isSignIn: state.auth.isSignIn
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSignIn: () => dispatch(actions.goToSignIn()),
+    onSignUp: () => dispatch(actions.goToSignUp()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

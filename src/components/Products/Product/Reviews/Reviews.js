@@ -1,5 +1,7 @@
+import { connect } from 'react-redux';
 import React, { useState } from 'react';
 
+import * as actions from '../../../../store/actions';
 import Btn from '../../../UI/Btn/Btn';
 import BtnIcon from '../../../UI/Btn/BtnIcon';
 import Stars from '../Stars/Stars';
@@ -111,8 +113,9 @@ const Reviews = props => {
             disabled={props.btnDisabled}
             btnType="contained"
             btnColor="primary"
-            size="medium">
-            Submit
+            size="medium"
+            clicked={props.goToLogin}>
+            { props.token.trim() !== "" ? 'Submit' : 'Login to post' }
           </Btn>
         </form>
       </div>
@@ -120,4 +123,10 @@ const Reviews = props => {
   )
 };
 
-export default Reviews;
+const mapStateToProps = state => {
+  return {
+    token: state.auth.token
+  }
+}
+
+export default connect(mapStateToProps)(Reviews);

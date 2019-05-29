@@ -20,11 +20,7 @@ const initState = {
   count: null,
   products: [],
   reviews: [],
-  reviewData: {
-    product_id: null,
-    review: '',
-    rating: 0
-  },
+  reviewData: {},
   productData: [],
   productLocation: [],
   productId: null,
@@ -152,16 +148,10 @@ const fetchReviews = (state, action) => {
   })
 };
 const postReview = (state, action) => {
-  const newPost = updateObject(state.reviewData, {
-    product_id: action.productId,
-    review: action.review,
-    rating: action.rating
-  })
   return updateObject(state, {
     isLoading: null,
     error: null,
-    productId: action.productId,
-    reviews: state.reviews.unshift(newPost)
+    reviews: state.reviews.unshift(action.reviewData)
   })
 }
 

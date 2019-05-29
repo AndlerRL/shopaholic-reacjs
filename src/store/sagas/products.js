@@ -75,6 +75,7 @@ export function* productReviewsSaga(action) {
     const starLength = [];
     const response = yield Axios.get(`/products/${action.productId}/reviews`);
     
+    // eslint-disable-next-line array-callback-return
     response.data.map(review => {
       starCount += review.rating
       starLength.push(review.rating)

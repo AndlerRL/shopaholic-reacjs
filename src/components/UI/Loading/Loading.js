@@ -17,3 +17,11 @@ export const LoadingText = props => (
     <div></div>
   </div>
 )
+
+export const LoadingImg = props => (
+  <div className={css.LdsFacebook}>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+)

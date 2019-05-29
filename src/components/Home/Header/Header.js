@@ -17,7 +17,8 @@ const header = props => (
       <div className={css.BtnContainer}>
         <Btn 
           btnType="contained"
-          btnColor="secondary">
+          btnColor="secondary"
+          clicked={props.seeSales}>
           view all
         </Btn>  
       </div>

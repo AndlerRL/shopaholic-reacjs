@@ -28,67 +28,65 @@ const Checkout = React.lazy(() => {
   return import('../Checkout/Checkout');
 })
 
-const cart_id = JSON.parse(localStorage.getItem('cart_id'));
-
 class App extends React.Component {
-  state = {
-    isSignIn: false,
-    isSignUp: false,
-    isShoppingCart: false,
-  }
-  
   componentDidMount () {
     M.AutoInit();
-    this.props.onFetchShoppingCart(cart_id);
     this.props.onFetchTotalAmount();
   }
 
   componentDidUpdate () {
     const root = document.querySelector('#root');
-    const cart = document.querySelector('.ShoppingCart');
-    if (this.state.isSignIn || this.state.isSignUp || this.state.isShoppingCart) {
+    if (this.props.isSignIn) {
       disableBodyScroll(root);
     } else {
       enableBodyScroll(root);
     }
 
-    if (this.state.isShoppingCart) {
-      enableBodyScroll(cart)
+    if (this.props.isSignUp) {
+      disableBodyScroll(root);
+    } else {
+      enableBodyScroll(root);
     }
 
-    this.props.onFetchTotalAmount();
+    if (this.props.isShoppingCart) {
+      disableBodyScroll(root);
+    } else {
+      enableBodyScroll(root);
+    }
+
+    //this.props.onFetchTotalAmount();
   }
 
   showSignInHandler = () => {
-    this.setState(prevState => {
-      return {
-        isSignIn: !prevState.isSignIn
-      }
-    })
+    this.props.onSignIn()
 
-    if (this.state.isSignUp) {
-      this.setState({ isSignUp: false })
+    if (this.props.isSignUp) {
+      this.props.onSignUp()
     }
+
+    if (this.props.isShoppingCart)
+      this.props.onShoppingCart()
   }
 
   showSignUpHandler = () => {
-    this.setState(prevState => {
-      return {
-        isSignUp: !prevState.isSignUp
-      }
-    })
+    this.props.onSignUp()
 
-    if (this.state.isSignIn) {
-      this.setState({ isSignIn: false })
+    if (this.props.isSignIn) {
+      this.props.onSignIn()
     }
+
+    if (this.props.isShoppingCart)
+      this.props.onShoppingCart()
   }
 
   showShoppingCartHandler = () => {
-    this.setState(prevState => {
-      return {
-        isShoppingCart: !prevState.isShoppingCart
-      }
-    })
+    this.props.onShoppingCart()
+
+    if (this.props.isSignIn)
+      this.props.onSignIn()
+
+    if (this.props.isSignUp)
+      this.props.onSignUp()
   }
 
   render () {
@@ -101,29 +99,28 @@ class App extends React.Component {
         <Redirect to="/" />
       </Switch>
     )
-
-    const totalAmount = this.props.totalAmount
-    const totalCart = this.props.productData.length;
   
     return (
       <Layout
         signIn={this.showSignInHandler}
         signUp={this.showSignUpHandler}
         shoppingCart={this.showShoppingCartHandler}
-        itemsCart={totalCart}
-        totalBag={totalAmount}>
+        itemsCart={this.props.productData.length}
+        totalBag={this.props.totalAmount ? this.props.totalAmount : '0.00'}>
         <Suspense fallback={<Loading />}>
           <SignIn 
             signInClosed={this.showSignInHandler}
-            showSignIn={this.state.isSignIn}
-            backShop={this.showSignInHandler} />
+            showSignIn={this.props.isSignIn}
+            backShop={this.showSignInHandler}
+            switchSignUp={this.showSignUpHandler} />
           <SignUp 
             signUpClosed={this.showSignUpHandler}
-            showSignUp={this.state.isSignUp}
-            backShop={this.showSignUpHandler} />
+            showSignUp={this.props.isSignUp}
+            backShop={this.showSignUpHandler}
+            switchSignIn={this.showSignInHandler} />
           <ShoppingCart 
             shoppingCartClosed={this.showShoppingCartHandler}
-            showShoppingCart={this.state.isShoppingCart} />
+            showShoppingCart={this.props.isShoppingCart} />
           { routes }
         </Suspense>
       </Layout>
@@ -134,15 +131,24 @@ class App extends React.Component {
 const mapStateToProps = state => {
   return {
     productData: state.shoppingCart.productData,
-    totalAmount: state.shoppingCart.totalAmount
+    totalAmount: state.shoppingCart.totalAmount,
+    isSignIn: state.auth.isSignIn,
+    isSignUp: state.auth.isSignUp,
+    isShoppingCart: state.shoppingCart.isShoppingCart
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onFetchShoppingCart: cartId => dispatch(actions.fetchShoppingCart(cartId)),
-    onFetchTotalAmount: () => dispatch(actions.fetchTotalAmount())
+    onFetchTotalAmount: () => dispatch(actions.fetchTotalAmount()),
+    onSignIn: () => dispatch(actions.goToSignIn()),
+    onSignUp: () => dispatch(actions.goToSignUp()),
+    onShoppingCart: () => dispatch(actions.goToShoppingCart()),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(withRouter(App)), (prevProps, nextProps) => nextProps.productData === prevProps.productData && nextProps.totalAmount === prevProps.totalAmount);
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(
+  withRouter(App)),
+  (prevProps, nextProps) => nextProps.cart === prevProps.cart &&
+  nextProps.totalAmount === prevProps.totalAmount);

@@ -59,16 +59,10 @@ export const addressStart = () => {
     type: actionTypes.AUTH_USER_ADDRESS_START,
   }
 }
-export const addressSuccess = (address1, address2, city, region, zipCode, country, shippingRegionId) => {
+export const addressSuccess = userData => {
   return {
     type: actionTypes.AUTH_USER_ADDRESS_SUCCESS,
-    address1: address1,
-    address2: address2,
-    city: city,
-    region: region,
-    zipCode: zipCode,
-    country: country,
-    shippingRegionId: shippingRegionId
+    userData: userData
   }
 }
 export const addressFail = error => {
@@ -109,5 +103,15 @@ export const authFbFail = error => {
   return {
     type: actionTypes.AUTH_USER_FB_FAIL,
     error: error
+  }
+}
+export const goToSignIn = () => {
+  return {
+    type: actionTypes.GO_TO_SIGN_IN
+  }
+}
+export const goToSignUp = () => {
+  return {
+    type: actionTypes.GO_TO_SIGN_UP
   }
 }

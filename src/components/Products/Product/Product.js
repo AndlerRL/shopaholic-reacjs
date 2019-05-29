@@ -2,16 +2,19 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import React, { useState } from 'react';
 
+import * as actions from '../../../store/actions';
 import { Loading, LoadingText } from '../../UI/Loading/Loading';
 import Btn from '../../UI/Btn/Btn';
 import BtnIcon from '../../UI/Btn/BtnIcon';
 import Stars from './Stars/Stars';
 import Reviews from './Reviews/Reviews';
+import SnackBar from '../../UI/Snackbar/Snackbar';
 
 import css from './Product.css';
 
 const ProductDetail = props => {
   const [animation, setAnimation] = useState(false);
+  const [open, setOpen] = useState(false);
 
   let productLoc = null
 
@@ -74,6 +77,13 @@ const ProductDetail = props => {
         </button>
       )
   })
+
+  const snackbarHandler = (e, reason) => {
+    if (reason === 'clickaway')
+      return;
+
+    props.onConfirmAdded();
+  }
 
   let product = null;
 
@@ -155,35 +165,6 @@ const ProductDetail = props => {
                   { attributesSize }
                 </div> 
               </div>
-              <div className={css.Quantity}>
-                <span>Quantity</span>
-                <div className={css.QuantityContainer}>
-                  <div>
-                    <BtnIcon 
-                      iconType="fas"
-                      icon="minus"
-                      btnType="contained"
-                      btnColor="secondary"
-                      size="small"
-                      iconSize="1.25rem"
-                      disabled={props.count === 1}
-                      clicked={props.quantity('Reduce')}
-                    />
-                  </div>
-                  <span>{ props.count }</span>
-                  <div>
-                    <BtnIcon 
-                      iconType="fas"
-                      icon="plus"
-                      btnType="contained"
-                      btnColor="secondary"
-                      size="small"
-                      iconSize="1.25rem"
-                      clicked={props.quantity('Add')}
-                    />
-                  </div>
-                </div>
-              </div>
               <div className={css.Actions}>
                 <div className={css.AddCart}>
                   <Btn 
@@ -194,7 +175,7 @@ const ProductDetail = props => {
                     { props.shopLoading ? <LoadingText style={{
                           top: '-0.916666rem',
                           left: '-.91666rem'
-                     }}/> : props.shopping ? 'added to cart!' : 'add to cart' }
+                     }}/> : 'add to cart' }
                   </Btn>
                 </div>
                 <div className={css.AddFavorite}>
@@ -211,6 +192,16 @@ const ProductDetail = props => {
                      }} /> : <span>{ props.addFav ? 'On Wish List!' : 'Add to Wish List' }</span> }
                   </BtnIcon>
                 </div>
+                <SnackBar 
+                  open={props.isShopping}
+                  closed={snackbarHandler}
+                  success={true}
+                  message="Product added to cart successfully!" />
+                <SnackBar 
+                  open={props.openWarning}
+                  closed={props.warning}
+                  warning={true}
+                  message="[Reminder] Select attributes before add to cart." />
               </div>
             </div>
           </div>
@@ -226,7 +217,8 @@ const ProductDetail = props => {
         review={props.review}
         rated={props.rated}
         rating={props.rating}
-      />
+        btnDisabled={props.btnDisabled}
+        goToLogin={props.goToLogin} />
     </div>
   )
 };
@@ -235,8 +227,15 @@ const mapStateToProps = state => {
   return {
     isLoading: state.products.isLoading,
     shopLoading: state.shoppingCart.isLoading,
-    averageStars: state.products.averageStars
+    averageStars: state.products.averageStars,
+    isShopping: state.shoppingCart.isShopping
   }
 }
 
-export default connect(mapStateToProps)(withRouter(ProductDetail));
+const mapDispatchToProps = dispatch => {
+  return {
+    onConfirmAdded: () => dispatch(actions.confirmAddCart())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProductDetail));

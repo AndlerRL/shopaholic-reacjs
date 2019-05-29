@@ -7,6 +7,22 @@
   transition: all cubic-bezier(0.19, 1, 0.22, 1) .66s 100ms;
 }
 
+.SignIn > p,
+.SignUp > p {
+  text-align: center;
+}
+
+.SignIn > p > span,
+.SignUp > p > span {
+  cursor: pointer;
+  color: #40c4ff;
+}
+
+.SignIn > p > span:hover,
+.SignUp > p > span:hover {
+  color: #00b0ff;
+}
+
 .Title {
   text-align: center;
   margin-bottom: 3rem;

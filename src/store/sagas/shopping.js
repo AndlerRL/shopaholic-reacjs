@@ -22,8 +22,7 @@ export function* addProductToCartSaga(action) {
 
   try {
     const response = yield Axios.post('/shoppingcart/add', action.productData);
-    console.log(response);
-
+    
     yield put(actions.shoppingCartAddSuccess(response.data))
   } catch(error) {
     console.error(error);
@@ -37,7 +36,7 @@ export function* fetchCartSaga(action) {
   try {
     const cart_id = yield JSON.parse(localStorage.getItem('cart_id'));
     const response = yield Axios.get(`/shoppingcart/${cart_id}`);
-
+    console.log(response.data)
     yield put(actions.shoppingCartSuccess(response.data))
   } catch(error) {
     console.error(error);
@@ -49,11 +48,79 @@ export function* fetchTotalAmountSaga(action) {
   try {
     const cart_id = yield JSON.parse(localStorage.getItem('cart_id'));
     const response = yield Axios.get(`/shoppingcart/totalAmount/${cart_id}`)
-    console.log(response.data.total_amount)
 
     yield put(actions.shoppingCartTotalSuccess(response.data.total_amount))
   } catch(error) {
     console.error(error);
     yield put(actions.shoppingCartTotalFail(error))
+  }
+}
+
+export function* updateProductCartSaga(action) {
+  yield put(actions.shoppingCartUpdateStart());
+
+  try {
+    const response = yield Axios.put(`/shoppingcart/update/${action.itemId}`, action.productData)
+
+    yield put(actions.shoppingCartUpdateProduct(response.data))
+  } catch(error) {
+    console.error(error);
+    yield put(actions.shoppingCartUpdateFail(error))
+  }
+}
+
+export function* removeProductCartSaga(action) {
+  yield put(actions.shoppingCartRemoveProductStart())
+
+  try {
+    const response = yield Axios.delete(`/shoppingcart/removeProduct/${action.itemId}`)
+    console.log(response);
+
+    yield put(actions.shoppingCartRemoveProductSuccess(action.itemId))
+  } catch(error) {
+    console.error(error);
+    yield put(actions.shoppingCartRemoveProductFail(error))
+  }
+}
+
+export function* emptyCartSaga(action) {
+  yield put(actions.shoppingCartDeleteStart())
+
+  try {
+    const response = yield Axios.delete(`/shoppingcart/empty/${action.cartId}`);
+    
+    yield call([localStorage, 'removeItem'], 'cart_id');
+    yield put(actions.shoppingCartDeleteSuccess(response.data));
+  } catch(error) {
+    console.error(error);
+    yield put(actions.shoppingCartDeleteFail(error))
+  }
+}
+
+export function* moveToCartSaga(action) {
+  yield put(actions.shoppingCartMoveToCartStart())
+
+  try {
+    const response = yield Axios.get(`/shoppingcart/moveToCart/${action.itemId}`)
+    console.log('MOVE TO CART SAGA RES: ', response);
+
+    yield put(actions.shoppingCartMoveToCartSuccess(response.data))
+  } catch(error) {
+    console.error(error);
+    yield put(actions.shoppingCartMoveToCartFail(error))
+  }
+}
+
+export function* saveForLaterSaga(action) {
+  yield put(actions.shoppingCartSaveFavStart());
+
+  try {
+    const response = yield Axios.get(`/shoppingcart/saveForLater/${action.itemId}`);
+    console.log('SAVE FOR LATER RES: ', response);
+    
+    yield put(actions.shoppingCartSaveFav(response.data))
+  } catch(error) {
+    console.error(error);
+    yield put(actions.shoppingCartSaveFavFail(error))
   }
 }

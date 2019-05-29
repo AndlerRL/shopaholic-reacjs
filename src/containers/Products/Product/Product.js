@@ -6,6 +6,9 @@ import * as actions from '../../../store/actions';
 import { updateObject, checkValidity } from '../../../share/utility';
 import Input from '../../../components/UI/Form/Input/Input';
 import ProductDetail from '../../../components/Products/Product/Product';
+//import Snackbar from '../../../components/UI/Snackbar/Snackbar';
+
+const cart_id = JSON.parse(localStorage.getItem('cart_id'));
 
 const Item = props => {
   const [colorAttributes, setColorAttributes] = useState({
@@ -50,13 +53,14 @@ const Item = props => {
   })
   const [reviewIsValid, setReviewIsValid] = useState(false);
   const [rating, setRating] = useState(0);
+  const [warning, setWarning] = useState(false);
 
   useEffect(() => {
     window.scroll(0, 0);
     const product_detail_id = JSON.parse(localStorage.getItem('product_detail_id'));
     
     props.onProductLocation(product_detail_id);
-    props.onGetDetail(product_detail_id, props.productData);
+    props.onGetDetail(product_detail_id, props.productDetail);
     props.onProductAttributes(product_detail_id);
     props.onFetchReviews(product_detail_id);
 
@@ -142,26 +146,28 @@ const Item = props => {
   const addWishList = e => {
     e.preventDefault();
     
-    const productAdd = {
-      cart_id: props.cartId,
-      product_id: props.productId,
-      attributes: `${productAttr.Color}, ${productAttr.Size}`
-    };
+    if (productAttr.Color !== "" || productAttr.Size !== "") {
+      const productAdd = {
+        cart_id: cart_id,
+        product_id: props.productId,
+        attributes: `${productAttr.Color}, ${productAttr.Size}`
+      };
+      
+      if (!addFav) {
+        setAddFav(true);
+        if (cart_id === "")
+          props.onGenerateCartId()
     
-    if (!addFav) {
-      setAddFav(true);
-      if (props.cartId === "")
-        props.onGenerateCartId()
-  
-      if (props.cartId !== "")
-        props.onAddProduct(productAdd)
-  
-      props.onSaveForLater(props.itemId)
-    }
+        if (cart_id !== "")
+          props.onAddProduct(productAdd)
+    
+        props.onSaveForLater(props.itemId)
+      }
 
-    if (addFav) {
-      setAddFav(false);
-      /* props.onRemoveProduct(props.itemId) */
+      if (addFav) {
+        setAddFav(false);
+        /* props.onRemoveProduct(props.itemId) */
+      }
     }
   }
 
@@ -189,9 +195,7 @@ const Item = props => {
     setRating(rating);
   }
 
-  const addCartHandler = e => {
-    e.preventDefault()
-
+  const addCartHandler = () => {
     const cart_id = JSON.parse(localStorage.getItem('cart_id'));
     const productAdd = {
       cart_id: cart_id,
@@ -202,28 +206,50 @@ const Item = props => {
 
     if (!cart_id) {
       props.onGenerateCartId();
-      props.onAddProduct(productAdd);
     }
 
     if (cart_id) {
-      props.onAddProduct(productAdd);
+      if (productAttr.Color === "" || productAttr.Size === "") {
+        setWarning(true)
+      } else {
+        props.onAddProduct(productAdd);
+        //props.onMoveToCart(props.productData.item_id)
+        //console.log(props.addProduct.item_id)
+      }
     }
   }
 
   const postReviewHandler = e => {
     e.preventDefault();
-    const reviewData = {};
 
-    for (let reviewEleId in review)
-      reviewData[reviewEleId] = review[reviewEleId].value;
+    if (props.token.trim() !== "") {
+      const reviewData = {};
 
-    const post_review = {
-      product_id: props.productId,
-      review: reviewData,
-      rating: rating
+      for (let reviewEleId in review)
+        reviewData[reviewEleId] = review[reviewEleId].value;
+
+      const post_review = {
+        product_id: props.productId,
+        review: reviewData,
+        rating: rating
+      }
+
+      //props.onPostReview(post_review);
     }
 
-    //props.onPostReview(post_review);
+    if (props.token.trim() === "") {
+      props.onSignIn();
+
+      if (props.isSignUp)
+        props.onSignUp();
+    }
+  }
+
+  const warningHandler = (e, reason) => {
+    if (reason === 'clickaway')
+      return;
+
+    setWarning(false);
   }
 
   const form = [];
@@ -249,8 +275,6 @@ const Item = props => {
     />
   ))
 
-  console.log('generated Item ID ', props.itemId);
-
   return (
     <ProductDetail 
       product={productDetail}
@@ -272,7 +296,9 @@ const Item = props => {
       btnDisabled={!reviewIsValid}
       form="Form"
       submit={postReviewHandler}
-      shopping={props.isShopping} />
+      goToLogin={postReviewHandler}
+      openWarning={warning}
+      warning={warningHandler} />
   )
 };
 
@@ -286,7 +312,9 @@ const mapStateToProps = state => {
     cartId: state.shoppingCart.cartId,
     itemId: state.shoppingCart.itemId,
     addProduct: state.shoppingCart.productData,
-    isShopping: state.shoppingCart.isShopping
+    token: state.auth.token,
+    isSignIn: state.auth.isSignIn,
+    isSignUp: state.auth.isSignUp,
   }
 }
 
@@ -297,7 +325,11 @@ const mapDispatchToProps = dispatch => {
     onProductAttributes: productId => dispatch(actions.attributesInProduct(productId)),
     onFetchReviews: productId => dispatch(actions.fetchReviews(productId)),
     onGenerateCartId: () => dispatch(actions.generateCartId()),
-    onAddProduct: productData => dispatch(actions.addProductToCart(productData))
+    onAddProduct: productData => dispatch(actions.addProductToCart(productData)),
+    onSaveForLater: itemId => dispatch(actions.saveForLater(itemId)),
+    onMoveToCart: itemId => dispatch(actions.moveToCart(itemId)),
+    onSignIn: () => dispatch(actions.goToSignIn()),
+    onSignUp: () => dispatch(actions.goToSignUp())
   }
 }
 

@@ -112,6 +112,7 @@ const SignIn = props => {
         <h4 className={css.Title}>Please, Login to Shopaholic</h4>
         { error }
         { form }
+        <p>Don't have an account? <span onClick={props.switchSignUp}> Sign Up </span> here!</p>
         <div className={css.BtnContainer}>
           <Btn 
             btnColor="secondary"

@@ -29,13 +29,13 @@ const main = props => (
     </div>
     <div className={css.MainContent}>
       <aside className={css.Sales}>
-        <div>
+        <div onClick={props.seeSale}>
           WOW
           <span>
             Check What!
           </span>
         </div>
-        <div>
+        <div onClick={props.seeSale}>
         </div>
       </aside>
       <aside className={css.Blog}>

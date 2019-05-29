@@ -2,10 +2,12 @@ import { updateObject } from '../../share/utility';
 import * as actionTypes from '../actions/actionTypes';
 
 const initState = {
-  token: null,
+  token: "",
   userId: null,
   error: null,
   isLoading: false,
+  isSignIn: false,
+  isSignUp: false,
   authRedirectPath: '/'
 };
 
@@ -60,6 +62,16 @@ const ccSuccess = (state, action) => {
     cc: action.cc
   })
 }
+const goToSignIn = (state, action) => {
+  return updateObject(state, {
+    isSignIn: !state.isSignIn
+  })
+}
+const goToSignUp = (state, action) => {
+  return updateObject(state, {
+    isSignUp: !state.isSignUp
+  })
+}
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -85,6 +97,10 @@ const reducer = (state = initState, action) => {
       return ccSuccess(state, action);
     case actionTypes.AUTH_USER_CREDIT_CARD_FAIL:
       return fail(state, action);
+    case actionTypes.GO_TO_SIGN_IN:
+      return goToSignIn(state, action);
+    case actionTypes.GO_TO_SIGN_UP:
+      return goToSignUp(state, action);
     default:
       return state;
   }
