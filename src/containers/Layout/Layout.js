@@ -8,7 +8,6 @@ import Footer from '../../components/UI/Footer/Footer';
 import css from './Layout.css';
 
 const Layout = props => {
-  const [showSideDrawer, setShowSideDrawer] = useState(false);
   const [isHome, setIsHome] = useState(false);
 
   useEffect(() => {
@@ -19,10 +18,6 @@ const Layout = props => {
     }
   }, [props.location.pathname])
 
-  const sideDrawerToggleHandler = () => {
-    setShowSideDrawer(!showSideDrawer)
-  }
-
   const returnHomeHandler = () => {
     props.history.replace('/');
   }
@@ -31,18 +26,10 @@ const Layout = props => {
     props.history.goBack();
   }
 
-  const authScreenHandler = () => {
-    setShowSideDrawer(false);
-  }
-
-  const shoppingCartHandler = () => {
-    setShowSideDrawer(false);
-  }
-
   return (
     <div className={css.Layout}>
       <Toolbar 
-        toggleMenu={sideDrawerToggleHandler}
+        toggleMenu={props.sideDrawer}
         clicked={returnHomeHandler}
         back={goBackHandler}
         signIn={props.signIn}
@@ -51,13 +38,14 @@ const Layout = props => {
         itemsCart={props.itemsCart}
         totalBag={props.totalBag} />
       <SideDrawer 
-        open={showSideDrawer}
-        closed={sideDrawerToggleHandler}
-        auth={authScreenHandler}
-        shoppingCart={shoppingCartHandler}
-        back={sideDrawerToggleHandler}
+        open={props.showSideDrawer}
+        closed={props.sideDrawer}
+        shoppingCart={props.shoppingCart}
+        back={props.sideDrawer}
         signIn={props.signIn}
-        signUp={props.signUp} />
+        signUp={props.signUp}
+        itemsCart={props.itemsCart}
+        totalBag={props.totalBag} />
       <main>
         { props.children }
       </main>

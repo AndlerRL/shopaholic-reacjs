@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import M from 'materialize-css';
@@ -28,110 +28,122 @@ const Checkout = React.lazy(() => {
   return import('../Checkout/Checkout');
 })
 
-class App extends React.Component {
-  componentDidMount () {
-    M.AutoInit();
-    this.props.onFetchTotalAmount();
-  }
-
-  componentDidUpdate () {
-    const root = document.querySelector('#root');
-    if (this.props.isSignIn) {
-      disableBodyScroll(root);
-    } else {
-      enableBodyScroll(root);
-    }
-
-    if (this.props.isSignUp) {
-      disableBodyScroll(root);
-    } else {
-      enableBodyScroll(root);
-    }
-
-    if (this.props.isShoppingCart) {
-      disableBodyScroll(root);
-    } else {
-      enableBodyScroll(root);
-    }
-
-    //this.props.onFetchTotalAmount();
-  }
-
-  showSignInHandler = () => {
-    this.props.onSignIn()
-
-    if (this.props.isSignUp) {
-      this.props.onSignUp()
-    }
-
-    if (this.props.isShoppingCart)
-      this.props.onShoppingCart()
-  }
-
-  showSignUpHandler = () => {
-    this.props.onSignUp()
-
-    if (this.props.isSignIn) {
-      this.props.onSignIn()
-    }
-
-    if (this.props.isShoppingCart)
-      this.props.onShoppingCart()
-  }
-
-  showShoppingCartHandler = () => {
-    this.props.onShoppingCart()
-
-    if (this.props.isSignIn)
-      this.props.onSignIn()
-
-    if (this.props.isSignUp)
-      this.props.onSignUp()
-  }
-
-  render () {
-    let routes = (
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/products" render={props => <Products {...props} />} />
-        <Route exact path={`/product-details`} render={props => <Product {...props} />} />
-        <Route exact path="/checkout" render={props => <Checkout {...props} />} />
-        <Redirect to="/" />
-      </Switch>
-    )
+const App = props => {
+  const [showSideDrawer, setShowSideDrawer] = useState(false);
   
-    return (
-      <Layout
-        signIn={this.showSignInHandler}
-        signUp={this.showSignUpHandler}
-        shoppingCart={this.showShoppingCartHandler}
-        itemsCart={this.props.productData.length}
-        totalBag={this.props.totalAmount ? this.props.totalAmount : '0.00'}>
-        <Suspense fallback={<Loading />}>
-          <SignIn 
-            signInClosed={this.showSignInHandler}
-            showSignIn={this.props.isSignIn}
-            backShop={this.showSignInHandler}
-            switchSignUp={this.showSignUpHandler} />
-          <SignUp 
-            signUpClosed={this.showSignUpHandler}
-            showSignUp={this.props.isSignUp}
-            backShop={this.showSignUpHandler}
-            switchSignIn={this.showSignInHandler} />
-          <ShoppingCart 
-            shoppingCartClosed={this.showShoppingCartHandler}
-            showShoppingCart={this.props.isShoppingCart} />
-          { routes }
-        </Suspense>
-      </Layout>
-    );
+  useEffect(() => {
+    M.AutoInit();
+
+    const root = document.querySelector('#root');
+
+    if (props.isSignIn) {
+      disableBodyScroll(root);
+    } else {
+      enableBodyScroll(root);
+    }
+
+    if (props.isSignUp) {
+      disableBodyScroll(root);
+    } else {
+      enableBodyScroll(root);
+    }
+
+    if (props.isShoppingCart) {
+      disableBodyScroll(root);
+    } else {
+      enableBodyScroll(root);
+    }
+  }, [props]);
+
+  const showSignInHandler = () => {
+    props.onSignIn()
+
+    if (props.isSignUp) {
+      props.onSignUp()
+    }
+
+    if (props.isShoppingCart)
+      props.onShoppingCart()
+
+    if (props.sideDrawer)
+      props.onSideDrawer()
   }
+
+  const showSignUpHandler = () => {
+    props.onSignUp()
+
+    if (props.isSignIn) {
+      props.onSignIn()
+    }
+
+    if (props.isShoppingCart)
+      props.onShoppingCart()
+
+    if (props.sideDrawer)
+      props.onSideDrawer()
+  }
+
+  const showShoppingCartHandler = () => {
+    props.onShoppingCart()
+
+    if (props.isSignIn)
+      props.onSignIn()
+
+    if (props.isSignUp)
+      props.onSignUp()
+
+    if (props.sideDrawer)
+      props.onSideDrawer()
+  }
+
+  const sideDrawerHandler = () => {
+    props.onSideDrawer()
+  }
+
+  let routes = (
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/products" render={props => <Products {...props} />} />
+      <Route exact path={`/product-details`} render={props => <Product {...props} />} />
+      <Route exact path="/checkout" render={props => <Checkout {...props} />} />
+      <Redirect to="/" />
+    </Switch>
+  )
+  
+  return (
+    <Layout
+      sideDrawer={sideDrawerHandler}
+      showSideDrawer={props.sideDrawer}
+      signIn={showSignInHandler}
+      signUp={showSignUpHandler}
+      shoppingCart={showShoppingCartHandler}
+      itemsCart={props.productData.length}
+      totalBag={props.totalAmount ? props.totalAmount : '0.00'}>
+      <Suspense fallback={<Loading />}>
+        <SignIn 
+          signInClosed={showSignInHandler}
+          showSignIn={props.isSignIn}
+          backShop={showSignInHandler}
+          switchSignUp={showSignUpHandler} />
+        <SignUp 
+          signUpClosed={showSignUpHandler}
+          showSignUp={props.isSignUp}
+          backShop={showSignUpHandler}
+          switchSignIn={showSignInHandler} />
+        <ShoppingCart 
+          shoppingCartClosed={showShoppingCartHandler}
+          showShoppingCart={props.isShoppingCart} />
+        { routes }
+      </Suspense>
+    </Layout>
+  );
 };
 
 const mapStateToProps = state => {
   return {
     productData: state.shoppingCart.productData,
     totalAmount: state.shoppingCart.totalAmount,
+    sideDrawer: state.auth.sideDrawer,
     isSignIn: state.auth.isSignIn,
     isSignUp: state.auth.isSignUp,
     isShoppingCart: state.shoppingCart.isShoppingCart
@@ -140,11 +152,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchShoppingCart: cartId => dispatch(actions.fetchShoppingCart(cartId)),
-    onFetchTotalAmount: () => dispatch(actions.fetchTotalAmount()),
     onSignIn: () => dispatch(actions.goToSignIn()),
     onSignUp: () => dispatch(actions.goToSignUp()),
     onShoppingCart: () => dispatch(actions.goToShoppingCart()),
+    onSideDrawer: () => dispatch(actions.handleSideDrawer()),
   }
 }
 

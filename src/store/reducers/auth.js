@@ -3,11 +3,15 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initState = {
   token: "",
+  isAuthenticated: false,
   userId: null,
   error: null,
   isLoading: false,
   isSignIn: false,
   isSignUp: false,
+  sideDrawer: false,
+  useData: {},
+  cc: {},
   authRedirectPath: '/'
 };
 
@@ -23,18 +27,25 @@ const fail = (state, action) => {
     isLoading: false
   })
 }
+const handleSideDrawer = (state, action) => {
+  return updateObject(state, {
+    sideDrawer: !state.sideDrawer
+  })
+}
 const authSuccess = (state, action) => {
   return updateObject(state, {
     token: action.idToken,
     userId: action.userId,
     error: null,
-    isLoading: false
+    isLoading: false,
+    isAuthenticated: true
   })
 }
 const authLogout = (state, action) => {
   return updateObject(state, {
     token: null,
-    userId: null
+    userId: null,
+    isAuthenticated: false
   })
 }
 const setAuthRedirectPath = (state, action) => {
@@ -44,13 +55,7 @@ const setAuthRedirectPath = (state, action) => {
 }
 const addressSuccess = (state, action) => {
   return updateObject(state, {
-    address1: action.address1,
-    address2: action.address2,
-    city: action.city,
-    zipCode: action.zipCode,
-    region: action.region,
-    country: action.country,
-    shippingRegionId: action.shippingRegionId,
+    userData: action.userData,
     isLoading: false,
     error: null
   })
@@ -75,6 +80,8 @@ const goToSignUp = (state, action) => {
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
+    case actionTypes.HANDLE_SIDEDRAWER:
+      return handleSideDrawer(state, action);
     case actionTypes.AUTH_START:
       return start(state, action);
     case actionTypes.AUTH_SUCCESS:

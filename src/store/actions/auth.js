@@ -54,6 +54,12 @@ export const authCheckState = () => {
     type: actionTypes.AUTH_CHECK_STATE
   }
 }
+export const updateUser = userData => {
+  return {
+    type: actionTypes.AUTH_USER_UPDATE,
+    userData: userData
+  }
+}
 export const addressStart = () => {
   return {
     type: actionTypes.AUTH_USER_ADDRESS_START,
@@ -113,5 +119,10 @@ export const goToSignIn = () => {
 export const goToSignUp = () => {
   return {
     type: actionTypes.GO_TO_SIGN_UP
+  }
+}
+export const handleSideDrawer = () => {
+  return {
+    type: actionTypes.HANDLE_SIDEDRAWER
   }
 }

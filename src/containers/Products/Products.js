@@ -1,11 +1,31 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import * as actions from '../../store/actions';
 import Products from '../../components/Products/Products';
 
 const Items = props => {
+  const [colorAttributes, setColorAttributes] = useState({
+    White: false,
+    Black: false,
+    Red: false,
+    Orange: false,
+    Yellow: false,
+    Green: false,
+    Blue: false,
+    Indigo: false,
+    Purple: false
+  });
+  const [sizeAttributes, setSizeAttributes] = useState({
+    S: false,
+    M: false,
+    L: false,
+    XL: false,
+    XXL: false
+  })
+  const [priceRange, setPriceRange] = useState(0);
+
   useEffect(() => {
     props.onGetProducts(props.page, props.products, props.count);
     props.onGetAttributes(props.size, props.color);
@@ -37,6 +57,22 @@ const Items = props => {
     props.history.push('/product-details');
   }
 
+  const colorAttributeHandler = attribute => () => {
+    setColorAttributes({
+      [attribute]: !colorAttributes[attribute]
+    })
+  };
+
+  const sizeAttributeHandler = attribute => () => {
+    setSizeAttributes({
+      [attribute]: !sizeAttributes[attribute]
+    })
+  }
+
+  const sliderChangeHandler = (e, val) => {
+    setPriceRange(val);
+  }
+
 
   const color = props.colorVals.map(color => color);
   const size = props.sizeVals.map(size => size);
@@ -53,9 +89,15 @@ const Items = props => {
       productDetail={productDetailHandler(props.products)}
       colorsAttr={color}
       sizesAttr={size}
+      colorAttribute={colorAttributes}
+      sizeAttribute={sizeAttributes}
+      colorSelect={colorAttributeHandler}
+      sizeSelect={sizeAttributeHandler}
       filterCat={filterCat}
       filterDep={filterDep}
-      count={props.count} />
+      count={props.count}
+      sliderValue={priceRange}
+      sliderChanged={sliderChangeHandler} />
   )
 };
 

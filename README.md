@@ -46,6 +46,26 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v0.6.61]`__
+
+Added more features to the Filter component and now looks great! Slider from Material UI (also it has been updated to `v4.0.1`)  has been added properly and work just fine to filter items greater than equal prices.
+
+__Quick Fix:__ There was some issues with the adaptive UI on various components. The next components has been UI fix:
+  
+* Products.
+* Product Detail.
+* Filter.
+* Shopping Cart.
+* SideDrawer.
+* Login/SignIn.
+* Product.
+* Reviews.
+* Post Review.
+* Hot Products on Product Details!
+
+I can say that all the app is now Mobile First, there is just 2 more screens that will be added soon and UI updates after login/registration.
+
+
 __`[v0.6.51]`__
 
 There are some important updates on this update/fix, witch is:

@@ -252,6 +252,19 @@ const Item = props => {
     setWarning(false);
   }
 
+  const productDetailHandler = () => product => {
+    localStorage.setItem('product_detail_id', JSON.stringify(product.product_id));
+    let product_detail_id = JSON.parse(localStorage.getItem('product_detail_id'));
+
+    if (product_detail_id !== product.product_id) {
+      localStorage.setItem('product_detail_id', JSON.stringify(product.product_id))
+      product_detail_id = JSON.parse(localStorage.getItem('product_detail_id'))
+    }
+
+    props.onFetchProductData(product_detail_id, props.productData);
+    props.history.push('/product-details');
+  }
+
   const form = [];
 
   for (let key in review) {
@@ -274,6 +287,9 @@ const Item = props => {
       changed={e => inputChangedHandler(e, formEle.id)}
     />
   ))
+
+  const color = props.colorVals.map(color => color);
+  const size = props.sizeVals.map(size => size);
 
   return (
     <ProductDetail 
@@ -298,17 +314,23 @@ const Item = props => {
       submit={postReviewHandler}
       goToLogin={postReviewHandler}
       openWarning={warning}
-      warning={warningHandler} />
+      warning={warningHandler}
+      colorsAttr={color}
+      sizesAttr={size}
+      productDetail={productDetailHandler(props.products)} />
   )
 };
 
 const mapStateToProps = state => {
   return {
+    products: state.products.products,
     reviews: state.products.reviews,
     productId: state.products.productId,
     productData: state.products.productData,
     productLocation: state.products.productLocation,
     productAttributes: state.attributes.productAttributes,
+    colorVals: state.attributes.colorVals,
+    sizeVals: state.attributes.sizeVals,
     cartId: state.shoppingCart.cartId,
     itemId: state.shoppingCart.itemId,
     addProduct: state.shoppingCart.productData,
@@ -329,7 +351,8 @@ const mapDispatchToProps = dispatch => {
     onSaveForLater: itemId => dispatch(actions.saveForLater(itemId)),
     onMoveToCart: itemId => dispatch(actions.moveToCart(itemId)),
     onSignIn: () => dispatch(actions.goToSignIn()),
-    onSignUp: () => dispatch(actions.goToSignUp())
+    onSignUp: () => dispatch(actions.goToSignUp()),
+    onFetchProductData: (productId, productData) => dispatch(actions.fetchProductDetail(productId, productData))
   }
 }
 

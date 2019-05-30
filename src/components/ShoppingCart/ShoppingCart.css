@@ -3,7 +3,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 16px 64px;
+  padding: 16px 0;
+  margin-top: -5.6rem;
   width: 100%;
   max-height: 70vh;
   margin-bottom: 3.25rem;
@@ -31,6 +32,10 @@
   text-align: center;
 }
 
+.ShoppingCart .Item > td {
+  min-width: 135px;
+}
+
 .ShoppingCart .Item > td:first-child{
   display: flex;
   flex-direction: row;
@@ -38,12 +43,12 @@
   align-items: center;
 }
 
-.ShoppingCart .Item > id:first-child > div:first-child {
+.ShoppingCart .Item > td:first-child > div:first-child {
   width: 180px;
   height: 191px;
 }
 
-.ShoppingCart .Item > id:first-child > div:first-child > img {
+.ShoppingCart .Item > td:first-child > div:first-child > img {
   animation: opacity ease-in .6s forwards;
 }
 
@@ -83,8 +88,7 @@
 
 .ShoppingCart .Item > td:nth-child(4) > p {
   display: flex;
-  align-items: center;
-  text-align: center;
+  justify-content: center;
   font-size: 1.5rem;
   margin: 0 auto;
   width: 100px;
@@ -166,7 +170,7 @@
 .Actions {
   position: fixed;
   left: 0;
-  padding: 16px 32px;
+  padding: 16px 0;
   bottom: 0;
   width: 100%;
   display: flex;
@@ -198,6 +202,17 @@
   font-family: 'Dosis', sans-serif;
   font-weight: 500;
   font-size: 1rem;
+}
+
+@media screen and (min-width: 500px) {
+  .ShoppingCart {
+    padding: 16px 64px;
+    margin-top: 0;
+  }
+
+  .Actions {
+    padding: 16px 32px;
+  }
 }
 
 @keyframes opacity {

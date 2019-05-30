@@ -45,8 +45,8 @@ const sideDrawer = props => {
             currency="USD" />
           <ShoppingCart 
             clicked={props.shoppingCart}
-            itemsCar={1}
-            totalBag={9.99} />
+            itemsCart={props.itemsCart}
+            totalBag={props.totalBag} />
         </div>
         <Search clicked={props.search} />
         <nav>

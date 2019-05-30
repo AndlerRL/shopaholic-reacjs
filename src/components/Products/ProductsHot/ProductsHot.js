@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
+import * as actions from '../../../store/actions';
 import { Loading } from '../../UI/Loading/Loading';
 import IconF from '../../UI/Icons/IconF';
 import Btn from '../../UI/Btn/Btn';
@@ -13,6 +14,10 @@ const ProductsHot = props => {
   const [isSize, setIsSize] = useState({
     size: ''
   });
+
+  useEffect(() => {
+    props.onGetProducts(Math.floor(Math.random(1) * 5) + 1, props.products, props.count)
+  }, []);
 
   const heartHandler = () => {
     setIsHover(!isHover);
@@ -43,7 +48,7 @@ const ProductsHot = props => {
   if (props.isLoading)
     fetchedProductsHot = <Loading />;
   else 
-    fetchedProductsHot = props.items.map(product => {
+    fetchedProductsHot = props.products.map(product => {
        if (product.discounted_price > 0) 
         return (
         <li
@@ -140,8 +145,16 @@ const ProductsHot = props => {
 
 const mapStateToProps = state => {
   return {
-    isLoading: state.products.isLoading
+    isLoading: state.products.isLoading,
+    products: state.products.products,
+    count: state.products.count,
   }
 }
 
-export default connect(mapStateToProps)(ProductsHot);
+const mapDispatchToProps = dispatch => {
+  return {
+    onGetProducts: (page, products, count) => dispatch(actions.fetchProducts(page, products, count))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsHot);

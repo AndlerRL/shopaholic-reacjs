@@ -3,12 +3,13 @@ import { withRouter } from 'react-router-dom';
 import React, { useState } from 'react';
 
 import * as actions from '../../../store/actions';
-import { Loading, LoadingText } from '../../UI/Loading/Loading';
+import { Loading, LoadingText, LoadingImg } from '../../UI/Loading/Loading';
 import Btn from '../../UI/Btn/Btn';
 import BtnIcon from '../../UI/Btn/BtnIcon';
 import Stars from './Stars/Stars';
 import Reviews from './Reviews/Reviews';
 import SnackBar from '../../UI/Snackbar/Snackbar';
+import HotProducts from '../ProductsHot/ProductsHot';
 
 import css from './Product.css';
 
@@ -111,28 +112,36 @@ const ProductDetail = props => {
           className={css.ProductDetailHead}>
           <div className={css.ProductImg}>
             <div className={css.ImgContainer}>
-              { props.loading ? <LoadingText /> : <img src={`https://backendapi.turing.com/images/products/${ !animation ? product.image : product.image_2 }`}
-                className={[
-                  css.ActiveImg,
-                  !animation ? css.In : null,
-                  animation ? css.Out : null
-                ].join(' ')} 
-                alt="Active_Image"/> }
+              { props.isLoading ? 
+                <LoadingImg /> :
+                <img src={`https://backendapi.turing.com/images/products/${ !animation ? product.image : product.image_2 }`}
+                  className={[
+                    css.ActiveImg,
+                    !animation ? css.In : null,
+                    animation ? css.Out : null
+                  ].join(' ')} 
+                  alt="Active_Image"/>
+              }
             </div>
             <div className={css.InactiveImg}>
               <div className={css.ImgContainer}>
-                { props.loading ? <LoadingText /> : <img src={`https://backendapi.turing.com/images/products/${!animation ? product.image : product.image_2 }`}
-                  className={css.ActiveImgThumb}
-                  alt="Active_Image_thumb" /> }
+                { props.isLoading ? 
+                  <LoadingImg /> :
+                  <img src={`https://backendapi.turing.com/images/products/${!animation ? product.image : product.image_2 }`}
+                    className={css.ActiveImgThumb}
+                    alt="Active_Image_thumb" /> }
               </div>
               <div className={css.ImgContainer}>
-                { props.loading ? <LoadingText /> : <img src={`https://backendapi.turing.com/images/products/${!animation ? product.image_2 : product.image }`}
-                  onClick={changeImg}
-                  className={[
-                    !animation ? css.FadeIn : null,
-                    animation ? css.FadeOut : null
-                  ].join(' ')}
-                  alt="Inactive_Image" /> }
+                { props.isLoading ? 
+                  <LoadingImg /> :
+                  <img src={`https://backendapi.turing.com/images/products/${!animation ? product.image_2 : product.image }`}
+                    onClick={changeImg}
+                    className={[
+                      !animation ? css.FadeIn : null,
+                      animation ? css.FadeOut : null
+                    ].join(' ')}
+                    alt="Inactive_Image" />
+                }
               </div>
             </div>
           </div>
@@ -210,16 +219,25 @@ const ProductDetail = props => {
     });
 
   return (
-    <div className={css.ProductDetail}>
-      { product }
-      <Reviews 
-        reviews={props.reviews}
-        review={props.review}
-        rated={props.rated}
-        rating={props.rating}
-        btnDisabled={props.btnDisabled}
-        goToLogin={props.goToLogin} />
-    </div>
+    <React.Fragment>
+      <div className={css.ProductDetail}>
+        { product }
+        <Reviews 
+          reviews={props.reviews}
+          review={props.review}
+          rated={props.rated}
+          rating={props.rating}
+          btnDisabled={props.btnDisabled}
+          goToLogin={props.goToLogin} />
+      </div>
+      <div className={css.ProductsHot}>
+        <HotProducts
+          colorsAttr={props.colorsAttr}
+          sizesAttr={props.sizesAttr}
+          productDetail={props.productDetail}
+          addFav={props.addFav} />
+      </div>
+    </React.Fragment>
   )
 };
 

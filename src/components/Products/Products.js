@@ -31,54 +31,57 @@ const Products = props => {
   if (props.isLoading)
     fetchedProducts = <Loading />;
   else 
-    fetchedProducts = props.items.map(product => (
-      <div
-        className={css.Item}
-        key={product.product_id}>
-        <div className={css.Hover}>
-          <h5>{ product.name }</h5>
-          <p>USD $ { product.discounted_price > 0 ? product.discounted_price : product.price }</p>
-          <span 
-            onMouseEnter={heartHandler}
-            onMouseLeave={heartHandler}
-            onClick={e => props.addFav(e, product.product_id)}>
-            <IconF 
-              type={isHover ? 'fas' : 'far'}
-              icon="heart"
-              size="2.5rem" />
-          </span>
-          <Btn
-            btnType="contained"
-            btnColor="primary"
-            clicked={() => props.productDetail(product)}>
-            quick view
-          </Btn>
-        </div>
-        <div style={{
-          background: `url('https://backendapi.turing.com/images/products/${product.thumbnail}') no-repeat`,
-          backgroundSize: 'contain',
-          backgroundPosition: 'center',
-          width: '100%',
-          height: '175px',
-        }}>
-          { product.discounted_price > 0 ? (
-            <span className={css.Hot}>
-              HOT
-            </span>
-          ) : null}
-        </div>
-        <h6>{product.name}</h6>
-        <div className={css.Colors}>
-          { colors }
-        </div>
-        <p className={ product.discounted_price > 0 ? css.Discount : null }>
-          USD $ { product.price }
-        </p>
-        <p>
-          { product.discounted_price > 0 ? `USD $ ${product.discounted_price}` : null}
-        </p>
-      </div>
-    ));
+      fetchedProducts = props.items.map(product => {
+        if (product.price >= props.sliderValue || product.discounted_price >= props.sliderValue)
+          return (
+          <div
+            className={css.Item}
+            key={product.product_id}>
+            <div className={css.Hover}>
+              <h5>{ product.name }</h5>
+              <p>USD $ { product.discounted_price > 0 ? product.discounted_price : product.price }</p>
+              <span 
+                onMouseEnter={heartHandler}
+                onMouseLeave={heartHandler}
+                onClick={e => props.addFav(e, product.product_id)}>
+                <IconF 
+                  type={isHover ? 'fas' : 'far'}
+                  icon="heart"
+                  size="2.5rem" />
+              </span>
+              <Btn
+                btnType="contained"
+                btnColor="primary"
+                clicked={() => props.productDetail(product)}>
+                quick view
+              </Btn>
+            </div>
+            <div style={{
+              background: `url('https://backendapi.turing.com/images/products/${product.thumbnail}') no-repeat`,
+              backgroundSize: 'contain',
+              backgroundPosition: 'center',
+              width: '100%',
+              height: '175px',
+            }}>
+              { product.discounted_price > 0 ? (
+                <span className={css.Hot}>
+                  HOT
+                </span>
+              ) : null}
+            </div>
+            <h6>{product.name}</h6>
+            <div className={css.Colors}>
+              { colors }
+            </div>
+            <p className={ product.discounted_price > 0 ? css.Discount : null }>
+              USD $ { product.price }
+            </p>
+            <p>
+              { product.discounted_price > 0 ? `USD $ ${product.discounted_price}` : null}
+            </p>
+          </div>
+        )
+    });
 
   return (
     <div className={css.Products}>
@@ -89,7 +92,15 @@ const Products = props => {
           <Filter 
             filterCat={props.filterCat}
             filterDep={props.filterDep}
-            count={props.count} />
+            colorsAttr={props.colorsAttr}
+            sizesAttr={props.sizesAttr}
+            colorAttribute={props.colorAttribute}
+            sizeAttribute={props.sizeAttribute}
+            sizeSelect={props.sizeSelect}
+            colorSelect={props.colorSelect}
+            count={props.count}
+            sliderValue={props.sliderValue}
+            sliderChanged={props.sliderChanged} />
         </aside>
         <div className={css.ProductsItems}>
           { fetchedProducts }
@@ -106,7 +117,8 @@ const Products = props => {
         </BtnIcon>
         <div>
           <li>
-            { props.page > 2 ? `... ${parseInt(props.page) - 2}` : null }
+            { props.page > 3 ? `... ` : null }
+            { props.page > 2 ? `${parseInt(props.page) - 2}` : null }
           </li>
           <li> 
             { props.page > 1 ? `${parseInt(props.page) - 1}` : null }
@@ -132,7 +144,6 @@ const Products = props => {
         </BtnIcon>
       </ul>
       <ProductsHot 
-        items={props.items}
         productDetail={props.productDetail}
         addFav={props.addFav}
         colorsAttr={props.colorsAttr}

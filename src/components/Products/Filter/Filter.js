@@ -4,6 +4,7 @@ import React from 'react';
 import * as actions from '../../../store/actions';
 import { FilterDep, FilterCat } from './FilterConditionals';
 import IconM from '../../UI/Icons/IconM';
+import Slider from '../../UI/Slider/Slider';
 import { Checkbox, FormControl, FormGroup, FormControlLabel, FormLabel } from '@material-ui/core';
 
 import css from './Filter.css';
@@ -22,8 +23,27 @@ const Filter = props => {
       props.filterCat.find(id => id.name === e.target.value)
     )
   }
-  
 
+  const attributesColor = props.colorsAttr.map(attr => (
+    <button 
+      key={attr.attribute_value_id}
+      className={props.colorAttribute[attr.value] ? css.Selected : css.ColorItem}
+      onClick={props.colorSelect(attr.value, attr.attribute_value_id)}
+      name={attr.attribute_value}>
+      <div style={{ backgroundColor: attr.value}}></div>
+    </button>
+  ))
+
+  const attributesSize = props.sizesAttr.map(attr => (
+    <button 
+      key={attr.attribute_value_id}
+      className={props.sizeAttribute[attr.value] ? css.Selected : css.SizeItem}
+      onClick={props.sizeSelect(attr.value ,attr.attribute_value_id)}
+      name={attr.value}>
+      <span>{ attr.value }</span>
+    </button>
+  ))
+  
   return (
     <div className={css.Filter}>
       <div className={css.FilterHead}>
@@ -46,6 +66,21 @@ const Filter = props => {
         </ul>
       </div>
       <div className={css.FilterBody}>
+        <div className={css.Attributes}>
+          <span>Colors</span>
+          <div className={css.Colors}>
+            { attributesColor }
+          </div>
+          <span>Sizes</span>
+          <div className={css.Sizes}>
+            { attributesSize }
+          </div> 
+        </div>
+        <Slider 
+          sliderValue={props.sliderValue}
+          changed={props.sliderChanged}
+          labelId="price_range"
+          label="Price Range" />
         <FormControl component="fieldset" className={css.FilterControl}>
           <FormLabel component="header"><h6>Filter By:</h6></FormLabel>
           <FormGroup>
