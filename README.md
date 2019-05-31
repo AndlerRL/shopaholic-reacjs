@@ -46,6 +46,20 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v0.7.15]`__
+
+There is a lot of fixes and implementations on this version, so these are some:
+
+* __Filter Component:__ Worked on every filter that the web app needs; Departments, Categories and UI/UX respond on any of the cases.
+* __Search Component:__ Works along filter; it has query params that help to search anything that API support. Works well but has a UI bug that won't affect the project.
+* __Products Component:__ Now render the requested filters and shows without any problem the requested products and re-render if turn back again to normal state.
+* __UI/UX Respond:__ Product Reviews has now a well UI structured respond if there is no review yet on the product, also with the `Search Component` that reflects a respond if there is no match.
+
+__Bugs:__ 
+
+* While click on the filter Categories/Department, it render what you ask for but when you select another one, doesn't render both and doing that, API doesn't respond well the request and create an instability on the WebApp and, if I really want that, I need to change the back-end but that won't be possible, so, I will leave it like it and change the UI, witch is the checkbox with something else, radio buttons.
+* On search component, when you succeed to search something and wants to return to the regular state, the search bar doesn't update and stay the same as you requested and you need to change it/delete it so it can be anything else... Thinking to make it dynamic, but don't know it actually would be cool to do it or if will cause a delay.
+
 __`[v0.6.61]`__
 
 Added more features to the Filter component and now looks great! Slider from Material UI (also it has been updated to `v4.0.1`)  has been added properly and work just fine to filter items greater than equal prices.

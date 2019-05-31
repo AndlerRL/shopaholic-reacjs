@@ -116,7 +116,8 @@ const input = props => {
         <IconM 
           size="default"
           icon={props.iconSearch}
-          prefix="prefix" />
+          prefix="prefix"
+          clicked={props.clicked} />
         ): null }
       { inputElement }
       <label htmlFor={props.for}>{props.label}</label>

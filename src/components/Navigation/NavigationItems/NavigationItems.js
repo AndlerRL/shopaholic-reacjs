@@ -8,21 +8,15 @@ const navigationItems = props => (
   <ul className={[css.NavigationItems, props.show].join(' ')}>
     <NavigationItem
       exact
+      link="/"
+      clicked={props.clicked}>
+      HOME
+    </NavigationItem>
+    <NavigationItem
+      exact
       link="/products"
       clicked={props.clicked}>
       PRODUCTS
-    </NavigationItem>
-    <NavigationItem
-      exact
-      link="/categories"
-      clicked={props.clicked}>
-      CATEGORIES
-    </NavigationItem>
-    <NavigationItem
-      exact
-      link="/departments"
-      clicked={props.clicked}>
-      DEPARTMENTS
     </NavigationItem>
   </ul>
 );

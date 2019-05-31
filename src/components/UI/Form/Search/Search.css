@@ -11,24 +11,42 @@
 
 .Search > div > span {
   display: flex;
-  top: -8px !important;
-  left: -8px;
+  align-items: center;
+  justify-content: center;
+  top: 0 !important;
+  left: 0;
+  background-color: #757575;
+  border: 2px solid #757575;
   color: #f5f5f59a;
-  width: 2rem !important;
+  width: 3.2rem !important;
+  border-radius: 50% 0 0 50%;
+  height: 100%;
+  margin: auto;
   cursor: pointer;
+  transition: all cubic-bezier(0.19, 1, 0.22, 1) .5s 150ms !important;
 }
 
 .Search > div > span:hover {
   color: #f5f5f5;
+  background-color: #434343;
+  border: 2px solid transparent;
+  border-left: 2px solid #757575;
+  border-bottom: 2px solid #757575;
+  border-top: 2px solid #757575;
 }
 
 .Search input {
-  border: 2px solid transparent;
-  border-radius: 25px;
-  color: #f5f5f5;
+  border: 3px solid transparent !important;
+  border-radius: 25px !important;
+  color: #f5f5f5 !important;
+  background-color: #434343 !important;
+  user-select: none;
+  outline: none;
   text-align: center;
-  width: 100%;
-  padding-left: 2.25rem !important;
+  margin-top: 2rem !important;
+  width: 99%;
+  height: 2.7rem !important;
+  padding-left: 2.3rem !important;
 }
 
 .Search input::placeholder {
@@ -36,7 +54,8 @@
 }
 
 .Search input:focus {
-  border: 2px solid #757575
+  border: 2px solid #757575 !important;
+  box-shadow: none !important;
 }
 
 @media screen and (min-width: 750px) {

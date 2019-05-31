@@ -36,7 +36,8 @@ const Layout = props => {
         signUp={props.signUp}
         shoppingCart={props.shoppingCart}
         itemsCart={props.itemsCart}
-        totalBag={props.totalBag} />
+        totalBag={props.totalBag}
+        searchClicked={props.searchClicked} />
       <SideDrawer 
         open={props.showSideDrawer}
         closed={props.sideDrawer}

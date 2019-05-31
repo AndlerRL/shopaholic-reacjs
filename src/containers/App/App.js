@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import M from 'materialize-css';
@@ -29,8 +29,6 @@ const Checkout = React.lazy(() => {
 })
 
 const App = props => {
-  const [showSideDrawer, setShowSideDrawer] = useState(false);
-  
   useEffect(() => {
     M.AutoInit();
 
@@ -100,6 +98,18 @@ const App = props => {
     props.onSideDrawer()
   }
 
+  const searchHandler = (e, value) => {
+    if (value.trim() !== "")
+      props.onSearchProduct(1, value);
+
+    if (props.history.pathname !== '/products' && value.trim() !== "") {
+      props.history.replace('/products');
+      setTimeout(() => {
+        props.onSearchProduct(1, value);
+      }, 1000);
+    }
+  }
+
   let routes = (
     <Switch>
       <Route exact path="/" component={Home} />
@@ -118,7 +128,8 @@ const App = props => {
       signUp={showSignUpHandler}
       shoppingCart={showShoppingCartHandler}
       itemsCart={props.productData.length}
-      totalBag={props.totalAmount ? props.totalAmount : '0.00'}>
+      totalBag={props.totalAmount ? props.totalAmount : '0.00'}
+      searchClicked={searchHandler}>
       <Suspense fallback={<Loading />}>
         <SignIn 
           signInClosed={showSignInHandler}
@@ -146,7 +157,9 @@ const mapStateToProps = state => {
     sideDrawer: state.auth.sideDrawer,
     isSignIn: state.auth.isSignIn,
     isSignUp: state.auth.isSignUp,
-    isShoppingCart: state.shoppingCart.isShoppingCart
+    isShoppingCart: state.shoppingCart.isShoppingCart,
+    queryStr: state.products.meta.query_string,
+    isSearch: state.products.search
   }
 }
 
@@ -156,6 +169,7 @@ const mapDispatchToProps = dispatch => {
     onSignUp: () => dispatch(actions.goToSignUp()),
     onShoppingCart: () => dispatch(actions.goToShoppingCart()),
     onSideDrawer: () => dispatch(actions.handleSideDrawer()),
+    onSearchProduct: (page, queryStr) => dispatch(actions.productsSearch(page, queryStr)),
   }
 }
 

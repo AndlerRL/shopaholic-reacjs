@@ -51,12 +51,12 @@
 
 .Reviews > .Review > .ReviewData > span {
   transform: scale(.75);
-  width: 210px;
-  margin-left: -2rem;
+  width: 200px;
+  margin: 0 -2rem;
 }
 
 .Reviews > .Review > .ReviewData > span > div {
-  margin: 0 0 0 -2rem;
+  margin: 0;
 }
 
 .Reviews > .Review > .Comment {
@@ -88,6 +88,22 @@
   flex-direction: row;
   align-items: center;
   letter-spacing: 1px;
+}
+
+.Reviews > .NoReview {
+  color: #757575;
+  font-style: italic;
+  width: 100%;
+}
+
+.Reviews > .NoReview > h1 {
+  font-family: 'Dosis', sans-serif;
+  text-align: center;
+}
+
+.Reviews > .NoReview > p {
+  text-align: center;
+  font-size: 1rem;
 }
 
 .PostReview {
@@ -181,15 +197,6 @@
 
   .Reviews > .Review {
     width: calc(100% - 64px);
-  }
-
-  .Reviews > .Review > .ReviewData > span {
-    width: 100%;
-    margin-left: -2.25rem;
-  }
-  
-  .Reviews > .Review > .ReviewData > span > div {
-    margin: 0 0 0 -2.25rem;
   }
 
   .Reviews > .Review > .Comment {

@@ -16,7 +16,9 @@ const ProductsHot = props => {
   });
 
   useEffect(() => {
-    props.onGetProducts(Math.floor(Math.random(1) * 5) + 1, props.products, props.count)
+    props.onGetProducts(props.page)
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const heartHandler = () => {
@@ -48,6 +50,7 @@ const ProductsHot = props => {
   if (props.isLoading)
     fetchedProductsHot = <Loading />;
   else 
+    // eslint-disable-next-line array-callback-return
     fetchedProductsHot = props.products.map(product => {
        if (product.discounted_price > 0) 
         return (
@@ -147,13 +150,14 @@ const mapStateToProps = state => {
   return {
     isLoading: state.products.isLoading,
     products: state.products.products,
-    count: state.products.count,
+    count: state.products.meta.count,
+    page: state.products.meta.page
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetProducts: (page, products, count) => dispatch(actions.fetchProducts(page, products, count))
+    onGetProducts: page => dispatch(actions.fetchProducts(page))
   }
 }
 

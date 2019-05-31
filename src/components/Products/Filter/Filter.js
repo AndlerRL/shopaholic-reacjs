@@ -11,17 +11,17 @@ import css from './Filter.css';
 
 const Filter = props => {
   const changeDepHandler = department => e => {
-    props.onFetchDepartmentId(
-      props.filterDep.find(id => id.name === e.target.value).department_id,
-      props.filterDep.find(id => id.name === e.target.value)
-    )
+    const id = props.filterDep.find(id => id.name === department).department_id;
+    
+    props.onFetchDepartmentId(id);
+    props.filterDepartment(1, id)
   }
 
   const changeCatHandler = category => e => {
-    props.onFetchCategoryId(
-      props.filterCat.find(id => id.name === e.target.value).category_id,
-      props.filterCat.find(id => id.name === e.target.value)
-    )
+    const id = props.filterCat.find(id => id.name === category).category_id;
+
+    props.onFetchCategoryId(id);
+    props.filterCategory(1, id);
   }
 
   const attributesColor = props.colorsAttr.map(attr => (
@@ -43,7 +43,7 @@ const Filter = props => {
       <span>{ attr.value }</span>
     </button>
   ))
-  
+
   return (
     <div className={css.Filter}>
       <div className={css.FilterHead}>
@@ -51,17 +51,25 @@ const Filter = props => {
         <ul>
           { props.hasValueCat.Animal || props.hasValueCat.Christmas || props.hasValueCat.Flower || props.hasValueCat.French ||
             props.hasValueCat.Irish || props.hasValueCat.Italian || props.hasValueCat["Valentine's"] ?
+            props.isCategory ?
             <li>
               <IconM icon="clear" 
                 clicked={props.clear} />
               <FilterCat categories={props.hasValueCat} />
-            </li> : null }
+            </li> : null : null }
           
-          { props.hasValueDep.Regional || props.hasValueDep.Nature || props.hasValueDep.Seasonal ? 
+          { props.hasValueDep.Regional || props.hasValueDep.Nature || props.hasValueDep.Seasonal ?
+            props.isDepartment ?
             <li>
               <IconM icon="clear" 
                 clicked={props.clear} />
               <FilterDep departments={props.hasValueDep} />
+            </li> : null : null }
+          { props.queryStr ?
+            <li>
+              <IconM icon="clear" 
+                clicked={props.clear} />
+              <span>Search: { props.queryStr }</span>
             </li> : null }
         </ul>
       </div>
@@ -88,24 +96,27 @@ const Filter = props => {
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={props.hasValueDep.Regional} 
+                  checked={props.hasValueDep.Regional && props.isDepartment}
                   onChange={changeDepHandler("Regional")}
+                  onClick={props.filterDepartment("Regional")}
                   value="Regional" />
               }
               label="Regional" />
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={props.hasValueDep.Nature}
+                  checked={props.hasValueDep.Nature && props.isDepartment}
                   onChange={changeDepHandler("Nature")}
+                  onClick={props.filterDepartment("Nature")}
                   value="Nature" />
               }
               label="Nature" />
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={props.hasValueDep.Seasonal}
+                  checked={props.hasValueDep.Seasonal && props.isDepartment}
                   onChange={changeDepHandler("Seasonal")}
+                  onClick={props.filterDepartment("Seasonal")}
                   value="Seasonal" />
               }
               label="Seasonal" />
@@ -116,56 +127,63 @@ const Filter = props => {
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={props.hasValueCat.Animal} 
+                  checked={props.hasValueCat.Animal && props.isCategory} 
                   onChange={changeCatHandler("Animal")}
+                  onClick={props.filterCategory("Animal")}
                   value="Animal" />
               }
               label="Animal" />
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={props.hasValueCat.Christmas}
+                  checked={props.hasValueCat.Christmas && props.isCategory}
                   onChange={changeCatHandler("Christmas")}
+                  onClick={props.filterCategory("Christmas")}
                   value="Christmas" />
               }
               label="Christmas" />
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={props.hasValueCat.Flower}
+                  checked={props.hasValueCat.Flower && props.isCategory}
                   onChange={changeCatHandler("Flower")}
+                  onClick={props.filterCategory("Flower")}
                   value="Flower" />
               }
               label="Flower" />
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={props.hasValueCat.French}
+                  checked={props.hasValueCat.French && props.isCategory}
                   onChange={changeCatHandler("French")}
+                  onClick={props.filterCategory("French")}
                   value="French" />
               }
               label="French" />
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={props.hasValueCat.Italian} 
+                  checked={props.hasValueCat.Italian && props.isCategory} 
                   onChange={changeCatHandler("Italian")}
+                  onClick={props.filterCategory("Italian")}
                   value="Italian" />
               }
               label="Italian" />
             <FormControlLabel 
               control={
                 <Checkbox 
-                  checked={props.hasValueCat.Irish}
+                  checked={props.hasValueCat.Irish && props.isCategory}
                   onChange={changeCatHandler("Irish")}
+                  onClick={props.filterCategory("Irish")}
                   value="Irish" />
               }
               label="Irish" />
           <FormControlLabel 
             control={
               <Checkbox 
-                checked={props.hasValueCat["Valentine's"]}
+                checked={props.hasValueCat["Valentine's"] && props.isCategory}
                 onChange={changeCatHandler("Valentine's")}
+                onClick={props.filterCategory("Valentine's")}
                 value="Valentine's" />
             }
             label="Valentine's" />
@@ -179,18 +197,19 @@ const Filter = props => {
 const mapStateToProps = state => {
   return {
     department: state.departments.department,
-    departmentId: state.departments.departmentId,
     hasValueDep: state.departments.hasValue,
     hasValueCat: state.categories.hasValue,
+    isDepartment: state.products.department,
+    isCategory: state.products.category,
     category: state.categories.category,
-    categoryId: state.categories.categoryId
+    queryStr: state.products.meta.query_string
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchDepartmentId: (departmentId, department) => dispatch(actions.fetchDepartmentsId(departmentId, department)),
-    onFetchCategoryId: (categoryId, categories) => dispatch(actions.fetchCategoryId(categoryId, categories))
+    onFetchDepartmentId: departmentId => dispatch(actions.fetchDepartmentsId(departmentId)),
+    onFetchCategoryId: categoryId => dispatch(actions.fetchCategoryId(categoryId)),
   }
 }
 

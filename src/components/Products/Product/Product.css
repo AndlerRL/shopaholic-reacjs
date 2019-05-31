@@ -135,8 +135,8 @@
   opacity: .75;
 }
 
-.ProductInfoHead > span > div {
-  margin: 0 0 0 -2.5rem;
+.ProductInfoHead > span {
+  margin: 0;
 }
 
 .Price {
@@ -297,8 +297,8 @@
   height: 25rem;
   width: 100%;
   max-width: 1400px;
-  padding: 32px;
-  margin: 2.5rem 0 10rem;
+  padding: 32px 0;
+  margin: 2.5rem auto 10rem;
 }
 
 @media screen and (min-width: 500px) {
@@ -337,10 +337,6 @@
   .ProductInfo {
     width: calc(100% - 400px);
     padding: 16px;
-  }
-
-  .ProductInfoHead > span > div {
-    margin: 0 0 0 -4rem;
   }
 
   .Attributes {

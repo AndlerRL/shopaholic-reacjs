@@ -5,7 +5,9 @@ import * as actions from '../actions';
 
 export function* fetchProductsSaga(action) {
   yield put(actions.productsStart());
-  const queryParams = `?page=${action.page}&limit=10&description_length=50`;
+  
+  const queryParams = `?page=${action.page}&limit=10`;
+
   try {
     const response = yield Axios.get('/products' + queryParams);
     
@@ -16,13 +18,43 @@ export function* fetchProductsSaga(action) {
   }
 }
 
+export function* productsInDepartmentSaga(action) {
+  yield put(actions.productsInDepartmentStart());
+
+  try {
+    const queryParams = `page=${action.page}&limit=10`;
+    const response = yield Axios.get(`/products/inDepartment/${action.departmentId}?${queryParams}`);
+
+    yield put(actions.productsInDepartmentSuccess(action.page, response.data.rows, response.data.count));
+  } catch(error) {
+    console.error(error);
+    yield put(actions.productsInDepartmentFail(error));
+  }
+}
+
+export function* productsInCategoriesSaga(action) {
+  yield put(actions.productsInCategoryStart());
+
+  try {
+    const queryParams = `page=${action.page}&limit=10`;
+    const response = yield Axios.get(`/products/inCategory/${action.categoryId}?${queryParams}`);
+
+    yield put(actions.productsInCategorySuccess(action.page, response.data.rows, response.data.count));
+  } catch(error) {
+    console.error(error);
+    yield put(actions.productsInCategoryFail(error));
+  }
+}
+
+// PAGINATION FOR ALL PRODUCTS
 export function* paginationNextSaga(action) {
   yield put(actions.productsNextStart())
+
   try {
-    const queryParams = `?page=${action.page + 1}&limit=10&description_length=50`;
+    const queryParams = `?page=${action.page + 1}&limit=10`;
     const response = yield Axios.get('/products' + queryParams);
 
-    yield put(actions.productsNextSuccess(action.page, action.totalPage, response.data.rows));
+    yield put(actions.productsNextSuccess(action.page, response.data.rows));
   } catch (error) {
     console.error(error);
     yield put(actions.productsNextFail());
@@ -31,8 +63,9 @@ export function* paginationNextSaga(action) {
 
 export function* paginationPrevSaga(action) {
   yield put(actions.productsPrevStart())
+
   try {
-    const queryParams = `?page=${action.page - 1}&limit=10&description_length=50`;
+    const queryParams = `?page=${action.page - 1}&limit=10`;
     const response = yield Axios.get('/products' + queryParams);
     
     yield put(actions.productsPrevSuccess(action.page, response.data.rows));
@@ -42,8 +75,85 @@ export function* paginationPrevSaga(action) {
   }
 }
 
+// PAGINATION FOR DEPARTMENTS
+export function* paginationDeptNextSaga(action) {
+  yield put(actions.productsDeptNextStart())
+
+  try {
+    const queryParams = `${action.departmentId}?page=${action.page + 1}&limit=10`;
+    const response = yield Axios.get(`/products/inDepartment/${queryParams}`);
+    
+    yield put(actions.productsDeptNextSuccess(action.page, response.data.rows));
+  } catch (error) {
+    console.error(error);
+    yield put(actions.productsDeptNextFail());
+  }
+}
+
+export function* paginationDeptPrevSaga(action) {
+  yield put(actions.productsDeptPrevStart())
+
+  try {
+    const queryParams = `${action.departmentId}?page=${action.page - 1}&limit=10`;
+    const response = yield Axios.get(`/products/inDepartment/${queryParams}`);
+    
+    yield put(actions.productsDeptPrevSuccess(action.page, response.data.rows));
+  } catch (error) {
+    console.error(error);
+    yield put(actions.productsDeptPrevFail(error));
+  }
+}
+
+// PAGINATION FOR CATEGORIES
+export function* paginationCatNextSaga(action) {
+  yield put(actions.productsCatNextStart())
+
+  try {
+    const queryParams = `?page=${action.page + 1}&limit=10`;
+    const response = yield Axios.get(`/products/inCategory/${action.categoryId}` + queryParams);
+
+    yield put(actions.productsCatNextSuccess(action.page, response.data.rows));
+  } catch (error) {
+    console.error(error);
+    yield put(actions.productsCatNextFail());
+  }
+}
+
+export function* paginationCatPrevSaga(action) {
+  yield put(actions.productsCatPrevStart())
+
+  try {
+    const queryParams = `?page=${action.page - 1}&limit=10`;
+    const response = yield Axios.get(`/products/inCategory/${action.categoryId}` + queryParams);
+    
+    yield put(actions.productsCatPrevSuccess(action.page, response.data.rows));
+  } catch (error) {
+    console.error(error);
+    yield put(actions.productsCatPrevFail(error));
+  }
+}
+//#END_PAGINATION_REGION
+
+export function* searchProductSaga(action) {
+  yield put(actions.productsSearchStart());
+
+  try {
+    const queryParams = `?query_string=${action.queryStr}&all_words=off&page=${action.page}&limit=10`;
+    const response = yield Axios.get(`/products/search${queryParams}`);
+    console.log(response);
+    console.log('action.page ', action.page)
+    console.log('action.queryStr ', action.queryStr)
+
+    yield put(actions.productsSearchSuccess(action.page, action.queryStr, response.data.count, response.data.rows));
+  } catch(error) {
+    console.error(error);
+    yield put(actions.productsSearchFail(error));
+  }
+}
+
 export function* productDataSaga(action) {
   yield put(actions.productDetailStart())
+
   try {
     const response = yield Axios.get(`/products/${action.productId}/details`);
 

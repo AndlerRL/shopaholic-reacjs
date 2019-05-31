@@ -1,32 +1,26 @@
 import { updateObject } from '../../share/utility';
 import * as actionTypes from '../actions/actionTypes';
 
-const INIT_PAGE = 1;
-const INIT_LIMIT = 10;
-const INIT_COUNT = 101;
-const INIT_DESCRIPTION = 200;
-
 const initState = {
   isLoading: null,
   error: null,
+  department: false,
+  category: false,
+  search: false,
   meta: {
-    page: INIT_PAGE,
-    totalPage: Math.ceil(INIT_COUNT / INIT_LIMIT),
-    limit: INIT_LIMIT,
-    count: INIT_COUNT,
-    description: INIT_DESCRIPTION
+    page: 1,
+    totalPage: 0,
+    count: 0,
+    query_string: ""
   },
-  searchQuery: {},
-  count: null,
   products: [],
+  filterDepartment: [],
+  filterCategory: [],
   reviews: [],
-  reviewData: {},
   productData: [],
   productLocation: [],
+  averageStars: 0,
   productId: null,
-  departmentId: null,
-  categoryId: null,
-  averageStars: 0
 }
 
 const start = (state, action) => {
@@ -46,23 +40,16 @@ const productsSuccess = (state, action) => {
     isLoading: null,
     error: null,
     meta: {
-      page: state.meta.page,
-      totalPage: state.meta.totalPage,
-      limit: state.meta.limit,
-      count: state.meta.count,
-      description: state.meta.description
+      page: action.page,
+      totalPage: Math.ceil(action.count / 10),
+      count: action.count,
     },
     products: action.products,
-    count: action.count
   })
 }
 const productsNext = (state, action) => {
   const updateMeta = updateObject(state.meta, {
-    limit: state.meta.limit,
-    count: state.meta.count,
-    description: state.meta.description,
-    page: state.meta.page + 1,
-    [action.totalPage]: Math.ceil(state.meta.count / state.meta.limit),
+    page: state.meta.page + 1
   });
   return updateObject(state, {
     isLoading: null,
@@ -72,30 +59,73 @@ const productsNext = (state, action) => {
   })
 }
 const productsPrev = (state, action) => {
+  const updateMeta = updateObject(state.meta, {
+    page: state.meta.page - 1,
+  });
   return updateObject(state, {
     isLoading: null,
     error: null,
-    meta: {
-      page: state.meta.page - 1,
-      totalPage: Math.ceil(state.meta.count / state.meta.limit ),
-      limit: state.meta.limit,
-      count: state.meta.count,
-      description: state.meta.description
-    },
+    meta: updateMeta,
     products: action.products
+  })
+}
+const productsDeptNext = (state, action) => {
+  const updateMeta = updateObject(state.meta, {
+    page: state.meta.page + 1,
+  });
+  return updateObject(state, {
+    isLoading: null,
+    error: null,
+    meta: updateMeta,
+    filterDepartment: action.filterDepartment
+  })
+}
+const productsDeptPrev = (state, action) => {
+  const updateMeta = updateObject(state.meta, {
+    page: state.meta.page - 1,
+  });
+  return updateObject(state, {
+    isLoading: null,
+    error: null,
+    meta: updateMeta,
+    filterDepartment: action.filterDepartment
+  })
+}
+const productsCatNext = (state, action) => {
+  const updateMeta = updateObject(state.meta, {
+    page: state.meta.page + 1,
+  });
+  return updateObject(state, {
+    isLoading: null,
+    error: null,
+    meta: updateMeta,
+    filterCategory: action.filterCategory,
+    [action.categoryId]: action.categoryId
+  })
+}
+const productsCatPrev = (state, action) => {
+  const updateMeta = updateObject(state.meta, {
+    page: state.meta.page - 1,
+  });
+  return updateObject(state, {
+    isLoading: null,
+    error: null,
+    meta: updateMeta,
+    filterCategory: action.filterCategory,
+    [action.categoryId]: action.categoryId
   })
 }
 const productsSearch = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    searchQuery: {
-      query_string: action.queryStr,
-      all_words: action.allWords,
+    meta: {
       page: action.page,
-      limit: action.limit,
-      description_length: action.desLength
+      totalPage: Math.ceil(action.count / 10),
+      count: action.count,
+      query_string: action.queryStr,
     },
+    search: true,
     products: action.products
   })
 };
@@ -126,18 +156,58 @@ const productInDepartment = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    departmentId: action.departmentId,
-    products: action.products
+    department: true,
+    filterDepartment: action.products,
+    meta: {
+      page: action.page,
+      totalPage: Math.ceil(action.count / 10),
+      count: action.count,
+    },
   })
 };
 const productInCategory = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    categoryId: action.categoryId,
-    products: action.products
+    category: true,
+    filterCategory: action.products,
+    meta: {
+      page: action.page,
+      totalPage: Math.ceil(action.count / 10),
+      count: action.count,
+    },
   })
 };
+const clearFilter = (state, action) => {
+  let clear = updateObject(state, {
+    department: false,
+    category: false,
+    search: false,
+    meta: {
+      query_string: ""
+    }
+  })
+
+  if (state.department)
+    clear = updateObject(state, {
+      filterDepartment: [],
+      department: false,
+      meta: {
+        query_string: ""
+      }
+    })
+
+  if (state.category)
+    clear = updateObject(state, {
+      filterCategory: [],
+      category: false,
+      meta: {
+        query_string: ""
+      }
+    })
+    
+  return clear
+}
 const fetchReviews = (state, action) => {
   return updateObject(state, {
     isLoading: null,
@@ -187,6 +257,8 @@ const reducer = (state = initState, action) => {
       return productInDepartment(state, action);
     case actionTypes.PRODUCTS_IN_DEPARTMENT_FAIL:
       return fail(state, action);
+    case actionTypes.CLEAR_FILTER:
+      return clearFilter(state, action);
     case actionTypes.FETCH_PRODUCT_REVIEWS_START:
       return start(state, action);
     case actionTypes.FETCH_PRODUCT_REVIEWS_SUCCESS:
@@ -223,6 +295,31 @@ const reducer = (state = initState, action) => {
       return productsPrev(state, action);
     case actionTypes.PRODUCTS_PREV_FAIL:
       return fail(state, action);
+    case actionTypes.PRODUCTS_IN_DEPARTMENT_NEXT_START:
+      return start(state, action);
+    case actionTypes.PRODUCTS_IN_DEPARTMENT_NEXT_SUCCESS: 
+      return productsDeptNext(state, action);
+    case actionTypes.PRODUCTS_IN_DEPARTMENT_NEXT_FAIL:
+      return fail(state, action);
+    case actionTypes.PRODUCTS_IN_DEPARTMENT_PREV_START:
+      return start(state, action);
+    case actionTypes.PRODUCTS_IN_DEPARTMENT_PREV_SUCCESS:
+      return productsDeptPrev(state, action);
+    case actionTypes.PRODUCTS_IN_DEPARTMENT_PREV_FAIL:
+      return fail(state, action);
+    case actionTypes.PRODUCTS_IN_CATEGORY_NEXT_START:
+      return start(state, action);
+    case actionTypes.PRODUCTS_IN_CATEGORY_NEXT_SUCCESS: 
+      return productsCatNext(state, action);
+    case actionTypes.PRODUCTS_IN_CATEGORY_NEXT_FAIL:
+      return fail(state, action);
+    case actionTypes.PRODUCTS_IN_CATEGORY_PREV_START:
+      return start(state, action);
+    case actionTypes.PRODUCTS_IN_CATEGORY_PREV_SUCCESS:
+      return productsCatPrev(state, action);
+    case actionTypes.PRODUCTS_IN_CATEGORY_PREV_FAIL:
+      return fail(state, action);
+    
     default:
       return state;
   }

@@ -14,7 +14,8 @@ const ShoppingCart = props => {
 
   useEffect(() => {
     props.onFetchShoppingCart(cart_id);
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     props.onFetchTotalAmount()

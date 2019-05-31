@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
-import React, { useState } from 'react';
+import React from 'react';
 
-import * as actions from '../../../../store/actions';
 import Btn from '../../../UI/Btn/Btn';
 import BtnIcon from '../../../UI/Btn/BtnIcon';
 import Stars from '../Stars/Stars';
@@ -9,20 +8,7 @@ import Stars from '../Stars/Stars';
 import css from './Reviews.css';
 
 const Reviews = props => {
-  const [averageStar, setAverageStars] = useState(0);
-  let avrgStars = 0;
-
-  const AverageStar = () => {
-    setAverageStars(avrgStars);
-  }
-
   const reviews = props.reviews.map((reviews, key) => {
-    const totalRating = [];
-    let ratingVal = 0;
-    ratingVal += reviews.rating;
-    totalRating.push(reviews.rating);
-    avrgStars = ratingVal / totalRating.length
-    
     let month = [];
     month[0] = "Jan";
     month[1] = "Feb";
@@ -44,8 +30,7 @@ const Reviews = props => {
     return (
       <div 
         key={key}
-        className={css.Review}
-        onLoad={AverageStar}>
+        className={css.Review}>
         <div className={css.ReviewData}>
           <span>
             <Stars stars={reviews.rating.toFixed(2)}/>
@@ -70,12 +55,17 @@ const Reviews = props => {
       </div>
     )
   });
-
+   
   return (
     <div className={css.ProductReviews}>
       <h4>Product Reviews</h4>
       <div className={css.Reviews}>
-        { reviews }
+        { props.reviews.length > 0 ?
+          reviews : 
+          <div className={css.NoReview}>
+            <h1>No reviews Yet!</h1>
+            <p>Let yours, so others can see what you think!</p>
+          </div> }
       </div>
       <div className={css.PostReview}>
         <h4>Add a Review</h4>

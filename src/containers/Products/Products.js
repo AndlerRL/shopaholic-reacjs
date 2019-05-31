@@ -32,16 +32,52 @@ const Items = props => {
     props.onAttributesValues(props.sizeVals, props.colorVals);
     props.onFetchCategories(props.categories);
     props.onFetchDepartments(props.departments);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const color = props.colorVals.map(color => color);
+  const size = props.sizeVals.map(size => size);
+  const filterCat = props.categories.map(filter => filter);
+  const filterDep = props.departments.map(filter => filter);
+
+  let products = props.products;
+
+  if (props.isDepartment)
+    products = props.filterDepartment;
+
+  if (props.isCategory)
+    products = props.filterCategory;
+
   const nextPageHandler = () => {
-    props.onNextPage(props.page, props.totalPage, props.products);
+    if (!props.isDepartment && !props.isCategory)
+      props.onNextPage(props.page);
+
+    if (props.isDepartment)
+      props.onDepNextPage(props.page, props.departmentId);
+      
+    if (props.isCategory)
+      props.onCatNextPage(props.page, props.categoryId);
+    
     window.scroll(0, 430);
+
+    if (window.innerWidth <= 500)
+      window.scroll(0, 480);
   }
 
   const prevPageHandler = () => {
-    props.onPrevPage(props.page, props.totalPage, props.products);
+    if (!props.isDepartment && !props.isCategory)
+      props.onPrevPage(props.page);
+
+    if (props.isDepartment)
+      props.onDepPrevPage(props.page, props.departmentId);
+      
+    if (props.isCategory)
+      props.onCatPrevPage(props.page, props.categoryId);
+    
     window.scroll(0, 430);
+
+    if (window.innerWidth <= 500)
+      window.scroll(0, 480);
   }
 
   const productDetailHandler = () => product => {
@@ -73,17 +109,45 @@ const Items = props => {
     setPriceRange(val);
   }
 
+  const filterCategoryHandler = name => e => {
+    const id = filterCat.find(id => id.name === name).category_id;
 
-  const color = props.colorVals.map(color => color);
-  const size = props.sizeVals.map(size => size);
-  const filterCat = props.categories.map(filter => filter);
-  const filterDep = props.departments.map(filter => filter);
+    props.onFetchProductsInCategory(props.page, id);
+  }
 
-  //console.log(props.departments)
+  const filterDepartmentHandler = name => e => {
+    const id = filterDep.find(id => id.name === name).department_id;
+
+    props.onFetchProductsInDepartment(props.page, id);
+  }
+
+  const clearFilterHandler = () => {
+    if (props.hasValueDep.Regional || props.hasValueDep.Nature || props.hasValueDep.Seasonal) {
+      props.clearFilter()
+      setTimeout(() => {
+        props.onGetProducts(props.page, props.products, props.count);
+      }, 200);
+    }
+
+    if (props.hasValueCat.Animal || props.hasValueCat.Christmas || props.hasValueCat.Flower || props.hasValueCat.French ||
+    props.hasValueCat.Irish || props.hasValueCat.Italian || props.hasValueCat["Valentine's"]) {
+      props.clearFilter()
+      setTimeout(() => {
+        props.onGetProducts(props.page, props.products, props.count);
+      }, 200);
+    }
+
+    if (props.queryStr) {
+      props.clearFilter()
+      setTimeout(() => {
+        props.onGetProducts(props.page, props.products, props.count);
+      }, 200);
+    }
+  }
 
   return (
     <Products
-      items={props.products}
+      items={products}
       prevPage={prevPageHandler}
       nextPage={nextPageHandler}
       productDetail={productDetailHandler(props.products)}
@@ -97,13 +161,18 @@ const Items = props => {
       filterDep={filterDep}
       count={props.count}
       sliderValue={priceRange}
-      sliderChanged={sliderChangeHandler} />
+      sliderChanged={sliderChangeHandler}
+      filterDepartment={filterDepartmentHandler}
+      filterCategory={filterCategoryHandler}
+      clear={clearFilterHandler} />
   )
 };
 
 const mapStateToProps = state => {
   return {
     products: state.products.products,
+    filterDepartment: state.products.filterDepartment,
+    filterCategory: state.products.filterCategory,
     count: state.products.meta.count,
     page: state.products.meta.page,
     totalPage: state.products.meta.totalPage,
@@ -113,20 +182,34 @@ const mapStateToProps = state => {
     colorVals: state.attributes.colorVals,
     categories: state.categories.categories,
     departments: state.departments.departments,
-    productData: state.products.productData
+    productData: state.products.productData,
+    hasValueDep: state.departments.hasValue,
+    hasValueCat: state.categories.hasValue,
+    departmentId: state.departments.departmentId,
+    categoryId: state.categories.categoryId,
+    isDepartment: state.products.department,
+    isCategory: state.products.category,
+    queryStr: state.products.meta.query_string
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onGetProducts: (page, products, count) => dispatch(actions.fetchProducts(page, products, count)),
-    onNextPage: (page, products) => dispatch(actions.productsNext(page, products)),
-    onPrevPage: (page, products) => dispatch(actions.productsPrev(page, products)),
+    onNextPage: page => dispatch(actions.productsNext(page)),
+    onPrevPage: page => dispatch(actions.productsPrev(page)),
+    onDepNextPage: (page, departmentId) => dispatch(actions.productsDeptNext(page, departmentId)),
+    onDepPrevPage: (page, departmentId) => dispatch(actions.productsDeptPrev(page, departmentId)),
+    onCatNextPage: (page, categoryId) => dispatch(actions.productsCatNext(page, categoryId)),
+    onCatPrevPage: (page, categoryId) => dispatch(actions.productsCatPrev(page, categoryId)),
     onGetAttributes: (size, color) => dispatch(actions.fetchAttributes(size, color)),
     onAttributesValues: (sizeVal, colVal) => dispatch(actions.attributeValues(sizeVal, colVal)),
     onFetchCategories: categories => dispatch(actions.fetchCategories(categories)),
     onFetchDepartments: departments => dispatch(actions.fetchDepartments(departments)),
-    onFetchProductData: (productId, productData) => dispatch(actions.fetchProductDetail(productId, productData))
+    onFetchProductData: (productId, productData) => dispatch(actions.fetchProductDetail(productId, productData)),
+    onFetchProductsInDepartment: (page, departmentId) => dispatch(actions.fetchProductsInDepartment(page, departmentId)),
+    onFetchProductsInCategory: (page, departmentId) => dispatch(actions.fetchProductsInCategory(page, departmentId)),
+    clearFilter: () => dispatch(actions.clearFilter()),
   }
 }
 

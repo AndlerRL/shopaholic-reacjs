@@ -19,12 +19,10 @@ export const productsFail = error => {
     error: error
   }
 }
-export const fetchProducts = (page, productsData, count) => {
+export const fetchProducts = page => {
   return {
     type: actionTypes.FETCH_PRODUCTS,
-    page: page,
-    products: productsData,
-    count: count
+    page: page
   }
 }
 export const productsNextStart = () => {
@@ -32,12 +30,11 @@ export const productsNextStart = () => {
     type: actionTypes.PRODUCTS_NEXT_START
   }
 }
-export const productsNextSuccess = (page, totalPage, productsData) => {
+export const productsNextSuccess = (page, productData) => {
   return {
     type: actionTypes.PRODUCTS_NEXT_SUCCESS,
     page: page,
-    totalPage: totalPage,
-    products: productsData
+    products: productData
   }
 }
 export const productsNextFail = error => {
@@ -46,12 +43,10 @@ export const productsNextFail = error => {
     error: error
   }
 }
-export const productsNext = (page, totalPage, productsData) => {
+export const productsNext = page => {
   return {
     type: actionTypes.PRODUCTS_NEXT,
-    page: page,
-    totalPage: totalPage,
-    products: productsData
+    page: page
   }
 }
 export const productsPrevStart = () => {
@@ -59,11 +54,11 @@ export const productsPrevStart = () => {
     type: actionTypes.PRODUCTS_PREV_START
   }
 }
-export const productsPrevSuccess = (page, productsData) => {
+export const productsPrevSuccess = (page, productData) => {
   return {
     type: actionTypes.PRODUCTS_PREV_SUCCESS,
     page: page,
-    products: productsData
+    products: productData
   }
 }
 export const productsPrevFail = error => {
@@ -72,11 +67,117 @@ export const productsPrevFail = error => {
     error: error
   }
 }
-export const productsPrev = (page, productsData) => {
+export const productsPrev = page => {
   return {
     type: actionTypes.PRODUCTS_PREV,
+    page: page
+  }
+}
+export const productsDeptNextStart = () => {
+  return {
+    type: actionTypes.PRODUCTS_IN_DEPARTMENT_NEXT_START
+  }
+}
+export const productsDeptNextSuccess = (page, productData) => {
+  return {
+    type: actionTypes.PRODUCTS_IN_DEPARTMENT_NEXT_SUCCESS,
     page: page,
-    products: productsData
+    filterDepartment: productData
+  }
+}
+export const productsDeptNextFail = error => {
+  return {
+    type: actionTypes.PRODUCTS_IN_DEPARTMENT_NEXT_FAIL,
+    error: error
+  }
+}
+export const productsDeptNext = (page, departmentId) => {
+  return {
+    type: actionTypes.PRODUCTS_IN_DEPARTMENT_NEXT,
+    page: page,
+    departmentId: departmentId
+  }
+}
+export const productsDeptPrevStart = () => {
+  return {
+    type: actionTypes.PRODUCTS_IN_DEPARTMENT_PREV_START
+  }
+}
+export const productsDeptPrevSuccess = (page, productData) => {
+  return {
+    type: actionTypes.PRODUCTS_IN_DEPARTMENT_PREV_SUCCESS,
+    page: page,
+    filterDepartment: productData
+  }
+}
+export const productsDeptPrevFail = error => {
+  return {
+    type: actionTypes.PRODUCTS_IN_DEPARTMENT_PREV_FAIL,
+    error: error
+  }
+}
+export const productsDeptPrev = (page, departmentId) => {
+  return {
+    type: actionTypes.PRODUCTS_IN_DEPARTMENT_PREV,
+    page: page,
+    departmentId: departmentId
+  }
+}
+export const productsCatNextStart = () => {
+  return {
+    type: actionTypes.PRODUCTS_IN_CATEGORY_NEXT_START
+  }
+}
+export const productsCatNextSuccess = (page, productData) => {
+  return {
+    type: actionTypes.PRODUCTS_IN_CATEGORY_NEXT_SUCCESS,
+    page: page,
+    filterCategory: productData
+  }
+}
+export const productsCatNextFail = error => {
+  return {
+    type: actionTypes.PRODUCTS_IN_CATEGORY_NEXT_FAIL,
+    error: error
+  }
+}
+export const productsCatNext = (page, categoryId) => {
+  return {
+    type: actionTypes.PRODUCTS_IN_CATEGORY_NEXT,
+    page: page,
+    categoryId: categoryId
+  }
+}
+export const productsCatPrevStart = () => {
+  return {
+    type: actionTypes.PRODUCTS_IN_CATEGORY_PREV_START
+  }
+}
+export const productsCatPrevSuccess = (page, productData) => {
+  return {
+    type: actionTypes.PRODUCTS_IN_CATEGORY_PREV_SUCCESS,
+    page: page,
+    filterCategory: productData
+  }
+}
+export const productsCatPrevFail = error => {
+  return {
+    type: actionTypes.PRODUCTS_IN_CATEGORY_PREV_FAIL,
+    error: error
+  }
+}
+export const productsCatPrev = (page, categoryId) => {
+  return {
+    type: actionTypes.PRODUCTS_IN_CATEGORY_PREV,
+    page: page,
+    categoryId: categoryId
+  }
+}
+export const productsSearch = (page, queryStr) => {
+  return {
+    type: actionTypes.PRODUCTS_SEARCH,
+    page: page,
+    queryStr: queryStr
   }
 }
 export const productsSearchStart = () => {
@@ -84,15 +185,13 @@ export const productsSearchStart = () => {
     type: actionTypes.PRODUCTS_SEARCH_START
   }
 }
-export const productsSearchSuccess = (queryStr, allWords, page, limit, desLength, products) => {
+export const productsSearchSuccess = (page, queryStr, count, products) => {
   return {
     type: actionTypes.PRODUCTS_SEARCH_SUCCESS,
     queryStr: queryStr,
-    allWords: allWords,
     page: page,
-    limit: limit,
-    desLength: desLength,
-    products: products
+    products: products,
+    count: count
   }
 }
 export const productsSearchFail = error => {
@@ -167,16 +266,31 @@ export const productLocationFail = error => {
     error: error
   }
 }
+export const fetchProductsInCategory = (page, categoryId) => {
+  return {
+    type: actionTypes.FETCH_PRODUCTS_IN_CATEGORY,
+    page: page,
+    categoryId: categoryId
+  }
+}
 export const productsInCategoryStart = () => {
   return {
     type: actionTypes.PRODUCTS_IN_CATEGORY_START
   }
 }
-export const productsInCategorySuccess = (categoryId, products) => {
+export const productsInCategorySuccess = (page, products, count) => {
   return {
     type: actionTypes.PRODUCTS_IN_CATEGORY_SUCCESS,
-    categoryId: categoryId,
-    products: products
+    page: page,
+    products: products,
+    count: count
+  }
+}
+export const fetchProductsInDepartment = (page, departmentId) => {
+  return {
+    type: actionTypes.FETCH_PRODUCTS_IN_DEPARTMENT,
+    page: page,
+    departmentId: departmentId
   }
 }
 export const productsInCategoryFail = error => {
@@ -190,17 +304,23 @@ export const productsInDepartmentStart = () => {
     type: actionTypes.PRODUCTS_IN_DEPARTMENT_START
   }
 } 
-export const productsInDepartmentSuccess = (departmentId, products) => {
+export const productsInDepartmentSuccess = (page, products, count) => {
   return {
     type: actionTypes.PRODUCTS_IN_DEPARTMENT_SUCCESS,
-    departmentId: departmentId,
-    products: products
+    page: page,
+    products: products,
+    count: count
   }
 }
 export const productsInDepartmentFail = error => {
   return {
     type: actionTypes.PRODUCTS_IN_DEPARTMENT_FAIL,
     error: error
+  }
+}
+export const clearFilter = () => {
+  return {
+    type: actionTypes.CLEAR_FILTER
   }
 }
 export const fetchReviews = productId => {

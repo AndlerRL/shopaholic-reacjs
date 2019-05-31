@@ -44,7 +44,9 @@ const Toolbar = props => {
             SHOPAHOLIC
           </p> 
           <NavigationItems show={css.Show} />
-          <Search show={css.Show} />
+          <Search 
+            show={css.Show}
+            searchClicked={props.searchClicked} />
         </div>
       </div>
     </React.Fragment>

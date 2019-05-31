@@ -54,10 +54,10 @@ const Item = props => {
   const [reviewIsValid, setReviewIsValid] = useState(false);
   const [rating, setRating] = useState(0);
   const [warning, setWarning] = useState(false);
+  const product_detail_id = JSON.parse(localStorage.getItem('product_detail_id'));
 
   useEffect(() => {
     window.scroll(0, 0);
-    const product_detail_id = JSON.parse(localStorage.getItem('product_detail_id'));
     
     props.onProductLocation(product_detail_id);
     props.onGetDetail(product_detail_id, props.productDetail);
@@ -67,6 +67,7 @@ const Item = props => {
     if (product_detail_id === null) {
       props.history.replace('/products')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
   const productDetail = props.productData.map(product => product);
@@ -261,7 +262,12 @@ const Item = props => {
       product_detail_id = JSON.parse(localStorage.getItem('product_detail_id'))
     }
 
+    window.scroll(0, 0);
     props.onFetchProductData(product_detail_id, props.productData);
+    props.onProductLocation(product_detail_id);
+    props.onGetDetail(product_detail_id, props.productDetail);
+    props.onProductAttributes(product_detail_id);
+    props.onFetchReviews(product_detail_id);
     props.history.push('/product-details');
   }
 

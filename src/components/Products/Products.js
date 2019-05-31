@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import * as actions from '../../store/actions';
 import Btn from '../UI/Btn/Btn';
@@ -30,10 +30,12 @@ const Products = props => {
 
   if (props.isLoading)
     fetchedProducts = <Loading />;
-  else 
-      fetchedProducts = props.items.map(product => {
-        if (product.price >= props.sliderValue || product.discounted_price >= props.sliderValue)
-          return (
+  
+  if (props.products)
+    // eslint-disable-next-line array-callback-return
+    fetchedProducts = props.items.map(product => {
+      if (product.price >= props.sliderValue || product.discounted_price >= props.sliderValue){
+        return (
           <div
             className={css.Item}
             key={product.product_id}>
@@ -81,7 +83,16 @@ const Products = props => {
             </p>
           </div>
         )
+      }
     });
+
+  if (!props.products.length && !props.isLoading)
+    fetchedProducts = (
+      <div className={css.NoResult}>
+        <h2>Well, this is embarrassing. No products found!</h2>
+        <p>Try to search something else!</p>
+      </div>
+    )
 
   return (
     <div className={css.Products}>
@@ -100,7 +111,10 @@ const Products = props => {
             colorSelect={props.colorSelect}
             count={props.count}
             sliderValue={props.sliderValue}
-            sliderChanged={props.sliderChanged} />
+            sliderChanged={props.sliderChanged}
+            filterDepartment={props.filterDepartment}
+            filterCategory={props.filterCategory}
+            clear={props.clear} />
         </aside>
         <div className={css.ProductsItems}>
           { fetchedProducts }
@@ -158,6 +172,7 @@ const mapStateToProps = state => {
     isLoading: state.products.isLoading,
     page: state.products.meta.page,
     totalPage: state.products.meta.totalPage,
+    products: state.products.products
   }
 }
 

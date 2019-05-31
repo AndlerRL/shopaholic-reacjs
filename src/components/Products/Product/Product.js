@@ -15,7 +15,6 @@ import css from './Product.css';
 
 const ProductDetail = props => {
   const [animation, setAnimation] = useState(false);
-  const [open, setOpen] = useState(false);
 
   let productLoc = null
 
@@ -53,6 +52,7 @@ const ProductDetail = props => {
       </ul>
     ));
   
+  // eslint-disable-next-line array-callback-return
   const attributesColor = props.productAttributes.map(attr => {
     if (attr.attribute_name === 'Color')
       return (
@@ -66,6 +66,7 @@ const ProductDetail = props => {
       )
   })
 
+  // eslint-disable-next-line array-callback-return
   const attributesSize = props.productAttributes.map(attr => {
     if (attr.attribute_name === 'Size')
       return (
@@ -150,9 +151,7 @@ const ProductDetail = props => {
             <div className={css.ProductInfoHead}>
               { productLoc }
               <h2> { product.name } </h2>
-              <span>
-                <Stars stars={props.averageStars.toFixed(2)}/>
-              </span>
+              <Stars stars={props.averageStars.toFixed(2)}/>
               <p> { product.description } </p>
               <div className={css.Price}>
                 <span className={product.discounted_price > 0 ? css.DiscountedPrice : null}> 

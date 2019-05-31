@@ -4,10 +4,17 @@ import * as actionTypes from '../actions/actionTypes';
 import { fetchProductsSaga,
   paginationNextSaga,
   paginationPrevSaga,
+  paginationCatNextSaga,
+  paginationCatPrevSaga,
+  paginationDeptNextSaga,
+  paginationDeptPrevSaga,
   productDataSaga,
   productLocationSaga,
   productReviewsSaga,
-  postProductReviewSaga } from './products';
+  postProductReviewSaga,
+  searchProductSaga,
+  productsInDepartmentSaga,
+  productsInCategoriesSaga } from './products';
 import { 
   fetchAttributesSaga,
   fetchAttributesValuesSaga,
@@ -59,8 +66,15 @@ export function* watchOrders() {
 export function* watchProducts() {
   yield all([
     takeEvery(actionTypes.FETCH_PRODUCTS, fetchProductsSaga),
+    takeEvery(actionTypes.FETCH_PRODUCTS_IN_CATEGORY, productsInCategoriesSaga),
+    takeEvery(actionTypes.FETCH_PRODUCTS_IN_DEPARTMENT, productsInDepartmentSaga),
     takeEvery(actionTypes.PRODUCTS_NEXT, paginationNextSaga),
-    takeEvery(actionTypes.PRODUCTS_PREV, paginationPrevSaga)
+    takeEvery(actionTypes.PRODUCTS_PREV, paginationPrevSaga),
+    takeEvery(actionTypes.PRODUCTS_IN_DEPARTMENT_NEXT, paginationDeptNextSaga),
+    takeEvery(actionTypes.PRODUCTS_IN_DEPARTMENT_PREV, paginationDeptPrevSaga),
+    takeEvery(actionTypes.PRODUCTS_IN_CATEGORY_NEXT, paginationCatNextSaga),
+    takeEvery(actionTypes.PRODUCTS_IN_CATEGORY_PREV, paginationCatPrevSaga),
+    takeEvery(actionTypes.PRODUCTS_SEARCH, searchProductSaga)
   ])
   yield takeEvery(actionTypes.FETCH_PRODUCT_DETAIL, productDataSaga)
   yield takeEvery(actionTypes.FETCH_PRODUCT_REVIEWS, productReviewsSaga)
