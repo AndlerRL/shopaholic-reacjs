@@ -51,7 +51,8 @@ const App = props => {
     } else {
       enableBodyScroll(root);
     }
-  }, [props]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const showSignInHandler = () => {
     props.onSignIn()
@@ -98,18 +99,6 @@ const App = props => {
     props.onSideDrawer()
   }
 
-  const searchHandler = (e, value) => {
-    if (value.trim() !== "")
-      props.onSearchProduct(1, value);
-
-    if (props.history.pathname !== '/products' && value.trim() !== "") {
-      props.history.replace('/products');
-      setTimeout(() => {
-        props.onSearchProduct(1, value);
-      }, 1000);
-    }
-  }
-
   let routes = (
     <Switch>
       <Route exact path="/" component={Home} />
@@ -128,8 +117,7 @@ const App = props => {
       signUp={showSignUpHandler}
       shoppingCart={showShoppingCartHandler}
       itemsCart={props.productData.length}
-      totalBag={props.totalAmount ? props.totalAmount : '0.00'}
-      searchClicked={searchHandler}>
+      totalBag={props.totalAmount ? props.totalAmount : '0.00'} >
       <Suspense fallback={<Loading />}>
         <SignIn 
           signInClosed={showSignInHandler}
@@ -169,11 +157,7 @@ const mapDispatchToProps = dispatch => {
     onSignUp: () => dispatch(actions.goToSignUp()),
     onShoppingCart: () => dispatch(actions.goToShoppingCart()),
     onSideDrawer: () => dispatch(actions.handleSideDrawer()),
-    onSearchProduct: (page, queryStr) => dispatch(actions.productsSearch(page, queryStr)),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(
-  withRouter(App)),
-  (prevProps, nextProps) => nextProps.cart === prevProps.cart &&
-  nextProps.totalAmount === prevProps.totalAmount);
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(withRouter(App)));

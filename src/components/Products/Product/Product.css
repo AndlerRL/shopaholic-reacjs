@@ -42,8 +42,9 @@
 }
 
 .ActiveImg {
-  width: 100%;
-  height: auto;
+  width: auto;
+  min-height: 330px;
+  max-height: 330px;
   margin: auto 0;
   transition: all ease-in-out 1s; 
 }

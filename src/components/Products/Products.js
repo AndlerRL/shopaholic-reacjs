@@ -9,7 +9,7 @@ import IconF from '../UI/Icons/IconF';
 import ProductsHeader from './ProductsHeader/ProductsHeader';
 import ProductsFooter from './ProductsFooter/ProductsFooter';
 import ProductsHot from './ProductsHot/ProductsHot';
-import Filter from './Filter/Filter';
+import Filter from '../Filter/Filter';
 
 import css from './Products.css';
 

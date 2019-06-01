@@ -3,7 +3,7 @@ import React from 'react';
 import IconM from '../../UI/Icons/IconM';
 import ToolbarTop from './ToolbarTop/ToolbarTop';
 import NavigationItems from '../NavigationItems/NavigationItems';
-import Search from '../../UI/Form/Search/Search';
+import Search from '../../../containers/Search/Search';
 
 import css from './Toolbar.css';
 
@@ -44,9 +44,7 @@ const Toolbar = props => {
             SHOPAHOLIC
           </p> 
           <NavigationItems show={css.Show} />
-          <Search 
-            show={css.Show}
-            searchClicked={props.searchClicked} />
+          <Search />
         </div>
       </div>
     </React.Fragment>

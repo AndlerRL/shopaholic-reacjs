@@ -5,11 +5,23 @@ export const authStart = () => {
     type: actionTypes.AUTH_START
   }
 };
-export const authSuccess = (token, userId) => {
+export const authSuccess = (token, userID) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
-    userId: userId
+    userID: userID
+  }
+}
+export const authRegisterStart = () => {
+  return {
+    type: actionTypes.AUTH_REGISTER_START
+  }
+};
+export const authRegisterSuccess = (token, userID) => {
+  return {
+    type: actionTypes.AUTH_REGISTER_SUCCESS,
+    idToken: token,
+    userID: userID
   }
 }
 export const authFail = error => {
@@ -34,13 +46,19 @@ export const checkAuthTimeout = expTime => {
     expTime: expTime
   }
 }
-export const auth = (name, email, password, isSignup) => {
+export const auth = (email, password) => {
   return {
     type: actionTypes.AUTH_USER,
+    email: email,
+    password: password
+  }
+}
+export const authRegister = (name, email, password) => {
+  return {
+    type: actionTypes.AUTH_REGISTER_USER,
     name: name,
     email: email,
     password: password,
-    isSignup: isSignup
   }
 }
 export const setAuthRedirectPath = path => {

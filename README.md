@@ -46,6 +46,16 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v0.7.23]`__
+
+__Bug Fix:__
+
+* __Filter component:__ Fix the categories and departments filter, now become disabled when one is value is selected.
+* __Filter component:__ Fix the re-rendering. There was an additional re-rendering where you deselect the filter, component rendered once again; fixed with `React.memo()`.
+* __Search component:__ Fix actually everything. Didn't affect the WebApp but the previous rendering was causing a overkill rendering. It's leaner now and moved to the Components root.
+
+Move some other components to the proper sections, also started with Authentication and Checkout!
+
 __`[v0.7.15]`__
 
 There is a lot of fixes and implementations on this version, so these are some:
@@ -55,7 +65,7 @@ There is a lot of fixes and implementations on this version, so these are some:
 * __Products Component:__ Now render the requested filters and shows without any problem the requested products and re-render if turn back again to normal state.
 * __UI/UX Respond:__ Product Reviews has now a well UI structured respond if there is no review yet on the product, also with the `Search Component` that reflects a respond if there is no match.
 
-__Bugs:__ 
+__Bugs:__
 
 * While click on the filter Categories/Department, it render what you ask for but when you select another one, doesn't render both and doing that, API doesn't respond well the request and create an instability on the WebApp and, if I really want that, I need to change the back-end but that won't be possible, so, I will leave it like it and change the UI, witch is the checkbox with something else, radio buttons.
 * On search component, when you succeed to search something and wants to return to the regular state, the search bar doesn't update and stay the same as you requested and you need to change it/delete it so it can be anything else... Thinking to make it dynamic, but don't know it actually would be cool to do it or if will cause a delay.
@@ -78,7 +88,6 @@ __Quick Fix:__ There was some issues with the adaptive UI on various components.
 * Hot Products on Product Details!
 
 I can say that all the app is now Mobile First, there is just 2 more screens that will be added soon and UI updates after login/registration.
-
 
 __`[v0.6.51]`__
 

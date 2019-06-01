@@ -138,11 +138,8 @@ export function* searchProductSaga(action) {
   yield put(actions.productsSearchStart());
 
   try {
-    const queryParams = `?query_string=${action.queryStr}&all_words=off&page=${action.page}&limit=10`;
+    const queryParams = `?query_string=${action.queryStr}&all_words=on&page=${action.page}&limit=10`;
     const response = yield Axios.get(`/products/search${queryParams}`);
-    console.log(response);
-    console.log('action.page ', action.page)
-    console.log('action.queryStr ', action.queryStr)
 
     yield put(actions.productsSearchSuccess(action.page, action.queryStr, response.data.count, response.data.rows));
   } catch(error) {

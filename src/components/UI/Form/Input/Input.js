@@ -112,13 +112,6 @@ const input = props => {
 
   return (
     <div className={["input-field", css.Input, props.cssName].join(' ')}>
-      { props.iconSearch ? (
-        <IconM 
-          size="default"
-          icon={props.iconSearch}
-          prefix="prefix"
-          clicked={props.clicked} />
-        ): null }
       { inputElement }
       <label htmlFor={props.for}>{props.label}</label>
       { validationError }

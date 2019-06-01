@@ -3,15 +3,14 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initState = {
   token: "",
-  isAuthenticated: false,
   userId: null,
   error: null,
   isLoading: false,
   isSignIn: false,
   isSignUp: false,
   sideDrawer: false,
-  useData: {},
   cc: {},
+  userData: {},
   authRedirectPath: '/'
 };
 
@@ -32,20 +31,26 @@ const handleSideDrawer = (state, action) => {
     sideDrawer: !state.sideDrawer
   })
 }
+const authRegisterSuccess = (state, action) => {
+  return updateObject(state, {
+    token: action.idToken,
+    userId: action.userId,
+    error: null,
+    isLoading: false,
+  })
+}
 const authSuccess = (state, action) => {
   return updateObject(state, {
     token: action.idToken,
     userId: action.userId,
     error: null,
     isLoading: false,
-    isAuthenticated: true
   })
 }
 const authLogout = (state, action) => {
   return updateObject(state, {
     token: null,
     userId: null,
-    isAuthenticated: false
   })
 }
 const setAuthRedirectPath = (state, action) => {
@@ -87,6 +92,12 @@ const reducer = (state = initState, action) => {
     case actionTypes.AUTH_SUCCESS:
       return authSuccess(state, action);
     case actionTypes.AUTH_FAIL:
+      return fail(state, action);
+    case actionTypes.AUTH_REGISTER_START:
+      return start(state, action);
+    case actionTypes.AUTH_REGISTER_SUCCESS:
+      return authRegisterSuccess(state, action);
+    case actionTypes.AUTH_REGISTER_FAIL:
       return fail(state, action);
     case actionTypes.AUTH_LOGOUT:
       return authLogout(state, action);

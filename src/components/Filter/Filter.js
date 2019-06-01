@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import React from 'react';
 
-import * as actions from '../../../store/actions';
+import * as actions from '../../store/actions';
 import { FilterDep, FilterCat } from './FilterConditionals';
-import IconM from '../../UI/Icons/IconM';
-import Slider from '../../UI/Slider/Slider';
+import IconM from '../UI/Icons/IconM';
+import Slider from '../UI/Slider/Slider';
 import { Checkbox, FormControl, FormGroup, FormControlLabel, FormLabel } from '@material-ui/core';
 
 import css from './Filter.css';
@@ -99,7 +99,11 @@ const Filter = props => {
                   checked={props.hasValueDep.Regional && props.isDepartment}
                   onChange={changeDepHandler("Regional")}
                   onClick={props.filterDepartment("Regional")}
-                  value="Regional" />
+                  value="Regional"
+                  disabled={
+                    props.hasValueDep.Nature ||
+                    props.hasValueDep.Seasonal
+                  } />
               }
               label="Regional" />
             <FormControlLabel 
@@ -108,7 +112,11 @@ const Filter = props => {
                   checked={props.hasValueDep.Nature && props.isDepartment}
                   onChange={changeDepHandler("Nature")}
                   onClick={props.filterDepartment("Nature")}
-                  value="Nature" />
+                  value="Nature"
+                  disabled={
+                    props.hasValueDep.Regional ||
+                    props.hasValueDep.Seasonal
+                  } />
               }
               label="Nature" />
             <FormControlLabel 
@@ -117,7 +125,11 @@ const Filter = props => {
                   checked={props.hasValueDep.Seasonal && props.isDepartment}
                   onChange={changeDepHandler("Seasonal")}
                   onClick={props.filterDepartment("Seasonal")}
-                  value="Seasonal" />
+                  value="Seasonal"
+                  disabled={
+                    props.hasValueDep.Nature ||
+                    props.hasValueDep.Regional
+                  } />
               }
               label="Seasonal" />
           </FormGroup>
@@ -130,7 +142,15 @@ const Filter = props => {
                   checked={props.hasValueCat.Animal && props.isCategory} 
                   onChange={changeCatHandler("Animal")}
                   onClick={props.filterCategory("Animal")}
-                  value="Animal" />
+                  value="Animal"
+                  disabled={
+                    props.hasValueCat.Christmas ||
+                    props.hasValueCat.Flower ||
+                    props.hasValueCat.French ||
+                    props.hasValueCat.Italian ||
+                    props.hasValueCat.Irish ||
+                    props.hasValueCat["Valentine's"]
+                  } />
               }
               label="Animal" />
             <FormControlLabel 
@@ -139,7 +159,15 @@ const Filter = props => {
                   checked={props.hasValueCat.Christmas && props.isCategory}
                   onChange={changeCatHandler("Christmas")}
                   onClick={props.filterCategory("Christmas")}
-                  value="Christmas" />
+                  value="Christmas"
+                  disabled={
+                    props.hasValueCat.Animal ||
+                    props.hasValueCat.Flower ||
+                    props.hasValueCat.French ||
+                    props.hasValueCat.Italian ||
+                    props.hasValueCat.Irish ||
+                    props.hasValueCat["Valentine's"]
+                  } />
               }
               label="Christmas" />
             <FormControlLabel 
@@ -148,7 +176,15 @@ const Filter = props => {
                   checked={props.hasValueCat.Flower && props.isCategory}
                   onChange={changeCatHandler("Flower")}
                   onClick={props.filterCategory("Flower")}
-                  value="Flower" />
+                  value="Flower"
+                  disabled={
+                    props.hasValueCat.Christmas ||
+                    props.hasValueCat.Animal ||
+                    props.hasValueCat.French ||
+                    props.hasValueCat.Italian ||
+                    props.hasValueCat.Irish ||
+                    props.hasValueCat["Valentine's"]
+                  } />
               }
               label="Flower" />
             <FormControlLabel 
@@ -157,7 +193,15 @@ const Filter = props => {
                   checked={props.hasValueCat.French && props.isCategory}
                   onChange={changeCatHandler("French")}
                   onClick={props.filterCategory("French")}
-                  value="French" />
+                  value="French"
+                  disabled={
+                    props.hasValueCat.Christmas ||
+                    props.hasValueCat.Flower ||
+                    props.hasValueCat.Animal ||
+                    props.hasValueCat.Italian ||
+                    props.hasValueCat.Irish ||
+                    props.hasValueCat["Valentine's"]
+                  } />
               }
               label="French" />
             <FormControlLabel 
@@ -166,7 +210,15 @@ const Filter = props => {
                   checked={props.hasValueCat.Italian && props.isCategory} 
                   onChange={changeCatHandler("Italian")}
                   onClick={props.filterCategory("Italian")}
-                  value="Italian" />
+                  value="Italian"
+                  disabled={
+                    props.hasValueCat.Christmas ||
+                    props.hasValueCat.Flower ||
+                    props.hasValueCat.French ||
+                    props.hasValueCat.Animal ||
+                    props.hasValueCat.Irish ||
+                    props.hasValueCat["Valentine's"]
+                  } />
               }
               label="Italian" />
             <FormControlLabel 
@@ -175,7 +227,15 @@ const Filter = props => {
                   checked={props.hasValueCat.Irish && props.isCategory}
                   onChange={changeCatHandler("Irish")}
                   onClick={props.filterCategory("Irish")}
-                  value="Irish" />
+                  value="Irish"
+                  disabled={
+                    props.hasValueCat.Christmas ||
+                    props.hasValueCat.Flower ||
+                    props.hasValueCat.French ||
+                    props.hasValueCat.Italian ||
+                    props.hasValueCat.Animal ||
+                    props.hasValueCat["Valentine's"]
+                  } />
               }
               label="Irish" />
           <FormControlLabel 
@@ -184,7 +244,15 @@ const Filter = props => {
                 checked={props.hasValueCat["Valentine's"] && props.isCategory}
                 onChange={changeCatHandler("Valentine's")}
                 onClick={props.filterCategory("Valentine's")}
-                value="Valentine's" />
+                value="Valentine's"
+                disabled={
+                  props.hasValueCat.Christmas ||
+                  props.hasValueCat.Flower ||
+                  props.hasValueCat.French ||
+                  props.hasValueCat.Italian ||
+                  props.hasValueCat.Irish ||
+                  props.hasValueCat.Animal
+                } />
             }
             label="Valentine's" />
           </FormGroup>

@@ -213,4 +213,9 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Items));
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(withRouter(
+  Items, 
+  (nextProps, prevProps) => nextProps.products === prevProps.products ||
+  nextProps.filterDepartment === prevProps.filterDepartment ||
+  nextProps.filterCategory === prevProps.filterCategory ||
+  nextProps.queryStr === prevProps.queryStr)));

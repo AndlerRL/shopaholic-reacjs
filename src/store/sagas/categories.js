@@ -19,7 +19,6 @@ export function* fetchCategoriesSaga(action) {
 export function* fetchCategoryIdSaga(action) {
   try {
     const response = yield Axios.get(`/categories/${action.categoryId}`)
-    console.log('action.categoryId ', action.categoryId)
 
     yield put(actions.categoryId(action.categoryId, response.data, response.data.name))
   } catch(error) {

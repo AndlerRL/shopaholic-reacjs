@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import * as actions from '../../store/actions';
 import Cart from '../../components/ShoppingCart/ShoppingCart';
@@ -17,9 +17,7 @@ const ShoppingCart = props => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    props.onFetchTotalAmount()
-  }, [props])
+  useMemo(() => props.onFetchTotalAmount(), [props])
 
   const updateProductHandler = item => e => {
     e.preventDefault();

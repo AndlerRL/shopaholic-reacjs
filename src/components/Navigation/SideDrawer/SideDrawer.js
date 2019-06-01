@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import Backdrop from '../../UI/Backdrop/Backdrop';
 import NavigationItems from '../NavigationItems/NavigationItems';
-import Search from '../../UI/Form/Search/Search';
+import Search from '../../../containers/Search/Search';
 import ShoppingCart from '../../UI/ShoppingCart/ShoppingCart';
 
 import css from './SideDrawer.css';
@@ -48,7 +48,7 @@ const sideDrawer = props => {
             itemsCart={props.itemsCart}
             totalBag={props.totalBag} />
         </div>
-        <Search clicked={props.search} />
+        <Search />
         <nav>
           <NavigationItems
             isAuthenticated={props.isAuth}
