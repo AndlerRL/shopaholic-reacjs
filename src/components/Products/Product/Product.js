@@ -227,7 +227,7 @@ const ProductDetail = props => {
           rated={props.rated}
           rating={props.rating}
           btnDisabled={props.btnDisabled}
-          goToLogin={props.goToLogin} />
+          submitReview={props.submitReview} />
       </div>
       <div className={css.ProductsHot}>
         <HotProducts

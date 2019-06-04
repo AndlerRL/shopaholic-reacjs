@@ -221,7 +221,6 @@ const postReview = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    reviews: state.reviews.unshift(action.reviewData)
   })
 }
 

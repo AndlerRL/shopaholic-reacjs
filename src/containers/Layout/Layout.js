@@ -37,7 +37,11 @@ const Layout = props => {
         shoppingCart={props.shoppingCart}
         itemsCart={props.itemsCart}
         totalBag={props.totalBag}
-        searchClicked={props.searchClicked} />
+        searchClicked={props.searchClicked}
+        isAuth={props.isAuth}
+        user={props.user}
+        favItems={props.favItems}
+        favorites={props.favorites} />
       <SideDrawer 
         open={props.showSideDrawer}
         closed={props.sideDrawer}
@@ -46,7 +50,11 @@ const Layout = props => {
         signIn={props.signIn}
         signUp={props.signUp}
         itemsCart={props.itemsCart}
-        totalBag={props.totalBag} />
+        totalBag={props.totalBag}
+        isAuth={props.isAuth}
+        user={props.user}
+        favItems={props.favItems}
+        favorites={props.favorites} />
       <main>
         { props.children }
       </main>

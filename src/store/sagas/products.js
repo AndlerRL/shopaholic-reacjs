@@ -1,4 +1,4 @@
-import { put } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 import Axios from '../../axios-shop';
 
 import * as actions from '../actions';
@@ -202,14 +202,14 @@ export function* postProductReviewSaga(action) {
 
   try {
     const reviewData = {
-      product_id: action.productId,
       review: action.review,
       rating: action.rating
     }
     const response = yield Axios.post(`/products/${action.productId}/reviews`, reviewData)
-    console.log('posted a Review ', response);
+    const product_id = yield call([localStorage, 'getItem'], 'product_detail_id')
 
-    yield put(actions.postReviewSuccess(action.productId, response.data));
+    yield put(actions.postReviewSuccess());
+    yield put(actions.fetchReviews(product_id));
   } catch(error) {
     console.log(error);
     yield put(actions.postReviewFail(error))

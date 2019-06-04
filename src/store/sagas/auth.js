@@ -29,7 +29,7 @@ export function* registerUserSaga(action) {
 
     yield localStorage.setItem('token', response.data.accessToken);
     yield localStorage.setItem('expDate', expDate);
-    yield localStorage.setItem('userID', JSON.stringify(response.data.customer.schema.customer_id))
+    yield localStorage.setItem('userID', JSON.stringify(response.data.customer.customer_id))
     yield put(actions.authRegisterSuccess(response.data.accessToken, response.data.customer));
     yield put(actions.checkAuthTimeout(86400000));
   } catch(error) {
@@ -47,11 +47,9 @@ export function* loginUserSaga(action) {
   try {
     const response = yield Axios.post('/customers/login', authData);
     const expDate = yield new Date(new Date().getTime() + 86400000);
-    console.log(response);
 
     yield localStorage.setItem('token', response.data.accessToken);
-    yield localStorage.setItem('expDate', expDate);
-    yield localStorage.setItem('userID', JSON.stringify(response.data.customer.schema.customer_id))
+    yield localStorage.setItem('expDate', expDate); 
     yield put(actions.authSuccess(response.data.accessToken, response.data.customer));
     yield put(actions.checkAuthTimeout(86400000));
   } catch(error) {
@@ -71,9 +69,10 @@ export function* authCheckStateSaga(action) {
     if (expDate <= new Date())
       yield put(actions.logout());
     else {
-      const userID = yield JSON.parse(localStorage.getItem('userID'));
+      const response = yield Axios.get('/customer');
+      console.log(response);
 
-      yield put(actions.authSuccess(token, userID));
+      yield put(actions.authSuccess(token, response.data));
       yield put(actions.checkAuthTimeout((expDate.getTime() - new Date().getTime()) / 1000))
     }
   }

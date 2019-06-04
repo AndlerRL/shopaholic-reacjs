@@ -8,6 +8,8 @@ const initState = {
   isShopping: false,
   isDeleted: false,
   isCartDeleted: false,
+  isFavorite: false,
+  onFavorite: false,
   quantity: 1,
   totalAmount: 0,
   favorites: [],
@@ -96,7 +98,7 @@ const saveToFav = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    isFavorite: true
+    isFavorite: !state.isFavorite
   })
 };
 const fetchSaveToFav = (state, action) => {
@@ -104,6 +106,11 @@ const fetchSaveToFav = (state, action) => {
     isLoading: null,
     error: null,
     favorites: action.favorites
+  })
+}
+const goToFavorite = (state, action) => {
+  return updateObject(state, {
+    onFavorite: !state.onFavorite
   })
 }
 
@@ -167,6 +174,8 @@ const reducer = (state = initState, action) => {
       return fetchSaveToFav(state, action);
     case actionTypes.SHOPPING_CART_FETCH_SAVE_FAVORITE_FAIL:
       return fail(state, action);
+    case actionTypes.GO_TO_FAVORITES:
+      return goToFavorite(state, action);
     default:
       return state;
   }

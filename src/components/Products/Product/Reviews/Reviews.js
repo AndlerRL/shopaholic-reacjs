@@ -69,7 +69,7 @@ const Reviews = props => {
       </div>
       <div className={css.PostReview}>
         <h4>Add a Review</h4>
-        <form onSubmit={props.submit} id={props.form}>
+        <form onSubmit={props.submitReview}>
           <div>
             <span>Your Review</span>
             { props.review }
@@ -104,8 +104,8 @@ const Reviews = props => {
             btnType="contained"
             btnColor="primary"
             size="medium"
-            clicked={props.goToLogin}>
-            { props.token.trim() !== "" ? 'Submit' : 'Login to post' }
+            clicked={props.submitReview}>
+            { props.isAuthenticated ? 'Submit' : 'Login to post' }
           </Btn>
         </form>
       </div>
@@ -115,7 +115,7 @@ const Reviews = props => {
 
 const mapStateToProps = state => {
   return {
-    token: state.auth.token
+    isAuthenticated: state.auth.token !== ""
   }
 }
 

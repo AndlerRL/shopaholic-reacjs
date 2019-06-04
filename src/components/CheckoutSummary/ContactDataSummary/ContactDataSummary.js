@@ -3,7 +3,7 @@ import React from 'react';
 import css from './ContactData.css';
 
 const contactDataSummary = props => (
-  <div>
+  <div className={css.ContactDataSummary}>
     <h4>Update your Data</h4>
     <form onSubmit={props.submit}>
       { props.children }

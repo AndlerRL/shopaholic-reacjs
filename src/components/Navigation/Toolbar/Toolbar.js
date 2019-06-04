@@ -35,7 +35,11 @@ const Toolbar = props => {
           signUp={props.signUp}
           itemsCart={props.itemsCart}
           totalBag={props.totalBag}
-          shoppingCart={props.shoppingCart} />
+          shoppingCart={props.shoppingCart}
+          isAuth={props.isAuth}
+          user={props.user}
+          favorites={props.favorites}
+          favItems={props.favItems} />
         <div className={css.Toolbar}>
           <p 
             className={css.Title} 
@@ -43,7 +47,9 @@ const Toolbar = props => {
             style={{ cursor: 'pointer' }}>
             SHOPAHOLIC
           </p> 
-          <NavigationItems show={css.Show} />
+          <NavigationItems 
+            show={css.Show}
+            isAuth={props.isAuth} />
           <Search />
         </div>
       </div>

@@ -1,34 +1,43 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 
 import ShoppingCart from '../../../UI/ShoppingCart/ShoppingCart';
 import Currency from '../../../UI/Currency/Currency';
+import Favorites from '../../../UI/Favorites/Favorites';
 
 import css from './ToolbarTop.css';
 
-const toolbarTop = props => {
+const ToolbarTop = props => {
   //console.log(props);
+  useMemo(() => props.user, [props]);
+
   return (
     <div className={css.ToolbarTop}>
       <div className={css.SignInUp}>
         <p>
           Hi!{' '}
-          <li
-            to={{
-              pathname: '#sign-in',
-              exact: false
-            }}>
-              <span 
-                onClick={props.signIn}>
-                Sign In
+          { !props.isAuth ? (
+            <React.Fragment>
+              <li>
+                  <span 
+                    onClick={props.signIn}>
+                    Sign In
+                  </span>
+              </li>{' '}or{' '} 
+              <li>
+                <span 
+                  onClick={props.signUp}>
+                  Register
+                </span>
+              </li>
+            </React.Fragment>
+          ) : (
+            <li style={{ cursor: 'default' }}>
+              <span>
+                { props.user.name }
               </span>
-          </li>{' '}or{' '} 
-          <li>
-            <span 
-              onClick={props.signUp}>
-              Register
-            </span>
           </li>
+          )}
         </p>
       </div>
       <div className={css.AddLinks}>
@@ -58,6 +67,9 @@ const toolbarTop = props => {
         </li>
       </div>
       <Currency currency="USD" />
+      <Favorites 
+        favItems={props.favItems}
+        clicked={props.favorites} />
       <ShoppingCart 
         totalBag={props.totalBag}
         itemsCart={props.itemsCart}
@@ -66,4 +78,4 @@ const toolbarTop = props => {
   )
 };
 
-export default withRouter(toolbarTop);
+export default withRouter(ToolbarTop);

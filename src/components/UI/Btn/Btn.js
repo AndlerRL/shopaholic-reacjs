@@ -6,6 +6,7 @@ import css from './Btn.css';
 
 const btn = props => (
   <Button
+    type={props.submit ? "submit" : null}
     variant={props.btnType}
     size={props.size}
     onClick={props.clicked}

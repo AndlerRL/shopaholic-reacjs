@@ -25,18 +25,28 @@ const sideDrawer = props => {
         <div className={css.SignInUp}>
           <p>
             Hi!{' '}
-            <li>
+            { !props.isAuth ? (
+            <React.Fragment>
+              <li>
+                  <span 
+                    onClick={props.signIn}>
+                    Sign In
+                  </span>
+              </li>{' '}or{' '} 
+              <li>
                 <span 
-                  onClick={props.signIn}>
-                  Sign In
+                  onClick={props.signUp}>
+                  Register
                 </span>
-            </li>{' '}or{' '} 
+              </li>
+            </React.Fragment>
+          ) : (
             <li>
-              <span 
-                onClick={props.signUp}>
-                Register
+              <span>
+                { props.user.name }
               </span>
-            </li>
+          </li>
+          )}
           </p>
         </div>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -52,7 +62,8 @@ const sideDrawer = props => {
         <nav>
           <NavigationItems
             isAuthenticated={props.isAuth}
-            clicked={props.closed} />
+            clicked={props.closed}
+            isAuth={props.isAuth} />
         </nav>
         <div className={css.AddLinks}>
           <li className={css.NavigationItem}>
@@ -84,5 +95,6 @@ const sideDrawer = props => {
     </React.Fragment>
   );
 };
+
 
 export default sideDrawer;

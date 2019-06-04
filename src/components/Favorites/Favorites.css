@@ -1,0 +1,143 @@
+.Favorites {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 16px 0;
+  margin-top: -5.6rem;
+  width: 100%;
+  max-height: 70vh;
+  margin-bottom: 3.25rem;
+  overflow: auto;
+}
+
+.Favorites .Item {
+  width: 100%;
+  opacity: 1;
+  transition: all ease-in .5s;
+}
+
+.Favorites th,
+.Item p {
+  font-family: 'Tajawal', sans-serif;
+  font-weight: 400;
+}
+
+.Favorites th {
+  font-size: 1.5rem;
+  color: #757575;
+}
+
+.Favorites th:not(:first-child) {
+  text-align: center;
+}
+
+.Favorites .Item > td {
+  min-width: 135px;
+}
+
+.Favorites .Item > td:first-child{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.Favorites .Item > td:first-child > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 8px 32px;
+}
+
+.Favorites .Item > td:first-child > div span{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  margin: 0 .25rem 0 0;
+  color: #ff1744;
+  font-weight: 300;
+  font-size: .9rem;
+}
+
+.Favorites .Item > td:first-child > div p {
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+.Favorites .Item > td:nth-child(2) > p {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 45px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #434343;
+}
+
+.Favorites .Item > td:nth-child(3) > p {
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin: 0 auto;
+  width: 100px;
+}
+
+.Actions {
+  position: fixed;
+  left: 0;
+  padding: 16px 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  background-color: #e0e0e0;
+}
+
+.Actions button {
+  width: 200px;
+  border-radius: 2px !important;
+}
+
+.Deleted {
+  transition: all ease-out .6s;
+  animation: opacity ease-out .6s backwards;
+}
+
+.NoItems {
+  width: 100%;
+  height: 12.5rem;
+  color: #bdbdbd;
+  text-align: center;
+  animation: opacity ease-in .6s forwards;
+}
+
+.NoItems > p {
+  font-family: 'Dosis', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+@media screen and (min-width: 500px) {
+  .Favorites {
+    padding: 16px 64px;
+    margin-top: 0;
+  }
+
+  .Actions {
+    padding: 16px 32px;
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

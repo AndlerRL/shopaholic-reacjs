@@ -348,10 +348,12 @@ export const fetchReviewsFail = error => {
     error: error
   }
 }
-export const postReview = (productId, reviewData) => {
+export const postReview = (productId, review, rating) => {
   return {
+    type: actionTypes.POST_PRODUCT_REVIEW,
     productId: productId,
-    reviewData: reviewData
+    review: review,
+    rating
   }
 }
 export const postReviewStart = () => {
@@ -359,11 +361,9 @@ export const postReviewStart = () => {
     type: actionTypes.POST_PRODUCT_REVIEW_START
   }
 }
-export const postReviewSuccess = (productId, reviewData) => {
+export const postReviewSuccess = () => {
   return {
     type: actionTypes.POST_PRODUCT_REVIEW_SUCCESS,
-    productId: productId,
-    reviewData: reviewData
   }
 }
 export const postReviewFail = error => {

@@ -1,0 +1,37 @@
+.Favorites {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.Favorites > .Icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  cursor: pointer;
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.001) .5s 100ms !important;
+}
+
+.Favorites > .Icon:hover {
+  transform: scale(1.2);
+}
+
+.Favorites > .Icon > .Items {
+  position: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 3px;
+  margin-left: -26px;
+  margin-top: -14px;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 50%;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-color: #ff1744;
+  color: #f5f5f5;
+  z-index: 50;
+}

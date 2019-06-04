@@ -18,6 +18,14 @@ const navigationItems = props => (
       clicked={props.clicked}>
       PRODUCTS
     </NavigationItem>
+    { props.isAuth ? (
+      <NavigationItem
+        exact
+        link="/orders"
+        clicked={props.clicked}>
+        ORDERS
+      </NavigationItem>
+    ) : null }
   </ul>
 );
 

@@ -135,7 +135,7 @@ const shoppingCart = props => {
           btnColor="primary"
           disabled={props.shoppingCart.length === 0}
           clicked={props.checkout}>
-          { props.token.trim() !== "" ? 'checkout' : 'login to continue shopping' }
+          { props.inAuthenticated ? 'checkout' : 'login to continue shopping' }
         </Btn>
       </div>
     </div>
@@ -146,7 +146,7 @@ const mapStateToProps = state => {
   return {
     isLoading: state.shoppingCart.isLoading,
     isDeleted: state.shoppingCart.isDeleted,
-    token: state.auth.token
+    inAuthenticated: state.auth.token !== ""
   }
 }
 

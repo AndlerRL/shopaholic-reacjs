@@ -35,7 +35,16 @@ import {
   updateProductCartSaga,
   removeProductCartSaga,
   emptyCartSaga,
-  saveForLaterSaga, } from './shopping';
+  saveForLaterSaga,
+  fetchSaveForLaterSaga,
+  moveToCartSaga } from './shopping';
+import {
+  authCheckStateSaga,
+  checkAuthTimeoutSaga,
+  loginUserSaga,
+  logoutSaga,
+  registerUserSaga,
+} from './auth';
 
 export function* watchAttributes() {
   yield takeEvery(actionTypes.FETCH_ATTRIBUTES, fetchAttributesSaga)
@@ -44,7 +53,11 @@ export function* watchAttributes() {
 }
 
 export function* watchAuth() {
-  
+  yield takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga);
+  yield takeEvery(actionTypes.AUTH_USER, loginUserSaga);
+  yield takeEvery(actionTypes.AUTH_LOGOUT, logoutSaga);
+  yield takeEvery(actionTypes.AUTH_REGISTER_USER, registerUserSaga);
+  yield takeEvery(actionTypes.AUTH_CHECK_TIMEOUT, checkAuthTimeoutSaga);
 }
 
 export function* watchCategories() {
@@ -85,11 +98,13 @@ export function* watchProducts() {
 export function* watchShoppingCart() {
   yield takeEvery(actionTypes.FETCH_SHOPPING_CART_TOTAL, fetchTotalAmountSaga);
   yield takeEvery(actionTypes.GENERATE_CART_ID, generateCartIdSaga);
-  yield takeLatest(actionTypes.ADD_PRODUCT_CART, addProductToCartSaga);
-  yield takeLatest(actionTypes.FETCH_SHOPPING_CART, fetchCartSaga);
+  yield takeEvery(actionTypes.ADD_PRODUCT_CART, addProductToCartSaga);
+  yield takeEvery(actionTypes.FETCH_SHOPPING_CART, fetchCartSaga);
   yield takeEvery(actionTypes.PUT_UPDATE_PRODUCT, updateProductCartSaga);
   yield takeEvery(actionTypes.SHOPPING_CART_REMOVE_PRODUCT, removeProductCartSaga);
   yield takeEvery(actionTypes.DELETE_SHOPPING_CART, emptyCartSaga);
+  yield takeEvery(actionTypes.FETCH_SAVE_FAVORITE, fetchSaveForLaterSaga);
+  yield takeEvery(actionTypes.MOVE_TO_CART, moveToCartSaga);
   yield takeEvery(actionTypes.SAVE_FOR_LATER, saveForLaterSaga);
 }
 

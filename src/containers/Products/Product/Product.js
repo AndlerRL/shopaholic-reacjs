@@ -34,7 +34,6 @@ const Item = props => {
     Size: ""
   });
   const [quantity, setQuantity] = useState(1);
-  const [addFav, setAddFav] = useState(false);
   const [review, setReview] = useState({
     review: {
       elementType: 'textarea',
@@ -64,9 +63,11 @@ const Item = props => {
     props.onProductAttributes(product_detail_id);
     props.onFetchReviews(product_detail_id);
 
-    if (product_detail_id === null) {
+    if (product_detail_id === null)
       props.history.replace('/products')
-    }
+
+    if (cart_id === "")
+      props.onGenerateCartId();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
@@ -143,34 +144,6 @@ const Item = props => {
   }
   
   const fetchReviews = props.reviews.map(reviews => reviews);
-  
-  const addWishList = e => {
-    e.preventDefault();
-    
-    if (productAttr.Color !== "" || productAttr.Size !== "") {
-      const productAdd = {
-        cart_id: cart_id,
-        product_id: props.productId,
-        attributes: `${productAttr.Color}, ${productAttr.Size}`
-      };
-      
-      if (!addFav) {
-        setAddFav(true);
-        if (cart_id === "")
-          props.onGenerateCartId()
-    
-        if (cart_id !== "")
-          props.onAddProduct(productAdd)
-    
-        props.onSaveForLater(props.itemId)
-      }
-
-      if (addFav) {
-        setAddFav(false);
-        /* props.onRemoveProduct(props.itemId) */
-      }
-    }
-  }
 
   const inputChangedHandler = (e, inputId) => {
     let reviewIsValid = true;
@@ -205,40 +178,48 @@ const Item = props => {
       quantity: quantity
     };
 
-    if (!cart_id) {
-      props.onGenerateCartId();
-    }
-
     if (cart_id) {
       if (productAttr.Color === "" || productAttr.Size === "") {
         setWarning(true)
       } else {
         props.onAddProduct(productAdd);
-        //props.onMoveToCart(props.productData.item_id)
-        //console.log(props.addProduct.item_id)
       }
+    }
+  }
+
+  const addWishList = () => {
+    if (productAttr.Color !== "" || productAttr.Size !== "") {
+      const productAdd = {
+        cart_id: cart_id,
+        product_id: props.productId,
+        attributes: `${productAttr.Color}, ${productAttr.Size}`
+      };
+
+      props.onAddProduct(productAdd);
+
+      setTimeout(() => {
+        const product = props.productInCart.find(id => id.product_id === props.productId);
+        console.log('products in cart', props.productInCart)
+        console.log(product);
+        props.onSaveForLater(product.item_id);
+      }, 2000);
+
+      /* if (props.isFavorite) {
+        const item_id = props.productInCart.find(id => id.product_id === props.productId).item_id
+        
+        props.onRemoveProduct(item_id)
+      } */
     }
   }
 
   const postReviewHandler = e => {
     e.preventDefault();
 
-    if (props.token.trim() !== "") {
-      const reviewData = {};
-
-      for (let reviewEleId in review)
-        reviewData[reviewEleId] = review[reviewEleId].value;
-
-      const post_review = {
-        product_id: props.productId,
-        review: reviewData,
-        rating: rating
-      }
-
-      //props.onPostReview(post_review);
+    if (props.isAuthenticated) {
+      props.onPostReview(props.productId, review.review.value, rating);
     }
 
-    if (props.token.trim() === "") {
+    if (!props.isAuthenticated) {
       props.onSignIn();
 
       if (props.isSignUp)
@@ -309,7 +290,7 @@ const Item = props => {
       quantity={quantityAction}
       count={quantity}
       addCart={addCartHandler}
-      addFav={addFav}
+      addFav={props.isFavorite}
       addToFav={addWishList}
       reviews={fetchReviews}
       review={textarea}
@@ -317,8 +298,7 @@ const Item = props => {
       rated={rating}
       btnDisabled={!reviewIsValid}
       form="Form"
-      submit={postReviewHandler}
-      goToLogin={postReviewHandler}
+      submitReview={postReviewHandler}
       openWarning={warning}
       warning={warningHandler}
       colorsAttr={color}
@@ -333,14 +313,16 @@ const mapStateToProps = state => {
     reviews: state.products.reviews,
     productId: state.products.productId,
     productData: state.products.productData,
+    productInCart: state.shoppingCart.productData,
     productLocation: state.products.productLocation,
     productAttributes: state.attributes.productAttributes,
     colorVals: state.attributes.colorVals,
     sizeVals: state.attributes.sizeVals,
     cartId: state.shoppingCart.cartId,
-    itemId: state.shoppingCart.itemId,
+    isFavorite: state.shoppingCart.isFavorite,
+    isShopping: state.shoppingCart.isShopping,
     addProduct: state.shoppingCart.productData,
-    token: state.auth.token,
+    isAuthenticated: state.auth.token !== "",
     isSignIn: state.auth.isSignIn,
     isSignUp: state.auth.isSignUp,
   }
@@ -358,7 +340,9 @@ const mapDispatchToProps = dispatch => {
     onMoveToCart: itemId => dispatch(actions.moveToCart(itemId)),
     onSignIn: () => dispatch(actions.goToSignIn()),
     onSignUp: () => dispatch(actions.goToSignUp()),
-    onFetchProductData: (productId, productData) => dispatch(actions.fetchProductDetail(productId, productData))
+    onFetchProductData: (productId, productData) => dispatch(actions.fetchProductDetail(productId, productData)),
+    onPostReview: (productId, review, rating) => dispatch(actions.postReview(productId, review, rating)),
+    onFetchShoppingCart: () => dispatch(actions.fetchShoppingCart())
   }
 }
 

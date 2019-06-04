@@ -55,10 +55,9 @@ export const confirmAddCart = () => {
     type: actionTypes.SHOPPING_CART_CONFIRM_ADD
   }
 }
-export const fetchShoppingCart = cartId => {
+export const fetchShoppingCart = () => {
   return {
-    type: actionTypes.FETCH_SHOPPING_CART,
-    cartId: cartId
+    type: actionTypes.FETCH_SHOPPING_CART
   }
 }
 export const shoppingCartStart = () => {
@@ -128,7 +127,7 @@ export const shoppingCartRemoveProductFail = error => {
 export const moveToCart = itemId => {
   return {
     type: actionTypes.MOVE_TO_CART,
-    productData: itemId
+    itemId: itemId
   }
 }
 export const shoppingCartMoveToCartStart = () => {
@@ -191,7 +190,7 @@ export const shoppingCartTotalFail = error => {
 export const saveForLater = itemId => {
   return {
     type: actionTypes.SAVE_FOR_LATER,
-    productData: itemId
+    itemId: itemId
   }
 }
 export const shoppingCartSaveFavStart = () => {
@@ -199,10 +198,10 @@ export const shoppingCartSaveFavStart = () => {
     type: actionTypes.SHOPPING_CART_FETCH_SAVE_FAVORITE_START
   }
 }
-export const shoppingCartSaveFav = productData => {
+export const shoppingCartSaveFav = itemId => {
   return {
     type: actionTypes.SHOPPING_CART_SAVE_FAVORITE,
-    favorites: productData
+    itemId: itemId
   }
 }
 export const shoppingCartSaveFavFail = error => {
@@ -211,26 +210,30 @@ export const shoppingCartSaveFavFail = error => {
     error: error
   }
 }
-export const fetchFavorites = cartId => {
+export const fetchFavorites = () => {
   return {
     type: actionTypes.FETCH_SAVE_FAVORITE,
-    cartId: cartId
   }
 }
-export const fetchShoppingCartStart = () => {
+export const fetchSaveForLaterStart = () => {
   return {
     type: actionTypes.SHOPPING_CART_FETCH_SAVE_FAVORITE_START
   }
 }
-export const fetchShoppingCartSuccess = favorites => {
+export const fetchSaveForLaterSuccess = favorites => {
   return {
     type: actionTypes.SHOPPING_CART_FETCH_SAVE_FAVORITE_SUCCESS,
     favorites: favorites
   }
 }
-export const fetchShoppingCartFail = error => {
+export const fetchSaveForLaterFail = error => {
   return {
     type: actionTypes.SHOPPING_CART_FETCH_SAVE_FAVORITE_FAIL,
     error: error
+  }
+}
+export const goToFavorites = () => {
+  return {
+    type: actionTypes.GO_TO_FAVORITES
   }
 }

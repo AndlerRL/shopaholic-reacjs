@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 import React, { useState, useEffect } from 'react';
 
+import * as actions from '../../../store/actions';
 import { checkValidity, updateObject } from '../../../share/utility';
 import Modal from '../../../components/UI/Modal/Modal';
 import Input from '../../../components/UI/Form/Input/Input';
@@ -44,10 +45,9 @@ const SignIn = props => {
       touched: false,
     }
   });
-  const [isSignup, setIsSignup] = useState(false);
 
   useEffect(() => {
-    /* if (!props.building && props.authRedirectPath !== '/')
+    /* if (!props.isShopping && props.authRedirectPath !== '/')
       props.onSetAuthRedirectPath(); */
   }, [])
 
@@ -65,10 +65,8 @@ const SignIn = props => {
 
   const submitHandler = e => {
     e.preventDefault();
-  }
 
-  const switchAuthModeHandler = () => {
-    setIsSignup(true);
+    props.onAuth(controlsIn.email.value, controlsIn.password.value);
   }
 
   const formEleArray = [];
@@ -94,10 +92,14 @@ const SignIn = props => {
       changed={e => inputChangedHandler(e, formEle.id)} />
   ));
   
-  if (props.loading)
+  let error = null;
+  let authRedirect = null;
+  
+  if (props.isLoading)
     form = <Loading />;
 
-  let error = null;
+  /* if (props.isAuthenticated)
+    authRedirect = <Redirect to={props.authRedirectPath} /> */
 
   if (props.error) 
     error = <p className={'z-depth-1 ' + css.ErrorMsg}>ERROR: { props.error.message }</p>  
@@ -106,9 +108,10 @@ const SignIn = props => {
     <Modal
       modalClosed={props.signInClosed}
       show={props.showSignIn}>
+      { authRedirect }
       <form 
-      className={css.SignIn}
-      onSubmit={submitHandler}>
+        className={css.SignIn}
+        onSubmit={submitHandler}>
         <h4 className={css.Title}>Please, Login to Shopaholic</h4>
         { error }
         { form }
@@ -120,10 +123,11 @@ const SignIn = props => {
             clicked={props.backShop}>
             Back to Shop
           </Btn>
-          <Btn 
+          <Btn
+            submit={true}
             btnColor="primary"
             btnType="contained"
-            clicked={switchAuthModeHandler}>
+            clicked={submitHandler}>
             Login
           </Btn>
         </div>
@@ -132,4 +136,20 @@ const SignIn = props => {
   )
 };
 
-export default SignIn;
+const mapStateToProps = state => {
+  return {
+    isLoading: state.auth.isLoading,
+    error: state.auth.error,
+    isAuthenticated: state.auth.token !== "",
+    authRedirectPath: state.auth.authRedirectPath,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth: (email, password) => dispatch(actions.auth(email, password)),
+    onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath("/"))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

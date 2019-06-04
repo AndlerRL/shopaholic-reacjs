@@ -5,11 +5,11 @@ export const authStart = () => {
     type: actionTypes.AUTH_START
   }
 };
-export const authSuccess = (token, userID) => {
+export const authSuccess = (token, userData) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
-    userID: userID
+    userData: userData
   }
 }
 export const authRegisterStart = () => {
@@ -17,16 +17,22 @@ export const authRegisterStart = () => {
     type: actionTypes.AUTH_REGISTER_START
   }
 };
-export const authRegisterSuccess = (token, userID) => {
+export const authRegisterSuccess = (token, userData) => {
   return {
     type: actionTypes.AUTH_REGISTER_SUCCESS,
     idToken: token,
-    userID: userID
+    userData: userData
   }
 }
 export const authFail = error => {
   return {
     type: actionTypes.AUTH_FAIL,
+    error: error
+  }
+}
+export const authRegisterFail = error => {
+  return {
+    type: actionTypes.AUTH_REGISTER_FAIL,
     error: error
   }
 }

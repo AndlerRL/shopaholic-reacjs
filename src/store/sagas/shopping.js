@@ -23,7 +23,8 @@ export function* addProductToCartSaga(action) {
   try {
     const response = yield Axios.post('/shoppingcart/add', action.productData);
     
-    yield put(actions.shoppingCartAddSuccess(response.data))
+    yield put(actions.shoppingCartAddSuccess(response.data));
+    yield put(actions.fetchShoppingCart());
   } catch(error) {
     console.error(error);
     yield put(actions.shoppingCartAddFail(error));
@@ -62,7 +63,8 @@ export function* updateProductCartSaga(action) {
   try {
     const response = yield Axios.put(`/shoppingcart/update/${action.itemId}`, action.productData)
 
-    yield put(actions.shoppingCartUpdateProduct(response.data))
+    yield put(actions.shoppingCartUpdateProduct(response.data));
+    yield put(actions.fetchShoppingCart());
   } catch(error) {
     console.error(error);
     yield put(actions.shoppingCartUpdateFail(error))
@@ -77,6 +79,7 @@ export function* removeProductCartSaga(action) {
     console.log(response);
 
     yield put(actions.shoppingCartRemoveProductSuccess(action.itemId))
+    yield put(actions.fetchShoppingCart());
   } catch(error) {
     console.error(error);
     yield put(actions.shoppingCartRemoveProductFail(error))
@@ -104,7 +107,9 @@ export function* moveToCartSaga(action) {
     const response = yield Axios.get(`/shoppingcart/moveToCart/${action.itemId}`)
     console.log('MOVE TO CART SAGA RES: ', response);
 
-    yield put(actions.shoppingCartMoveToCartSuccess(response.data))
+    yield put(actions.shoppingCartMoveToCartSuccess())
+    yield put(actions.fetchShoppingCart());
+    yield put(actions.fetchFavorites());
   } catch(error) {
     console.error(error);
     yield put(actions.shoppingCartMoveToCartFail(error))
@@ -118,9 +123,25 @@ export function* saveForLaterSaga(action) {
     const response = yield Axios.get(`/shoppingcart/saveForLater/${action.itemId}`);
     console.log('SAVE FOR LATER RES: ', response);
     
-    yield put(actions.shoppingCartSaveFav(response.data))
+    yield put(actions.shoppingCartSaveFav());
+    yield put(actions.fetchFavorites());
   } catch(error) {
     console.error(error);
     yield put(actions.shoppingCartSaveFavFail(error))
+  }
+}
+
+export function* fetchSaveForLaterSaga(action) {
+  yield put(actions.fetchSaveForLaterStart())
+
+  try {
+    const cart_id = yield JSON.parse(localStorage.getItem('cart_id'));
+    const response = yield Axios.get(`/shoppingcart/getSaved/${cart_id}`);
+    console.log('FETCHED SAVE FOR LATER SAGA: ', response);
+
+    yield put(actions.fetchSaveForLaterSuccess(response.data));
+  } catch (error) {
+    console.error(error);
+    yield put(actions.fetchSaveForLaterFail(error));
   }
 }

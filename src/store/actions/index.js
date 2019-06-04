@@ -9,6 +9,10 @@ export {
   logoutSucceed,
   checkAuthTimeout,
   auth,
+  authRegister,
+  authRegisterStart,
+  authRegisterSuccess,
+  authRegisterFail,
   setAuthRedirectPath,
   authCheckState,
   addressStart,
@@ -187,9 +191,10 @@ export {
   shoppingCartSaveFav,
   shoppingCartSaveFavFail,
   fetchFavorites,
-  fetchShoppingCartStart,
-  fetchShoppingCartSuccess,
-  fetchShoppingCartFail
+  fetchSaveForLaterStart,
+  fetchSaveForLaterSuccess,
+  fetchSaveForLaterFail,
+  goToFavorites
 } from './shoppingCart';
 export {
   stripeChargeStart,

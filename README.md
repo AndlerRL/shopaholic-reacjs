@@ -46,6 +46,13 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v0.8.1]`__
+
+Added a couple of components, such as:
+
+* __Favorite Component:__ customer can see his/her items saved as favorites and add it without any issue and move to cart too if they want it.
+* __Authentication Component:__ customer who would like to post a review and save his/her information for ordering the products available, they can do it without any issue and has cookies!
+
 __`[v0.7.23]`__
 
 __Bug Fix:__

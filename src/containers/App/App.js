@@ -18,6 +18,9 @@ const SignUp = React.lazy(() => {
 const ShoppingCart = React.lazy(() => {
   return import('../ShoppingCart/ShoppingCart');
 })
+const Favorites = React.lazy(() => {
+  return import('../Favorites/Favorites');
+})
 const Products = React.lazy(() => {
   return import('../Products/Products');
 })
@@ -27,9 +30,14 @@ const Product = React.lazy(() => {
 const Checkout = React.lazy(() => {
   return import('../Checkout/Checkout');
 })
+const Orders = React.lazy(() => {
+  return import('../Orders/Orders');
+})
 
 const App = props => {
   useEffect(() => {
+    props.onTryAuthSignUp();
+
     M.AutoInit();
 
     const root = document.querySelector('#root');
@@ -66,6 +74,9 @@ const App = props => {
 
     if (props.sideDrawer)
       props.onSideDrawer()
+
+    if (props.isFavorite)
+      props.onFavorites();
   }
 
   const showSignUpHandler = () => {
@@ -80,6 +91,9 @@ const App = props => {
 
     if (props.sideDrawer)
       props.onSideDrawer()
+
+    if (props.isFavorite)
+      props.onFavorites();
   }
 
   const showShoppingCartHandler = () => {
@@ -93,6 +107,25 @@ const App = props => {
 
     if (props.sideDrawer)
       props.onSideDrawer()
+
+    if (props.isFavorite)
+      props.onFavorites();
+  }
+
+  const showFavoritesHandler = () => {
+    props.onFavorites();
+
+    if (props.isSignIn)
+      props.onSignIn()
+
+    if (props.isSignUp)
+      props.onSignUp()
+
+    if (props.sideDrawer)
+      props.onSideDrawer()
+
+    if (props.isShoppingCart)
+      props.onShoppingCart()
   }
 
   const sideDrawerHandler = () => {
@@ -104,10 +137,21 @@ const App = props => {
       <Route exact path="/" component={Home} />
       <Route exact path="/products" render={props => <Products {...props} />} />
       <Route exact path={`/product-details`} render={props => <Product {...props} />} />
-      <Route exact path="/checkout" render={props => <Checkout {...props} />} />
       <Redirect to="/" />
     </Switch>
   )
+
+  if (props.isAuthenticated)
+    routes = (
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/products" render={props => <Products {...props} />} />
+        <Route exact path={`/product-details`} render={props => <Product {...props} />} />
+        <Route exact path="/checkout" render={props => <Checkout {...props} />} />
+        <Route exact path="/orders" render={props => <Orders {...props} />} />
+        <Redirect to="/" />
+    </Switch>
+    )
   
   return (
     <Layout
@@ -117,7 +161,11 @@ const App = props => {
       signUp={showSignUpHandler}
       shoppingCart={showShoppingCartHandler}
       itemsCart={props.productData.length}
-      totalBag={props.totalAmount ? props.totalAmount : '0.00'} >
+      totalBag={props.totalAmount ? props.totalAmount : '0.00'}
+      isAuth={props.isAuthenticated}
+      user={props.userData}
+      favItems={props.favorites.length}
+      favorites={showFavoritesHandler} >
       <Suspense fallback={<Loading />}>
         <SignIn 
           signInClosed={showSignInHandler}
@@ -132,6 +180,10 @@ const App = props => {
         <ShoppingCart 
           shoppingCartClosed={showShoppingCartHandler}
           showShoppingCart={props.isShoppingCart} />
+        <Favorites 
+          favoritesClosed={showFavoritesHandler}
+          showFavorites={props.isFavorite}
+          backShop={showFavoritesHandler} />
         { routes }
       </Suspense>
     </Layout>
@@ -142,12 +194,16 @@ const mapStateToProps = state => {
   return {
     productData: state.shoppingCart.productData,
     totalAmount: state.shoppingCart.totalAmount,
+    favorites: state.shoppingCart.favorites,
     sideDrawer: state.auth.sideDrawer,
     isSignIn: state.auth.isSignIn,
     isSignUp: state.auth.isSignUp,
     isShoppingCart: state.shoppingCart.isShoppingCart,
+    isFavorite: state.shoppingCart.onFavorite,
     queryStr: state.products.meta.query_string,
-    isSearch: state.products.search
+    isSearch: state.products.search,
+    isAuthenticated: state.auth.token !== "",
+    userData: state.auth.userData,
   }
 }
 
@@ -156,7 +212,9 @@ const mapDispatchToProps = dispatch => {
     onSignIn: () => dispatch(actions.goToSignIn()),
     onSignUp: () => dispatch(actions.goToSignUp()),
     onShoppingCart: () => dispatch(actions.goToShoppingCart()),
+    onFavorites: () => dispatch(actions.goToFavorites()),
     onSideDrawer: () => dispatch(actions.handleSideDrawer()),
+    onTryAuthSignUp:() => dispatch(actions.authCheckState())
   }
 }
 

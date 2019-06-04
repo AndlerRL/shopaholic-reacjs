@@ -3,14 +3,13 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initState = {
   token: "",
-  userId: null,
   error: null,
   isLoading: false,
   isSignIn: false,
   isSignUp: false,
   sideDrawer: false,
   cc: {},
-  userData: {},
+  userData: [],
   authRedirectPath: '/'
 };
 
@@ -34,23 +33,25 @@ const handleSideDrawer = (state, action) => {
 const authRegisterSuccess = (state, action) => {
   return updateObject(state, {
     token: action.idToken,
-    userId: action.userId,
+    userData: action.userData,
     error: null,
     isLoading: false,
+    isSignUp: false,
   })
 }
 const authSuccess = (state, action) => {
   return updateObject(state, {
     token: action.idToken,
-    userId: action.userId,
+    userData: action.userData,
     error: null,
     isLoading: false,
+    isSignIn: false
   })
 }
 const authLogout = (state, action) => {
   return updateObject(state, {
     token: null,
-    userId: null,
+    userData: null,
   })
 }
 const setAuthRedirectPath = (state, action) => {
@@ -66,10 +67,14 @@ const addressSuccess = (state, action) => {
   })
 }
 const ccSuccess = (state, action) => {
+  const updateCC = updateObject(state.userData, {
+    credit_card: action.cc
+  })
+  
   return updateObject(state, {
     isLoading: false,
     error: null,
-    cc: action.cc
+    userData: updateCC
   })
 }
 const goToSignIn = (state, action) => {

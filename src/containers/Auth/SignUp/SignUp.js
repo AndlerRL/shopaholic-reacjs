@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom'
 import React, { useState, useEffect, useRef } from 'react';
 
+import * as actions from '../../../store/actions';
 import { checkValidity, updateObject } from '../../../share/utility';
 import Modal from '../../../components/UI/Modal/Modal';
 import Input from '../../../components/UI/Form/Input/Input';
@@ -54,7 +54,7 @@ const SignUp = props => {
       value: '',
       validation: {
         required: true,
-        minLength: 6
+        minLength: 6,
       },
       valid: false,
       touched: false,
@@ -70,7 +70,7 @@ const SignUp = props => {
       validation: {
         required: true,
         minLength: 6,
-        confirmPW: true
+        sameAsPW: true
       },
       valid: false,
       touched: false,
@@ -83,12 +83,11 @@ const SignUp = props => {
   let checkPW = pw === cpw && (pw !== '' && cpw !== '');
 
   useEffect(() => {
-    //console.log(pwRef)
-    //console.log(pw, cpw)
+    console.log(pw, cpw)
   }, [pw, cpw])
 
   const inputChangedHandler = (e, controlName) => {
-    setPW(pwRef.current.parentElement.parentElement[1].value);
+    setPW(pwRef.current.parentElement.parentElement[2].value);
     setCPW(pwRef.current.value);
     const updatedControlsUp = updateObject(controlsUp, {
       [controlName]: updateObject(controlsUp[controlName], {
@@ -103,12 +102,7 @@ const SignUp = props => {
 
   const submitHandler = e => {
     e.preventDefault();
-    props.onAuth(controlsUp.email.value, controlsUp.password.value, isSignup);
-    setIsSignup(false)
-  }
-
-  const switchAuthModeHandler = () => {
-    setIsSignup(false);
+    props.onRegisterAuth(controlsUp.name.value, controlsUp.email.value, controlsUp.password.value);
   }
 
   const formEleArray = [];
@@ -164,7 +158,7 @@ const SignUp = props => {
           <Btn 
             btnColor="primary"
             btnType="contained"
-            clicked={switchAuthModeHandler}
+            clicked={submitHandler}
             disabled={!checkPW}>
             Sign Up
           </Btn>
@@ -174,4 +168,18 @@ const SignUp = props => {
   )
 };
 
-export default SignUp;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.token !== "",
+    isLoading: state.auth.isLoading,
+    error: state.auth.error
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onRegisterAuth: (name, email, password) => dispatch(actions.authRegister(name, email, password))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

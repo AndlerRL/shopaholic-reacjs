@@ -13,7 +13,7 @@ const ShoppingCart = props => {
   const cartProducts = props.productData.map(cart => cart);
 
   useEffect(() => {
-    props.onFetchShoppingCart(cart_id);
+    props.onFetchShoppingCart();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -28,15 +28,12 @@ const ShoppingCart = props => {
     }
 
     props.onUpdateProduct(item.id, update);
-    setTimeout(() => {
-      props.onFetchShoppingCart(cart_id);
-    }, 500);
   }
 
   const removeProductHandler = item_id => e => {
     e.preventDefault();
     setRemove(true)
-    console.log(item_id);
+    //console.log(item_id);
 
     setTimeout(() => {
       setRemove(false)
@@ -62,8 +59,6 @@ const ShoppingCart = props => {
       props.onShoppingCart()
   }
 
-  console.log(props.productData);
-
   return (
     <Modal
     modalClosed={props.shoppingCartClosed}
@@ -86,27 +81,25 @@ const ShoppingCart = props => {
 const mapStateToProps = state => {
   return {
     productData: state.shoppingCart.productData,
-    favorites: state.shoppingCart.favorites,
     totalAmount: state.shoppingCart.totalAmount,
     quantity: state.shoppingCart.quantity,
-    itemId: state.shoppingCart.itemId,
     isShoppingCart: state.shoppingCart.isShoppingCart,
     isSignIn: state.auth.isSignIn,
     isSignUp: state.auth.isSignUp,
-    token: state.auth.token
+    isAuthenticated: state.auth.token !== ""
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchShoppingCart: cartId => dispatch(actions.fetchShoppingCart(cartId)),
+    onFetchShoppingCart: () => dispatch(actions.fetchShoppingCart()),
     onFetchTotalAmount: () => dispatch(actions.fetchTotalAmount()),
     onUpdateProduct: (itemId, quantity) => dispatch(actions.updateProduct(itemId, quantity)),
     onRemoveProduct: itemId => dispatch(actions.removeProduct(itemId)),
     onDeleteCart: cartId => dispatch(actions.deleteShoppingCart(cartId)),
     onSignIn: () => dispatch(actions.goToSignIn()),
     onSignUp: () => dispatch(actions.goToSignUp()),
-    onShoppingCart: () => dispatch(actions.goToShoppingCart())
+    onShoppingCart: () => dispatch(actions.goToShoppingCart()),
   }
 }
 
