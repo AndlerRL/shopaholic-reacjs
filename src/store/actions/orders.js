@@ -1,22 +1,34 @@
 import * as actionTypes from './actionTypes';
 
+export const createOrder = (cartId, shippingId, taxId) => {
+  return {
+    type: actionTypes.CREATE_ORDER,
+    cartId: cartId,
+    shippingId: shippingId,
+    taxId: taxId
+  }
+}
 export const ordersStart = () => {
   return {
     type: actionTypes.ORDERS_START
   }
 }
-export const ordersSuccess = (cartId, shippingId, taxId) => {
+export const ordersSuccess = orderId => {
   return {
     type: actionTypes.ORDERS_SUCCESS,
-    cartId: cartId,
-    shippingId: shippingId,
-    taxId: taxId
+    orderId: orderId
   }
 }
 export const ordersFail = error => {
   return {
     type: actionTypes.ORDERS_FAIL,
     error: error
+  }
+}
+export const orderId = orderId => {
+  return {
+    type: actionTypes.ORDERS_ID_INIT,
+    orderId: orderId
   }
 }
 export const ordersIdStart = () => {
@@ -36,6 +48,11 @@ export const ordersIdFail = error => {
     error: error
   }
 }
+export const fetchOrdersInCustomer = () => {
+  return {
+    type: actionTypes.ORDERS_IN_CUSTOMER_INIT
+  }
+}
 export const ordersCustomerStart = () => {
   return {
     type: actionTypes.ORDERS_IN_CUSTOMER_START
@@ -53,6 +70,12 @@ export const ordersCustomerFail = error => {
     error: error
   }
 }
+export const orderShortDetail = orderId => {
+  return {
+    type: actionTypes.ORDERS_SHORT_DETAIL_INIT,
+    orderId: orderId
+  }
+}
 export const ordersShortDetailsStart = () => {
   return {
     type: actionTypes.ORDERS_SHORT_DETAIL_START
@@ -68,5 +91,10 @@ export const ordersShortDetailsFail = error => {
   return {
     type: actionTypes.ORDERS_SHORT_DETAIL_FAIL,
     error: error
+  }
+}
+export const onCheckout = () => {
+  return {
+    type: actionTypes.ORDERS_ON_CHECKOUT
   }
 }

@@ -46,6 +46,12 @@ p {
     align-items: center;
     justify-content: space-evenly;
   }
+
+  .ToolbarTop > .Actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
   
   .NavigationItem {
     margin: 0 auto;

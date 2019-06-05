@@ -5,8 +5,7 @@ import * as actions from '../actions';
 
 export function* logoutSaga(action) {
   yield call([localStorage, 'removeItem'], 'token');
-  yield call([localStorage, 'removeItem'], 'expData');
-  yield call([localStorage, 'removeItem'], 'userId');
+  yield call([localStorage, 'removeItem'], 'expDate');
   yield put(actions.logoutSucceed());
 }
 
@@ -29,7 +28,6 @@ export function* registerUserSaga(action) {
 
     yield localStorage.setItem('token', response.data.accessToken);
     yield localStorage.setItem('expDate', expDate);
-    yield localStorage.setItem('userID', JSON.stringify(response.data.customer.customer_id))
     yield put(actions.authRegisterSuccess(response.data.accessToken, response.data.customer));
     yield put(actions.checkAuthTimeout(86400000));
   } catch(error) {
@@ -73,7 +71,36 @@ export function* authCheckStateSaga(action) {
       console.log(response);
 
       yield put(actions.authSuccess(token, response.data));
-      yield put(actions.checkAuthTimeout((expDate.getTime() - new Date().getTime()) / 1000))
+      yield put(actions.checkAuthTimeout((expDate.getTime() - new Date().getTime())))
     }
   }
 }
+
+export function* updateCustomerSaga(action) {
+  yield put(actions.updateCustomerStart())
+
+  try {
+    const response = yield Axios.put(`/customer`, action.updateCustomer);
+    console.log('UPDATE CUSTOMER RES.DATA: ', response.data);
+    yield put(actions.updateCustomerSuccess(response.data));
+  } catch(error) {
+    console.error(error);
+    yield put(actions.updateCustomerFail(error));
+  }
+}
+
+export function* updateCustomerAddressSaga(action) {
+  yield put(actions.updateCustomerAddressStart());
+
+  try {
+    const response = yield Axios.put(`/customers/address`, action.customerAddress);
+    console.log('UPDATE CUSTOMER ADDRESS RES.DATA: ', response.data);
+    yield put(actions.updateCustomerAddressSuccess(response.data));
+  } catch(error) {
+    console.error(error);
+    yield put(actions.updateCustomerAddressFail(error));
+  }
+}
+
+// NO ACTIONS; REDUCERS CREATED YET. NEITHER CONNECTED TO INDEX...
+// ON CUSTOMER MODEL/SCHEMA FROM API

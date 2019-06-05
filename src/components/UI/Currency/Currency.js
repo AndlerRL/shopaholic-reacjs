@@ -8,7 +8,7 @@ const currency = props => (
   <div className={css.Currency} onClick={props.clicked}>
     <IconF
       color="#4fc3f7"
-      size="1.5rem"
+      size="1rem"
       type="fas"
       icon="flag-usa" />
     <p>

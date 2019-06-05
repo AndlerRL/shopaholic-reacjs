@@ -7,6 +7,7 @@ import M from 'materialize-css';
 import * as actions from '../../store/actions';
 import Home from '../Home/Home';
 import Layout from '../Layout/Layout';
+import Logout from '../Auth/Logout/Logout';
 import { Loading } from '../../components/UI/Loading/Loading';
 
 const SignIn = React.lazy(() => {
@@ -136,7 +137,7 @@ const App = props => {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/products" render={props => <Products {...props} />} />
-      <Route exact path={`/product-details`} render={props => <Product {...props} />} />
+      <Route exact path="/product-details" render={props => <Product {...props} />} />
       <Redirect to="/" />
     </Switch>
   )
@@ -146,11 +147,12 @@ const App = props => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/products" render={props => <Products {...props} />} />
-        <Route exact path={`/product-details`} render={props => <Product {...props} />} />
-        <Route exact path="/checkout" render={props => <Checkout {...props} />} />
+        <Route exact path="/product-details" render={props => <Product {...props} />} />
         <Route exact path="/orders" render={props => <Orders {...props} />} />
+        <Route exact path="/logout" render={props => <Logout {...props} />} />
+        <Route path="/checkout" render={props => <Checkout {...props} />} />
         <Redirect to="/" />
-    </Switch>
+      </Switch>
     )
   
   return (
@@ -160,7 +162,7 @@ const App = props => {
       signIn={showSignInHandler}
       signUp={showSignUpHandler}
       shoppingCart={showShoppingCartHandler}
-      itemsCart={props.productData.length}
+      itemsCart={props.cart.length}
       totalBag={props.totalAmount ? props.totalAmount : '0.00'}
       isAuth={props.isAuthenticated}
       user={props.userData}
@@ -192,7 +194,7 @@ const App = props => {
 
 const mapStateToProps = state => {
   return {
-    productData: state.shoppingCart.productData,
+    cart: state.shoppingCart.cart,
     totalAmount: state.shoppingCart.totalAmount,
     favorites: state.shoppingCart.favorites,
     sideDrawer: state.auth.sideDrawer,
@@ -202,7 +204,7 @@ const mapStateToProps = state => {
     isFavorite: state.shoppingCart.onFavorite,
     queryStr: state.products.meta.query_string,
     isSearch: state.products.search,
-    isAuthenticated: state.auth.token !== "",
+    isAuthenticated: state.auth.token !== null,
     userData: state.auth.userData,
   }
 }

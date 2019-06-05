@@ -205,7 +205,7 @@ export function* postProductReviewSaga(action) {
       review: action.review,
       rating: action.rating
     }
-    const response = yield Axios.post(`/products/${action.productId}/reviews`, reviewData)
+    yield Axios.post(`/products/${action.productId}/reviews`, reviewData)
     const product_id = yield call([localStorage, 'getItem'], 'product_detail_id')
 
     yield put(actions.postReviewSuccess());

@@ -12,8 +12,10 @@ const initState = {
   onFavorite: false,
   quantity: 1,
   totalAmount: 0,
+  itemId: null,
   favorites: [],
-  productData: []
+  productData: [],
+  cart: []
 }
 
 const start = (state, action) => {
@@ -46,20 +48,21 @@ const addProductToCart = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    isShopping: true,
-    productData: action.productData
+    productData: action.productData,
+    itemId: action.itemId
   })
 };
 const confirmAddedProduct = (state, action) => {
   return updateObject(state, {
-    isShopping: false
+    isShopping: false,
+    isFavorite: false
   })
 }
 const fetchShoppingCart = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
-    productData: action.productData
+    cart: action.productData
   })
 };
 const shoppingCartUpdateProduct = (state, action) => {
@@ -86,6 +89,7 @@ const moveToCart = (state, action) => {
   return updateObject(state, {
     isLoading: null,
     error: null,
+    isShopping: true,
     itemId: action.itemId
   })
 };

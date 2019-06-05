@@ -115,7 +115,7 @@ const Reviews = props => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.token !== ""
+    isAuthenticated: state.auth.token !== null
   }
 }
 

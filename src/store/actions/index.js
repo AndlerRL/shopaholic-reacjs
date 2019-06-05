@@ -70,18 +70,23 @@ export {
   departmentsIdFail
 } from './departments';
 export {
+  createOrder,
   ordersStart,
   ordersSuccess,
   ordersFail,
+  orderId,
   ordersIdStart,
   ordersIdSuccess,
   ordersIdFail,
+  fetchOrdersInCustomer,
   ordersCustomerStart,
   ordersCustomerSuccess,
   ordersCustomerFail,
+  orderShortDetail,
   ordersShortDetailsStart,
   ordersShortDetailsSuccess,
-  ordersShortDetailsFail
+  ordersShortDetailsFail,
+  onCheckout
 } from './orders';
 export {
   productsStart,
@@ -146,8 +151,10 @@ export {
   postReviewFail
 } from './products';
 export {
+  fetchRegions,
   fetchShipping,
   fetchShippingFail,
+  regionId,
   shippingIdStart,
   shippingIdSuccess,
   shippingIdFail

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
 import * as actions from '../../store/actions';
@@ -145,26 +145,37 @@ const Items = props => {
     }
   }
 
+  let authRedirect = null;
+
+  if (props.isAuthenticated && props.onCheckout)
+    authRedirect = <Redirect to={props.authRedirectPath} />
+
+  if (props.onCheckout && (props.match.path === "/checkout" || props.match.path === "/checkout/contact-data"))
+    authRedirect = null;
+
   return (
-    <Products
-      items={products}
-      prevPage={prevPageHandler}
-      nextPage={nextPageHandler}
-      productDetail={productDetailHandler(props.products)}
-      colorsAttr={color}
-      sizesAttr={size}
-      colorAttribute={colorAttributes}
-      sizeAttribute={sizeAttributes}
-      colorSelect={colorAttributeHandler}
-      sizeSelect={sizeAttributeHandler}
-      filterCat={filterCat}
-      filterDep={filterDep}
-      count={props.count}
-      sliderValue={priceRange}
-      sliderChanged={sliderChangeHandler}
-      filterDepartment={filterDepartmentHandler}
-      filterCategory={filterCategoryHandler}
-      clear={clearFilterHandler} />
+    <React.Fragment>
+      { authRedirect }
+      <Products
+        items={products}
+        prevPage={prevPageHandler}
+        nextPage={nextPageHandler}
+        productDetail={productDetailHandler(props.products)}
+        colorsAttr={color}
+        sizesAttr={size}
+        colorAttribute={colorAttributes}
+        sizeAttribute={sizeAttributes}
+        colorSelect={colorAttributeHandler}
+        sizeSelect={sizeAttributeHandler}
+        filterCat={filterCat}
+        filterDep={filterDep}
+        count={props.count}
+        sliderValue={priceRange}
+        sliderChanged={sliderChangeHandler}
+        filterDepartment={filterDepartmentHandler}
+        filterCategory={filterCategoryHandler}
+        clear={clearFilterHandler} />
+    </React.Fragment>
   )
 };
 
@@ -189,7 +200,10 @@ const mapStateToProps = state => {
     categoryId: state.categories.categoryId,
     isDepartment: state.products.department,
     isCategory: state.products.category,
-    queryStr: state.products.meta.query_string
+    queryStr: state.products.meta.query_string,
+    authRedirectPath: state.auth.authRedirectPath,
+    onCheckout: state.orders.onCheckout,
+    isAuthenticated: state.auth.token !== null
   }
 }
 

@@ -46,6 +46,17 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+_`[v0.8.5]`__
+
+Created more components and created more generators, such as:
+
+* Sagas for Orders and actions/reducers updates from the previous one created.
+* Sagas for Taxes and actions/reducers updates from the previous one created.
+* Sagas for Shipment and actions/reducers updates from the previous one created.
+* Sagas for customer updates and updating actions/reducers from the auth store.
+* Built ContactData component, witch work for the update of customer address and info (If customer want it, though, it's partial) and also to create an order.
+* Built Checkout component, witch work to see the summary of the order that you want to do/complete and gives you a progressive continuing to the ContactData.
+
 __`[v0.8.1]`__
 
 Added a couple of components, such as:

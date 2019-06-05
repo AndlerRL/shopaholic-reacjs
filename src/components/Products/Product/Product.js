@@ -206,6 +206,11 @@ const ProductDetail = props => {
                   success={true}
                   message="Product added to cart successfully!" />
                 <SnackBar 
+                  open={props.isFavorite}
+                  closed={snackbarHandler}
+                  success={true}
+                  message="Product added to favorites successfully!" />
+                <SnackBar 
                   open={props.openWarning}
                   closed={props.warning}
                   warning={true}
@@ -245,7 +250,8 @@ const mapStateToProps = state => {
     isLoading: state.products.isLoading,
     shopLoading: state.shoppingCart.isLoading,
     averageStars: state.products.averageStars,
-    isShopping: state.shoppingCart.isShopping
+    isShopping: state.shoppingCart.isShopping,
+    isFavorite: state.shoppingCart.isFavorite
   }
 }
 

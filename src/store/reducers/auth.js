@@ -2,7 +2,7 @@ import { updateObject } from '../../share/utility';
 import * as actionTypes from '../actions/actionTypes';
 
 const initState = {
-  token: "",
+  token: null,
   error: null,
   isLoading: false,
   isSignIn: false,

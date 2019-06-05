@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import React, { useState, useEffect, useMemo } from 'react';
+import { withRouter } from 'react-router-dom'
 
 import * as actions from '../../store/actions';
 import Cart from '../../components/ShoppingCart/ShoppingCart';
@@ -10,7 +11,7 @@ const cart_id = JSON.parse(localStorage.getItem('cart_id'));
 const ShoppingCart = props => {
   const [remove, setRemove] = useState(false);
   const [deleted, setDelete] = useState(false);
-  const cartProducts = props.productData.map(cart => cart);
+  const cartProducts = props.cart.map(cart => cart);
 
   useEffect(() => {
     props.onFetchShoppingCart();
@@ -48,21 +49,32 @@ const ShoppingCart = props => {
     setTimeout(() => {
       props.onDeleteCart(cart_id);
       setDelete(false)
-      //props.history.push('/products');
+      props.history.push('/products');
     }, 650)
   }
 
   const checkoutHandler = () => {
-    props.onSignIn()
+    props.onCheckout();
 
-    if (props.isShoppingCart)
-      props.onShoppingCart()
+    if (props.isAuthenticated) {
+      props.history.push('/checkout')
+
+      if (props.isShoppingCart)
+        props.onShoppingCart()
+    } else {
+      props.onSetAuthRedirectPath('/checkout')
+      props.onCheckout();
+      props.onSignIn();
+      
+      if (props.isShoppingCart)
+        props.onShoppingCart()
+    }
   }
 
   return (
     <Modal
-    modalClosed={props.shoppingCartClosed}
-    show={props.showShoppingCart}>
+      modalClosed={props.shoppingCartClosed}
+      show={props.showShoppingCart}>
       <Cart 
         shoppingCart={cartProducts}
         totalAmount={props.totalAmount}
@@ -80,13 +92,14 @@ const ShoppingCart = props => {
 
 const mapStateToProps = state => {
   return {
-    productData: state.shoppingCart.productData,
+    cart: state.shoppingCart.cart,
     totalAmount: state.shoppingCart.totalAmount,
     quantity: state.shoppingCart.quantity,
     isShoppingCart: state.shoppingCart.isShoppingCart,
     isSignIn: state.auth.isSignIn,
     isSignUp: state.auth.isSignUp,
-    isAuthenticated: state.auth.token !== ""
+    isAuthenticated: state.auth.token !== null,
+    authRedirectPath: state.auth.authRedirectPath
   }
 }
 
@@ -100,7 +113,9 @@ const mapDispatchToProps = dispatch => {
     onSignIn: () => dispatch(actions.goToSignIn()),
     onSignUp: () => dispatch(actions.goToSignUp()),
     onShoppingCart: () => dispatch(actions.goToShoppingCart()),
+    onSetAuthRedirectPath: path => dispatch(actions.setAuthRedirectPath(path)),
+    onCheckout: () => dispatch(actions.onCheckout())
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(ShoppingCart));
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(withRouter(ShoppingCart)));

@@ -15,6 +15,43 @@ const sideDrawer = props => {
   if (props.open) {
     attachedCss = [css.SideDrawer, css.Open]
   }
+
+  let salute = (
+    <React.Fragment>
+      <li>
+          <span 
+            onClick={props.signIn}>
+            Sign In
+          </span>
+      </li>{' '}or{' '} 
+      <li>
+        <span 
+          onClick={props.signUp}>
+          Register
+        </span>
+      </li>
+    </React.Fragment>
+  )
+
+  if (props.isAuth)
+    salute = (
+      <React.Fragment>
+        <li style={{ cursor: 'default' }}>
+          <span>
+            { props.user ? props.user.name : null }
+          </span>
+        </li>{' '}, {' '}
+        <li>
+          <NavLink
+            exact to="/logout"
+            activeClassName={css.active}>
+            <span>
+              logout
+            </span>
+          </NavLink>
+        </li>.
+      </React.Fragment>
+    )
   
   return (
     <React.Fragment>
@@ -25,29 +62,8 @@ const sideDrawer = props => {
         <div className={css.SignInUp}>
           <p>
             Hi!{' '}
-            { !props.isAuth ? (
-            <React.Fragment>
-              <li>
-                  <span 
-                    onClick={props.signIn}>
-                    Sign In
-                  </span>
-              </li>{' '}or{' '} 
-              <li>
-                <span 
-                  onClick={props.signUp}>
-                  Register
-                </span>
-              </li>
-            </React.Fragment>
-          ) : (
-            <li>
-              <span>
-                { props.user.name }
-              </span>
-          </li>
-          )}
-          </p>
+            { salute }
+            </p>
         </div>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <Currency 

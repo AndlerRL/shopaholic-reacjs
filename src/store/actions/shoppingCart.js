@@ -32,10 +32,11 @@ export const shoppingCartAddStart = () => {
     type: actionTypes.SHOPPING_CART_ADD_START
   }
 }
-export const shoppingCartAddSuccess = productData => {
+export const shoppingCartAddSuccess = (productData, itemId) => {
   return {
     type: actionTypes.SHOPPING_CART_ADD_SUCCESS,
-    productData: productData
+    productData: productData,
+    itemId: itemId
   }
 }
 export const shoppingCartAddFail = error => {
@@ -44,10 +45,13 @@ export const shoppingCartAddFail = error => {
     error: error
   }
 }
-export const addProductToCart = productData => {
+export const addProductToCart = (direction, cart_id, product_id, attributes) => {
   return {
     type: actionTypes.ADD_PRODUCT_CART,
-    productData: productData
+    direction: direction,
+    cart_id: cart_id,
+    product_id: product_id,
+    attributes: attributes
   }
 }
 export const confirmAddCart = () => {
@@ -124,10 +128,10 @@ export const shoppingCartRemoveProductFail = error => {
     error: error
   }
 }
-export const moveToCart = itemId => {
+export const moveToCart = item_id => {
   return {
     type: actionTypes.MOVE_TO_CART,
-    itemId: itemId
+    item_id: item_id
   }
 }
 export const shoppingCartMoveToCartStart = () => {
@@ -187,10 +191,10 @@ export const shoppingCartTotalFail = error => {
     error: error
   }
 }
-export const saveForLater = itemId => {
+export const saveForLater = item_id => {
   return {
     type: actionTypes.SAVE_FOR_LATER,
-    itemId: itemId
+    item_id: item_id
   }
 }
 export const shoppingCartSaveFavStart = () => {
@@ -198,10 +202,9 @@ export const shoppingCartSaveFavStart = () => {
     type: actionTypes.SHOPPING_CART_FETCH_SAVE_FAVORITE_START
   }
 }
-export const shoppingCartSaveFav = itemId => {
+export const shoppingCartSaveFav = () => {
   return {
     type: actionTypes.SHOPPING_CART_SAVE_FAVORITE,
-    itemId: itemId
   }
 }
 export const shoppingCartSaveFavFail = error => {

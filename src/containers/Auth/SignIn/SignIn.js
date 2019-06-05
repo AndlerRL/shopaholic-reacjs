@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom'
 import React, { useState, useEffect } from 'react';
 
 import * as actions from '../../../store/actions';
@@ -48,7 +47,8 @@ const SignIn = props => {
 
   useEffect(() => {
     /* if (!props.isShopping && props.authRedirectPath !== '/')
-      props.onSetAuthRedirectPath(); */
+      props.onSetAuthRedirectPath('/'); */
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const inputChangedHandler = (e, controlName) => {
@@ -93,22 +93,17 @@ const SignIn = props => {
   ));
   
   let error = null;
-  let authRedirect = null;
   
   if (props.isLoading)
     form = <Loading />;
 
-  /* if (props.isAuthenticated)
-    authRedirect = <Redirect to={props.authRedirectPath} /> */
-
   if (props.error) 
     error = <p className={'z-depth-1 ' + css.ErrorMsg}>ERROR: { props.error.message }</p>  
-
+  
   return (
     <Modal
       modalClosed={props.signInClosed}
       show={props.showSignIn}>
-      { authRedirect }
       <form 
         className={css.SignIn}
         onSubmit={submitHandler}>
@@ -140,7 +135,8 @@ const mapStateToProps = state => {
   return {
     isLoading: state.auth.isLoading,
     error: state.auth.error,
-    isAuthenticated: state.auth.token !== "",
+    isAuthenticated: state.auth.token !== null,
+    onCheckout: state.orders.onCheckout,
     authRedirectPath: state.auth.authRedirectPath,
   }
 }
@@ -148,8 +144,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onAuth: (email, password) => dispatch(actions.auth(email, password)),
-    onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath("/"))
+    onSetAuthRedirectPath: path => dispatch(actions.setAuthRedirectPath(path))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(SignIn));

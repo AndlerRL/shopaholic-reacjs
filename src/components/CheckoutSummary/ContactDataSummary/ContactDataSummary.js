@@ -1,6 +1,6 @@
 import React from 'react';
 
-import css from './ContactData.css';
+import css from './ContactDataSummary.css';
 
 const contactDataSummary = props => (
   <div className={css.ContactDataSummary}>

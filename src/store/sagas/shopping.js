@@ -21,10 +21,24 @@ export function* addProductToCartSaga(action) {
   yield put(actions.shoppingCartAddStart())
 
   try {
-    const response = yield Axios.post('/shoppingcart/add', action.productData);
+    const productData = {
+      cart_id: action.cart_id,
+      product_id: action.product_id,
+      attributes: action.attributes
+    };
+    const response = yield Axios.post('/shoppingcart/add', productData);
+    const item_id = response.data.find(id => id.product_id === action.product_id).item_id;
+
+    yield localStorage.setItem('item_id', JSON.stringify(item_id));
     
-    yield put(actions.shoppingCartAddSuccess(response.data));
-    yield put(actions.fetchShoppingCart());
+    yield put(actions.shoppingCartAddSuccess(response.data, item_id));
+
+    if (action.direction === "Fav")
+      yield put(actions.saveForLater(item_id));
+
+    if (action.direction === "Cart")
+      yield put(actions.moveToCart(item_id));
+
   } catch(error) {
     console.error(error);
     yield put(actions.shoppingCartAddFail(error));
@@ -104,8 +118,9 @@ export function* moveToCartSaga(action) {
   yield put(actions.shoppingCartMoveToCartStart())
 
   try {
-    const response = yield Axios.get(`/shoppingcart/moveToCart/${action.itemId}`)
+    const response = yield Axios.get(`/shoppingcart/moveToCart/${action.item_id}`)
     console.log('MOVE TO CART SAGA RES: ', response);
+    yield call([localStorage, 'removeItem'], 'item_id');
 
     yield put(actions.shoppingCartMoveToCartSuccess())
     yield put(actions.fetchShoppingCart());
@@ -120,11 +135,13 @@ export function* saveForLaterSaga(action) {
   yield put(actions.shoppingCartSaveFavStart());
 
   try {
-    const response = yield Axios.get(`/shoppingcart/saveForLater/${action.itemId}`);
+    const response = yield Axios.get(`/shoppingcart/saveForLater/${action.item_id}`);
     console.log('SAVE FOR LATER RES: ', response);
+    yield call([localStorage, 'removeItem'], 'item_id');
     
     yield put(actions.shoppingCartSaveFav());
     yield put(actions.fetchFavorites());
+    yield put(actions.fetchShoppingCart())
   } catch(error) {
     console.error(error);
     yield put(actions.shoppingCartSaveFavFail(error))

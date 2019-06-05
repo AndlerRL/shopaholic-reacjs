@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
 import * as actions from '../../../store/actions';
@@ -170,45 +170,29 @@ const Item = props => {
   }
 
   const addCartHandler = () => {
-    const cart_id = JSON.parse(localStorage.getItem('cart_id'));
-    const productAdd = {
-      cart_id: cart_id,
-      product_id: props.productId,
-      attributes: `${productAttr.Color}, ${productAttr.Size}`,
-      quantity: quantity
-    };
-
     if (cart_id) {
       if (productAttr.Color === "" || productAttr.Size === "") {
         setWarning(true)
       } else {
-        props.onAddProduct(productAdd);
+        props.onAddProduct(
+          "Cart",
+          cart_id,
+          props.productId, 
+          `${productAttr.Color}, ${productAttr.Size}`
+        );
       }
     }
   }
 
   const addWishList = () => {
     if (productAttr.Color !== "" || productAttr.Size !== "") {
-      const productAdd = {
-        cart_id: cart_id,
-        product_id: props.productId,
-        attributes: `${productAttr.Color}, ${productAttr.Size}`
-      };
-
-      props.onAddProduct(productAdd);
-
-      setTimeout(() => {
-        const product = props.productInCart.find(id => id.product_id === props.productId);
-        console.log('products in cart', props.productInCart)
-        console.log(product);
-        props.onSaveForLater(product.item_id);
-      }, 2000);
-
-      /* if (props.isFavorite) {
-        const item_id = props.productInCart.find(id => id.product_id === props.productId).item_id
-        
-        props.onRemoveProduct(item_id)
-      } */
+      const attributes = `${productAttr.Color}, ${productAttr.Size}`;
+      props.onAddProduct(
+        "Fav",
+        cart_id,
+        props.productId, 
+        attributes
+      );
     }
   }
 
@@ -278,7 +262,17 @@ const Item = props => {
   const color = props.colorVals.map(color => color);
   const size = props.sizeVals.map(size => size);
 
+  let authRedirect = null;
+
+  if (props.isAuthenticated && props.onCheckout)
+    authRedirect = <Redirect to={props.authRedirectPath} />
+
+  if (props.onCheckout && (props.match.path === "/checkout" || props.match.path === "/checkout/contact-data"))
+    authRedirect = null;
+
   return (
+    <React.Fragment>
+    { authRedirect }
     <ProductDetail 
       product={productDetail}
       productLoc={productLocation}
@@ -304,6 +298,7 @@ const Item = props => {
       colorsAttr={color}
       sizesAttr={size}
       productDetail={productDetailHandler(props.products)} />
+    </React.Fragment>
   )
 };
 
@@ -313,16 +308,16 @@ const mapStateToProps = state => {
     reviews: state.products.reviews,
     productId: state.products.productId,
     productData: state.products.productData,
-    productInCart: state.shoppingCart.productData,
     productLocation: state.products.productLocation,
     productAttributes: state.attributes.productAttributes,
     colorVals: state.attributes.colorVals,
     sizeVals: state.attributes.sizeVals,
-    cartId: state.shoppingCart.cartId,
+    itemId: state.shoppingCart.itemId,
     isFavorite: state.shoppingCart.isFavorite,
     isShopping: state.shoppingCart.isShopping,
-    addProduct: state.shoppingCart.productData,
-    isAuthenticated: state.auth.token !== "",
+    isAuthenticated: state.auth.token !== null,
+    onCheckout: state.orders.onCheckout,
+    authRedirectPath: state.auth.authRedirectPath,
     isSignIn: state.auth.isSignIn,
     isSignUp: state.auth.isSignUp,
   }
@@ -335,8 +330,8 @@ const mapDispatchToProps = dispatch => {
     onProductAttributes: productId => dispatch(actions.attributesInProduct(productId)),
     onFetchReviews: productId => dispatch(actions.fetchReviews(productId)),
     onGenerateCartId: () => dispatch(actions.generateCartId()),
-    onAddProduct: productData => dispatch(actions.addProductToCart(productData)),
-    onSaveForLater: itemId => dispatch(actions.saveForLater(itemId)),
+    onAddProduct: (direction, cart_id, product_id, attributes) => dispatch(actions.addProductToCart(direction, cart_id, product_id, attributes)),
+    onSaveForLater: () => dispatch(actions.saveForLater()),
     onMoveToCart: itemId => dispatch(actions.moveToCart(itemId)),
     onSignIn: () => dispatch(actions.goToSignIn()),
     onSignUp: () => dispatch(actions.goToSignUp()),

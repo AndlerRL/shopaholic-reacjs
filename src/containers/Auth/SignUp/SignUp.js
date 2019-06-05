@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import React, { useState, useEffect, useRef } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import * as actions from '../../../store/actions';
 import { checkValidity, updateObject } from '../../../share/utility';
@@ -76,7 +77,6 @@ const SignUp = props => {
       touched: false,
     }
   });
-  const [isSignup, setIsSignup] = useState(true);
   const [pw, setPW] = useState(null);
   const [cpw, setCPW] = useState(null);
   const pwRef = useRef();
@@ -102,7 +102,11 @@ const SignUp = props => {
 
   const submitHandler = e => {
     e.preventDefault();
+
     props.onRegisterAuth(controlsUp.name.value, controlsUp.email.value, controlsUp.password.value);
+
+    if (props.onCheckout)
+      props.history.push('/checkout');
   }
 
   const formEleArray = [];
@@ -170,7 +174,7 @@ const SignUp = props => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.token !== "",
+    isAuthenticated: state.auth.token !== null,
     isLoading: state.auth.isLoading,
     error: state.auth.error
   }
@@ -182,4 +186,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignUp));

@@ -1,5 +1,10 @@
 import * as actionTypes from './actionTypes';
 
+export const fetchRegions = () => {
+  return {
+    type: actionTypes.SHIPMENT_AVAILABLE
+  }
+}
 export const fetchShipping = regions => {
   return {
     type: actionTypes.FETCH_SHIPPING,
@@ -12,15 +17,20 @@ export const fetchShippingFail = error => {
     error: error
   }
 }
+export const regionId = regionId => {
+  return {
+    type: actionTypes.SHIPPING_OPTIONS,
+    regionId: regionId
+  }
+}
 export const shippingIdStart = () => {
   return {
     type: actionTypes.SHIPPING_ID_START
   }
 }
-export const shippingIdSuccess = (regionId, shippingOpt) => {
+export const shippingIdSuccess = shippingOpt => {
   return {
     type: actionTypes.SHIPPING_ID_SUCCESS,
-    regionId: regionId,
     shippingOpt: shippingOpt
   }
 }

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 
 import ShoppingCart from '../../../UI/ShoppingCart/ShoppingCart';
@@ -9,35 +9,50 @@ import css from './ToolbarTop.css';
 
 const ToolbarTop = props => {
   //console.log(props);
-  useMemo(() => props.user, [props]);
+
+  let salute = (
+    <React.Fragment>
+      <li>
+          <span 
+            onClick={props.signIn}>
+            Sign In
+          </span>
+      </li>{' '}or{' '} 
+      <li>
+        <span 
+          onClick={props.signUp}>
+          Register
+        </span>
+      </li>
+    </React.Fragment>
+  )
+
+  if (props.isAuth)
+    salute = (
+      <React.Fragment>
+        <li style={{ cursor: 'default' }}>
+          <span>
+            { props.user ? props.user.name : null }
+          </span>
+        </li>{' '}, {' '}
+        <li>
+          <NavLink
+            exact to="/logout"
+            activeClassName={css.active}>
+            <span>
+              logout
+            </span>
+          </NavLink>
+        </li>.
+      </React.Fragment>
+    )
 
   return (
     <div className={css.ToolbarTop}>
       <div className={css.SignInUp}>
         <p>
           Hi!{' '}
-          { !props.isAuth ? (
-            <React.Fragment>
-              <li>
-                  <span 
-                    onClick={props.signIn}>
-                    Sign In
-                  </span>
-              </li>{' '}or{' '} 
-              <li>
-                <span 
-                  onClick={props.signUp}>
-                  Register
-                </span>
-              </li>
-            </React.Fragment>
-          ) : (
-            <li style={{ cursor: 'default' }}>
-              <span>
-                { props.user.name }
-              </span>
-          </li>
-          )}
+          { salute }
         </p>
       </div>
       <div className={css.AddLinks}>
@@ -66,14 +81,16 @@ const ToolbarTop = props => {
           </NavLink>
         </li>
       </div>
-      <Currency currency="USD" />
-      <Favorites 
-        favItems={props.favItems}
-        clicked={props.favorites} />
-      <ShoppingCart 
-        totalBag={props.totalBag}
-        itemsCart={props.itemsCart}
-        clicked={props.shoppingCart} />
+      <div className={css.Actions}>
+        <Currency currency="USD" />
+        <Favorites 
+          favItems={props.favItems}
+          clicked={props.favorites} />
+        <ShoppingCart 
+          totalBag={props.totalBag}
+          itemsCart={props.itemsCart}
+          clicked={props.shoppingCart} />
+      </div>
     </div>
   )
 };

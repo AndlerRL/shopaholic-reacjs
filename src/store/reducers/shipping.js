@@ -5,8 +5,7 @@ const initState = {
   isLoading: null,
   error: null,
   regions: [],
-  shippingOpt: [],
-  regionId: null
+  shippingOpt: []
 }
 
 const start = (state, action) => {
@@ -23,14 +22,12 @@ const fail = (state, action) => {
 };
 const fetchRegions = (state, action) => {
   return updateObject(state, {
-    isLoading: null,
     regions: action.regions
   })
 };
 const fetchRegionId = (state, action) => {
   return updateObject(state, {
     isLoading: null,
-    regionId: action.regionId,
     shippingOpt: action.shippingOpt
   })
 };

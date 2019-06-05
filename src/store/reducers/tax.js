@@ -4,7 +4,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initState = {
   error: null,
   taxes: [],
-  taxId: null
+  tax: []
 }
 
 const fail = (state, action) => {
@@ -21,7 +21,7 @@ const fetchTaxes = (state, action) => {
 const taxId = (state, action) => {
   return updateObject(state, {
     error: null,
-    taxId: action.taxId
+    tax: action.tax
   })
 };
 

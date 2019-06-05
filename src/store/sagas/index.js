@@ -1,4 +1,4 @@
-import { takeLatest, takeEvery, all } from 'redux-saga/effects';
+import { takeEvery, all } from 'redux-saga/effects';
 
 import * as actionTypes from '../actions/actionTypes';
 import { fetchProductsSaga,
@@ -45,6 +45,20 @@ import {
   logoutSaga,
   registerUserSaga,
 } from './auth';
+import {
+  fetchRegionsSaga,
+  regionIdSaga
+} from './shipping';
+import {
+  createOrderSaga,
+  fetchOrderIdSaga,
+  ordersInCustomerSaga,
+  ordersShortDetailSaga
+} from './orders';
+import {
+  taxIdSaga,
+  fetchTaxesSaga
+} from './tax';
 
 export function* watchAttributes() {
   yield takeEvery(actionTypes.FETCH_ATTRIBUTES, fetchAttributesSaga)
@@ -55,7 +69,7 @@ export function* watchAttributes() {
 export function* watchAuth() {
   yield takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga);
   yield takeEvery(actionTypes.AUTH_USER, loginUserSaga);
-  yield takeEvery(actionTypes.AUTH_LOGOUT, logoutSaga);
+  yield takeEvery(actionTypes.AUTH_INIT_LOGOUT, logoutSaga);
   yield takeEvery(actionTypes.AUTH_REGISTER_USER, registerUserSaga);
   yield takeEvery(actionTypes.AUTH_CHECK_TIMEOUT, checkAuthTimeoutSaga);
 }
@@ -73,7 +87,10 @@ export function* watchDepartments() {
 }
 
 export function* watchOrders() {
-
+  yield takeEvery(actionTypes.CREATE_ORDER, createOrderSaga);
+  yield takeEvery(actionTypes.ORDERS_ID_INIT, fetchOrderIdSaga);
+  yield takeEvery(actionTypes.ORDERS_IN_CUSTOMER_INIT, ordersInCustomerSaga);
+  yield takeEvery(actionTypes.ORDERS_SHORT_DETAIL_INIT, ordersShortDetailSaga);
 }
 
 export function* watchProducts() {
@@ -109,7 +126,8 @@ export function* watchShoppingCart() {
 }
 
 export function* watchShipping() {
-  
+  yield takeEvery(actionTypes.SHIPMENT_AVAILABLE, fetchRegionsSaga);
+  yield takeEvery(actionTypes.SHIPPING_OPTIONS, regionIdSaga);
 }
 
 export function* watchStripe() {
@@ -117,5 +135,6 @@ export function* watchStripe() {
 }
 
 export function* watchTax() {
-  
+  yield takeEvery(actionTypes.TAX_ID_INIT, taxIdSaga);
+  yield takeEvery(actionTypes.FETCH_TAX_INIT, fetchTaxesSaga);
 }

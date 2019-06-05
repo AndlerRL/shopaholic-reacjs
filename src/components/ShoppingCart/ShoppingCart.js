@@ -146,7 +146,7 @@ const mapStateToProps = state => {
   return {
     isLoading: state.shoppingCart.isLoading,
     isDeleted: state.shoppingCart.isDeleted,
-    inAuthenticated: state.auth.token !== ""
+    inAuthenticated: state.auth.token !== null
   }
 }
 
