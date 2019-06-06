@@ -8,8 +8,6 @@ import Favorites from '../../../UI/Favorites/Favorites';
 import css from './ToolbarTop.css';
 
 const ToolbarTop = props => {
-  //console.log(props);
-
   let salute = (
     <React.Fragment>
       <li>

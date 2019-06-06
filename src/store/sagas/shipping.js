@@ -19,7 +19,7 @@ export function* regionIdSaga(action) {
 
   try {
     const response = yield Axios.get(`/shipping/regions/${action.shippingRegionId}`);
-    console.log('REGION ID RES.DATA: ', response.data);
+    
     yield put(actions.shippingIdSuccess(response.data));
   } catch(error) {
     console.error(error);

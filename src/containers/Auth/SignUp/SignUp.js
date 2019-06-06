@@ -82,10 +82,6 @@ const SignUp = props => {
   const pwRef = useRef();
   let checkPW = pw === cpw && (pw !== '' && cpw !== '');
 
-  useEffect(() => {
-    console.log(pw, cpw)
-  }, [pw, cpw])
-
   const inputChangedHandler = (e, controlName) => {
     setPW(pwRef.current.parentElement.parentElement[2].value);
     setCPW(pwRef.current.value);

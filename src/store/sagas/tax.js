@@ -6,7 +6,7 @@ import * as actions from '../actions';
 export function* fetchTaxesSaga(action) {
   try {
     const response = yield Axios.get('/tax');
-    console.log('FETCH TAXES RES: ', response);
+    
     yield put(actions.fetchTax(response.data));
   } catch(error) {
     console.error(error);

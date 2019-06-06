@@ -9,6 +9,12 @@
   background-color: #f5f5f5;
 }
 
+.CheckoutSummary > h2 {
+  width: 91.666%;
+  font-family: 'Titillium Web', sans-serif;
+  margin: 1rem auto;
+}
+
 .CheckoutOrder {
   background-color: #fff;
   width: 91.666%;

@@ -51,7 +51,7 @@ export function* fetchCartSaga(action) {
   try {
     const cart_id = yield JSON.parse(localStorage.getItem('cart_id'));
     const response = yield Axios.get(`/shoppingcart/${cart_id}`);
-    console.log(response.data)
+    
     yield put(actions.shoppingCartSuccess(response.data))
   } catch(error) {
     console.error(error);
@@ -89,10 +89,9 @@ export function* removeProductCartSaga(action) {
   yield put(actions.shoppingCartRemoveProductStart())
 
   try {
-    const response = yield Axios.delete(`/shoppingcart/removeProduct/${action.itemId}`)
-    console.log(response);
+    yield Axios.delete(`/shoppingcart/removeProduct/${action.itemId}`);
 
-    yield put(actions.shoppingCartRemoveProductSuccess(action.itemId))
+    yield put(actions.shoppingCartRemoveProductSuccess(action.itemId));
     yield put(actions.fetchShoppingCart());
   } catch(error) {
     console.error(error);
@@ -118,10 +117,8 @@ export function* moveToCartSaga(action) {
   yield put(actions.shoppingCartMoveToCartStart())
 
   try {
-    const response = yield Axios.get(`/shoppingcart/moveToCart/${action.item_id}`)
-    console.log('MOVE TO CART SAGA RES: ', response);
+    yield Axios.get(`/shoppingcart/moveToCart/${action.item_id}`)
     yield call([localStorage, 'removeItem'], 'item_id');
-
     yield put(actions.shoppingCartMoveToCartSuccess())
     yield put(actions.fetchShoppingCart());
     yield put(actions.fetchFavorites());
@@ -135,10 +132,8 @@ export function* saveForLaterSaga(action) {
   yield put(actions.shoppingCartSaveFavStart());
 
   try {
-    const response = yield Axios.get(`/shoppingcart/saveForLater/${action.item_id}`);
-    console.log('SAVE FOR LATER RES: ', response);
+    yield Axios.get(`/shoppingcart/saveForLater/${action.item_id}`);
     yield call([localStorage, 'removeItem'], 'item_id');
-    
     yield put(actions.shoppingCartSaveFav());
     yield put(actions.fetchFavorites());
     yield put(actions.fetchShoppingCart())
@@ -154,7 +149,6 @@ export function* fetchSaveForLaterSaga(action) {
   try {
     const cart_id = yield JSON.parse(localStorage.getItem('cart_id'));
     const response = yield Axios.get(`/shoppingcart/getSaved/${cart_id}`);
-    console.log('FETCHED SAVE FOR LATER SAGA: ', response);
 
     yield put(actions.fetchSaveForLaterSuccess(response.data));
   } catch (error) {

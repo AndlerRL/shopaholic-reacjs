@@ -42,8 +42,12 @@ import {
   authCheckStateSaga,
   checkAuthTimeoutSaga,
   loginUserSaga,
+  loginFbUserSaga,
   logoutSaga,
   registerUserSaga,
+  updateCustomerSaga,
+  updateCustomerAddressSaga,
+  updateCCSaga,
 } from './auth';
 import {
   fetchRegionsSaga,
@@ -68,10 +72,16 @@ export function* watchAttributes() {
 
 export function* watchAuth() {
   yield takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga);
+  yield takeEvery(actionTypes.AUTH_CHECK_TIMEOUT, checkAuthTimeoutSaga);
   yield takeEvery(actionTypes.AUTH_USER, loginUserSaga);
+  yield takeEvery(actionTypes.AUTH_USER_FB, loginFbUserSaga);
   yield takeEvery(actionTypes.AUTH_INIT_LOGOUT, logoutSaga);
   yield takeEvery(actionTypes.AUTH_REGISTER_USER, registerUserSaga);
-  yield takeEvery(actionTypes.AUTH_CHECK_TIMEOUT, checkAuthTimeoutSaga);
+  yield all([
+    takeEvery(actionTypes.UPDATE_USER, updateCustomerSaga),
+    takeEvery(actionTypes.UPDATE_USER_ADDRESS, updateCustomerAddressSaga),
+    takeEvery(actionTypes.AUTH_USER_CREDIT_CARD, updateCCSaga)
+  ]);
 }
 
 export function* watchCategories() {

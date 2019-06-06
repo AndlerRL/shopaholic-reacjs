@@ -10,6 +10,7 @@ import BtnIcon from '../../../components/UI/Btn/BtnIcon';
 import { Loading } from '../../../components/UI/Loading/Loading';
 
 const ContactData = props => {
+  const [taxes, setTaxes] = useState(props.taxes);
   const [regionsOpt, setRegionsOpt] = useState(props.regions);
   const [orderForm, setOrderForm] = useState({
     name: {
@@ -22,7 +23,7 @@ const ContactData = props => {
       value: props.userData.name,
       validation: {
         required: true,
-        valid: false,
+        valid: true,
         touched: false
       }
     },
@@ -33,10 +34,10 @@ const ContactData = props => {
         placeholder: '1300 Tuxedo rd',
       },
       label: 'Address 1',
-      value: '',
+      value: props.userData.address_1 !== null ? props.userData.address_1 : '',
       validation: {
         required: true,
-        valid: false,
+        valid: props.userData.address_1 !== null ? true : false,
         touched: false
       }
     },
@@ -44,27 +45,27 @@ const ContactData = props => {
       elementType: 'input',
       elementConfig: {
         type: 'text',
-        placeholder: 'Apt 23',
+        placeholder: 'Floor 3, Apt 23',
       },
       label: 'Address 2',
-      value: '',
+      value: props.userData.address_2 !== null ? props.userData.address_2 : '',
       validation: {
         required: false,
-        valid: false,
+        valid: props.userData.address_2 !== null ? true : false,
         touched: false
       }
     },
-    state: {
+    city: {
       elementType: 'input',
       elementConfig: {
         type: 'text',
-        placeholder: 'Texas',
+        placeholder: 'San José',
       },
-      label: 'State',
-      value: '',
+      label: 'City',
+      value: props.userData.city !== null ? props.userData.city : '',
       validation: {
         required: true,
-        valid: false,
+        valid: props.userData.city !== null ? true : false,
         touched: false
       }
     },
@@ -75,10 +76,10 @@ const ContactData = props => {
         placeholder: 'United States',
       },
       label: 'Country',
-      value: '',
+      value: props.userData.country !== null ? props.userData.country : '',
       validation: {
         required: true,
-        valid: false,
+        valid: props.userData.country !== null ? true : false,
         touched: false
       }
     },
@@ -89,10 +90,10 @@ const ContactData = props => {
         placeholder: '10109',
       },
       label: 'Postal Code',
-      value: '',
+      value: props.userData.postal_code !== null ? props.userData.postal_code : '',
       validation: {
         required: true,
-        valid: false,
+        valid: props.userData.postal_code !== null ? true : false,
         touched: false,
         minLength: 5,
         maxLength: 5
@@ -104,10 +105,10 @@ const ContactData = props => {
         options: regionsOpt
       },
       label: 'Region',
-      value: 'Please Select',
+      value: props.userData.shipping_region_id !== 1 ? props.userData.shipping_region_id : 1,
       validation: {
         required: true,
-        valid: false,
+        valid: props.userData.shipping_region_id > 1 ? true : false,
         touched: false
       }
     },
@@ -118,10 +119,10 @@ const ContactData = props => {
         placeholder: 'example@example.com',
       },
       label: 'E-mail',
-      value: props.userData.email,
+      value: props.userData.email !== null ? props.userData.email : '',
       validation: {
         required: true,
-        valid: false,
+        valid: props.userData.email !== null ? true : false,
         touched: false,
         emailFormat: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
         minLength: 6
@@ -130,14 +131,14 @@ const ContactData = props => {
     mob_phone: {
       elementType: 'input',
       elementConfig: {
-        type: 'number',
+        type: 'text',
         placeholder: '606 223-3001',
       },
       label: 'Mobile Phone',
-      value: '',
+      value: props.userData.mob_phone !== null ? props.userData.mob_phone : '',
       validation: {
         required: true,
-        valid: false,
+        valid: props.userData.mob_phone !== null ? true : false,
         touched: false,
         minLength: 7,
       }
@@ -145,14 +146,14 @@ const ContactData = props => {
     day_phone: {
       elementType: 'input',
       elementConfig: {
-        type: 'number',
+        type: 'text',
         placeholder: '606 387-2398',
       },
       label: 'Day Phone',
-      value: '',
+      value: props.userData.day_phone !== null ? props.userData.day_phone : '',
       validation: {
         required: false,
-        valid: false,
+        valid: props.userData.mob_phone !== null ? true : false,
         touched: false,
         minLength: 7,
       }
@@ -160,14 +161,14 @@ const ContactData = props => {
     eve_phone: {
       elementType: 'input',
       elementConfig: {
-        type: 'number',
+        type: 'text',
         placeholder: '606 366-5513',
       },
       label: 'Evening Phone',
-      value: '',
+      value: props.userData.eve_phone !== null ? props.userData.eve_phone : '',
       validation: {
         required: false,
-        valid: false,
+        valid: props.userData.eve_phone !== null ? true : false,
         touched: false,
         minLength: 7,
       }
@@ -177,20 +178,60 @@ const ContactData = props => {
 
   useEffect(() => {
     M.AutoInit();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const orderItemsHandler = e => {
     e.preventDefault();
 
+    const cart_id = JSON.parse(localStorage.getItem('cart_id'));
     const formData = {};
 
     for (let formEleId in orderForm) {
       formData[formEleId] = orderForm[formEleId].value;
     }
 
-    //const order = {}
+    let taxId = 2;
+    let shipment_id = parseInt(formData.shipment_option);
+    let region = 'N/A';
 
-    //props.onOrderItems(order)
+    if (shipment_id === 2)
+      region = 'US / Canada'
+
+    if (shipment_id === 3)
+      region = 'Europe'
+
+    if (shipment_id === 4)
+      region = 'Rest of World'
+
+    if (shipment_id === 2 || shipment_id === 3)
+      taxId = 1;
+
+    const userData = {
+      name: formData.name,
+      email: formData.email,
+      day_phone: formData.day_phone,
+      eve_phone: formData.eve_phone,
+      mob_phone: formData.mob_phone
+    };
+    const userAddress = {
+      address_1: formData.address_1,
+      address_2: formData.address_2,
+      city: formData.city,
+      region: region,
+      postal_code: formData.postal_code,
+      country: formData.country,
+      shipping_region_id: shipment_id
+    };
+    const orderData = {
+      cart_id: cart_id,
+      shipping_id: shipment_id,
+      tax_id: taxId
+    }
+
+    props.onUpdateCustomer(userData);
+    props.onUpdateAddress(userAddress);
+    props.onCreateOrder(orderData);
   }
 
   const inputChangedHandler = (e, inputId) => {
@@ -213,6 +254,27 @@ const ContactData = props => {
     setFormIsValid(formIsValid);
   }
 
+  let tax = taxes.map(tax => {
+    if (tax.tax_id === 2)
+      return (
+        <li key={tax.tax_id}>
+          *{ tax.tax_type }
+          <span>Percentage to pay: { tax.tax_percentage }%</span>
+        </li>
+      );
+  });
+
+  if (orderForm.shipment_option.value === "2" || orderForm.shipment_option.value === "3")
+    tax = taxes.map(tax => {
+      if (tax.tax_id === 1)
+        return (
+          <li key={tax.tax_id}>
+            *{ tax.tax_type }
+            <span>Percentage to pay: { tax.tax_percentage }%</span>
+          </li>
+        );
+    });
+
   const formElementsArray = [];
 
   for (let key in orderForm) {
@@ -234,21 +296,29 @@ const ContactData = props => {
       label={formEle.config.label}
       for={formEle.id}
       changed={e => inputChangedHandler(e, formEle.id)} />
-  ))
+  ));
 
   if (props.isLoading)
     form = <Loading />
 
   return (
     <ContactDataSummary
-      submit={orderItemsHandler}>
+      submit={orderItemsHandler}
+      form="Form">
       <div>
         { form }
       </div>
+      <ul>
+        { tax }
+      </ul>
       <BtnIcon
+        iconType="fas"
+        iconColor="#33691e"
+        icon="dollar-sign"
         btnType="contained"
         btnColor="primary"
         size="large"
+        clicked={orderItemsHandler}
         disabled={!formIsValid}>
         Purchase Order
       </BtnIcon>
@@ -258,13 +328,20 @@ const ContactData = props => {
 
 const mapStateToProps = state => {
   return {
-    userData: state.auth.userData
+    isLoading: state.orders.isLoading,
+    userData: state.auth.userData,
+    tax: state.tax.tax,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onRegionId: regionId => dispatch(actions.regionId(regionId)),
+    onTaxId: taxId => dispatch(actions.taxById(taxId)),
+    onCreateOrder: (cartId, shippingId, taxId) => dispatch(actions.createOrder(cartId, shippingId, taxId)),
+    onUpdateCustomer: userData => dispatch(actions.updateUser(userData)),
+    onUpdateAddress: userAddress => dispatch(actions.updateAddress(userAddress)),
+
   }
 }
 

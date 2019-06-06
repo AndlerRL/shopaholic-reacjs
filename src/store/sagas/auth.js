@@ -7,6 +7,7 @@ export function* logoutSaga(action) {
   yield call([localStorage, 'removeItem'], 'token');
   yield call([localStorage, 'removeItem'], 'expDate');
   yield put(actions.logoutSucceed());
+  yield window.FB.logout();
 }
 
 export function* checkAuthTimeoutSaga(action) {
@@ -24,7 +25,6 @@ export function* registerUserSaga(action) {
   try {
     const response = yield Axios.post('/customers', authData);
     const expDate = yield new Date(new Date().getTime() + 86400000);
-    console.log(response);
 
     yield localStorage.setItem('token', response.data.accessToken);
     yield localStorage.setItem('expDate', expDate);
@@ -56,6 +56,26 @@ export function* loginUserSaga(action) {
   }
 }
 
+export function* loginFbUserSaga(action) {
+  yield put(actions.authFbStart());
+
+  try {
+    const accessToken = {
+      access_token: action.accessToken
+    }
+    const response = yield Axios.post('/customers/facebook', accessToken);
+    const expDate = yield new Date(new Date().getTime() + 86400000);
+    console.log('LOGIN FB USER RES.DATA: ', response.data);
+    yield localStorage.setItem('token', response.data.accessToken);
+    yield localStorage.setItem('expDate', expDate); 
+    yield put(actions.authFbSuccess(response.data.accessToken, response.data.customer));
+    yield put(actions.checkAuthTimeout(86400000));
+  } catch(error) {
+    console.error(error);
+    yield put(actions.authFbFail(error));
+  }
+}
+
 export function* authCheckStateSaga(action) {
   const token = yield localStorage.getItem('token');
 
@@ -81,7 +101,7 @@ export function* updateCustomerSaga(action) {
 
   try {
     const response = yield Axios.put(`/customer`, action.updateCustomer);
-    console.log('UPDATE CUSTOMER RES.DATA: ', response.data);
+    
     yield put(actions.updateCustomerSuccess(response.data));
   } catch(error) {
     console.error(error);
@@ -90,17 +110,27 @@ export function* updateCustomerSaga(action) {
 }
 
 export function* updateCustomerAddressSaga(action) {
-  yield put(actions.updateCustomerAddressStart());
+  yield put(actions.addressStart());
 
   try {
     const response = yield Axios.put(`/customers/address`, action.customerAddress);
-    console.log('UPDATE CUSTOMER ADDRESS RES.DATA: ', response.data);
-    yield put(actions.updateCustomerAddressSuccess(response.data));
+    
+    yield put(actions.addressSuccess(response.data));
   } catch(error) {
     console.error(error);
-    yield put(actions.updateCustomerAddressFail(error));
+    yield put(actions.addressFail(error));
   }
 }
 
-// NO ACTIONS; REDUCERS CREATED YET. NEITHER CONNECTED TO INDEX...
-// ON CUSTOMER MODEL/SCHEMA FROM API
+export function* updateCCSaga(action) {
+  yield put(actions.ccStart());
+
+  try {
+    const response = yield Axios.put(`/customers/creditCard`, action.cc);
+    console.log('UPDATE CC RES.DATA: ', response.data);
+    yield put(actions.ccSuccess(response.data));
+  } catch(error) {
+    console.error(error);
+    yield put(actions.ccFail(error));
+  }
+}

@@ -8,7 +8,7 @@ export function* fetchDepartmentsSaga(action) {
 
   try {
     const response = yield Axios.get('/departments');
-    //console.log(response);
+    
     yield put(actions.departmentsSuccess(response.data));
   } catch(error) {
     console.log(error);
@@ -19,7 +19,6 @@ export function* fetchDepartmentsSaga(action) {
 export function* fetchDepartmentIdSaga(action) {
   try {
     const response = yield Axios.get(`/departments/${action.departmentId}`)
-    //console.log('action.departmentId ', action.departmentId)
 
     yield put(actions.departmentsIdSuccess(action.departmentId, response.data, response.data.name))
   } catch(error) {

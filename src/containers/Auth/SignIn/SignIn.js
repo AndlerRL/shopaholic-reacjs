@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import * as actions from '../../../store/actions';
 import { checkValidity, updateObject } from '../../../share/utility';
@@ -7,6 +7,9 @@ import Modal from '../../../components/UI/Modal/Modal';
 import Input from '../../../components/UI/Form/Input/Input';
 import { Loading } from '../../../components/UI/Loading/Loading';
 import Btn from '../../../components/UI/Btn/Btn';
+import IconF from '../../../components/UI/Icons/IconF';
+import FBAuth from '../FBAuth';
+import Snackbar from '../../../components/UI/Snackbar/Snackbar';
 
 import css from '../Auth.css';
 
@@ -43,13 +46,8 @@ const SignIn = props => {
       valid: false,
       touched: false,
     }
-  });
-
-  useEffect(() => {
-    /* if (!props.isShopping && props.authRedirectPath !== '/')
-      props.onSetAuthRedirectPath('/'); */
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  })
+  const [fbError, setFbError] = useState(false);
 
   const inputChangedHandler = (e, controlName) => {
     const updatedControlsIn = updateObject(controlsIn, {
@@ -67,6 +65,22 @@ const SignIn = props => {
     e.preventDefault();
 
     props.onAuth(controlsIn.email.value, controlsIn.password.value);
+  }
+
+  const facebookLoginHandler = (loginStatus, resultObject) => {
+    if (loginStatus === true) {
+      console.log('FB SERVER RES.DATA:', resultObject);
+      props.onFbAuth(resultObject.authResponse.accessToken)
+    } else {
+      setFbError(true);
+    }
+  }
+
+  const snackbarHandler = (e, reason) => {
+    if (reason === 'clickaway')
+      return;
+
+    setFbError(false);
   }
 
   const formEleArray = [];
@@ -98,7 +112,7 @@ const SignIn = props => {
     form = <Loading />;
 
   if (props.error) 
-    error = <p className={'z-depth-1 ' + css.ErrorMsg}>ERROR: { props.error.message }</p>  
+    error = <p className={css.ErrorMsg}>ERROR: { props.error.message }</p>  
   
   return (
     <Modal
@@ -111,6 +125,16 @@ const SignIn = props => {
         { error }
         { form }
         <p>Don't have an account? <span onClick={props.switchSignUp}> Sign Up </span> here!</p>
+        <div className={css.SocialLogin}>
+          <p>Login with Facebook!</p>
+          <FBAuth onLogin={facebookLoginHandler}>
+            <IconF
+              type="fab"
+              icon="facebook"
+              size="2rem"
+              color="#2196f3" />
+          </FBAuth>
+        </div>
         <div className={css.BtnContainer}>
           <Btn 
             btnColor="secondary"
@@ -127,6 +151,11 @@ const SignIn = props => {
           </Btn>
         </div>
       </form>
+      <Snackbar 
+        error={true}
+        open={fbError}
+        close={snackbarHandler}
+        message="[ERROR] Failed to authenticate user while login." />
     </Modal>
   )
 };
@@ -144,6 +173,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onAuth: (email, password) => dispatch(actions.auth(email, password)),
+    onFbAuth: accessToken => dispatch(actions.authFb(accessToken)),
     onSetAuthRedirectPath: path => dispatch(actions.setAuthRedirectPath(path))
   }
 }

@@ -24,6 +24,23 @@
   color: #00b0ff;
 }
 
+.SocialLogin {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 200px !important;
+}
+
+.SocialLogin > div {
+  cursor: pointer;
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s 150ms;
+}
+
+.SocialLogin > div:hover {
+  transform: scale(1.15);
+}
+
 .Title {
   text-align: center;
   margin-bottom: 3rem;

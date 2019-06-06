@@ -25,7 +25,7 @@ const Reviews = props => {
 
     const dateStr = Date.parse(reviews.created_on)
     const dateNum = new Date(dateStr)
-    var getMonth = month[dateNum.getMonth()];
+    const getMonth = month[dateNum.getMonth()];
     const parsedDate = `${getMonth}, ${dateNum.getDate()} ${dateNum.getFullYear()} at ${dateNum.getHours()}:${dateNum.getMinutes()}hrs`
     return (
       <div 

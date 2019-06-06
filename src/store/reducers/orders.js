@@ -6,6 +6,7 @@ const initState = {
   error: null,
   onCheckout: null,
   purchased: null,
+  onDetail: false,
   orders: [],
   order: [],
   orderDetail: [],
@@ -44,6 +45,7 @@ const orderIdSuccess = (state, action) => {
     isLoading: null,
     error: null,
     onCheckout: null,
+    onDetail: !state.onDetail,
     order: action.order
   })
 };

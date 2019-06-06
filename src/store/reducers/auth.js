@@ -8,7 +8,6 @@ const initState = {
   isSignIn: false,
   isSignUp: false,
   sideDrawer: false,
-  cc: {},
   userData: [],
   authRedirectPath: '/'
 };
@@ -48,6 +47,14 @@ const authSuccess = (state, action) => {
     isSignIn: false
   })
 }
+const authFbSuccess = (state, action) => {
+  return updateObject(state, {
+    isLoading: null,
+    error: null,
+    idToken: action.token,
+    userData: action.userData
+  })
+}
 const authLogout = (state, action) => {
   return updateObject(state, {
     token: null,
@@ -59,22 +66,25 @@ const setAuthRedirectPath = (state, action) => {
     authRedirectPath: action.path
   })
 }
-const addressSuccess = (state, action) => {
+const userUpdateSuccess = (state, action) => {
   return updateObject(state, {
-    userData: action.userData,
-    isLoading: false,
-    error: null
+    isLoading: null,
+    error: null,
+    userData: action.userData
   })
 }
-const ccSuccess = (state, action) => {
-  const updateCC = updateObject(state.userData, {
-    credit_card: action.cc
-  })
-  
+const addressSuccess = (state, action) => {
   return updateObject(state, {
     isLoading: false,
     error: null,
-    userData: updateCC
+    userData: action.userData
+  })
+}
+const ccSuccess = (state, action) => {
+  return updateObject(state, {
+    isLoading: false,
+    error: null,
+    userData: action.userData
   })
 }
 const goToSignIn = (state, action) => {
@@ -98,6 +108,12 @@ const reducer = (state = initState, action) => {
       return authSuccess(state, action);
     case actionTypes.AUTH_FAIL:
       return fail(state, action);
+    case actionTypes.AUTH_USER_FB_START:
+      return start(state, action);
+    case actionTypes.AUTH_USER_FB_SUCCESS:
+      return authFbSuccess(state, action);
+    case actionTypes.AUTH_USER_FB_FAIL:
+      return fail(state, action);
     case actionTypes.AUTH_REGISTER_START:
       return start(state, action);
     case actionTypes.AUTH_REGISTER_SUCCESS:
@@ -119,6 +135,12 @@ const reducer = (state = initState, action) => {
     case actionTypes.AUTH_USER_CREDIT_CARD_SUCCESS:
       return ccSuccess(state, action);
     case actionTypes.AUTH_USER_CREDIT_CARD_FAIL:
+      return fail(state, action);
+    case actionTypes.AUTH_USER_UPDATE_START:
+      return start(state, action);
+    case actionTypes.AUTH_USER_UPDATE_SUCCESS:
+      return userUpdateSuccess(state, action);
+    case actionTypes.AUTH_USER_UPDATE_FAIL:
       return fail(state, action);
     case actionTypes.GO_TO_SIGN_IN:
       return goToSignIn(state, action);

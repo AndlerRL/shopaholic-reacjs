@@ -1,0 +1,128 @@
+.Orders {
+  display: flex;
+  flex-direction: column;
+  width: 83.333%;
+  max-width: 800px;
+  justify-content: space-evenly;
+  margin: 0 auto;
+}
+
+.Order {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #fff;
+  margin: 2rem auto;
+  padding: 32px;
+  border-radius: 2px;
+  width: 100%;
+  box-shadow: 0 4px 5px 0 rgba(75, 75, 75, 0.14),
+    0 1px 10px 0 rgba(75, 75, 75, 0.12),
+    0 2px 4px -1px rgba(75, 75, 75, 0.3);
+  transition: all cubic-bezier(0.19, 1, 0.22, 1) .75s 150ms;
+}
+
+.Order > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.Order > div:not(:nth-child(2)) {
+  color: #2225;
+  user-select: none;
+}
+
+.Order > div:nth-child(2) > div:first-child {
+  width: 74%;
+  max-width: 616px;
+}
+
+.Order > div:nth-child(2) > div:first-child > p {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.5rem;
+}
+
+.Order > div:nth-child(2) > div:last-child {
+  width: 24%;
+  max-width: 120px;
+}
+
+.Order > div > .OrderDetail {
+  color: #222;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all cubic-bezier(0.19, 1, 0.22, 1) .75s 150ms;
+  animation: slidacity cubic-bezier(0.175, 0.885, 0.32, 1.275) .75s forwards alternate;
+}
+
+.Order > div > .OrderDetail > table {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: .5rem auto 2rem;
+}
+
+.Order > div > .OrderDetail > table > thead,
+.Order > div > .OrderDetail > table > tbody,
+.Order > div > .OrderDetail > table > tfoot {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Order > div > .OrderDetail > table > thead > tr,
+.Order > div > .OrderDetail > table > tbody > tr,
+.Order > div > .OrderDetail > table > tfoot > tr {
+  width: 100%;
+  max-width: 600px;
+  padding: 2px;
+}
+
+.Order > div > .OrderDetail > table > thead > tr > th,
+.Order > div > .OrderDetail > table > tbody > tr > td,
+.Order > div > .OrderDetail > table > tfoot > tr > td  {
+  width: 150px;
+  max-width: 25%;
+  text-align: center;
+}
+
+.Order > div > .OrderDetail > table > thead > tr {
+  color: #2226;
+  letter-spacing: 1px;
+}
+
+.Order > div > .OrderDetail > table > tfoot > tr {
+  font-family: 'Tajawal', sans-serif;
+  font-weight: 500;
+  color: #ff1744;
+  font-size: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Order > div > .OrderDetail > table > tfoot > tr > td {
+  width: 280px;
+  max-width: 45%;
+}
+
+@keyframes slidacity {
+  from {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

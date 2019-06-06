@@ -6,9 +6,7 @@ import * as actions from '../../../store/actions';
 import { updateObject, checkValidity } from '../../../share/utility';
 import Input from '../../../components/UI/Form/Input/Input';
 import ProductDetail from '../../../components/Products/Product/Product';
-//import Snackbar from '../../../components/UI/Snackbar/Snackbar';
-
-const cart_id = JSON.parse(localStorage.getItem('cart_id'));
+import Snackbar from '../../../components/UI/Snackbar/Snackbar';
 
 const Item = props => {
   const [colorAttributes, setColorAttributes] = useState({
@@ -65,9 +63,6 @@ const Item = props => {
 
     if (product_detail_id === null)
       props.history.replace('/products')
-
-    if (cart_id === "")
-      props.onGenerateCartId();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
@@ -170,21 +165,23 @@ const Item = props => {
   }
 
   const addCartHandler = () => {
-    if (cart_id) {
-      if (productAttr.Color === "" || productAttr.Size === "") {
-        setWarning(true)
-      } else {
-        props.onAddProduct(
-          "Cart",
-          cart_id,
-          props.productId, 
-          `${productAttr.Color}, ${productAttr.Size}`
-        );
-      }
+    const cart_id = JSON.parse(localStorage.getItem('cart_id'));
+
+    if (productAttr.Color === "" || productAttr.Size === "") {
+      setWarning(true)
+    } else {
+      props.onAddProduct(
+        "Cart",
+        cart_id,
+        props.productId, 
+        `${productAttr.Color}, ${productAttr.Size}`
+      );
     }
   }
 
   const addWishList = () => {
+    const cart_id = JSON.parse(localStorage.getItem('cart_id'));
+    
     if (productAttr.Color !== "" || productAttr.Size !== "") {
       const attributes = `${productAttr.Color}, ${productAttr.Size}`;
       props.onAddProduct(
@@ -236,6 +233,13 @@ const Item = props => {
     props.history.push('/product-details');
   }
 
+  const snackbarHandler = (e, reason) => {
+    if (reason === 'clickaway')
+      return;
+
+    //props.onConfirmAdded();
+  }
+
   const form = [];
 
   for (let key in review) {
@@ -263,12 +267,22 @@ const Item = props => {
   const size = props.sizeVals.map(size => size);
 
   let authRedirect = null;
+  let snackbar = null;
 
   if (props.isAuthenticated && props.onCheckout)
     authRedirect = <Redirect to={props.authRedirectPath} />
 
   if (props.onCheckout && (props.match.path === "/checkout" || props.match.path === "/checkout/contact-data"))
     authRedirect = null;
+
+  if (props.error)
+    snackbar = (
+      <Snackbar
+        error={true}
+        message={`[ERROR]: ${props.error.message}`}
+        open={props.error !== null}
+        closed={snackbarHandler} />
+    )
 
   return (
     <React.Fragment>
@@ -298,6 +312,7 @@ const Item = props => {
       colorsAttr={color}
       sizesAttr={size}
       productDetail={productDetailHandler(props.products)} />
+      { snackbar }
     </React.Fragment>
   )
 };
@@ -320,6 +335,7 @@ const mapStateToProps = state => {
     authRedirectPath: state.auth.authRedirectPath,
     isSignIn: state.auth.isSignIn,
     isSignUp: state.auth.isSignUp,
+    error: state.shoppingCart.error
   }
 }
 
@@ -329,7 +345,6 @@ const mapDispatchToProps = dispatch => {
     onProductLocation: productId => dispatch(actions.fetchProductLocation(productId)),
     onProductAttributes: productId => dispatch(actions.attributesInProduct(productId)),
     onFetchReviews: productId => dispatch(actions.fetchReviews(productId)),
-    onGenerateCartId: () => dispatch(actions.generateCartId()),
     onAddProduct: (direction, cart_id, product_id, attributes) => dispatch(actions.addProductToCart(direction, cart_id, product_id, attributes)),
     onSaveForLater: () => dispatch(actions.saveForLater()),
     onMoveToCart: itemId => dispatch(actions.moveToCart(itemId)),

@@ -59,6 +59,30 @@ export const auth = (email, password) => {
     password: password
   }
 }
+export const authFb = accessToken => {
+  return {
+    type: actionTypes.AUTH_USER_FB,
+    accessToken: accessToken
+  }
+}
+export const authFbStart = () => {
+  return {
+    type: actionTypes.AUTH_USER_FB_START
+  }
+} 
+export const authFbSuccess = (token, userData) => {
+  return {
+    type: actionTypes.AUTH_USER_FB_SUCCESS,
+    idToken: token,
+    userData: userData
+  }
+}
+export const authFbFail = error => {
+  return {
+    type: actionTypes.AUTH_USER_FB_FAIL,
+    error: error
+  }
+}
 export const authRegister = (name, email, password) => {
   return {
     type: actionTypes.AUTH_REGISTER_USER,
@@ -80,8 +104,31 @@ export const authCheckState = () => {
 }
 export const updateUser = userData => {
   return {
-    type: actionTypes.AUTH_USER_UPDATE,
+    type: actionTypes.UPDATE_USER,
+    updateCustomer: userData
+  }
+}
+export const updateCustomerStart = () => {
+  return {
+    type: actionTypes.AUTH_USER_UPDATE_START,
+  }
+}
+export const updateCustomerSuccess = userData => {
+  return {
+    type: actionTypes.AUTH_USER_UPDATE_SUCCESS,
     userData: userData
+  }
+}
+export const updateCustomerFail = error => {
+  return {
+    type: actionTypes.AUTH_USER_UPDATE_FAIL,
+    error: error
+  }
+}
+export const updateAddress = customerAddress => {
+  return {
+    type: actionTypes.UPDATE_USER_ADDRESS,
+    customerAddress: customerAddress
   }
 }
 export const addressStart = () => {
@@ -101,6 +148,12 @@ export const addressFail = error => {
     error: error
   }
 }
+export const updateCC = userData => {
+  return {
+    type: actionTypes.AUTH_USER_CREDIT_CARD,
+    cc: userData
+  }
+}
 export const ccStart = () => {
   return {
     type: actionTypes.AUTH_USER_CREDIT_CARD_START
@@ -109,29 +162,12 @@ export const ccStart = () => {
 export const ccSuccess = cc => {
   return {
     type: actionTypes.AUTH_USER_ADDRESS_SUCCESS,
-    cc: cc
+    userData: cc
   }
 }
 export const ccFail = error => {
   return {
     type: actionTypes.AUTH_USER_CREDIT_CARD_FAIL,
-    error: error
-  }
-}
-export const authFbStart = () => {
-  return {
-    type: actionTypes.AUTH_USER_FB_START
-  }
-}
-export const authFbSuccess = fbToken => {
-  return {
-    type: actionTypes.AUTH_USER_FB_SUCCESS,
-    fbToken: fbToken
-  }
-}
-export const authFbFail = error => {
-  return {
-    type: actionTypes.AUTH_USER_FB_FAIL,
     error: error
   }
 }

@@ -6,8 +6,6 @@ import * as actions from '../../store/actions';
 import Cart from '../../components/ShoppingCart/ShoppingCart';
 import Modal from '../../components/UI/Modal/Modal';
 
-const cart_id = JSON.parse(localStorage.getItem('cart_id'));
-
 const ShoppingCart = props => {
   const [remove, setRemove] = useState(false);
   const [deleted, setDelete] = useState(false);
@@ -34,7 +32,6 @@ const ShoppingCart = props => {
   const removeProductHandler = item_id => e => {
     e.preventDefault();
     setRemove(true)
-    //console.log(item_id);
 
     setTimeout(() => {
       setRemove(false)
@@ -45,6 +42,7 @@ const ShoppingCart = props => {
   const deleteCartHandler = e => {
     e.preventDefault();
     setDelete(true)
+    const cart_id = JSON.parse(localStorage.getItem('cart_id'));
 
     setTimeout(() => {
       props.onDeleteCart(cart_id);

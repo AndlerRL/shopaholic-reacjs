@@ -110,11 +110,11 @@
   color: #ff1744 !important;
   margin: 0 !important;
   padding: 0 !important;
-  width: 120px;
+  width: 100px;
   border-radius: 2px !important;
   font-weight: 400 !important;
   display: flex !important;
-  justify-content: flex-start !important;
+  justify-content: space-around !important;
   align-items: center !important;
 }
 

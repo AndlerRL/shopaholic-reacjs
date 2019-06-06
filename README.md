@@ -46,6 +46,24 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v0.9.0]`__
+
+Built more components and more generators, such as:
+
+* Sagas for Customer Login, such as Facebook Login for example.
+* Sagas connection between different areas of the application, witch is the Customer information Update and Address. Those are followed with the orders process, AKA Checkout and CustomerData components.
+* Sagas connection for customer Login with Facebook, well, Social Login actually.
+* Order component rendering, where customer can see al the orders that he/her made and see the details of it; also a bit animated.
+
+__Bugs:__
+
+* There is an issue with Facebook Login Javascript SDK with the Turing ECommerce API, where actually I get the accessToken from the FB SDK but backend it's not receiving it, actually I have an `Internal Server Error 500` that well, I'm not available to login with fb, but with others works.
+* There is an specific order that occurs this error and I need to see what's happening:
+  * Init webapp, and go to products, then search something, in categories for example and select a t-shirt; purchase it.
+  * After getting Product Detail and go to another product and purchase it. Do the same process like 3 times... then,
+  * Go to your shopping cart, and DO IT WITHOUT LOGGING IN––Login––and then poof!
+  * Exceed rendering looping. But, if you reload the website, it is ok, it's fine, but you should go to the checkout area, not that.
+
 _`[v0.8.5]`__
 
 Created more components and created more generators, such as:

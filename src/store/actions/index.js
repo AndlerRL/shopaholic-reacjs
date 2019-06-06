@@ -15,12 +15,19 @@ export {
   authRegisterFail,
   setAuthRedirectPath,
   authCheckState,
+  updateUser,
+  updateCustomerStart,
+  updateCustomerSuccess,
+  updateCustomerFail,
+  updateAddress,
   addressStart,
   addressSuccess,
   addressFail,
+  updateCC,
   ccStart,
   ccSuccess,
   ccFail,
+  authFb,
   authFbStart,
   authFbSuccess,
   authFbFail
@@ -212,8 +219,10 @@ export {
   stripeWebhooksFail
 } from './stripe';
 export {
+  fetchTaxes,
   fetchTax,
   fetchTaxFail,
+  taxById,
   taxId,
   taxIdFail
 } from './tax';

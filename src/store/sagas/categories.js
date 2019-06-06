@@ -32,8 +32,6 @@ export function* fetchCategoriesInProductSaga(action) {
 
   try {
     const response = yield Axios.get(`/categories/inProduct/${action.productId}`)
-    console.log('action.productId on categories/inProduct', action.productId);
-    console.log('action.category on categories/inProduct', action.category);
 
     yield put(actions.categoriesInProductSuccess(action.productId, response.data));
   } catch(error) {
@@ -47,8 +45,6 @@ export function* fetchCategoriesInDepartmentSaga(action) {
 
   try {
     const response = yield Axios.get(`/categories/inDepartment/${action.productId}`);
-    console.log('action.productId on categories/inProduct', action.productId);
-    console.log('action.category on categories/inProduct', action.department);
 
     yield put(actions.categoriesInDepartmentSuccess(action.productId, response.data));
   } catch(error) {

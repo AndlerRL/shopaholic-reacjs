@@ -1,11 +1,9 @@
 import * as actionTypes from './actionTypes';
 
-export const createOrder = (cartId, shippingId, taxId) => {
+export const createOrder = orderData => {
   return {
     type: actionTypes.CREATE_ORDER,
-    cartId: cartId,
-    shippingId: shippingId,
-    taxId: taxId
+    orderData: orderData
   }
 }
 export const ordersStart = () => {
@@ -39,7 +37,7 @@ export const ordersIdStart = () => {
 export const ordersIdSuccess = orderId => {
   return {
     type: actionTypes.ORDERS_ID_SUCCESS,
-    orderId: orderId
+    order: orderId
   }
 }
 export const ordersIdFail = error => {

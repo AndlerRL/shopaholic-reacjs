@@ -81,6 +81,7 @@ const Items = props => {
   }
 
   const productDetailHandler = () => product => {
+    const cart_id = JSON.parse(localStorage.getItem('cart_id'));
     localStorage.setItem('product_detail_id', JSON.stringify(product.product_id));
     let product_detail_id = JSON.parse(localStorage.getItem('product_detail_id'));
 
@@ -89,6 +90,9 @@ const Items = props => {
       product_detail_id = JSON.parse(localStorage.getItem('product_detail_id'))
     }
 
+    if (cart_id === null)
+      props.onGenerateCartId();
+      
     props.onFetchProductData(product_detail_id, props.productData);
     props.history.push('/product-details');
   }
@@ -223,6 +227,7 @@ const mapDispatchToProps = dispatch => {
     onFetchProductData: (productId, productData) => dispatch(actions.fetchProductDetail(productId, productData)),
     onFetchProductsInDepartment: (page, departmentId) => dispatch(actions.fetchProductsInDepartment(page, departmentId)),
     onFetchProductsInCategory: (page, departmentId) => dispatch(actions.fetchProductsInCategory(page, departmentId)),
+    onGenerateCartId: () => dispatch(actions.generateCartId()),
     clearFilter: () => dispatch(actions.clearFilter()),
   }
 }
