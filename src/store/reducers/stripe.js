@@ -45,6 +45,11 @@ const webhooks = (state, action) => {
     error: null
   })
 }
+const confirmStripeError = (state, action) => {
+  return updateObject(state, {
+    error: null
+  })
+}
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -60,6 +65,8 @@ const reducer = (state = initState, action) => {
       return webhooks(state, action);
     case actionTypes.STRIPE_WEBHOOKS_FAIL:
       return fail(state, action);
+    case actionTypes.STRIPE_CONFIRM_ERROR:
+      return confirmStripeError(state, action);
     default:
       return state;
   }

@@ -84,6 +84,11 @@ const categoriesInDepartmentSuccess = (state, action) => {
     categories: [...new Set(action.categories)]
   })
 }
+const confirmCategoriesError = (state, action) => {
+  return updateObject(state, {
+    error: null
+  })
+}
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -113,6 +118,8 @@ const reducer = (state = initState, action) => {
       return categoriesInProductSuccess(state, action);
     case actionTypes.CATEGORY_IN_PRODUCT_FAIL:
       return fail(state, action);
+    case actionTypes.CATEGORIES_CONFIRM_ERROR:
+      return confirmCategoriesError(state, action);
     default:
       return state;
   }

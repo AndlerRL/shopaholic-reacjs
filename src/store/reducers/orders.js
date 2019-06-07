@@ -26,6 +26,16 @@ const fail = (state, action) => {
     error: action.error
   })
 };
+const confirmPurchase = (state, action) => {
+  return updateObject(state, {
+    purchased: null
+  })
+};
+const confirmErrorOrder = (state, action) => {
+  return updateObject(state, {
+    error: null
+  })
+}
 const onCheckout = (state, action) => {
   return updateObject(state, {
     onCheckout: true
@@ -93,6 +103,10 @@ const reducer = (state = initState, action) => {
       return fail(state, action);
     case actionTypes.ORDERS_ON_CHECKOUT:
       return onCheckout(state, action);
+    case actionTypes.ORDERS_CONFIRM:
+      return confirmPurchase(state, action);
+    case actionTypes.ORDERS_CONFIRM_ERROR:
+      return confirmErrorOrder(state, action);
     default:
       return state;
   }

@@ -7,6 +7,7 @@ import * as actions from '../../../store/actions';
 const Logout = props => {
   useEffect(() => {
     props.onLogout();
+    window.FB.logout();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

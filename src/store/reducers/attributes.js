@@ -58,6 +58,11 @@ const attributeInProductSuccess = (state, action) => {
     productAttributes: action.productAttributes
   })
 };
+const confirmAttributesError = (state, action) => {
+  return updateObject(state, {
+    error: null
+  })
+}
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -83,6 +88,8 @@ const reducer = (state = initState, action) => {
       return attributeValuesSuccess(state, action);
     case actionTypes.ATTRIBUTES_VALUES_ID_FAIL:
       return fail(state, action);
+    case actionTypes.ATTRIBUTES_CONFIRM_ERROR:
+      return confirmAttributesError(state, action);
     default:
       return state;
   }

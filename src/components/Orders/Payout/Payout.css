@@ -1,0 +1,155 @@
+.Payout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 83.333%;
+  max-width: 800px;
+  margin: 1rem auto;
+}
+
+.Payout > h3,
+.Payout > h5 {
+  margin: 2rem auto;
+}
+
+.OrderSummary {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #fff;
+  margin: 2rem auto;
+  padding: 32px;
+  border-radius: 2px;
+  width: 100%;
+  box-shadow: 0 4px 5px 0 rgba(75, 75, 75, 0.14),
+    0 1px 10px 0 rgba(75, 75, 75, 0.12),
+    0 2px 4px -1px rgba(75, 75, 75, 0.3);
+  transition: all cubic-bezier(0.19, 1, 0.22, 1) .75s 150ms;
+}
+
+.OrderSummary > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.OrderSummary > div:not(:nth-child(2)) {
+  color: #2225;
+  user-select: none;
+}
+
+.OrderSummary > div:nth-child(2) > div > p {
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.5rem;
+  width: 100%;
+}
+
+.OrderSummary > div:last-child > span:first-child {
+  font-size: 1.7rem;
+}
+
+.CCInfo {
+  padding: 32px;
+  width: 100%;
+  background: url(../../../assets/images/cc_background.png) no-repeat #fff;
+  background-size: 66.66%;
+  background-position: -50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 2px;
+  box-shadow: 0 4px 5px 0 rgba(75, 75, 75, 0.14),
+    0 1px 10px 0 rgba(75, 75, 75, 0.12),
+    0 2px 4px -1px rgba(75, 75, 75, 0.3);
+  transition: all cubic-bezier(0.19, 1, 0.22, 1) .75s 150ms;
+}
+
+.CCInfo > div,
+.CCInfo > div:nth-child(2) > div {
+  margin: 1rem auto;
+  width: 83.333%;
+  max-width: 350px;
+  height: 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.CCInfo > div:first-child > div::before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f09d";
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.CCInfo > div:first-child > div,
+.CCInfo > div:nth-child(2) > div > div {
+  background-color: #f5f5f5;
+  border-radius: 25px;
+  box-sizing: border-box;
+}
+
+.CCInfo > div:first-child > div,
+.CCInfo > div:nth-child(2) > div > div {
+  box-sizing: border-box;
+  height: 42px;
+  padding: 12px 16px;
+  border: 1px solid transparent;
+  border-radius: 25px;
+  background-color: #f5f5f5;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  transition: box-shadow 150ms ease;
+}
+
+.CCInfo > div:first-child > div > div {
+  display: flex;
+  flex-direction: row;
+  float: right;
+  width: 91.666%;
+}
+
+.CCInfo > div:nth-child(2) {
+  flex-direction: row;
+}
+
+.CCInfo > div:nth-child(2) > div {
+  width: 45% !important;
+  max-width: 150px !important;
+}
+
+.CCInfo > div > label,
+.CCInfo > div > div > label {
+  font-size: 1.2rem;
+  color: #222;
+  font-weight: 500;
+}
+
+.CCInfo > button {
+  margin: 2rem auto !important;
+  width: 33.33%;
+  max-width: 150px;
+}
+
+.Hint {
+  margin: 2rem auto;
+  width: 66.66%;
+  max-width: 600px;
+  padding: 16px;
+}
+
+.Hint > span {
+  font-size: 2rem;
+  letter-spacing: 2px;
+  color: #ff1744;
+  font-weight: 600;
+}
+
+.Hint > p,
+.Hint > ul > li {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+}

@@ -33,8 +33,12 @@ const Checkout = props => {
   const snackbarHandler = (e, reason) => {
     if (reason === 'clickaway')
       return;
+    
+    if (props.purchased)
+      props.onConfirmPurchase()
 
-    //props.onConfirmAdded();
+    if (props.error)
+      props.onConfirmError();
   }
   
   const regions = props.regions.map(region => {
@@ -45,15 +49,15 @@ const Checkout = props => {
   });
   const cartItems = props.cart.map(cart => cart);
   const taxes = props.taxes.map(tax => tax);
-  const purchaseRedirect = props.purchased ? <Redirect to="/products" /> : null;
 
   let snackbar = null;
+  const purchaseRedirect = props.purchased ? <Redirect to="/products" /> : null;
 
   if (props.purchased)
     snackbar = (
       <Snackbar
         success={true}
-        message="Order successfully completed!"
+        message="Order successfully completed! Sending to products..."
         open={props.purchased}
         closed={snackbarHandler} />
     )
@@ -76,8 +80,8 @@ const Checkout = props => {
         cancelOrder={cancelOrderHandler} />
       <Route
         path={props.match.path + '/contact-data'}
-        render={
-          props => <ContactData regions={regions} taxes={taxes} /> 
+        component={
+          props => <ContactData regions={regions} taxes={taxes} {...props} /> 
         } />
       { snackbar }
     </React.Fragment>
@@ -101,6 +105,8 @@ const mapDispatchToProps = dispatch => {
     onCheckout: () => dispatch(actions.onCheckout()),
     onFetchRegions: () => dispatch(actions.fetchRegions()),
     onFetchTaxes: () => dispatch(actions.fetchTaxes()),
+    onConfirmError: () => dispatch(actions.confirmOrderError()),
+    onConfirmPurchase: () => dispatch(actions.confirmPurchase()),
   }
 }
 

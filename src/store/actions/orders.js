@@ -79,10 +79,10 @@ export const ordersShortDetailsStart = () => {
     type: actionTypes.ORDERS_SHORT_DETAIL_START
   }
 }
-export const ordersShortDetailsSuccess = orderId => {
+export const ordersShortDetailsSuccess = orderDetail => {
   return {
     type: actionTypes.ORDERS_SHORT_DETAIL_SUCCESS,
-    orderId: orderId
+    orderDetail: orderDetail
   }
 }
 export const ordersShortDetailsFail = error => {
@@ -94,5 +94,15 @@ export const ordersShortDetailsFail = error => {
 export const onCheckout = () => {
   return {
     type: actionTypes.ORDERS_ON_CHECKOUT
+  }
+}
+export const confirmOrderError = () => {
+  return {
+    type: actionTypes.ORDERS_CONFIRM_ERROR
+  }
+}
+export const confirmPurchase = () => {
+  return {
+    type: actionTypes.ORDERS_CONFIRM
   }
 }

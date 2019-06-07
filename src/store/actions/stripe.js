@@ -37,3 +37,8 @@ export const stripeWebhooksFail = error => {
     error: error
   }
 }
+export const confirmStripeError = () => {
+  return {
+    type: actionTypes.STRIPE_CONFIRM_ERROR
+  }
+}

@@ -240,3 +240,8 @@ export const goToFavorites = () => {
     type: actionTypes.GO_TO_FAVORITES
   }
 }
+export const confirmShoppingCartError = () => {
+  return {
+    type: actionTypes.SHOPPING_CART_CONFIRM_ERROR
+  }
+}

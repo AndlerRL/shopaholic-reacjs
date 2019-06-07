@@ -108,3 +108,8 @@ export const fetchCategoriesInProduct = (departmentId, categories) => {
     categories: categories
   }
 }
+export const confirmCategoriesError = () => {
+  return {
+    type: actionTypes.CATEGORIES_CONFIRM_ERROR
+  }
+}

@@ -7,7 +7,6 @@ export function* logoutSaga(action) {
   yield call([localStorage, 'removeItem'], 'token');
   yield call([localStorage, 'removeItem'], 'expDate');
   yield put(actions.logoutSucceed());
-  yield window.FB.logout();
 }
 
 export function* checkAuthTimeoutSaga(action) {
@@ -58,7 +57,7 @@ export function* loginUserSaga(action) {
 
 export function* loginFbUserSaga(action) {
   yield put(actions.authFbStart());
-
+  console.log('AVAILABLE ACTIONS FROM FB LOGIN: ', action)
   try {
     const accessToken = {
       access_token: action.accessToken

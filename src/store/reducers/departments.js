@@ -49,6 +49,11 @@ const departmentIdSuccess = (state, action) => {
     hasValue: hasValue
   })
 };
+const confirmDepartmentsError = (state, action) => {
+  return updateObject(state, {
+    error: null
+  })
+}
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -62,6 +67,8 @@ const reducer = (state = initState, action) => {
       return departmentIdSuccess(state, action);
     case actionTypes.DEPARTMENTS_BY_ID_FAIL:
       return fail(state, action);
+    case actionTypes.DEPARTMENTS_CONFIRM_ERROR:
+      return confirmDepartmentsError(state, action);
     default:
       return state;
   }

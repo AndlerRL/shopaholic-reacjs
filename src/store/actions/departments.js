@@ -44,3 +44,8 @@ export const fetchDepartmentsId = (departmentId, department) => {
     department: department
   }
 }
+export const confirmDepartmentsError = () => {
+  return {
+    type: actionTypes.DEPARTMENTS_CONFIRM_ERROR
+  }
+}

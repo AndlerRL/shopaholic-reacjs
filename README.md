@@ -9,7 +9,7 @@ __Here I will demonstrate how I can build web sites end to end, using:__
 * __`React Router`__.
 * __`Redux Saga`__.
 * __`React Thunk`__ (as a Middleware).
-* __`Axios`__ (AJAX for React).
+* __`Axios`__ (AJAX for Node/React).
 * __`Material UI`__ (Some components; the majority are components created by myself).
 * __`Webpack`__.
 * __`CSS Modules`__ (with PostCSS loader.
@@ -46,22 +46,41 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v0.9.41]`__
+
+* New Component for the app! The Payout Component, where it is implemented the Stripe API and will proceed to complete the purchase of any selected order. Connections are missing but works just fine.
+
+* Added more actions for all the stores, with are the Error Confirmation actions, where whenever a customer encounter an error, this will be reflected into the Error Snackbar.
+
+__Bug fix:__
+
+* Worked on Facebook Login SDK and actually there is not too much to do, not per say that I can manipulate the back-end (witch is not) and see what it's happening there so I could see how to fix it completely, due there is a 500 'Undocumented' error. And, instead I created conditionals where will `return null;`/`return;` every time that the error happen by now.
+
+* The render loop suddenly disappeared after clean the code, so I couldn't re-create the bug in order to see what was wrong. Though, it's working fine!
+
 __`[v0.9.0]`__
 
 Built more components and more generators, such as:
 
 * Sagas for Customer Login, such as Facebook Login for example.
+
 * Sagas connection between different areas of the application, witch is the Customer information Update and Address. Those are followed with the orders process, AKA Checkout and CustomerData components.
+
 * Sagas connection for customer Login with Facebook, well, Social Login actually.
+
 * Order component rendering, where customer can see al the orders that he/her made and see the details of it; also a bit animated.
 
 __Bugs:__
 
 * There is an issue with Facebook Login Javascript SDK with the Turing ECommerce API, where actually I get the accessToken from the FB SDK but backend it's not receiving it, actually I have an `Internal Server Error 500` that well, I'm not available to login with fb, but with others works.
+
 * There is an specific order that occurs this error and I need to see what's happening:
   * Init webapp, and go to products, then search something, in categories for example and select a t-shirt; purchase it.
+
   * After getting Product Detail and go to another product and purchase it. Do the same process like 3 times... then,
+  
   * Go to your shopping cart, and DO IT WITHOUT LOGGING IN––Login––and then poof!
+  
   * Exceed rendering looping. But, if you reload the website, it is ok, it's fine, but you should go to the checkout area, not that.
 
 _`[v0.8.5]`__
@@ -69,10 +88,15 @@ _`[v0.8.5]`__
 Created more components and created more generators, such as:
 
 * Sagas for Orders and actions/reducers updates from the previous one created.
+
 * Sagas for Taxes and actions/reducers updates from the previous one created.
+
 * Sagas for Shipment and actions/reducers updates from the previous one created.
+
 * Sagas for customer updates and updating actions/reducers from the auth store.
+
 * Built ContactData component, witch work for the update of customer address and info (If customer want it, though, it's partial) and also to create an order.
+
 * Built Checkout component, witch work to see the summary of the order that you want to do/complete and gives you a progressive continuing to the ContactData.
 
 __`[v0.8.1]`__
@@ -80,6 +104,7 @@ __`[v0.8.1]`__
 Added a couple of components, such as:
 
 * __Favorite Component:__ customer can see his/her items saved as favorites and add it without any issue and move to cart too if they want it.
+
 * __Authentication Component:__ customer who would like to post a review and save his/her information for ordering the products available, they can do it without any issue and has cookies!
 
 __`[v0.7.23]`__
@@ -87,7 +112,9 @@ __`[v0.7.23]`__
 __Bug Fix:__
 
 * __Filter component:__ Fix the categories and departments filter, now become disabled when one is value is selected.
+
 * __Filter component:__ Fix the re-rendering. There was an additional re-rendering where you deselect the filter, component rendered once again; fixed with `React.memo()`.
+
 * __Search component:__ Fix actually everything. Didn't affect the WebApp but the previous rendering was causing a overkill rendering. It's leaner now and moved to the Components root.
 
 Move some other components to the proper sections, also started with Authentication and Checkout!
@@ -97,13 +124,17 @@ __`[v0.7.15]`__
 There is a lot of fixes and implementations on this version, so these are some:
 
 * __Filter Component:__ Worked on every filter that the web app needs; Departments, Categories and UI/UX respond on any of the cases.
+
 * __Search Component:__ Works along filter; it has query params that help to search anything that API support. Works well but has a UI bug that won't affect the project.
+
 * __Products Component:__ Now render the requested filters and shows without any problem the requested products and re-render if turn back again to normal state.
+
 * __UI/UX Respond:__ Product Reviews has now a well UI structured respond if there is no review yet on the product, also with the `Search Component` that reflects a respond if there is no match.
 
 __Bugs:__
 
 * While click on the filter Categories/Department, it render what you ask for but when you select another one, doesn't render both and doing that, API doesn't respond well the request and create an instability on the WebApp and, if I really want that, I need to change the back-end but that won't be possible, so, I will leave it like it and change the UI, witch is the checkbox with something else, radio buttons.
+
 * On search component, when you succeed to search something and wants to return to the regular state, the search bar doesn't update and stay the same as you requested and you need to change it/delete it so it can be anything else... Thinking to make it dynamic, but don't know it actually would be cool to do it or if will cause a delay.
 
 __`[v0.6.61]`__
@@ -113,14 +144,23 @@ Added more features to the Filter component and now looks great! Slider from Mat
 __Quick Fix:__ There was some issues with the adaptive UI on various components. The next components has been UI fix:
   
 * Products.
+
 * Product Detail.
+
 * Filter.
+
 * Shopping Cart.
+
 * SideDrawer.
+
 * Login/SignIn.
+
 * Product.
+
 * Reviews.
+
 * Post Review.
+
 * Hot Products on Product Details!
 
 I can say that all the app is now Mobile First, there is just 2 more screens that will be added soon and UI updates after login/registration.
@@ -130,8 +170,11 @@ __`[v0.6.51]`__
 There are some important updates on this update/fix, witch is:
 
 * Added conditionals for the Authentication after & before login/registration.
+
 * Shopping cart, Product Details components are some of them that has some UI updates if there is a client logged in or not. Also added more UX to the Shopping cart component and for now looks great!
+
 * Home component has proper redirection.
+
 * There some high value states that were moved to the redux states and are well, global.
 
 __`[v0.6.33]`__
@@ -149,7 +192,9 @@ Also started to create functions for the shopping cart sagas and will be more so
 __`[v0.5.81]`__
 
 Working on Product Details –– Reviews:
+
 __Bug fix:__ There was an issue at the time to click the product attribute in order to proceed the order/add to shopping cart/add wish list, where when you clicked one, worked but when you selected another one, the first one returned to their base value. Now, it's fixed and is free to go! Just customer can click into one only attribute (can be 1 size and 1 colour, of course) of their choice and will update properly after fetching the rest of the Sagas/functions.
+
 __Bug:__ There is an issue fetching departments. Seems not updating properly after getting it on componentDidMount()/useEffect(). Will work on that soon.
 
 __`[v0.5.73]`__
@@ -157,11 +202,17 @@ __`[v0.5.73]`__
 Added many functionalities for the WebApp, such as:
   
 * Created sagas for the Categories actions & fetching.
+
 * Created sagas for the Departments actions & fetching.
+
 * Created sagas for the Attributes actions & fetching.
+
 * Created sagas for the Product Detail actions & fetching.
+
 * Half way! on Product Detail UI/UX.
+
 * Added localStorage to the project, so customer have more interaction with the app.
+
 * localStorage saves only ids for the various fetching that require such information in order to work after refresh on a section that did not had any routing.
 
 Product detail UI/UX is half way, but internally is practically completed. time to time will add even more Sagas––Woof, too much to add! Getting anxious to buy a t-shirt already!
@@ -229,5 +280,7 @@ __`[v.0.0.7]`__
 Started to create components, principally the Layout and has some responsive interactions. like:
 
 * __Sidedrawer for mobile:__ When screen width is lower than 700px, it turns into mobile web app, where the 2 Toolbars disappears and some of the Navigation Items appears.
+
 * __Modal and Backdrop created:__ Custom UI Components that, actually work good.
+
 * __Icons components:__ This Component it's actually a Material UI component, but for re-use and the code doesn't turns a bit cumbersome, decided to create it for more readable.

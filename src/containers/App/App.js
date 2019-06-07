@@ -34,6 +34,9 @@ const Checkout = React.lazy(() => {
 const Orders = React.lazy(() => {
   return import('../Orders/Orders');
 })
+const Payout = React.lazy(() => {
+  return import('../Orders/Payout/Payout');
+})
 
 const App = props => {
   useEffect(() => {
@@ -149,6 +152,7 @@ const App = props => {
         <Route exact path="/products" render={props => <Products {...props} />} />
         <Route exact path="/product-details" render={props => <Product {...props} />} />
         <Route exact path="/orders" render={props => <Orders {...props} />} />
+        <Route exact path="/orders/checkout" render={props => <Payout {...props} />} />
         <Route exact path="/logout" render={props => <Logout {...props} />} />
         <Route path="/checkout" render={props => <Checkout {...props} />} />
         <Redirect to="/" />

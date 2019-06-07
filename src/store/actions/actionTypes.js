@@ -1,5 +1,7 @@
  //–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // LOGIN, SIGNUP & UPDATE USER ACTION-TYPES LOGISTIC.
+export const AUTH_CONFIRM_ERROR = 'AUTH_CONFIRM_ERROR';
+
 export const AUTH_USER = 'AUTH_USER';
 export const AUTH_START = 'AUTH_START';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
@@ -43,6 +45,8 @@ export const SET_AUTH_REDIRECT_PATH = 'SET_AUTH_REDIRECT_PATH';
 
  //–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // FETCHING FOR DEPARTMENTS ACTION-TYPES LOGISTIC
+export const DEPARTMENTS_CONFIRM_ERROR = 'DEPARTMENTS_CONFIRM_ERROR';
+
 export const DEPARTMENTS_START = 'FETCH_DEPARTMENTS_START';
 export const DEPARTMENTS_SUCCESS = 'FETCH_DEPARTMENTS_SUCCESS';
 export const DEPARTMENTS_FAILED = 'FETCH_DEPARTMENTS_FAILED';
@@ -54,6 +58,8 @@ export const FETCH_DEPARTMENTS_ID = 'FETCH_DEPARTMENTS_ID';
 
  //–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // FETCHING FOR CATEGORIES ACTION-TYPES LOGISTIC
+export const CATEGORIES_CONFIRM_ERROR = 'CATEGORIES_CONFIRM_ERROR';
+
 export const CATEGORIES_QUERY = 'CATEGORIES_QUERY';
 export const CATEGORIES_QUERY_FAIL = 'CATEGORIES_QUERY_FAIL';
 
@@ -78,6 +84,8 @@ export const CATEGORY_IN_PRODUCT_FAIL = 'CATEGORY_IN_PRODUCT_FAIL';
 
  //–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // FETCHING FOR ATTRIBUTES ACTION-TYPES LOGISTIC
+export const ATTRIBUTES_CONFIRM_ERROR = 'ATTRIBUTES_CONFIRM_ERROR'; 
+
 export const FETCH_ATTRIBUTES = 'FETCH_ATTRIBUTES';
 export const FETCH_ATTRIBUTES_START = 'FETCH_ATTRIBUTES_START';
 export const FETCH_ATTRIBUTES_SUCCESS = 'FETCH_ATTRIBUTES_SUCCESS';
@@ -99,6 +107,8 @@ export const ATTRIBUTES_IN_PRODUCT_FAIL = 'ATTRIBUTES_IN_PRODUCT_FAIL';
 
  //–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // FETCH FOR PRODUCTS ACTION-TYPES LOGISTIC
+export const PRODUCTS_CONFIRM_ERROR = 'PRODUCTS_CONFIRM_ERROR';
+
 export const PRODUCTS_START = 'PRODUCTS_START';
 export const PRODUCTS_SUCCESS = 'PRODUCTS_SUCCESS';
 export const PRODUCTS_FAIL = 'PRODUCTS_FAIL';
@@ -178,6 +188,9 @@ export const POST_PRODUCT_REVIEW_FAIL = 'POST_PRODUCT_REVIEW_FAIL';
 
  //–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // FETCH FOR ORDERS ACTION-TYPES LOGISTIC
+export const ORDERS_CONFIRM = 'ORDERS_CONFIRM';
+export const ORDERS_CONFIRM_ERROR = 'ORDERS_CONFIRM_ERROR';
+
 export const CREATE_ORDER = 'CREATE_ORDER';
 export const ORDERS_START = 'ORDERS_START';
 export const ORDERS_SUCCESS = 'ORDERS_SUCCESS';
@@ -202,6 +215,8 @@ export const ORDERS_ON_CHECKOUT = 'ORDERS_ON_CHECKOUT';
 
  //–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // FETCH FOR SHOPPING CART ACTION-TYPES LOGISTIC
+export const SHOPPING_CART_CONFIRM_ERROR = 'SHOPPING_CART_CONFIRM_ERROR';
+
 export const GO_TO_SHOPPING_CART = 'GO_TO_SHOPPING_CART';
 export const GO_TO_FAVORITES = 'GO_TO_FAVORITES';
 
@@ -258,6 +273,8 @@ export const SHOPPING_CART_FETCH_SAVE_FAVORITE_FAIL = 'SHOPPING_CART_FETCH_SAVE_
 
  //–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // FETCH FOR TAX ACTION-TYPES LOGISTIC
+export const TAX_CONFIRM_ERROR = 'TAX_CONFIRM_ERROR';
+
 export const FETCH_TAX_INIT = 'FETCH_TAX_INIT';
 export const FETCH_TAX = 'FETCH_TAX';
 export const FETCH_TAX_FAIL = 'FETCH_TAX_FAIL';
@@ -268,6 +285,8 @@ export const TAX_ID_FAIL = 'TAX_ID_FAIL';
 
  //–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // FETCH FOR SHIPPING ACTION-TYPES LOGISTIC
+export const SHIPPING_CONFIRM_ERROR = 'SHIPPING_CONFIRM_ERROR';
+
 export const SHIPMENT_AVAILABLE = 'SHIPMENT_AVAILABLE';
 export const FETCH_SHIPPING = 'FETCH_SHIPPING';
 export const FETCH_SHIPPING_FAIL = 'FETCH_SHIPPING_FAIL';
@@ -279,6 +298,8 @@ export const SHIPPING_ID_FAIL = 'SHIPPING_ID_FAIL';
 
  //–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // ACTION-TYPES LOGISTIC FOR THE STRIPE API
+export const STRIPE_CONFIRM_ERROR = 'STRIPE_CONFIRM_ERROR';
+
 export const STRIPE_CHARGE_START = 'STRIPE_CHARGE_START';
 export const STRIPE_CHARGE_SUCCESS = 'STRIPE_CHARGE_SUCCESS';
 export const STRIPE_CHARGE_FAIL = 'STRIPE_CHARGE_FAIL';

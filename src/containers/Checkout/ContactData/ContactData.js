@@ -105,10 +105,10 @@ const ContactData = props => {
         options: regionsOpt
       },
       label: 'Region',
-      value: props.userData.shipping_region_id !== 1 ? props.userData.shipping_region_id : 1,
+      value: 1,
       validation: {
         required: true,
-        valid: props.userData.shipping_region_id > 1 ? true : false,
+        valid: false,
         touched: false
       }
     },

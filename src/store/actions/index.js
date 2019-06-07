@@ -1,4 +1,5 @@
 export {
+  confirmAuthError,
   handleSideDrawer,
   goToSignIn,
   goToSignUp,
@@ -33,6 +34,7 @@ export {
   authFbFail
 } from './auth';
 export {
+  confirmAttributesError,
   fetchAttributes,
   attributesStart,
   attributeSuccess,
@@ -49,6 +51,7 @@ export {
   attributeInProductFail
 } from './attributes';
 export {
+  confirmCategoriesError,
   categoriesQuerySuccess,
   categoriesQueryFail,
   fetchCategories,
@@ -68,6 +71,7 @@ export {
   categoriesInProductFail
 } from './categories';
 export {
+  confirmDepartmentsError,
   fetchDepartments,
   departmentsStart,
   departmentsSuccess,
@@ -93,9 +97,12 @@ export {
   ordersShortDetailsStart,
   ordersShortDetailsSuccess,
   ordersShortDetailsFail,
-  onCheckout
+  onCheckout,
+  confirmOrderError,
+  confirmPurchase,
 } from './orders';
 export {
+  confirmProductError,
   productsStart,
   productsSuccess,
   productsFail,
@@ -158,6 +165,7 @@ export {
   postReviewFail
 } from './products';
 export {
+  confirmShippingError,
   fetchRegions,
   fetchShipping,
   fetchShippingFail,
@@ -167,6 +175,7 @@ export {
   shippingIdFail
 } from './shipping';
 export {
+  confirmShoppingCartError,
   goToShoppingCart,
   generateCartId,
   shoppingCartGenerateIdStart,
@@ -211,6 +220,7 @@ export {
   goToFavorites
 } from './shoppingCart';
 export {
+  confirmStripeError,
   stripeChargeStart,
   stripeChargeSuccess,
   stripeChargeFail,
@@ -219,6 +229,7 @@ export {
   stripeWebhooksFail
 } from './stripe';
 export {
+  confirmTaxError,
   fetchTaxes,
   fetchTax,
   fetchTaxFail,

@@ -186,3 +186,8 @@ export const handleSideDrawer = () => {
     type: actionTypes.HANDLE_SIDEDRAWER
   }
 }
+export const confirmAuthError = () => {
+  return {
+    type: actionTypes.AUTH_CONFIRM_ERROR
+  }
+}

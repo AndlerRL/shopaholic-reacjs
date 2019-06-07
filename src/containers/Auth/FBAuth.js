@@ -1,54 +1,56 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-class FacebookLogin extends React.Component {
-  componentWillMount() {
-    document.addEventListener('FBObjectReady', this.initFacebookLogin);
+const FacebookLogin = props => {
+  useEffect(() => {
+    document.addEventListener('FBObjectReady', initFacebookLogin);
+
+    return () => {
+      document.removeEventListener('FBObjectReady', initFacebookLogin);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const FB = window.FB;
+
+  const initFacebookLogin = () => {
+    if (!FB) return;
+    checkLoginStatus();
   }
 
-  componentWillUnmount() {
-    document.removeEventListener('FBObjectReady', this.initFacebookLogin);
+  const checkLoginStatus = () => {
+    if (!FB) return;
+    FB.getLoginStatus(facebookLoginHandler);
   }
 
-  initFacebookLogin = () => {
-    this.FB = window.FB;
-    this.checkLoginStatus();
-  }
+  const facebookLogin = () => {
+    if (!FB) return;
 
-  checkLoginStatus = () => {
-    this.FB.getLoginStatus(this.facebookLoginHandler);
-  }
-
-  facebookLogin = () => {
-    if (!this.FB) return;
-
-    this.FB.getLoginStatus(res => {
+    FB.getLoginStatus(res => {
       if (res.status === 'connected')
-        this.facebookLoginHandler(res);
+        facebookLoginHandler(res);
       else
-        this.FB.login(this.facebookLoginHandler, { scope: 'public_profile' });
+        FB.login(facebookLoginHandler, { scope: 'public_profile' });
     }, );
   }
 
-  facebookLoginHandler = res => {
+  const facebookLoginHandler = res => {
     if (res.status === 'connected') {
-      this.FB.api('/me', userData => {
+      FB.api('/me', userData => {
         let result = {
           ...res,
           user: userData
         };
-        this.props.onLogin(true, result);
+        props.onLogin(true, result);
       });
     } else 
-      this.props.onLogin(false);
+      props.onLogin(false);
   }
 
-  render () {
-    return (
-      <div onClick={this.facebookLogin}>
-        { this.props.children }
-      </div>
-    )
-  }
+  return (
+    <div onClick={facebookLogin}>
+      {props.children }
+    </div>
+  )
 }
 
 export default FacebookLogin;

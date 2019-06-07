@@ -24,6 +24,11 @@ const taxId = (state, action) => {
     tax: action.tax
   })
 };
+const confirmTaxError = (state, action) => {
+  return updateObject(state, {
+    error: null
+  })
+};
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -35,6 +40,8 @@ const reducer = (state = initState, action) => {
       return taxId(state, action);
     case actionTypes.TAX_ID_FAIL:
       return fail(state, action);
+    case actionTypes.TAX_CONFIRM_ERROR:
+      return confirmTaxError(state, action);
     default:
       return state;
   }
