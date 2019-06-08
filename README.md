@@ -18,17 +18,66 @@ __Here I will demonstrate how I can build web sites end to end, using:__
 
 ## Documentation ##
 
-On this project I have divided into 3 main folders, __`Components`__, __`Containers`__ and __`Store`__. Also some additional ones, as the Higher Order Components (hoc), the Utilities Functions (share) and Assets folder.</p>
+This project follows the Structural & Creative Pattern Designs, as well the Generators Pattern Design for Redux-Sagas implementation. Stored the most sensitive information into the env.js file, using webpack of course in order to work correctly.
+
+On this project I have divided into 3 main folders, __`Components`__, __`Containers`__ and __`Store`__. Also some additional ones, as the Higher Order Components (hoc), the Utilities Functions (share) and Assets folder.
 
 This projects will follow the Turing ECommerce API structure, so files will be structured as it is, witch is:
 
-1. Each Model presented on the API has his how Actions & Reduces
-2. Each Action & Reducers will contain basically all the logic and will pass through the index of each of them (Actions & Reduces) so all logic will be focus son the Sagas.
-3. Sagas will control and yield each actions that users will have through all the e-commerce app.
+1. Each Model presented on the API has his own Actions & Reducers.
+
+2. Each Action & Reducers will contain basically all the logic and will pass through the index of each of them (Actions & Reducers) so all logic will be focus son the Sagas; each of them are very self-explicative an lean.
+
+3. Sagas will control and yield each actions that users will have through all the e-commerce app, also for Stripe, some 'server-side' calls that I did not attempt to continue due it's Front-End.
+
 4. As is expected, Redux will hold the global states, witch are some animations, loadings, queries, etc.
+
 5. While the watchers takes control of all the actions with sagas, the interaction should and hope, will be smooth as you machine allows you.
 
-### How to run it ###
+6. There is One HOC with a Custom Hook, witch is the `withErrorHandler` Hook: This hook holds the errors from Axios and display an error depending witch request/response is made, also do clean-ups all through the app that actually runs smoothly and it's a beauty. Just you need to wrap the component with it, for example:
+
+```javascript
+  import withErrorHandler from '../hoc/withErrorHandler
+  import Axios from '../axios-shop'
+
+  import Component from './Component'
+
+  const mainComponent = props => {
+    return (
+      <h1>Some text</h1>
+      <Component />
+    )
+  };
+
+  export default withErrorHandler(mainComponent, Axios);
+```
+
+### OR ###
+
+```javascript
+  import withErrorHandler from '../hoc/withErrorHandler
+  import Axios from '../axios-shop'
+
+  import Component from './Component'
+
+  export const withErrorHandler(mainComponent = props => {
+    return (
+      <h1>Some text</h1>
+      <Component />
+    )
+  }, Axios);
+```
+
+  As you may see, this Hook takes 2 arguments: First it is the `WrappedComponent`, where takes the component to be wrapped. Second argument is `Axios`, that well, are basically the interceptors of the desired wrapped component, witch do the calls of it and clean-up each component after every request, response, etc. `withErrorHandler` Hook works at any level, just needs something to fetch so it could be catch; the `Axios` imports Only will work if an instance was previously created.
+
+7. The test cases where made only in 4 Components:
+  
+* `<NavigationItems />` w/ `<NavigationItem />`.
+* `<Products />` Container w/ `<Products />` Component.
+* `<SignIn />` & `<SignUp />`.
+* `<NavLink />` within `<ToolbarTop />` Component.
+
+## How to run it ##
 
 If you have npm package installed, just follow this steps:
 
@@ -45,6 +94,16 @@ Now, let's go to the changelog!
 - - - -
 
 ### CHANGE_LOG ###
+
+__`[v1.0.0]`__
+
+App into deployment! Shopaholic is ready and some test has been made with Jest & Enzyme and well, in general runs well & perfect.
+
+This project will be Deploy to the Firebase Hosting services and link shall be provided upon deploy, obviously. Also made additional clean-ups and deleted bunch of actions that actually I did not need anymore, due I added my custom hook to the project (previously added, but I totally forgot it because I was so gone with the rest of the project).
+
+_Details to be aware:_
+
+Ok, yes, there is exactly 2 errors in the application, witch is the mentioned before, with error `500 Internal Server Error` that practically does not allows me to post the Fb Login and complete the payout with stripe and, since the modifications are from server side and, this challenge it's for the Front-End only, I decided to let it like it is right now. The rest of the application works just fine.
 
 __`[v0.9.41]`__
 

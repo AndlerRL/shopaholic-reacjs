@@ -1,9 +1,11 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
 
 import * as actions from '../../store/actions';
+import Axios from '../../axios-shop';
 import OrdersSummary from '../../components/Orders/Orders';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 const Orders = props => {
   const [orderId, setOrderId] = useState(null);
@@ -55,4 +57,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Orders));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withErrorHandler(Orders, Axios)));

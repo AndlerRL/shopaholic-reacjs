@@ -3,7 +3,9 @@ import { withRouter, Redirect } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
 import * as actions from '../../store/actions';
+import Axios from '../../axios-shop';
 import Products from '../../components/Products/Products';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 const Items = props => {
   const [colorAttributes, setColorAttributes] = useState({
@@ -27,11 +29,15 @@ const Items = props => {
   const [priceRange, setPriceRange] = useState(0);
 
   useEffect(() => {
+    const cart_id = JSON.parse(localStorage.getItem('cart_id'));
+
     props.onGetProducts(props.page, props.products, props.count);
     props.onGetAttributes(props.size, props.color);
     props.onAttributesValues(props.sizeVals, props.colorVals);
     props.onFetchCategories(props.categories);
     props.onFetchDepartments(props.departments);
+    if (cart_id === null)
+      props.onGenerateCartId();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -149,6 +155,19 @@ const Items = props => {
     }
   }
 
+  const addWishList = productId => {
+    console.log(productId);
+    const cart_id = JSON.parse(localStorage.getItem('cart_id'));
+    
+    const attributes = `N/A`;
+    props.onAddProduct(
+      "Fav",
+      cart_id,
+      productId, 
+      attributes
+    );
+  }
+
   let authRedirect = null;
 
   if (props.isAuthenticated && props.onCheckout)
@@ -170,6 +189,8 @@ const Items = props => {
         colorAttribute={colorAttributes}
         sizeAttribute={sizeAttributes}
         colorSelect={colorAttributeHandler}
+        addFav={addWishList}
+        favorites={props.favorites}
         sizeSelect={sizeAttributeHandler}
         filterCat={filterCat}
         filterDep={filterDep}
@@ -207,7 +228,8 @@ const mapStateToProps = state => {
     queryStr: state.products.meta.query_string,
     authRedirectPath: state.auth.authRedirectPath,
     onCheckout: state.orders.onCheckout,
-    isAuthenticated: state.auth.token !== null
+    isAuthenticated: state.auth.token !== null,
+    favorites: state.shoppingCart.favorites
   }
 }
 
@@ -229,12 +251,8 @@ const mapDispatchToProps = dispatch => {
     onFetchProductsInCategory: (page, departmentId) => dispatch(actions.fetchProductsInCategory(page, departmentId)),
     onGenerateCartId: () => dispatch(actions.generateCartId()),
     clearFilter: () => dispatch(actions.clearFilter()),
+    onAddProduct: (direction, cart_id, product_id, attributes) => dispatch(actions.addProductToCart(direction, cart_id, product_id, attributes)),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(withRouter(
-  Items, 
-  (nextProps, prevProps) => nextProps.products === prevProps.products ||
-  nextProps.filterDepartment === prevProps.filterDepartment ||
-  nextProps.filterCategory === prevProps.filterCategory ||
-  nextProps.queryStr === prevProps.queryStr)));
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(withRouter(withErrorHandler(Items, Axios))));

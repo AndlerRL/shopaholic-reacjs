@@ -1,14 +1,15 @@
 import { connect } from 'react-redux';
-import React, { Suspense, useEffect } from 'react';
-import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { Elements, StripeProvider } from 'react-stripe-elements';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import M from 'materialize-css';
+import React, { Suspense, useEffect } from 'react';
 
+import { Loading } from '../../components/UI/Loading/Loading';
 import * as actions from '../../store/actions';
 import Home from '../Home/Home';
 import Layout from '../Layout/Layout';
 import Logout from '../Auth/Logout/Logout';
-import { Loading } from '../../components/UI/Loading/Loading';
 
 const SignIn = React.lazy(() => {
   return import('../Auth/SignIn/SignIn');
@@ -152,7 +153,14 @@ const App = props => {
         <Route exact path="/products" render={props => <Products {...props} />} />
         <Route exact path="/product-details" render={props => <Product {...props} />} />
         <Route exact path="/orders" render={props => <Orders {...props} />} />
-        <Route exact path="/orders/checkout" render={props => <Payout {...props} />} />
+        <Route exact path="/orders/checkout" render={
+          props => 
+          <StripeProvider apiKey={process.env.API_KEY}>
+            <Elements>
+              <Payout {...props} />
+            </Elements>
+          </StripeProvider>
+        } />
         <Route exact path="/logout" render={props => <Logout {...props} />} />
         <Route path="/checkout" render={props => <Checkout {...props} />} />
         <Redirect to="/" />

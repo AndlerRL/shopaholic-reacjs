@@ -20,6 +20,8 @@ const Products = props => {
     setIsHover(!isHover);
   }
 
+  //const favs = props.favorites.map(fav => fav);
+
   const colors = props.colorsAttr.map(color => (
     <div key={color.attribute_value_id}>
       <div style={{ backgroundColor: color.value}}></div>
@@ -34,6 +36,8 @@ const Products = props => {
   if (props.products)
     // eslint-disable-next-line array-callback-return
     fetchedProducts = props.items.map(product => {
+      const favs = props.favorites.map(item => item.name === product.name ? item.name : null);
+      
       if (product.price >= props.sliderValue || product.discounted_price >= props.sliderValue){
         return (
           <div
@@ -45,11 +49,16 @@ const Products = props => {
               <span 
                 onMouseEnter={heartHandler}
                 onMouseLeave={heartHandler}
-                onClick={e => props.addFav(e, product.product_id)}>
-                <IconF 
-                  type={isHover ? 'fas' : 'far'}
-                  icon="heart"
-                  size="2.5rem" />
+                onClick={() => props.addFav(product.product_id)}>
+                { favs.filter(item => item !== null).toString() === product.name ?
+                    <IconF 
+                      type="fas"
+                      icon="heart"
+                      size="2.5rem" /> :
+                    <IconF 
+                      type={isHover ? 'fas' : 'far'}
+                      icon="heart"
+                      size="2.5rem" /> }
               </span>
               <Btn
                 btnType="contained"
@@ -172,7 +181,8 @@ const mapStateToProps = state => {
     isLoading: state.products.isLoading,
     page: state.products.meta.page,
     totalPage: state.products.meta.totalPage,
-    products: state.products.products
+    products: state.products.products,
+    isFavorite: state.shoppingCart.isFavorite,
   }
 }
 
@@ -183,4 +193,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Products);
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Products));

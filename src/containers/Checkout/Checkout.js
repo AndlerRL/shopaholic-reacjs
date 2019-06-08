@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import React, { useEffect } from 'react';
 import { withRouter, Route, Redirect } from 'react-router-dom';
+import React, { useEffect } from 'react';
 
 import * as actions from '../../store/actions';
 import CheckoutSummary from '../../components/CheckoutSummary/CheckoutSummary';
@@ -36,9 +36,6 @@ const Checkout = props => {
     
     if (props.purchased)
       props.onConfirmPurchase()
-
-    if (props.error)
-      props.onConfirmError();
   }
   
   const regions = props.regions.map(region => {
@@ -59,15 +56,6 @@ const Checkout = props => {
         success={true}
         message="Order successfully completed! Sending to products..."
         open={props.purchased}
-        closed={snackbarHandler} />
-    )
-
-  if (props.error)
-    snackbar = (
-      <Snackbar
-        error={true}
-        message={`[ERROR]: ${props.error.message}`}
-        open={props.error !== null}
         closed={snackbarHandler} />
     )
   
@@ -95,7 +83,6 @@ const mapStateToProps = state => {
     purchased: state.orders.purchased,
     regions: state.shipping.regions,
     taxes: state.tax.taxes,
-    error: state.orders.error
   }
 }
 
@@ -105,7 +92,6 @@ const mapDispatchToProps = dispatch => {
     onCheckout: () => dispatch(actions.onCheckout()),
     onFetchRegions: () => dispatch(actions.fetchRegions()),
     onFetchTaxes: () => dispatch(actions.fetchTaxes()),
-    onConfirmError: () => dispatch(actions.confirmOrderError()),
     onConfirmPurchase: () => dispatch(actions.confirmPurchase()),
   }
 }

@@ -2,19 +2,11 @@ import { connect } from 'react-redux';
 import React from 'react';
 
 import { Loading } from '../UI/Loading/Loading';
-import Snackbar from '../UI/Snackbar/Snackbar';
 import Btn from '../UI/Btn/Btn';
 
 import css from './Orders.css';
 
 const orders = props => {
-  const snackbarHandler = (e, reason) => {
-    if (reason === 'clickaway')
-      return;
-
-    //props.onConfirmAdded();
-  }
-
   let snackbar = null;
   let orderDetail = null;
 
@@ -145,15 +137,6 @@ const orders = props => {
   if (props.isLoading && props.orders.length === 0)
     orders = <Loading />
 
-  if (props.error)
-    snackbar = (
-      <Snackbar 
-        error={true}
-        message={`[ERROR]: ${props.error.message}`}
-        open={props.error !== null}
-        closed={snackbarHandler} />
-    )
-
   return (
     <div className={css.Orders}>
       { orders }
@@ -165,7 +148,6 @@ const orders = props => {
 const mapStateToProps = state => {
   return {
     isLoading: state.orders.isLoading,
-    error: state.orders.error,
     onDetails: state.orders.onDetail
   }
 }

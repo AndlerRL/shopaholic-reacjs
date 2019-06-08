@@ -34,6 +34,10 @@
   margin: 0 0 1rem !important;
 }
 
+Input label.active {
+  background-color: blue !important;
+}
+
 .Invalid {
   border-bottom: 1px solid #d50000 !important;
   box-shadow: 0 2px 1px #d500007e !important;
@@ -46,7 +50,7 @@
 
 .ErrorMsg {
   color: #d50000;
-  margin: -2.75rem 0 0;
+  margin: -1.75rem 0 0;
   position: absolute;
   display: flex;
   flex-direction: row;

@@ -106,6 +106,7 @@ const ProductDetail = props => {
       const changeImg = () => {
         setAnimation(!animation);
       }
+      const favs = props.favorites.map(item => item.name === product.name ? item.name : null);
 
       return (
         <div 
@@ -189,7 +190,12 @@ const ProductDetail = props => {
                 <div className={css.AddFavorite}>
                   <BtnIcon
                     btnType={null}
-                    iconType={props.addFav ? "fas" : "far"}
+                    iconType={
+                      favs.filter(item => item !== null).toString() === product.name ?
+                        'fas' :
+                        props.addFav ? 
+                          "fas" :
+                          "far" }
                     icon="heart"
                     iconSize="1.25rem"
                     iconColor="#ff1744"
@@ -197,7 +203,12 @@ const ProductDetail = props => {
                     { props.shopLoading ? <LoadingText style={{
                           top: '-0.916666rem',
                           left: '-.91666rem'
-                     }} /> : <span>{ props.addFav ? 'On Wish List!' : 'Add to Wish List' }</span> }
+                     }} /> : <span>{ 
+                      favs.filter(item => item !== null).toString() === product.name ?
+                        'On Wish List!' :
+                        props.addFav ? 
+                          'On Wish List!' : 
+                          'Add to Wish List' }</span> }
                   </BtnIcon>
                 </div>
                 <SnackBar 
@@ -251,7 +262,8 @@ const mapStateToProps = state => {
     shopLoading: state.shoppingCart.isLoading,
     averageStars: state.products.averageStars,
     isShopping: state.shoppingCart.isShopping,
-    isFavorite: state.shoppingCart.isFavorite
+    isFavorite: state.shoppingCart.isFavorite,
+    favorites: state.shoppingCart.favorites,
   }
 }
 

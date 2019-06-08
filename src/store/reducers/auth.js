@@ -97,11 +97,6 @@ const goToSignUp = (state, action) => {
     isSignUp: !state.isSignUp
   })
 }
-const confirmAuthError = (state, action) => {
-  return updateObject(state, {
-    error: null
-  })
-}
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -151,8 +146,6 @@ const reducer = (state = initState, action) => {
       return goToSignIn(state, action);
     case actionTypes.GO_TO_SIGN_UP:
       return goToSignUp(state, action);
-    case actionTypes.AUTH_CONFIRM_ERROR:
-      return confirmAuthError(state, action);
     default:
       return state;
   }

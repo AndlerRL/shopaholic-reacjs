@@ -96,11 +96,6 @@ export const onCheckout = () => {
     type: actionTypes.ORDERS_ON_CHECKOUT
   }
 }
-export const confirmOrderError = () => {
-  return {
-    type: actionTypes.ORDERS_CONFIRM_ERROR
-  }
-}
 export const confirmPurchase = () => {
   return {
     type: actionTypes.ORDERS_CONFIRM

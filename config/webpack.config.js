@@ -25,6 +25,8 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
+const Dotenv = require('dotenv-webpack');
+const Stripe = require('stripe')(process.env.API_KEY);
 
 const postcssNormalize = require('postcss-normalize');
 
@@ -503,6 +505,7 @@ module.exports = function(webpackEnv) {
             : undefined
         )
       ),
+      new Dotenv(),
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
       isEnvProduction &&

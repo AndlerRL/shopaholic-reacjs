@@ -17,7 +17,7 @@ export function* fetchTaxesSaga(action) {
 export function* taxIdSaga(action) {
   try {
     const response = yield Axios.get(`/tax/${action.taxId}`);
-    console.log('FETCH TAX BY ID RES: ', response);
+    
     yield put(actions.taxId(response.data));
   } catch(error) {
     console.error(error);

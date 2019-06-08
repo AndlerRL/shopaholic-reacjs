@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
-import React, { useState, useEffect, useMemo } from 'react';
 import { withRouter } from 'react-router-dom'
+import React, { useState, useEffect, useMemo } from 'react';
 
 import * as actions from '../../store/actions';
+import Axios from '../../axios-shop';
 import Cart from '../../components/ShoppingCart/ShoppingCart';
 import Modal from '../../components/UI/Modal/Modal';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 const ShoppingCart = props => {
   const [remove, setRemove] = useState(false);
@@ -116,4 +118,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(withRouter(ShoppingCart)));
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(withRouter(withErrorHandler(ShoppingCart, Axios))));

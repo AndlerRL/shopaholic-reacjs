@@ -63,6 +63,10 @@ import {
   taxIdSaga,
   fetchTaxesSaga
 } from './tax';
+import {
+  stripeChargeSaga,
+  stripeWebhooksSaga
+} from './stripe';
 
 export function* watchAttributes() {
   yield takeEvery(actionTypes.FETCH_ATTRIBUTES, fetchAttributesSaga)
@@ -141,7 +145,10 @@ export function* watchShipping() {
 }
 
 export function* watchStripe() {
-  
+  yield all([
+    takeEvery(actionTypes.STRIPE_CHARGE_INIT, stripeChargeSaga),
+    takeEvery(actionTypes.STRIPE_WEBHOOKS_INIT, stripeWebhooksSaga)
+  ]);
 }
 
 export function* watchTax() {

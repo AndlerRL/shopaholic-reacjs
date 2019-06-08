@@ -40,8 +40,3 @@ export const shippingIdFail = error => {
     error: error
   }
 }
-export const confirmShippingError = () => {
-  return {
-    type: actionTypes.SHIPPING_CONFIRM_ERROR
-  }
-}

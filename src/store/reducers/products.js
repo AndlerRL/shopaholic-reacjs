@@ -222,12 +222,7 @@ const postReview = (state, action) => {
     isLoading: null,
     error: null,
   })
-}
-const confirmProductsError = (state, action) => {
-  return updateObject(state, {
-    error: null
-  })
-}
+};
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -323,8 +318,6 @@ const reducer = (state = initState, action) => {
       return productsCatPrev(state, action);
     case actionTypes.PRODUCTS_IN_CATEGORY_PREV_FAIL:
       return fail(state, action);
-    case actionTypes.PRODUCTS_CONFIRM_ERROR:
-      return confirmProductsError(state, action);
     default:
       return state;
   }

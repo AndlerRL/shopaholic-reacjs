@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
-import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
+import React, { useState } from 'react';
 
-import * as actions from '../../store/actions';
 import { checkValidity, updateObject } from '../../share/utility';
+import * as actions from '../../store/actions';
+import Axios from '../../axios-shop';
 import Search from '../../components/Search/Search';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 const SearchQuery = props => {
   const [search, setSearch] = useState({
@@ -86,4 +88,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(withRouter(SearchQuery)));
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(withRouter(withErrorHandler(SearchQuery, Axios))));

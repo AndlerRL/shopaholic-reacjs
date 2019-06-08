@@ -1,21 +1,11 @@
 import { updateObject } from '../../share/utility';
 import * as actionTypes from '../actions/actionTypes';
-/***
- * NEED WORK ON STRIPE, 
- * SO I CAN COMBINE EXPRESS,
- * BODY-PARSER AND 
- * REDUX/REDUX THUNK 
- * AND SAGAS
- ***/
 
 const initState = {
   isLoading: null,
   error: null,
-  stripeToken: null,
-  orderId: null,
-  description: null,
-  amount: null,
-  currency: null
+  chargeOrder: {},
+  received: null,
 }
 
 const start = (state, action) => {
@@ -32,24 +22,18 @@ const fail = (state, action) => {
 };
 const postCharge = (state, action) => {
   return updateObject(state, {
-    stripeToken: action.stripeToken,
-    orderId: action.orderId,
-    description: action.description,
-    amount: action.amount,
-    currency: action.currency
+    isLoading: null,
+    error: null,
+    chargeOrder: action.chargeOrder
   })
 };
 const webhooks = (state, action) => {
   return updateObject(state, {
     isLoading: null,
-    error: null
+    error: null,
+    received: action.received
   })
-}
-const confirmStripeError = (state, action) => {
-  return updateObject(state, {
-    error: null
-  })
-}
+};
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -65,8 +49,6 @@ const reducer = (state = initState, action) => {
       return webhooks(state, action);
     case actionTypes.STRIPE_WEBHOOKS_FAIL:
       return fail(state, action);
-    case actionTypes.STRIPE_CONFIRM_ERROR:
-      return confirmStripeError(state, action);
     default:
       return state;
   }

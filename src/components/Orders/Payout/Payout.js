@@ -1,31 +1,12 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import { injectStripe, CardNumberElement, CardCVCElement, CardExpiryElement } from 'react-stripe-elements';
 
 import Btn from '../../UI/Btn/Btn';
-import { Loading } from '../../UI/Loading/Loading';
+import { Loading, LoadingImg } from '../../UI/Loading/Loading';
 
 import css from './Payout.css';
 
 const payout = props => {
-  const payoutHandler = async e => {
-    let token = await props.stripe.createToken({
-      name: props.userData.name
-    });
-
-    /**
-     * DON'T SAVE OR RELOAD!
-     * I GOT IT SOLVED. NOW THAT I GOT THE INFO,
-     * I JUST NEED THE FOLLOWING:
-     * ORDER_ID FROM CONTAINER AS PROPS
-     * ANY DESCRIPTION, STRIPE API TELLS WHAT IT IS
-     * AMOUNT IT'S AN INTEGER, FROM THE ORDER OF COURSE (AS A PROPS TOO)
-     * CURRENCY USD, DUH
-     * TOKEN IT GENERATES ALONE.
-     */
-    console.log(token);
-  }
-
   let month = [];
   month[0] = "Jan";
   month[1] = "Feb";
@@ -40,12 +21,27 @@ const payout = props => {
   month[10] = "Nov";
   month[11] = "Dec";
 
-  console.log(props);
-
   const dateStr = Date.parse(props.order.created_on);
   const dateNum = new Date(dateStr);
   const getMonth = month[dateNum.getMonth()];
   const parseDate = `${getMonth}, ${dateNum.getDate()} ${dateNum.getFullYear()} at ${dateNum.getHours()}:${dateNum.getMinutes()}hrs`;
+
+  let btn = (
+    <Btn
+      btnType="contained"
+      btnColor="primary"
+      size="large"
+      clicked={props.payout}>
+      Continue
+    </Btn>
+  )
+
+  if (props.isLoadingStripe)
+    btn = <LoadingImg style={{
+      top: '2rem',
+      width: 80,
+      margin: '0 275px',
+    }} />
 
   return (
     <div className={css.Payout}>
@@ -87,27 +83,8 @@ const payout = props => {
         }
       <h5>Please, provide next information to continue.</h5>
       <div className={css.CCInfo}>
-        <div>
-          <label> Credit or Debit card </label>
-          <CardNumberElement />
-        </div>
-        <div>
-          <div>
-            <label> Expiration Date </label>
-            <CardExpiryElement />
-          </div>
-          <div>
-            <label> CVC code </label>
-            <CardCVCElement />
-          </div>
-        </div>
-        <Btn
-          btnType="contained"
-          btnColor="primary"
-          size="large"
-          clicked={payoutHandler}>
-          Continue
-        </Btn>
+        { props.children }
+        { btn }
       </div>
       <div className={css.Hint}>
         <span>*Hint:</span>
@@ -125,9 +102,8 @@ const payout = props => {
 const mapStateToProps = state => {
   return {
     isLoading: state.orders.isLoading,
-    error: state.orders.error,
-    userData: state.auth.userData
+    isLoadingStripe: state.stripe.isLoading,
   }
 }
 
-export default connect(mapStateToProps)(injectStripe(React.memo(payout)));
+export default connect(mapStateToProps)(React.memo(payout));

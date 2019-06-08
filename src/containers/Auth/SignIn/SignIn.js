@@ -1,15 +1,16 @@
 import { connect } from 'react-redux';
 import React, { useState } from 'react';
 
-import * as actions from '../../../store/actions';
 import { checkValidity, updateObject } from '../../../share/utility';
-import Modal from '../../../components/UI/Modal/Modal';
-import Input from '../../../components/UI/Form/Input/Input';
 import { Loading } from '../../../components/UI/Loading/Loading';
+import * as actions from '../../../store/actions';
+import Axios from '../../../axios-shop';
 import Btn from '../../../components/UI/Btn/Btn';
-import IconF from '../../../components/UI/Icons/IconF';
 import FBAuth from '../FBAuth';
-import Snackbar from '../../../components/UI/Snackbar/Snackbar';
+import IconF from '../../../components/UI/Icons/IconF';
+import Input from '../../../components/UI/Form/Input/Input';
+import Modal from '../../../components/UI/Modal/Modal';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 
 import css from '../Auth.css';
 
@@ -46,8 +47,7 @@ const SignIn = props => {
       valid: false,
       touched: false,
     }
-  })
-  const [fbError, setFbError] = useState(false);
+  });
 
   const inputChangedHandler = (e, controlName) => {
     const updatedControlsIn = updateObject(controlsIn, {
@@ -69,18 +69,10 @@ const SignIn = props => {
 
   const facebookLoginHandler = (loginStatus, resultObject) => {
     if (loginStatus === true) {
-      console.log('FB SERVER RES.DATA:', resultObject);
       props.onFbAuth(resultObject.authResponse.accessToken)
     } else {
-      setFbError(true);
+      console.error("[UNKNOWN] Couldn't login successfully");
     }
-  }
-
-  const snackbarHandler = (e, reason) => {
-    if (reason === 'clickaway')
-      return;
-
-    setFbError(false);
   }
 
   const formEleArray = [];
@@ -106,13 +98,8 @@ const SignIn = props => {
       changed={e => inputChangedHandler(e, formEle.id)} />
   ));
   
-  let error = null;
-  
   if (props.isLoading)
     form = <Loading />;
-
-  if (props.error) 
-    error = <p className={css.ErrorMsg}>ERROR: { props.error.message }</p>  
   
   return (
     <Modal
@@ -122,7 +109,6 @@ const SignIn = props => {
         className={css.SignIn}
         onSubmit={submitHandler}>
         <h4 className={css.Title}>Please, Login to Shopaholic</h4>
-        { error }
         { form }
         <p>Don't have an account? <span onClick={props.switchSignUp}> Sign Up </span> here!</p>
         <div className={css.SocialLogin}>
@@ -151,11 +137,6 @@ const SignIn = props => {
           </Btn>
         </div>
       </form>
-      <Snackbar 
-        error={true}
-        open={fbError}
-        close={snackbarHandler}
-        message="[ERROR] Failed to authenticate user while login." />
     </Modal>
   )
 };
@@ -163,7 +144,6 @@ const SignIn = props => {
 const mapStateToProps = state => {
   return {
     isLoading: state.auth.isLoading,
-    error: state.auth.error,
     isAuthenticated: state.auth.token !== null,
     onCheckout: state.orders.onCheckout,
     authRedirectPath: state.auth.authRedirectPath,
@@ -178,4 +158,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(SignIn));
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(withErrorHandler(SignIn, Axios)));

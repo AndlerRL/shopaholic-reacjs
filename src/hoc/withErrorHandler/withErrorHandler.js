@@ -1,7 +1,7 @@
 import React from 'react';
 
 import useHttpErrorHandler from '../../hooks/http-error-handler';
-import Modal from '../../components/UI/Modal/Modal';
+import Snackbar from '../../components/UI/Snackbar/Snackbar';
 
 const withErrorHandler = (WrappedComponent, axios) => {
   return props => {
@@ -9,18 +9,11 @@ const withErrorHandler = (WrappedComponent, axios) => {
 
     return (
       <React.Fragment>
-        <Modal
-          show={error}
-          modalClosed={errorConfirmed}>
-          <div style={{
-            transform: 'rotateZ(90deg)',
-            margin: '1rem auto',
-            width: '24px',
-            height: '24px'
-            }}> :(</div>
-          <h4 align="center">Something went wrong!</h4>
-          <code style={{margin: '5rem'}}>[ERROR] { error ? error.message : null }</code>
-        </Modal>
+        <Snackbar 
+          error={true}
+          open={error}
+          closed={errorConfirmed}
+          message={`[ERROR] ${error ? error.message : null}`} />
         <WrappedComponent {...props} />
       </React.Fragment>
     )

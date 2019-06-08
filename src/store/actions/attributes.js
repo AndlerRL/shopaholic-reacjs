@@ -94,8 +94,3 @@ export const attributeInProductFail = error => {
     error: error
   }
 }
-export const confirmAttributesError = () => {
-  return {
-    type: actionTypes.ATTRIBUTES_CONFIRM_ERROR
-  }
-}

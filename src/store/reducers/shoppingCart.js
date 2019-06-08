@@ -116,11 +116,6 @@ const goToFavorite = (state, action) => {
   return updateObject(state, {
     onFavorite: !state.onFavorite
   })
-}
-const confirmShoppingCartError = (state, action) => {
-  return updateObject(state, {
-    error: null
-  })
 };
 
 const reducer = (state = initState, action) => {
@@ -185,8 +180,6 @@ const reducer = (state = initState, action) => {
       return fail(state, action);
     case actionTypes.GO_TO_FAVORITES:
       return goToFavorite(state, action);
-    case actionTypes.SHOPPING_CART_CONFIRM_ERROR:
-      return confirmShoppingCartError(state, action);
     default:
       return state;
   }

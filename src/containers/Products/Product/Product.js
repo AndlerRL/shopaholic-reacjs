@@ -3,10 +3,11 @@ import { withRouter, Redirect } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
 import * as actions from '../../../store/actions';
+import Axios from '../../../axios-shop';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import { updateObject, checkValidity } from '../../../share/utility';
 import Input from '../../../components/UI/Form/Input/Input';
 import ProductDetail from '../../../components/Products/Product/Product';
-import Snackbar from '../../../components/UI/Snackbar/Snackbar';
 
 const Item = props => {
   const [colorAttributes, setColorAttributes] = useState({
@@ -233,13 +234,6 @@ const Item = props => {
     props.history.push('/product-details');
   }
 
-  const snackbarHandler = (e, reason) => {
-    if (reason === 'clickaway')
-      return;
-
-    //props.onConfirmAdded();
-  }
-
   const form = [];
 
   for (let key in review) {
@@ -274,15 +268,6 @@ const Item = props => {
 
   if (props.onCheckout && (props.match.path === "/checkout" || props.match.path === "/checkout/contact-data"))
     authRedirect = null;
-
-  if (props.error)
-    snackbar = (
-      <Snackbar
-        error={true}
-        message={`[ERROR]: ${props.error.message}`}
-        open={props.error !== null}
-        closed={snackbarHandler} />
-    )
 
   return (
     <React.Fragment>
@@ -335,7 +320,6 @@ const mapStateToProps = state => {
     authRedirectPath: state.auth.authRedirectPath,
     isSignIn: state.auth.isSignIn,
     isSignUp: state.auth.isSignUp,
-    error: state.shoppingCart.error
   }
 }
 
@@ -356,4 +340,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Item));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withErrorHandler(Item, Axios)));

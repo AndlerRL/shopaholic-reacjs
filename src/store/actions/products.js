@@ -372,8 +372,3 @@ export const postReviewFail = error => {
     error: error
   }
 }
-export const confirmProductError = () => {
-  return {
-    type: actionTypes.PRODUCTS_CONFIRM_ERROR
-  }
-}

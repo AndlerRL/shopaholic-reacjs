@@ -57,14 +57,14 @@ export function* loginUserSaga(action) {
 
 export function* loginFbUserSaga(action) {
   yield put(actions.authFbStart());
-  console.log('AVAILABLE ACTIONS FROM FB LOGIN: ', action)
+  
   try {
     const accessToken = {
       access_token: action.accessToken
     }
     const response = yield Axios.post('/customers/facebook', accessToken);
     const expDate = yield new Date(new Date().getTime() + 86400000);
-    console.log('LOGIN FB USER RES.DATA: ', response.data);
+    
     yield localStorage.setItem('token', response.data.accessToken);
     yield localStorage.setItem('expDate', expDate); 
     yield put(actions.authFbSuccess(response.data.accessToken, response.data.customer));
@@ -86,9 +86,11 @@ export function* authCheckStateSaga(action) {
     if (expDate <= new Date())
       yield put(actions.logout());
     else {
-      const response = yield Axios.get('/customer');
-      console.log(response);
-
+      const response = yield Axios.get('/customer', {
+        headers: {
+          "USER-KEY": token
+        }
+      });
       yield put(actions.authSuccess(token, response.data));
       yield put(actions.checkAuthTimeout((expDate.getTime() - new Date().getTime())))
     }
@@ -99,7 +101,12 @@ export function* updateCustomerSaga(action) {
   yield put(actions.updateCustomerStart())
 
   try {
-    const response = yield Axios.put(`/customer`, action.updateCustomer);
+    const token = yield localStorage.getItem('token');
+    const response = yield Axios.put(`/customer`, action.updateCustomer, {
+      headers: {
+        "USER-KEY": token
+      }
+    });
     
     yield put(actions.updateCustomerSuccess(response.data));
   } catch(error) {
@@ -112,7 +119,12 @@ export function* updateCustomerAddressSaga(action) {
   yield put(actions.addressStart());
 
   try {
-    const response = yield Axios.put(`/customers/address`, action.customerAddress);
+    const token = yield localStorage.getItem('token');
+    const response = yield Axios.put(`/customers/address`, action.customerAddress, {
+      headers: {
+        "USER-KEY": token
+      }
+    });
     
     yield put(actions.addressSuccess(response.data));
   } catch(error) {
@@ -125,7 +137,12 @@ export function* updateCCSaga(action) {
   yield put(actions.ccStart());
 
   try {
-    const response = yield Axios.put(`/customers/creditCard`, action.cc);
+    const token = yield localStorage.getItem('token');
+    const response = yield Axios.put(`/customers/creditCard`, action.cc, {
+      headers: {
+        "USER-KEY": token
+      }
+    });
     console.log('UPDATE CC RES.DATA: ', response.data);
     yield put(actions.ccSuccess(response.data));
   } catch(error) {

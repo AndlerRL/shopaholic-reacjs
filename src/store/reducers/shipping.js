@@ -31,11 +31,6 @@ const fetchRegionId = (state, action) => {
     shippingOpt: action.shippingOpt
   })
 };
-const confirmShippingError = (state, action) => {
-  return updateObject(state, {
-    error: null
-  })
-};
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -49,8 +44,6 @@ const reducer = (state = initState, action) => {
       return fetchRegionId(state, action);
     case actionTypes.SHIPPING_ID_FAIL:
       return fail(state, action);
-    case actionTypes.SHIPPING_CONFIRM_ERROR:
-      return confirmShippingError(state, action);
     default:
       return state;
   }

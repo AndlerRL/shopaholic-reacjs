@@ -201,11 +201,16 @@ export function* postProductReviewSaga(action) {
   yield put(actions.postReviewStart())
 
   try {
+    const token = yield localStorage.getItem('token');
     const reviewData = {
       review: action.review,
       rating: action.rating
     }
-    yield Axios.post(`/products/${action.productId}/reviews`, reviewData)
+    yield Axios.post(`/products/${action.productId}/reviews`, reviewData, {
+      headers: {
+        "USER-KEY": token
+      }
+    })
     const product_id = yield call([localStorage, 'getItem'], 'product_detail_id')
 
     yield put(actions.postReviewSuccess());

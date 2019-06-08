@@ -1,13 +1,17 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-unused-vars */
 import { connect } from 'react-redux';
 import M from 'materialize-css';
 import React, { useEffect, useState } from 'react';
 
-import * as actions from '../../../store/actions';
+import { Loading } from '../../../components/UI/Loading/Loading';
 import { updateObject, checkValidity } from '../../../share/utility';
+import * as actions from '../../../store/actions';
+import Axios from '../../../axios-shop';
+import BtnIcon from '../../../components/UI/Btn/BtnIcon';
 import ContactDataSummary from '../../../components/CheckoutSummary/ContactDataSummary/ContactDataSummary';
 import Input from '../../../components/UI/Form/Input/Input';
-import BtnIcon from '../../../components/UI/Btn/BtnIcon';
-import { Loading } from '../../../components/UI/Loading/Loading';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 
 const ContactData = props => {
   const [taxes, setTaxes] = useState(props.taxes);
@@ -345,4 +349,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, Axios));

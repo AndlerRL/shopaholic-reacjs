@@ -19,7 +19,7 @@ export const LoadingText = props => (
 )
 
 export const LoadingImg = props => (
-  <div className={css.LdsFacebook}>
+  <div className={css.LdsFacebook} style={props.style}>
     <div></div>
     <div></div>
     <div></div>

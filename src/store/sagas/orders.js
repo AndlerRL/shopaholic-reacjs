@@ -7,7 +7,12 @@ export function* createOrderSaga(action) {
   yield put(actions.ordersStart());
 
   try {
-    const response = yield Axios.post('/orders', action.orderData);
+    const token = yield localStorage.getItem('token');
+    const response = yield Axios.post('/orders', action.orderData, {
+      headers: {
+        "USER-KEY": token
+      }
+    });
     
     yield put(actions.ordersSuccess(response.data));
     yield call([localStorage, 'removeItem'], 'cart_id');
@@ -22,7 +27,12 @@ export function* fetchOrderIdSaga(action) {
   yield put(actions.ordersIdStart());
 
   try {
-    const response = yield Axios.get(`/orders/${action.orderId}`);
+    const token = yield localStorage.getItem('token');
+    const response = yield Axios.get(`/orders/${action.orderId}`, {
+      headers: {
+        "USER-KEY": token
+      }
+    });
     
     yield put(actions.ordersIdSuccess(response.data));
   } catch(error) {
@@ -35,7 +45,12 @@ export function* ordersInCustomerSaga(action) {
   yield put(actions.ordersCustomerStart());
 
   try {
-    const response = yield Axios.get('/orders/inCustomer');
+    const token = yield localStorage.getItem('token')
+    const response = yield Axios.get('/orders/inCustomer', {
+      headers: {
+        "USER-KEY": token
+      }
+    });
     
     yield put(actions.ordersCustomerSuccess(response.data));
   } catch(error) {
@@ -48,7 +63,12 @@ export function* ordersShortDetailSaga(action) {
   yield put(actions.ordersShortDetailsStart());
 
   try {
-    const response = yield Axios.get(`/orders/shortDetail/${action.orderId}`);
+    const token = yield localStorage.getItem('token');
+    const response = yield Axios.get(`/orders/shortDetail/${action.orderId}`, {
+      headers: {
+        "USER-KEY": token
+      }
+    });
     
     yield put(actions.ordersShortDetailsSuccess(response.data));
   } catch(error) {

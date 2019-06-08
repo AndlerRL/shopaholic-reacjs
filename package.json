@@ -1,6 +1,6 @@
 {
   "name": "shopaholic-app",
-  "version": "0.9.41",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@babel/core": "7.4.3",
@@ -23,7 +23,7 @@
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "classnames": "^2.2.6",
     "css-loader": "2.1.1",
-    "dotenv": "6.2.0",
+    "dotenv": "^6.2.0",
     "dotenv-expand": "4.2.0",
     "eslint": "^5.16.0",
     "eslint-config-react-app": "^4.0.1",
@@ -40,7 +40,6 @@
     "html-webpack-plugin": "4.0.0-beta.5",
     "identity-obj-proxy": "3.0.0",
     "is-wsl": "^1.1.0",
-    "jest": "24.7.1",
     "jest-environment-jsdom-fourteen": "0.1.0",
     "jest-resolve": "24.7.1",
     "jest-watch-typeahead": "0.3.0",
@@ -83,7 +82,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "jest --env=node"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -149,5 +148,11 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "dotenv-webpack": "^1.7.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "jest": "^24.7.1"
   }
 }

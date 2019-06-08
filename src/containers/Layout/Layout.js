@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
-import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
-import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import Footer from '../../components/UI/Footer/Footer';
+import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 
 import css from './Layout.css';
 

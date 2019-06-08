@@ -1,13 +1,15 @@
 import { connect } from 'react-redux';
-import React, { useState, useEffect, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
 
-import * as actions from '../../../store/actions';
 import { checkValidity, updateObject } from '../../../share/utility';
-import Modal from '../../../components/UI/Modal/Modal';
-import Input from '../../../components/UI/Form/Input/Input';
 import { Loading } from '../../../components/UI/Loading/Loading';
+import * as actions from '../../../store/actions';
+import Axios from '../../../axios-shop';
 import Btn from '../../../components/UI/Btn/Btn';
+import Input from '../../../components/UI/Form/Input/Input';
+import Modal from '../../../components/UI/Modal/Modal';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 
 import css from '../Auth.css';
 
@@ -132,11 +134,6 @@ const SignUp = props => {
   if (props.loading)
     form = <Loading />;
 
-  let error = null;
-
-  if (props.error) 
-    error = <p className={'z-depth-1 ' + css.ErrorMsg}>ERROR: { props.error.message }</p>  
-
   return (
     <Modal
       modalClosed={props.signUpClosed}
@@ -145,7 +142,6 @@ const SignUp = props => {
         className={css.SignUp}
         onSubmit={submitHandler}>
         <h4 className={css.Title}>Please, Sign Up to Shopaholic</h4>
-        { error }
         { form }
         <p>Already have an account? <span onClick={props.switchSignIn}> Sign In </span> here!</p>
         <div className={css.BtnContainer}>
@@ -172,7 +168,6 @@ const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.token !== null,
     isLoading: state.auth.isLoading,
-    error: state.auth.error
   }
 }
 
@@ -182,4 +177,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignUp));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withErrorHandler(SignUp, Axios)));

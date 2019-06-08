@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import React from 'react';
 import { Redirect } from 'react-router-dom';
+import React from 'react';
 
 import * as actions from '../../store/actions';
 import Header from '../../components/Home/Header/Header';

@@ -35,8 +35,3 @@ export const taxIdFail = error => {
     error: error
   }
 }
-export const confirmTaxError = () => {
-  return {
-    type: actionTypes.TAX_CONFIRM_ERROR
-  }
-}
