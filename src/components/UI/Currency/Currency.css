@@ -1,0 +1,31 @@
+.Currency {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0 .5rem;
+}
+
+.Currency > p {
+  font-family: 'Dosis', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 1rem;
+  margin-left: 6px;
+}
+
+.Currency > div > i {
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.001) .5s 100ms !important;
+}
+
+.Currency > div > i:hover {
+  color: #03a9f4 !important;
+}
+
+@media screen and (min-width: 750px) {
+  .Currency > p,
+  .Currency > div > i {
+    font-size: .9rem !important;
+  }
+}

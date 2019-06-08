@@ -1,0 +1,166 @@
+.Footer {
+  bottom: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0;
+  background-color: #fff;
+}
+
+.Subscription,
+.HomeSubscription {
+  display: inline-flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  padding: 8px 16px;
+  top: 0;
+  background-color: #f5f5f5;
+}
+
+.HomeSubscription {
+  padding: 48px;
+}
+
+.HomeSubscription > b {
+  font-size: 2.15rem;
+  font-family: 'Tajawal', sans-serif;
+  font-weight: 500;
+  color: #ff5252;
+}
+
+.HomeSubscription > p {
+  width: 100%;
+  font-size: 1.15rem;
+  font-family: 'Tajawal', sans-serif;
+  font-weight: 500;
+  text-align: center;
+}
+
+.HomeSubscription  > .Subs {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.Subscription > p,
+.Subscription > .Subs {
+  width: 100%;
+}
+
+.Subscription > .Subs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.Subscription > .Subs > div,
+.HomeSubscription > .Subs > div {
+  width: 66.66%;
+}
+
+.Subscription > .Subs > button,
+.HomeSubscription > .Subs > button {
+  width: 33.33%;
+}
+
+.Container {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 0 16px 24px;
+}
+
+.License {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 24px;
+}
+
+.Query > li:first-child {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.1rem;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.Query > li:not(:first-child),
+.License > li:not(:first-child) {
+  cursor: pointer;
+  transition: all cubic-bezier(0.19, 1, 0.22, 1) 1s;
+}
+
+.Query > li:not(:first-child):hover,
+.License > li:not(:first-child):hover,
+.MoreLicense {
+  letter-spacing: 1px;
+}
+
+.License > li:first-child {
+  font-weight: 400;
+  font-size: 1.1rem;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.License > li:not(:first-child) {
+  opacity: .6;
+  font-weight: 400;
+}
+
+.MoreLicense {
+  width: 91.666%;
+  margin: 1rem auto;
+  font-weight: 500;
+  text-align: center;
+}
+
+@media screen and (min-width: 600px) {
+  .Subscription {
+    flex-direction: row;
+  }
+
+  .HomeSubscription > p {
+    width: 600px;
+  }
+  
+  .HomeSubscription  > .Subs {
+    width: 500px;
+    flex-direction: row;
+  }
+  
+  .Subscription > p,
+  .Subscription > .Subs {
+    width: 50%;
+  }
+
+  .Subscription > .Subs {
+    flex-direction: row;
+  }
+
+  .Subscription > .Subs > div {
+    width: 75%;
+  }
+
+  .Subscription > .Subs > button {
+    width: 25%;
+  }
+
+  .License {
+    width: 300px;
+    justify-content: space-between;
+    margin: 1rem auto;
+  }
+
+  .MoreLicense {
+    width: 500px;
+  }
+}

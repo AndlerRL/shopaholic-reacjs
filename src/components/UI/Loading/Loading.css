@@ -1,0 +1,148 @@
+.LdsCircle {
+  display: flex;
+  margin: 10rem 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateZ(1px);
+}
+.LdsCircle > div {
+  display: inline-block;
+  width: 5rem;
+  height: 5rem;
+  margin: 6px;
+  border-radius: 50%;
+  background: #434343;
+  animation: lds-circle 3s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.LdsCircle > span {
+  margin: 6px;
+  animation: growing 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+@keyframes lds-circle {
+  0%, 100% {
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+  }
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(1800deg);
+    animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+  }
+  100% {
+    transform: rotateY(3600deg);
+  }
+}
+@keyframes growing {
+  0%, 100% {
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+  }
+  0% {
+    transform: scale(1.25);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.25);
+  }
+}
+
+.LdsEllipsis {
+  display: inline-block;
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+.LdsEllipsis div {
+  position: absolute;
+  top: 27px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff3d00;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.LdsEllipsis div:nth-child(1) {
+  left: 6px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.LdsEllipsis div:nth-child(2) {
+  left: 6px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.LdsEllipsis div:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.LdsEllipsis div:nth-child(4) {
+  left: 45px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(19px, 0);
+  }
+}
+
+
+
+.LdsFacebook {
+  display: inline-block;
+  position: relative;
+  top: 72px;
+  left: 64px;
+  width: 180px;
+  height: 191px;
+  transform: scale(1.15);
+}
+.LdsFacebook div {
+  display: inline-block;
+  position: absolute;
+  left: 6px;
+  width: 13px;
+  background:#004d40;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.LdsFacebook div:nth-child(1) {
+  left: 6px;
+  animation-delay: -0.24s;
+}
+.LdsFacebook div:nth-child(2) {
+  left: 26px;
+  animation-delay: -0.12s;
+}
+.LdsFacebook div:nth-child(3) {
+  left: 45px;
+  animation-delay: 0;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 6px;
+    height: 51px;
+  }
+  50%, 100% {
+    top: 19px;
+    height: 26px;
+  }
+}

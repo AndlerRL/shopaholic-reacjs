@@ -1,0 +1,82 @@
+p {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: .9rem;
+  letter-spacing: 1px;
+}
+
+.ToolbarTop {
+  display: none;
+  box-sizing: border-box;
+  transition: all ease-in-out 1s;
+}
+
+
+@media screen and (min-width: 750px) {
+  .ToolbarTop {
+    align-items: center;
+    position: relative;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    display: flex;
+    background-color: #fafafa;
+    transition: all ease-in-out .25s 100ms;
+    height: 3rem;
+    z-index: 1500;
+  }
+  
+  .ToolbarTop > .SignInUp > p > li {
+    text-decoration: none;
+    cursor: pointer;
+    list-style-type: none;
+    display: inline-block;
+  }
+  
+  .ToolbarTop > .SignInUp > p > li > span {
+    color: #ff1744;
+  }
+  
+  .ToolbarTop > .SignInUp > p > li > span:hover {
+    color: #ff8a80;
+  }
+  
+  .ToolbarTop > .AddLinks {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .ToolbarTop > .Actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  
+  .NavigationItem {
+    margin: 0 auto;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: auto;
+  }
+  
+  .NavigationItem > a {
+    color: #212121 !important;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    padding: 0 16px;
+    box-sizing: border-box;
+    display: block;
+    border-bottom: 4px solid transparent;
+    transition: all .33s ease-in-out !important;
+  }
+  
+  .NavigationItem a:hover,
+  .NavigationItem a:active,
+  .NavigationItem a.active {
+    border-bottom: 4px solid #434343;
+  }
+}

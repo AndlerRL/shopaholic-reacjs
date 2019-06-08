@@ -1,0 +1,138 @@
+.Filter {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+.FilterHead {
+  border-bottom: 2px solid #222;
+  width: 100%;
+  text-align: center;
+  height: 15rem;
+  overflow-y: auto;
+  background-color: #e0e0e0; 
+}
+
+.FilterHead > ul > li {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.FilterHead > ul > li > div {
+  cursor: pointer;
+}
+
+.FilterHead > ul > li > div:hover {
+  color: #2226;
+  animation: turn cubic-bezier(0.175, 0.885, 0.32, 1.275) 2s;
+}
+
+.FilterBody {
+  width: 100%;
+  padding: 16px;
+  overflow-y: scroll;
+}
+
+.Attributes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.Attributes > span {
+  font-size: 1.25rem;
+  color: #757575;
+  font-family: 'Titillium Web', sans-serif;
+  letter-spacing: 2px;
+}
+
+.Attributes > .Colors,
+.Attributes > .Sizes {
+  width: 100%;
+  margin: 1rem auto;
+}
+
+.Attributes > .Colors::after,
+.Attributes > .Sizes::after {
+  clear: both;
+  display: table;
+  content: "";
+}
+
+.Attributes > .Colors > .ColorItem,
+.Attributes > .Sizes > .SizeItem,
+.Attributes .Selected {
+  float: left;
+  box-sizing: border-box;
+  margin: .75rem;
+  padding: 4px;
+  background-color: #f5f5f5;
+  transition: all cubic-bezier(0.23, 1, 0.320, 1) .33s 150ms;
+  cursor: pointer;
+}
+
+.Attributes > .Colors > .ColorItem:hover,
+.Attributes > .Sizes > .SizeItem:hover {
+  background-color: #eeeeee;
+  transform: scale(1.05);
+  box-shadow: 0 3px 3px 0 rgba(75, 75, 75, 0.14),
+    0 1px 7px 0 rgba(75, 75, 75, 0.12), 
+    0 3px 1px -1px rgba(75, 75, 75, 0.2);
+}
+
+.Attributes > .Colors > .ColorItem,
+.Attributes > .Colors > .Selected {
+  border: 1px solid #2222;
+  border-radius: 50%;
+}
+
+.Attributes > .Colors > .Selected {
+  transform: scale(1.05);
+  box-shadow: 0 4px 5px 0 rgba(75, 75, 75, 0.14),
+    0 1px 10px 0 rgba(75, 75, 75, 0.12),
+    0 2px 4px -1px rgba(75, 75, 75, 0.3);
+}
+
+.Attributes > .Sizes > .Selected {
+  transform: scale(1.05);
+  box-shadow: 0 4px 5px 0 rgba(75, 75, 75, 0.14),
+    0 1px 10px 0 rgba(75, 75, 75, 0.12),
+    0 2px 4px -1px rgba(75, 75, 75, 0.3);
+    background-color: #ff1744;
+    color: #f5f5f5;
+}
+
+.Attributes > .Colors > .ColorItem > div,
+.Attributes > .Colors > .Selected > div {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+}
+
+.Attributes > .Sizes > .SizeItem,
+.Attributes > .Sizes > .Selected {
+  border: 1px solid #2222;
+  width: 64px;
+  padding: 6px;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 2px;
+}
+
+@keyframes turn {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(180deg);
+  }
+}

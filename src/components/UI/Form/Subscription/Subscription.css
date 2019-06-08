@@ -1,0 +1,42 @@
+.Subscription {
+  background-color: #e0e0e0 !important;
+  border-radius: 25px;
+  height: auto !important;
+  width: auto;
+  margin: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.Subscription > div > span {
+  display: flex;
+  top: -14px !important;
+  left: -8px;
+  color: #2121219a;
+  width: 2rem !important;
+}
+
+.Subscription input {
+  border: 2px solid transparent;
+  border-radius: 25px;
+  color: #212121;
+  width: 100%;
+  margin: 0 !important;
+  height: 2.25rem !important;
+  padding-left: 3rem !important;
+}
+
+.Subscription input::placeholder {
+  color: #212121b6 !important;
+}
+
+.Subscription input:focus {
+  border: 2px solid #757575
+}
+
+@media screen and (min-width: 700px) {
+  .Subscription {
+    height: 50%;
+  }
+}
