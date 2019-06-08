@@ -100,7 +100,8 @@
 }
 
 .Query > li:not(:first-child):hover,
-.License > li:not(:first-child):hover {
+.License > li:not(:first-child):hover,
+.MoreLicense {
   letter-spacing: 1px;
 }
 
@@ -113,6 +114,13 @@
 .License > li:not(:first-child) {
   opacity: .6;
   font-weight: 400;
+}
+
+.MoreLicense {
+  width: 91.666%;
+  margin: 1rem auto;
+  font-weight: 500;
+  text-align: center;
 }
 
 @media screen and (min-width: 600px) {
@@ -150,5 +158,9 @@
     width: 300px;
     justify-content: space-between;
     margin: 1rem auto;
+  }
+
+  .MoreLicense {
+    width: 500px;
   }
 }

@@ -65,6 +65,11 @@ const SignIn = props => {
     e.preventDefault();
 
     props.onAuth(controlsIn.email.value, controlsIn.password.value);
+
+    if (props.onCheckout)
+      setTimeout(() => {
+        props.onSetAuthRedirectPath('/');
+      }, 1000)
   }
 
   const facebookLoginHandler = (loginStatus, resultObject) => {

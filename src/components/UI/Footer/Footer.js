@@ -55,7 +55,7 @@ const footer = props => (
     </div>
     <ul className={css.License}>
       <li>
-        © Shopaholic Ltd
+        © 2019 Shopaholic Ltd
       </li>
       <li>
         • Contact
@@ -64,6 +64,12 @@ const footer = props => (
         • Privacy Policy
       </li>
     </ul>
+    <div className={css.MoreLicense}>
+      <span>
+        WebApp was made with Love, Effort and Fun by{' '}
+        <a href="https://andlerrl.co" target="__blank">Andler Develops</a>.
+      </span>
+    </div>
   </footer>
 );
 

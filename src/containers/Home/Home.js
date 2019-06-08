@@ -20,7 +20,7 @@ const Home = props => {
 
   let authRedirect = null;
 
-  if (props.isAuthenticated && props.onCheckout)
+  if (props.isAuthenticated && props.onCheckout && props.authRedirectPath === "/checkout")
     authRedirect = <Redirect to={props.authRedirectPath} />
   
   if (props.onCheckout && (props.match.path === "/checkout" || props.match.path === "/checkout/contact-data"))

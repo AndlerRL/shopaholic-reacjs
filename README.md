@@ -95,6 +95,12 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v1.0.012]`__
+
+__Hot Fix:__ There was an issue with redirection at Home screen to other routes after login; fixed.
+
+Added my credits to the Footer component.
+
 __`[v1.0.0]`__
 
 App into deployment! Shopaholic is ready and some test has been made with Jest & Enzyme and well, in general runs well & perfect.

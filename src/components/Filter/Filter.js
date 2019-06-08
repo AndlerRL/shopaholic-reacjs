@@ -115,7 +115,14 @@ const Filter = props => {
                   value="Nature"
                   disabled={
                     props.hasValueDep.Regional ||
-                    props.hasValueDep.Seasonal
+                    props.hasValueDep.Seasonal ||
+                    props.hasValueCat.Christmas ||
+                    props.hasValueCat.Flower ||
+                    props.hasValueCat.French ||
+                    props.hasValueCat.Italian ||
+                    props.hasValueCat.Irish ||
+                    props.hasValueCat["Valentine's"] ||
+                    props.hasValueCat.Animal
                   } />
               }
               label="Nature" />
@@ -128,7 +135,14 @@ const Filter = props => {
                   value="Seasonal"
                   disabled={
                     props.hasValueDep.Nature ||
-                    props.hasValueDep.Regional
+                    props.hasValueDep.Regional ||
+                    props.hasValueCat.Christmas ||
+                    props.hasValueCat.Flower ||
+                    props.hasValueCat.French ||
+                    props.hasValueCat.Italian ||
+                    props.hasValueCat.Irish ||
+                    props.hasValueCat["Valentine's"] ||
+                    props.hasValueCat.Animal
                   } />
               }
               label="Seasonal" />
@@ -149,7 +163,10 @@ const Filter = props => {
                     props.hasValueCat.French ||
                     props.hasValueCat.Italian ||
                     props.hasValueCat.Irish ||
-                    props.hasValueCat["Valentine's"]
+                    props.hasValueCat["Valentine's"] ||
+                    props.hasValueDep.Nature ||
+                    props.hasValueDep.Regional ||
+                    props.hasValueDep.Seasonal
                   } />
               }
               label="Animal" />
@@ -166,7 +183,10 @@ const Filter = props => {
                     props.hasValueCat.French ||
                     props.hasValueCat.Italian ||
                     props.hasValueCat.Irish ||
-                    props.hasValueCat["Valentine's"]
+                    props.hasValueCat["Valentine's"] ||
+                    props.hasValueDep.Nature ||
+                    props.hasValueDep.Regional ||
+                    props.hasValueDep.Seasonal
                   } />
               }
               label="Christmas" />
@@ -183,7 +203,10 @@ const Filter = props => {
                     props.hasValueCat.French ||
                     props.hasValueCat.Italian ||
                     props.hasValueCat.Irish ||
-                    props.hasValueCat["Valentine's"]
+                    props.hasValueCat["Valentine's"] ||
+                    props.hasValueDep.Nature ||
+                    props.hasValueDep.Regional ||
+                    props.hasValueDep.Seasonal
                   } />
               }
               label="Flower" />
@@ -200,7 +223,10 @@ const Filter = props => {
                     props.hasValueCat.Animal ||
                     props.hasValueCat.Italian ||
                     props.hasValueCat.Irish ||
-                    props.hasValueCat["Valentine's"]
+                    props.hasValueCat["Valentine's"] ||
+                    props.hasValueDep.Nature ||
+                    props.hasValueDep.Regional ||
+                    props.hasValueDep.Seasonal
                   } />
               }
               label="French" />
@@ -217,7 +243,10 @@ const Filter = props => {
                     props.hasValueCat.French ||
                     props.hasValueCat.Animal ||
                     props.hasValueCat.Irish ||
-                    props.hasValueCat["Valentine's"]
+                    props.hasValueCat["Valentine's"] ||
+                    props.hasValueDep.Nature ||
+                    props.hasValueDep.Regional ||
+                    props.hasValueDep.Seasonal
                   } />
               }
               label="Italian" />
@@ -234,7 +263,10 @@ const Filter = props => {
                     props.hasValueCat.French ||
                     props.hasValueCat.Italian ||
                     props.hasValueCat.Animal ||
-                    props.hasValueCat["Valentine's"]
+                    props.hasValueCat["Valentine's"] ||
+                    props.hasValueDep.Nature ||
+                    props.hasValueDep.Regional ||
+                    props.hasValueDep.Seasonal
                   } />
               }
               label="Irish" />
@@ -251,7 +283,10 @@ const Filter = props => {
                   props.hasValueCat.French ||
                   props.hasValueCat.Italian ||
                   props.hasValueCat.Irish ||
-                  props.hasValueCat.Animal
+                  props.hasValueCat.Animal ||
+                  props.hasValueDep.Nature ||
+                  props.hasValueDep.Regional ||
+                  props.hasValueDep.Seasonal
                 } />
             }
             label="Valentine's" />
