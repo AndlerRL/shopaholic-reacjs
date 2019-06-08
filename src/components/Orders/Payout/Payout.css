@@ -108,7 +108,7 @@
   display: flex;
   flex-direction: row;
   float: right;
-  width: 91.666%;
+  width: 83.333%;
 }
 
 .CCInfo > div:nth-child(2) {
@@ -152,4 +152,10 @@
   font-family: 'Tajawal', sans-serif;
   font-size: 1rem;
   font-weight: 400;
+}
+
+@media screen and (min-width: 500px) {
+  .CCInfo > div:first-child > div > div {
+    width: 91.666%;
+  }
 }

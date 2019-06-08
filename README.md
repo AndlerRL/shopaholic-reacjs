@@ -95,6 +95,10 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v1.0.021]`__
+
+__Hot UI fix:__ There was mobile adaptations UI issues at Orders screen & Payout, also on Toolbar while on mobile UI; fixed.
+
 __`[v1.0.012]`__
 
 __Hot Fix:__ There was an issue with redirection at Home screen to other routes after login; fixed.

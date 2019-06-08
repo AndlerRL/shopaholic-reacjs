@@ -65,7 +65,7 @@ const sideDrawer = props => {
             { salute }
             </p>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
           <Currency 
             clicked={props.currency}
             currency="USD" />

@@ -18,7 +18,7 @@ const ShoppingCart = props => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useMemo(() => props.onFetchTotalAmount(), [])
+  useMemo(() => props.onFetchTotalAmount(), [props])
 
   const updateProductHandler = item => e => {
     e.preventDefault();

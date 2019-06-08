@@ -17,6 +17,10 @@
   text-align: left;
 }
 
+.Container > p > span > span {
+  margin: 0 .75rem;
+}
+
 .Slider {
   margin: 2rem auto;
   width: 83.333%;

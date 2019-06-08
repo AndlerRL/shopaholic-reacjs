@@ -4,7 +4,7 @@
   width: 83.333%;
   max-width: 800px;
   justify-content: space-evenly;
-  margin: 0 auto;
+  margin: 7rem auto 1rem;
 }
 
 .Order {
@@ -36,6 +36,10 @@
   user-select: none;
 }
 
+.Order > div:nth-child(2) {
+  flex-direction: column;
+}
+
 .Order > div:nth-child(2) > div:first-child {
   width: 74%;
   max-width: 616px;
@@ -47,8 +51,15 @@
 }
 
 .Order > div:nth-child(2) > div:last-child {
-  width: 24%;
-  max-width: 120px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.Order > div:nth-child(2) > div:last-child > button {
+  width: 42%;
+  margin: 2rem auto !important;
 }
 
 .Order > div > .OrderDetail {
@@ -114,6 +125,27 @@
 .Order > div > .OrderDetail > table > tfoot > tr > td {
   width: 280px;
   max-width: 45%;
+}
+
+@media screen and (min-width: 500px) {
+  .Orders {
+    margin: 0 auto;
+  }
+
+  .Order > div:nth-child(2) {
+    flex-direction: row;
+  }
+
+  .Order > div:nth-child(2) > div:last-child {
+    width: 24%;
+    max-width: 120px;
+    flex-direction: column;
+  }
+  
+  .Order > div:nth-child(2) > div:last-child > button {
+    width: 100%;
+    margin: 1rem auto !important;
+  }
 }
 
 @keyframes slidacity {

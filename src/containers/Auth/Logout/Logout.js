@@ -8,6 +8,9 @@ const Logout = props => {
   useEffect(() => {
     props.onLogout();
     window.FB.logout();
+
+    if (props.isSideDrawer)
+      props.onSidedrawer();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -16,10 +19,17 @@ const Logout = props => {
   )
 }; 
 
+const mapStateToProps = state => {
+  return {
+    isSideDrawer: state.auth.sideDrawer
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
-    onLogout: () => dispatch(actions.logout())
+    onLogout: () => dispatch(actions.logout()),
+    onSidedrawer: () => dispatch(actions.handleSideDrawer())
   }
 };
 
-export default connect(null, mapDispatchToProps)(Logout);
+export default connect(mapStateToProps, mapDispatchToProps)(Logout);
