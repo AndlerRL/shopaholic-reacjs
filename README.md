@@ -349,3 +349,7 @@ Started to create components, principally the Layout and has some responsive int
 * __Modal and Backdrop created:__ Custom UI Components that, actually work good.
 
 * __Icons components:__ This Component it's actually a Material UI component, but for re-use and the code doesn't turns a bit cumbersome, decided to create it for more readable.
+=======
+<h1> Shopaholic e-Commerce App </h2>
+
+<p>Project under development. See Develop branch for reference.</p>
