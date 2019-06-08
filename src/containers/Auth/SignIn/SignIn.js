@@ -114,7 +114,9 @@ const SignIn = props => {
         className={css.SignIn}
         onSubmit={submitHandler}>
         <h4 className={css.Title}>Please, Login to Shopaholic</h4>
-        { form }
+        <div>
+          { form }
+        </div>
         <p>Don't have an account? <span onClick={props.switchSignUp}> Sign Up </span> here!</p>
         <div className={css.SocialLogin}>
           <p>Login with Facebook!</p>

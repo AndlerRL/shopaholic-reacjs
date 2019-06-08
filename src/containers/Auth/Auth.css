@@ -1,11 +1,15 @@
 .SignIn {
-  margin: 0 0 11rem;
+  margin: -4rem 0 10rem;
   width: 100%;
-  max-height: 55vh;
+  max-height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   transition: all cubic-bezier(0.19, 1, 0.22, 1) .66s 100ms;
+}
+
+.SignIn > p {
+  margin-top: 0;
 }
 
 .SignIn > p,
@@ -46,14 +50,24 @@
   margin-bottom: 3rem;
 }
 
+.SignIn >.Title {
+  margin-bottom: 1.5rem;
+}
+
 .SignUp {
-  margin: 0 0 11rem;
+  margin: -4.5rem 0 8rem;
   width: 100%;
-  max-height: 54vh;
+  max-height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   transition: all cubic-bezier(0.19, 1, 0.22, 1) .66s 100ms;
+}
+
+.SignUp > div,
+.SignIn > div:first-child {
+  overflow-y: auto;
+  width: 100%;
 }
 
 .SignUp .Title {
@@ -103,6 +117,11 @@
     flex-direction: column;
     justify-content: space-evenly;
     transition: all cubic-bezier(0.19, 1, 0.22, 1) .66s 100ms;
+  }
+
+  .SignUp > div {
+    overflow-y: none;
+    width: 100%;
   }
 
   .BtnContainer > button {

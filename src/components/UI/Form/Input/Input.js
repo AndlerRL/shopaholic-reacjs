@@ -45,14 +45,16 @@ const input = props => {
   switch (props.elementType) {
     case ('input'):
       inputElement =<input
-        className={invalid} 
+        className={invalid}
+        ref={props.inputRef} 
         {...props.elementConfig}
         value={props.value}
         onChange={props.changed} />
       break;
     case ('email'):
       inputElement = <input
-        className={invalid} 
+        className={invalid}
+        ref={props.inputRef} 
         {...props.elementConfig}
         value={props.value}
         onChange={props.changed} />
@@ -60,6 +62,7 @@ const input = props => {
     case ('textarea'):
       inputElement = <textarea
         className={"materialize-textarea " + invalid}
+        ref={props.inputRef}
         {...props.elementConfig}
         value={props.value}
         onChange={props.changed} />
@@ -68,6 +71,7 @@ const input = props => {
       inputElement = (
         <select
           className={invalid}
+          ref={props.inputRef}
           value={props.value}
           onChange={props.changed}>
           { props.elementConfig.options.map(option => (
@@ -84,6 +88,7 @@ const input = props => {
       inputElement = (
         <input
           className={invalid} 
+          ref={props.inputRef}
           {...props.elementConfig}
           value={props.value}
           onChange={props.changed} />
@@ -92,6 +97,7 @@ const input = props => {
     default:
       inputElement = <input
         className={invalid}
+        ref={props.inputRef}
         {...props.elementConfig}
         value={props.value}
         onChange={props.changed} />

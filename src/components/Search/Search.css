@@ -64,7 +64,7 @@
   user-select: none;
   outline: none;
   text-align: center;
-  height: 38px !important;
+  height: 36px !important;
 }
 
 .Search > div > input::placeholder {
@@ -81,5 +81,9 @@
   .Search {
     height: 50%;
     margin: 1rem;
+  }
+
+  .Search > div > input {
+    height: 38px !important;
   }
 }

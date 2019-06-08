@@ -95,6 +95,10 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v1.0.024]`__
+
+__Hot Fix:__ There was a ref issue at time to register user, also inputs did not appear correctly while on a phone; fixed.
+
 __`[v1.0.021]`__
 
 __Hot UI fix:__ There was mobile adaptations UI issues at Orders screen & Payout, also on Toolbar while on mobile UI; fixed.

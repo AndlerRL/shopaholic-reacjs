@@ -85,7 +85,7 @@ const SignUp = props => {
   let checkPW = pw === cpw && (pw !== '' && cpw !== '');
 
   const inputChangedHandler = (e, controlName) => {
-    setPW(pwRef.current.parentElement.parentElement[2].value);
+    setPW(pwRef.current.parentElement.parentElement.parentElement[2].value);
     setCPW(pwRef.current.value);
     const updatedControlsUp = updateObject(controlsUp, {
       [controlName]: updateObject(controlsUp[controlName], {
@@ -142,7 +142,9 @@ const SignUp = props => {
         className={css.SignUp}
         onSubmit={submitHandler}>
         <h4 className={css.Title}>Please, Sign Up to Shopaholic</h4>
-        { form }
+        <div>
+          { form }
+        </div>
         <p>Already have an account? <span onClick={props.switchSignIn}> Sign In </span> here!</p>
         <div className={css.BtnContainer}>
           <Btn 
