@@ -19,10 +19,11 @@ export const categoriesStart = () => {
     type: actionTypes.CATEGORIES_START
   }
 }
-export const categoriesSuccess = categories => {
+export const categoriesSuccess = (categories, count) => {
   return {
     type: actionTypes.CATEGORIES_SUCCESS,
-    categories: categories
+    categories: categories,
+    count: count
   }
 }
 export const categoriesFail = error => {
@@ -37,17 +38,15 @@ export const fetchCategories = categories => {
     categories: categories
   }
 }
-export const fetchCategoryId = (categoryId, category) => {
+export const fetchCategoryId = categoryId => {
   return {
     type: actionTypes.FETCH_CATEGORY_ID,
-    categoryId: categoryId,
-    category: category
+    categoryId: categoryId
   }
 }
-export const categoryId = (categoryId, category, name) => {
+export const categoryId = (category, name) => {
   return {
     type: actionTypes.CATEGORY_ID_SUCCESS,
-    categoryId: categoryId,
     category: category,
     name: name
   }
@@ -63,11 +62,10 @@ export const categoriesInDepartmentStart = () => {
     type: actionTypes.CATEGORY_IN_DEPARTMENT_START
   }
 }
-export const categoriesInDepartmentSuccess = (productId, department) => {
+export const categoriesInDepartmentSuccess = products => {
   return {
     type: actionTypes.CATEGORY_IN_DEPARTMENT_SUCCESS,
-    productId: productId,
-    department: department
+    products: products
   }
 }
 export const categoriesInDepartmentFail = error => {
@@ -76,11 +74,10 @@ export const categoriesInDepartmentFail = error => {
     error: error
   }
 }
-export const fetchCategoriesInDepartment = (productId, department) => {
+export const fetchCategoriesInDepartment = departmentId => {
   return {
     type: actionTypes.FETCH_CATEGORY_IN_DEPARTMENT,
-    productId: productId,
-    department: department
+    departmentId: departmentId
   }
 }
 export const categoriesInProductStart = () => {
@@ -88,10 +85,9 @@ export const categoriesInProductStart = () => {
     type: actionTypes.CATEGORY_IN_PRODUCT_START
   }
 }
-export const categoriesInProductSuccess = (productId, category) => {
+export const categoriesInProductSuccess = category => {
   return {
     type: actionTypes.CATEGORY_IN_PRODUCT_SUCCESS,
-    productId: productId,
     category: category
   }
 }
@@ -101,10 +97,9 @@ export const categoriesInProductFail = error => {
     error: error
   }
 }
-export const fetchCategoriesInProduct = (departmentId, categories) => {
+export const fetchCategoriesInProduct = productId => {
   return {
     type: actionTypes.FETCH_CATEGORY_IN_PRODUCT,
-    departmentId: departmentId,
-    categories: categories
+    productId: productId
   }
 }

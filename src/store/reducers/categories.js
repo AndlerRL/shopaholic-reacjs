@@ -19,7 +19,7 @@ const initState = {
   departments: [],
   categoryId: null,
   departmentId: null,
-  productId: null,
+  catInDept: []
 }
 
 const start = (state, action) => {
@@ -72,7 +72,6 @@ const categoriesInProductSuccess = (state, action) => {
   return updateObject(state, {
     error: null,
     isLoading: null,
-    productId: action.productId,
     category: [...new Set(action.category)]  
   })
 }
@@ -80,8 +79,7 @@ const categoriesInDepartmentSuccess = (state, action) => {
   return updateObject(state, {
     error: null,
     isLoading: null,
-    departmentId: action.departmentId,
-    categories: [...new Set(action.categories)]
+    catInDept: action.products
   })
 };
 

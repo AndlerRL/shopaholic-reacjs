@@ -95,6 +95,16 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
+__`[v.1.0.037]`__
+
+__Re-structure:__ Since Departments are top level of the filters, a new code is being added to the project, so it will appear in this way:
+
+* When customer click in a Department, the rest will be disable and categories that are withing the selected Department, will be highlighted.
+* After clear all filters (click on the X) everything should return back to normal.
+* Customer can search between Departments.
+
+__Working on Bugs:__ Late-night I will be working on this and also, on stripe bugs (actually it's to add a back-end to the project, since it's require). By now, Categories are highlighted after selecting a Department, but when you click back, all checkbox becomes disabled; Just conditionals check-up. Also when Filter is cleared (using the clear handler) it turns back to normal BUT, when you want to filter again, it won't work... will check that in 2 couple of hours.
+
 __`[v1.0.024]`__
 
 __Hot Fix:__ There was a ref issue at time to register user, also inputs did not appear correctly while on a phone; fixed.

@@ -184,7 +184,8 @@ const clearFilter = (state, action) => {
     category: false,
     search: false,
     meta: {
-      query_string: ""
+      query_string: "",
+      page: 1
     }
   })
 
@@ -193,7 +194,8 @@ const clearFilter = (state, action) => {
       filterDepartment: [],
       department: false,
       meta: {
-        query_string: ""
+        query_string: "",
+        page: 1,
       }
     })
 
@@ -202,7 +204,8 @@ const clearFilter = (state, action) => {
       filterCategory: [],
       category: false,
       meta: {
-        query_string: ""
+        query_string: "",
+        page: 1,
       }
     })
     

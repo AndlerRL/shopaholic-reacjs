@@ -31,20 +31,18 @@ const Items = props => {
   useEffect(() => {
     const cart_id = JSON.parse(localStorage.getItem('cart_id'));
 
-    props.onGetProducts(props.page, props.products, props.count);
+    props.onGetProducts(props.page);
     props.onGetAttributes(props.size, props.color);
     props.onAttributesValues(props.sizeVals, props.colorVals);
-    props.onFetchCategories(props.categories);
-    props.onFetchDepartments(props.departments);
     if (cart_id === null)
       props.onGenerateCartId();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  
+
   const color = props.colorVals.map(color => color);
   const size = props.sizeVals.map(size => size);
-  const filterCat = props.categories.map(filter => filter);
-  const filterDep = props.departments.map(filter => filter);
 
   let products = props.products;
 
@@ -119,23 +117,11 @@ const Items = props => {
     setPriceRange(val);
   }
 
-  const filterCategoryHandler = name => e => {
-    const id = filterCat.find(id => id.name === name).category_id;
-
-    props.onFetchProductsInCategory(props.page, id);
-  }
-
-  const filterDepartmentHandler = name => e => {
-    const id = filterDep.find(id => id.name === name).department_id;
-
-    props.onFetchProductsInDepartment(props.page, id);
-  }
-
   const clearFilterHandler = () => {
     if (props.hasValueDep.Regional || props.hasValueDep.Nature || props.hasValueDep.Seasonal) {
       props.clearFilter()
       setTimeout(() => {
-        props.onGetProducts(props.page, props.products, props.count);
+        props.onGetProducts(props.page, props.count);
       }, 200);
     }
 
@@ -143,14 +129,14 @@ const Items = props => {
     props.hasValueCat.Irish || props.hasValueCat.Italian || props.hasValueCat["Valentine's"]) {
       props.clearFilter()
       setTimeout(() => {
-        props.onGetProducts(props.page, props.products, props.count);
+        props.onGetProducts(props.page);
       }, 200);
     }
 
     if (props.queryStr) {
       props.clearFilter()
       setTimeout(() => {
-        props.onGetProducts(props.page, props.products, props.count);
+        props.onGetProducts(props.page);
       }, 200);
     }
   }
@@ -192,13 +178,9 @@ const Items = props => {
         addFav={addWishList}
         favorites={props.favorites}
         sizeSelect={sizeAttributeHandler}
-        filterCat={filterCat}
-        filterDep={filterDep}
         count={props.count}
         sliderValue={priceRange}
         sliderChanged={sliderChangeHandler}
-        filterDepartment={filterDepartmentHandler}
-        filterCategory={filterCategoryHandler}
         clear={clearFilterHandler} />
     </React.Fragment>
   )
@@ -216,8 +198,6 @@ const mapStateToProps = state => {
     color: state.attributes.color,
     sizeVals: state.attributes.sizeVals,
     colorVals: state.attributes.colorVals,
-    categories: state.categories.categories,
-    departments: state.departments.departments,
     productData: state.products.productData,
     hasValueDep: state.departments.hasValue,
     hasValueCat: state.categories.hasValue,
@@ -235,7 +215,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetProducts: (page, products, count) => dispatch(actions.fetchProducts(page, products, count)),
+    onGetProducts: page => dispatch(actions.fetchProducts(page)),
     onNextPage: page => dispatch(actions.productsNext(page)),
     onPrevPage: page => dispatch(actions.productsPrev(page)),
     onDepNextPage: (page, departmentId) => dispatch(actions.productsDeptNext(page, departmentId)),
@@ -244,11 +224,7 @@ const mapDispatchToProps = dispatch => {
     onCatPrevPage: (page, categoryId) => dispatch(actions.productsCatPrev(page, categoryId)),
     onGetAttributes: (size, color) => dispatch(actions.fetchAttributes(size, color)),
     onAttributesValues: (sizeVal, colVal) => dispatch(actions.attributeValues(sizeVal, colVal)),
-    onFetchCategories: categories => dispatch(actions.fetchCategories(categories)),
-    onFetchDepartments: departments => dispatch(actions.fetchDepartments(departments)),
     onFetchProductData: (productId, productData) => dispatch(actions.fetchProductDetail(productId, productData)),
-    onFetchProductsInDepartment: (page, departmentId) => dispatch(actions.fetchProductsInDepartment(page, departmentId)),
-    onFetchProductsInCategory: (page, departmentId) => dispatch(actions.fetchProductsInCategory(page, departmentId)),
     onGenerateCartId: () => dispatch(actions.generateCartId()),
     clearFilter: () => dispatch(actions.clearFilter()),
     onAddProduct: (direction, cart_id, product_id, attributes) => dispatch(actions.addProductToCart(direction, cart_id, product_id, attributes)),

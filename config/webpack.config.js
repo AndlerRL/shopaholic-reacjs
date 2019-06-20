@@ -26,7 +26,7 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const Dotenv = require('dotenv-webpack');
-const Stripe = require('stripe')(process.env.API_KEY);
+const nodeExternals = require('webpack-node-externals');
 
 const postcssNormalize = require('postcss-normalize');
 

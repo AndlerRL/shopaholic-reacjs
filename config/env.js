@@ -78,6 +78,7 @@ function getClientEnvironment(publicUrl) {
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
         API_KEY: "pk_test_Bd80bCRHqVOuOLdkyClLhgRV00nXWw0eC2",
+        API_SECRET: "sk_test_g40XadvEP2Oe0rF3ErcEolwg00qK3jEws6",
         ENDPOINT_SECRET: "whsec_c7p6VKVrP1zvrE2uSCRXq4zumxKhqZL3",
       }
     );

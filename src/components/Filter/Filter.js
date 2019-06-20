@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import * as actions from '../../store/actions';
 import { FilterDep, FilterCat } from './FilterConditionals';
@@ -10,18 +10,35 @@ import { Checkbox, FormControl, FormGroup, FormControlLabel, FormLabel } from '@
 import css from './Filter.css';
 
 const Filter = props => {
+  useEffect(() => {
+    props.onFetchCategories();
+    props.onFetchDepartments();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const changeDepHandler = department => e => {
-    const id = props.filterDep.find(id => id.name === department).department_id;
-    
+    const id = props.departments.find(id => id.name === department).department_id;
+  
     props.onFetchDepartmentId(id);
-    props.filterDepartment(1, id)
+    props.onCatInDepartment(id);  
   }
 
   const changeCatHandler = category => e => {
-    const id = props.filterCat.find(id => id.name === category).category_id;
+    const id = props.categories.find(id => id.name === category).category_id;
 
     props.onFetchCategoryId(id);
-    props.filterCategory(1, id);
+  }
+
+  const filterCategoryHandler = name => e => {
+    const id = props.categories.find(id => id.name === name).category_id;
+
+    props.onFetchProductsInCategory(props.page, id);
+  }
+
+  const filterDepartmentHandler = name => e => {
+    const id = props.departments.find(id => id.name === name).department_id;
+
+    props.onFetchProductsInDepartment(props.page, id);
   }
 
   const attributesColor = props.colorsAttr.map(attr => (
@@ -43,6 +60,45 @@ const Filter = props => {
       <span>{ attr.value }</span>
     </button>
   ))
+
+  let categoriesNames = null;
+
+  if (props.catInDept)
+   categoriesNames = props.catInDept.map(catInDept => catInDept.name);
+
+  const departments = props.departments.map(department => (
+    <FormControlLabel 
+      control={
+        <Checkbox 
+          checked={props.hasValueDep[department.name] && props.isDepartment}
+          onChange={changeDepHandler(department.name)}
+          onClick={filterDepartmentHandler(department.name)}
+          value={department.name}
+          disabled={ !props.hasValueDep[department.name] && props.isDepartment } />
+      }
+      label={department.name}
+      key={department.department_id} />
+  ));
+
+  const categories = props.categories.map(category => (
+    <FormControlLabel
+      control={
+        <Checkbox
+          checked={props.hasValueCat[category.name] && props.isCategory} 
+          onChange={changeCatHandler(category.name)}
+          onClick={filterCategoryHandler(category.name)}
+          value={category.name}
+          disabled={ (!props.hasValueCat[category.name] && props.isCategory) ||
+            (!categoriesNames.find(name => name === category.name) && props.isDepartment) } />
+      }
+      label={category.name}
+      key={category.category_id} />
+  ));
+
+  console.log(`isDepartment? 
+  ${props.isDepartment}`);
+  console.log(`isCategory? 
+  ${props.isCategory}`);
 
   return (
     <div className={css.Filter}>
@@ -93,203 +149,12 @@ const Filter = props => {
           <FormLabel component="header"><h6>Filter By:</h6></FormLabel>
           <FormGroup>
             <FormLabel component="h5">Department</FormLabel>
-            <FormControlLabel 
-              control={
-                <Checkbox 
-                  checked={props.hasValueDep.Regional && props.isDepartment}
-                  onChange={changeDepHandler("Regional")}
-                  onClick={props.filterDepartment("Regional")}
-                  value="Regional"
-                  disabled={
-                    props.hasValueDep.Nature ||
-                    props.hasValueDep.Seasonal
-                  } />
-              }
-              label="Regional" />
-            <FormControlLabel 
-              control={
-                <Checkbox 
-                  checked={props.hasValueDep.Nature && props.isDepartment}
-                  onChange={changeDepHandler("Nature")}
-                  onClick={props.filterDepartment("Nature")}
-                  value="Nature"
-                  disabled={
-                    props.hasValueDep.Regional ||
-                    props.hasValueDep.Seasonal ||
-                    props.hasValueCat.Christmas ||
-                    props.hasValueCat.Flower ||
-                    props.hasValueCat.French ||
-                    props.hasValueCat.Italian ||
-                    props.hasValueCat.Irish ||
-                    props.hasValueCat["Valentine's"] ||
-                    props.hasValueCat.Animal
-                  } />
-              }
-              label="Nature" />
-            <FormControlLabel 
-              control={
-                <Checkbox 
-                  checked={props.hasValueDep.Seasonal && props.isDepartment}
-                  onChange={changeDepHandler("Seasonal")}
-                  onClick={props.filterDepartment("Seasonal")}
-                  value="Seasonal"
-                  disabled={
-                    props.hasValueDep.Nature ||
-                    props.hasValueDep.Regional ||
-                    props.hasValueCat.Christmas ||
-                    props.hasValueCat.Flower ||
-                    props.hasValueCat.French ||
-                    props.hasValueCat.Italian ||
-                    props.hasValueCat.Irish ||
-                    props.hasValueCat["Valentine's"] ||
-                    props.hasValueCat.Animal
-                  } />
-              }
-              label="Seasonal" />
+            { departments }
           </FormGroup>
 
           <FormGroup>
             <FormLabel component="h5">Category</FormLabel>
-            <FormControlLabel 
-              control={
-                <Checkbox 
-                  checked={props.hasValueCat.Animal && props.isCategory} 
-                  onChange={changeCatHandler("Animal")}
-                  onClick={props.filterCategory("Animal")}
-                  value="Animal"
-                  disabled={
-                    props.hasValueCat.Christmas ||
-                    props.hasValueCat.Flower ||
-                    props.hasValueCat.French ||
-                    props.hasValueCat.Italian ||
-                    props.hasValueCat.Irish ||
-                    props.hasValueCat["Valentine's"] ||
-                    props.hasValueDep.Nature ||
-                    props.hasValueDep.Regional ||
-                    props.hasValueDep.Seasonal
-                  } />
-              }
-              label="Animal" />
-            <FormControlLabel 
-              control={
-                <Checkbox 
-                  checked={props.hasValueCat.Christmas && props.isCategory}
-                  onChange={changeCatHandler("Christmas")}
-                  onClick={props.filterCategory("Christmas")}
-                  value="Christmas"
-                  disabled={
-                    props.hasValueCat.Animal ||
-                    props.hasValueCat.Flower ||
-                    props.hasValueCat.French ||
-                    props.hasValueCat.Italian ||
-                    props.hasValueCat.Irish ||
-                    props.hasValueCat["Valentine's"] ||
-                    props.hasValueDep.Nature ||
-                    props.hasValueDep.Regional ||
-                    props.hasValueDep.Seasonal
-                  } />
-              }
-              label="Christmas" />
-            <FormControlLabel 
-              control={
-                <Checkbox 
-                  checked={props.hasValueCat.Flower && props.isCategory}
-                  onChange={changeCatHandler("Flower")}
-                  onClick={props.filterCategory("Flower")}
-                  value="Flower"
-                  disabled={
-                    props.hasValueCat.Christmas ||
-                    props.hasValueCat.Animal ||
-                    props.hasValueCat.French ||
-                    props.hasValueCat.Italian ||
-                    props.hasValueCat.Irish ||
-                    props.hasValueCat["Valentine's"] ||
-                    props.hasValueDep.Nature ||
-                    props.hasValueDep.Regional ||
-                    props.hasValueDep.Seasonal
-                  } />
-              }
-              label="Flower" />
-            <FormControlLabel 
-              control={
-                <Checkbox 
-                  checked={props.hasValueCat.French && props.isCategory}
-                  onChange={changeCatHandler("French")}
-                  onClick={props.filterCategory("French")}
-                  value="French"
-                  disabled={
-                    props.hasValueCat.Christmas ||
-                    props.hasValueCat.Flower ||
-                    props.hasValueCat.Animal ||
-                    props.hasValueCat.Italian ||
-                    props.hasValueCat.Irish ||
-                    props.hasValueCat["Valentine's"] ||
-                    props.hasValueDep.Nature ||
-                    props.hasValueDep.Regional ||
-                    props.hasValueDep.Seasonal
-                  } />
-              }
-              label="French" />
-            <FormControlLabel 
-              control={
-                <Checkbox 
-                  checked={props.hasValueCat.Italian && props.isCategory} 
-                  onChange={changeCatHandler("Italian")}
-                  onClick={props.filterCategory("Italian")}
-                  value="Italian"
-                  disabled={
-                    props.hasValueCat.Christmas ||
-                    props.hasValueCat.Flower ||
-                    props.hasValueCat.French ||
-                    props.hasValueCat.Animal ||
-                    props.hasValueCat.Irish ||
-                    props.hasValueCat["Valentine's"] ||
-                    props.hasValueDep.Nature ||
-                    props.hasValueDep.Regional ||
-                    props.hasValueDep.Seasonal
-                  } />
-              }
-              label="Italian" />
-            <FormControlLabel 
-              control={
-                <Checkbox 
-                  checked={props.hasValueCat.Irish && props.isCategory}
-                  onChange={changeCatHandler("Irish")}
-                  onClick={props.filterCategory("Irish")}
-                  value="Irish"
-                  disabled={
-                    props.hasValueCat.Christmas ||
-                    props.hasValueCat.Flower ||
-                    props.hasValueCat.French ||
-                    props.hasValueCat.Italian ||
-                    props.hasValueCat.Animal ||
-                    props.hasValueCat["Valentine's"] ||
-                    props.hasValueDep.Nature ||
-                    props.hasValueDep.Regional ||
-                    props.hasValueDep.Seasonal
-                  } />
-              }
-              label="Irish" />
-          <FormControlLabel 
-            control={
-              <Checkbox 
-                checked={props.hasValueCat["Valentine's"] && props.isCategory}
-                onChange={changeCatHandler("Valentine's")}
-                onClick={props.filterCategory("Valentine's")}
-                value="Valentine's"
-                disabled={
-                  props.hasValueCat.Christmas ||
-                  props.hasValueCat.Flower ||
-                  props.hasValueCat.French ||
-                  props.hasValueCat.Italian ||
-                  props.hasValueCat.Irish ||
-                  props.hasValueCat.Animal ||
-                  props.hasValueDep.Nature ||
-                  props.hasValueDep.Regional ||
-                  props.hasValueDep.Seasonal
-                } />
-            }
-            label="Valentine's" />
+            { categories }
           </FormGroup>
         </FormControl>
       </div>
@@ -299,20 +164,30 @@ const Filter = props => {
 
 const mapStateToProps = state => {
   return {
+    categories: state.categories.categories,
+    departments: state.departments.departments,
     department: state.departments.department,
     hasValueDep: state.departments.hasValue,
     hasValueCat: state.categories.hasValue,
     isDepartment: state.products.department,
     isCategory: state.products.category,
     category: state.categories.category,
-    queryStr: state.products.meta.query_string
+    catInDept: state.categories.catInDept,
+    queryStr: state.products.meta.query_string,
+    page: state.products.meta.page,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    onGetProducts: page => dispatch(actions.fetchProducts(page)),
+    onFetchCategories: () => dispatch(actions.fetchCategories()),
+    onFetchDepartments: () => dispatch(actions.fetchDepartments()),
     onFetchDepartmentId: departmentId => dispatch(actions.fetchDepartmentsId(departmentId)),
     onFetchCategoryId: categoryId => dispatch(actions.fetchCategoryId(categoryId)),
+    onCatInDepartment: departmentId => dispatch(actions.fetchCategoriesInDepartment(departmentId)),
+    onFetchProductsInDepartment: (page, departmentId) => dispatch(actions.fetchProductsInDepartment(page, departmentId)),
+    onFetchProductsInCategory: (page, departmentId) => dispatch(actions.fetchProductsInCategory(page, departmentId)),
   }
 }
 

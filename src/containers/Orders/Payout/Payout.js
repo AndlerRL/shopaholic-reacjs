@@ -42,25 +42,16 @@ const Payout = props => {
     const updateCC = {
       credit_card: response.token.card.last4
     };
-
-    const orderChargeData = new FormData();
-
-    orderChargeData.append("stripeToken", response.token.id);
-    orderChargeData.append("order_id", parseInt(order_id));
-    orderChargeData.append("description", `SHOPAHOLIC–ORDER#${order_id}`);
-    orderChargeData.append("amount", parseFloat(props.orderDetail.total_amount));
-    orderChargeData.append("currency", "usd");
-    /**
-    * 
+ 
     const orderChargeData = {
       stripeToken: response.token.id,
       order_id: parseInt(order_id),
       description: `SHOPAHOLIC–ORDER#${order_id}`,
-      amount: parseFloat(props.order.total_amount),
+      amount: parseFloat(orderDetail.total_amount),
       currency: 'usd'
-    } 
-    * 
-    */
+    }
+
+    console.log(response);
     props.onUpdateCC(updateCC);
     props.onStripeCharge(orderChargeData);
   }
