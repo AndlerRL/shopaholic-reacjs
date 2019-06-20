@@ -20,7 +20,7 @@ export function* fetchCategoryIdSaga(action) {
   try {
     const response = yield Axios.get(`/categories/${action.categoryId}`)
 
-    yield put(actions.categoryId(response.data, response.data.name))
+    yield put(actions.categoryId(action.categoryId, response.data, response.data.name))
   } catch(error) {
     console.log(error);
     yield put(actions.categoryIdFail(error));

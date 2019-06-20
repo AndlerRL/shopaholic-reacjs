@@ -34,6 +34,11 @@ const webhooks = (state, action) => {
     received: action.received
   })
 };
+const confirmReceived = (state, action) => {
+  return updateObject(state, {
+    received: null
+  })
+}
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -49,6 +54,8 @@ const reducer = (state = initState, action) => {
       return webhooks(state, action);
     case actionTypes.STRIPE_WEBHOOKS_FAIL:
       return fail(state, action);
+    case actionTypes.CONFIRM_CHARGE_RECEIVED_STRIPE:
+      return confirmReceived(state, action);
     default:
       return state;
   }

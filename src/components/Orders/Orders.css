@@ -7,6 +7,23 @@
   margin: 7rem auto 1rem;
 }
 
+.Orders > .NoOrders {
+  color: #757575;
+  font-style: italic;
+  width: 100%;
+  margin: calc(50% - 200px) auto;
+}
+
+.Orders > .NoOrders {
+  font-family: 'Dosis', sans-serif;
+  text-align: center;
+}
+
+.Orders > .NoOrders {
+  text-align: center;
+  font-size: 1rem;
+}
+
 .Order {
   display: flex;
   flex-direction: column;

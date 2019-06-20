@@ -119,7 +119,8 @@ const Items = props => {
 
   const clearFilterHandler = () => {
     if (props.hasValueDep.Regional || props.hasValueDep.Nature || props.hasValueDep.Seasonal) {
-      props.clearFilter()
+      props.onClearFilter()
+      props.onClearDepts()
       setTimeout(() => {
         props.onGetProducts(props.page, props.count);
       }, 200);
@@ -127,14 +128,17 @@ const Items = props => {
 
     if (props.hasValueCat.Animal || props.hasValueCat.Christmas || props.hasValueCat.Flower || props.hasValueCat.French ||
     props.hasValueCat.Irish || props.hasValueCat.Italian || props.hasValueCat["Valentine's"]) {
-      props.clearFilter()
+      props.onClearFilter()
+      props.onClearCats()
       setTimeout(() => {
         props.onGetProducts(props.page);
       }, 200);
     }
 
     if (props.queryStr) {
-      props.clearFilter()
+      props.onClearFilter()
+      props.onClearDepts()
+      props.onClearCats()
       setTimeout(() => {
         props.onGetProducts(props.page);
       }, 200);
@@ -142,7 +146,7 @@ const Items = props => {
   }
 
   const addWishList = productId => {
-    console.log(productId);
+    //console.log(productId);
     const cart_id = JSON.parse(localStorage.getItem('cart_id'));
     
     const attributes = `N/A`;
@@ -226,7 +230,9 @@ const mapDispatchToProps = dispatch => {
     onAttributesValues: (sizeVal, colVal) => dispatch(actions.attributeValues(sizeVal, colVal)),
     onFetchProductData: (productId, productData) => dispatch(actions.fetchProductDetail(productId, productData)),
     onGenerateCartId: () => dispatch(actions.generateCartId()),
-    clearFilter: () => dispatch(actions.clearFilter()),
+    onClearFilter: () => dispatch(actions.clearFilter()),
+    onClearDepts: () => dispatch(actions.clearDepartments()),
+    onClearCats: () => dispatch(actions.clearCategories()),
     onAddProduct: (direction, cart_id, product_id, attributes) => dispatch(actions.addProductToCart(direction, cart_id, product_id, attributes)),
   }
 }

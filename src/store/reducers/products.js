@@ -179,34 +179,29 @@ const productInCategory = (state, action) => {
   })
 };
 const clearFilter = (state, action) => {
+  const clearMeta = updateObject(state.meta, {
+    query_string: "",
+    page: 1
+  })
   let clear = updateObject(state, {
     department: false,
     category: false,
     search: false,
-    meta: {
-      query_string: "",
-      page: 1
-    }
+    meta: clearMeta
   })
 
   if (state.department)
     clear = updateObject(state, {
       filterDepartment: [],
       department: false,
-      meta: {
-        query_string: "",
-        page: 1,
-      }
+      meta: clearMeta
     })
 
   if (state.category)
     clear = updateObject(state, {
       filterCategory: [],
       category: false,
-      meta: {
-        query_string: "",
-        page: 1,
-      }
+      meta: clearMeta
     })
     
   return clear

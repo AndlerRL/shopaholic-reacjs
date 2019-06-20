@@ -107,6 +107,8 @@ export function* emptyCartSaga(action) {
     
     yield call([localStorage, 'removeItem'], 'cart_id');
     yield put(actions.shoppingCartDeleteSuccess(response.data));
+    yield put(actions.fetchShoppingCart());
+    yield put(actions.fetchFavorites());
   } catch(error) {
     console.error(error);
     yield put(actions.shoppingCartDeleteFail(error))

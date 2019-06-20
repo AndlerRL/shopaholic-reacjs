@@ -1,19 +1,5 @@
 import * as actionTypes from './actionTypes';
 
-export const categoriesQuerySuccess = (orderQuery, pageQuery, limitQuery) => {
-  return {
-    type: actionTypes.CATEGORIES_QUERY,
-    orderQuery: orderQuery,
-    pageQuery: pageQuery,
-    limitQuery: limitQuery
-  }
-}
-export const categoriesQueryFail = error => {
-  return {
-    type:actionTypes.CATEGORIES_QUERY_FAIL,
-    error: error
-  }
-}
 export const categoriesStart = () => {
   return {
     type: actionTypes.CATEGORIES_START
@@ -44,9 +30,10 @@ export const fetchCategoryId = categoryId => {
     categoryId: categoryId
   }
 }
-export const categoryId = (category, name) => {
+export const categoryId = (categoryId, category, name) => {
   return {
     type: actionTypes.CATEGORY_ID_SUCCESS,
+    categoryId: categoryId,
     category: category,
     name: name
   }
@@ -101,5 +88,10 @@ export const fetchCategoriesInProduct = productId => {
   return {
     type: actionTypes.FETCH_CATEGORY_IN_PRODUCT,
     productId: productId
+  }
+}
+export const clearCategories = () => {
+  return {
+    type: actionTypes.CLEAR_CATEGORIES
   }
 }

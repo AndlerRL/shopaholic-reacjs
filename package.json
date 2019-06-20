@@ -1,6 +1,6 @@
 {
   "name": "shopaholicapp",
-  "version": "1.0.024",
+  "version": "1.0.047",
   "private": true,
   "dependencies": {
     "@babel/core": "7.4.3",
@@ -8,6 +8,8 @@
     "@material-ui/icons": "^4.0.1",
     "@material-ui/lab": "^4.0.0-alpha.14",
     "@svgr/webpack": "4.1.0",
+    "@types/react-stripe-elements": "^1.1.10",
+    "@types/stripe": "^6.30.3",
     "@typescript-eslint/eslint-plugin": "1.6.0",
     "@typescript-eslint/parser": "1.6.0",
     "aos": "^2.3.4",
@@ -69,7 +71,7 @@
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
-    "stripe": "^7.0.0",
+    "stripe": "^7.2.0",
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "1.2.3",
     "ts-pnp": "1.1.2",

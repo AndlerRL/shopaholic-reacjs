@@ -67,7 +67,7 @@
 .SignUp > div,
 .SignIn > div:first-child {
   overflow-y: auto;
-  width: 100%;
+  padding: 0 8px;
 }
 
 .SignUp .Title {
@@ -101,7 +101,7 @@
 @media screen and (min-width: 500px) {
   .SignIn {
     margin: 2rem 0 9rem;
-    width: 66.66%;
+    width: 600px;
     max-height: 55vh;
     display: flex;
     flex-direction: column;
@@ -111,7 +111,7 @@
 
   .SignUp {
     margin: 2rem 0 9rem;
-    width: 66.66%;
+    width: 600px;
     max-height: 55vh;
     display: flex;
     flex-direction: column;
@@ -119,9 +119,10 @@
     transition: all cubic-bezier(0.19, 1, 0.22, 1) .66s 100ms;
   }
 
-  .SignUp > div {
+  .SignUp > div,
+  .SignIn > div:first-child {
     overflow-y: none;
-    width: 100%;
+    padding: 0;
   }
 
   .BtnContainer > button {

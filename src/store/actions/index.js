@@ -49,8 +49,6 @@ export {
   attributeInProductFail
 } from './attributes';
 export {
-  categoriesQuerySuccess,
-  categoriesQueryFail,
   fetchCategories,
   fetchCategoryId,
   categoryId,
@@ -65,7 +63,8 @@ export {
   fetchCategoriesInProduct,
   categoriesInProductStart,
   categoriesInProductSuccess,
-  categoriesInProductFail
+  categoriesInProductFail,
+  clearCategories
 } from './categories';
 export {
   fetchDepartments,
@@ -74,7 +73,8 @@ export {
   departmentsFail,
   fetchDepartmentsId,
   departmentsIdSuccess,
-  departmentsIdFail
+  departmentsIdFail,
+  clearDepartments
 } from './departments';
 export {
   createOrder,
@@ -219,7 +219,8 @@ export {
   stripeWebhooksStart,
   stripeWebhooksSuccess,
   stripeWebhooksFail,
-  stripeWebhooks
+  stripeWebhooks,
+  confirmReceived
 } from './stripe';
 export {
   fetchTaxes,

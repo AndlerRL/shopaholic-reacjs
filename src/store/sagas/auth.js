@@ -143,7 +143,7 @@ export function* updateCCSaga(action) {
         "USER-KEY": token
       }
     });
-    console.log('UPDATE CC RES.DATA: ', response.data);
+    //console.log('UPDATE CC RES.DATA: ', response.data);
     yield put(actions.ccSuccess(response.data));
   } catch(error) {
     console.error(error);

@@ -25,7 +25,7 @@ const Filter = props => {
 
   const changeCatHandler = category => e => {
     const id = props.categories.find(id => id.name === category).category_id;
-
+    
     props.onFetchCategoryId(id);
   }
 
@@ -95,32 +95,25 @@ const Filter = props => {
       key={category.category_id} />
   ));
 
-  console.log(`isDepartment? 
-  ${props.isDepartment}`);
-  console.log(`isCategory? 
-  ${props.isCategory}`);
-
   return (
     <div className={css.Filter}>
       <div className={css.FilterHead}>
         <h5>Filter {props.count} items</h5>
         <ul>
-          { props.hasValueCat.Animal || props.hasValueCat.Christmas || props.hasValueCat.Flower || props.hasValueCat.French ||
-            props.hasValueCat.Irish || props.hasValueCat.Italian || props.hasValueCat["Valentine's"] ?
-            props.isCategory ?
+          { (props.hasValueCat.Animal || props.hasValueCat.Christmas || props.hasValueCat.Flower || props.hasValueCat.French ||
+            props.hasValueCat.Irish || props.hasValueCat.Italian || props.hasValueCat["Valentine's"]) && props.isCategory ?
             <li>
               <IconM icon="clear" 
                 clicked={props.clear} />
               <FilterCat categories={props.hasValueCat} />
-            </li> : null : null }
+            </li> : null }
           
-          { props.hasValueDep.Regional || props.hasValueDep.Nature || props.hasValueDep.Seasonal ?
-            props.isDepartment ?
+          { (props.hasValueDep.Regional || props.hasValueDep.Nature || props.hasValueDep.Seasonal) && props.isDepartment ?
             <li>
               <IconM icon="clear" 
                 clicked={props.clear} />
               <FilterDep departments={props.hasValueDep} />
-            </li> : null : null }
+            </li> : null }
           { props.queryStr ?
             <li>
               <IconM icon="clear" 
@@ -169,8 +162,8 @@ const mapStateToProps = state => {
     department: state.departments.department,
     hasValueDep: state.departments.hasValue,
     hasValueCat: state.categories.hasValue,
-    isDepartment: state.products.department,
-    isCategory: state.products.category,
+    isDepartment: state.departments.department.length !== 0,
+    isCategory: state.categories.category.length !== 0,
     category: state.categories.category,
     catInDept: state.categories.catInDept,
     queryStr: state.products.meta.query_string,

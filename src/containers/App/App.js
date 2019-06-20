@@ -3,7 +3,7 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import M from 'materialize-css';
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 
 import { Loading } from '../../components/UI/Loading/Loading';
 import * as actions from '../../store/actions';
@@ -40,6 +40,10 @@ const Payout = React.lazy(() => {
 })
 
 const App = props => {
+  const [stripe, setStripe] = useState({
+    stripe: null
+  })
+
   useEffect(() => {
     props.onTryAuthSignUp();
 
@@ -63,6 +67,14 @@ const App = props => {
       disableBodyScroll(root);
     } else {
       enableBodyScroll(root);
+    }
+
+    if (window.Stripe) {
+      setStripe(window.Stripe(process.env.API_KEY))
+    } else {
+      document.querySelector('#stripe-js').addEventListener('load', () => {
+        setStripe(window.Stripe(process.env.API_KEY))
+      })
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -155,7 +167,7 @@ const App = props => {
         <Route exact path="/orders" render={props => <Orders {...props} />} />
         <Route exact path="/orders/checkout" render={
           props => 
-          <StripeProvider apiKey={process.env.API_KEY}>
+          <StripeProvider stripe={stripe}>
             <Elements>
               <Payout {...props} />
             </Elements>

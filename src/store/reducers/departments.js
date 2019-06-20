@@ -49,6 +49,19 @@ const departmentIdSuccess = (state, action) => {
     hasValue: hasValue
   })
 };
+const clearDepartments = (state, action) => {
+  const updateHasValue = updateObject(state.hasValue, {
+    Regional: false,
+    Nature: false,
+    Seasonal: false
+  })
+  return updateObject(state, {
+    department: [],
+    hasValue: updateHasValue,
+    departmentId: null
+  })
+}
+
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -62,6 +75,8 @@ const reducer = (state = initState, action) => {
       return departmentIdSuccess(state, action);
     case actionTypes.DEPARTMENTS_BY_ID_FAIL:
       return fail(state, action);
+    case actionTypes.CLEAR_DEPARTMENTS:
+      return clearDepartments(state, action);
     default:
       return state;
   }

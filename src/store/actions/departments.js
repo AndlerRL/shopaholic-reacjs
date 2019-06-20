@@ -37,10 +37,14 @@ export const departmentsIdFail = error => {
     error: error
   }
 }
-export const fetchDepartmentsId = (departmentId, department) => {
+export const fetchDepartmentsId = departmentId => {
   return {
     type: actionTypes.FETCH_DEPARTMENTS_ID,
-    departmentId: departmentId,
-    department: department
+    departmentId: departmentId
+  }
+}
+export const clearDepartments = () => {
+  return {
+    type: actionTypes.CLEAR_DEPARTMENTS
   }
 }

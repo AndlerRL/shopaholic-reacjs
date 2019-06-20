@@ -95,7 +95,19 @@ Now, let's go to the changelog!
 
 ### CHANGE_LOG ###
 
-__`[v.1.0.037]`__
+__`[v1.0.047]`__
+
+__Bug Fix:__
+
+* There was an issue at time to delete cart, seems that did not update the actual shopping cart correctly; fixed.
+* _UI FIX:_
+  * Overflow-y shows when actually there was no need to; Fixed.
+  * On orders screen, now it shows properly the Order Status and Shipment, also button can be disabled if the order is already payed.
+  * Also on orders screen, if there is no orders, an UI will inform that well, there is no orders and does not show anymore a blank screen.
+  * An UI respond has been added after completing the payment, having you the option to go to the receipt.
+* When customer tried to pay, there was an issue, an `internal server error (500)` and it wasn't able to complete it; Has been fixed adding the Test Token and now Works fine and has an UI respond.
+
+__`[v1.0.037]`__
 
 __Re-structure:__ Since Departments are top level of the filters, a new code is being added to the project, so it will appear in this way:
 

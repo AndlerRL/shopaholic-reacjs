@@ -6,6 +6,9 @@ import React, { useEffect, useState } from 'react';
 import * as actions from '../../../store/actions';
 import Axios from '../../../axios-shop';
 import Checkout from '../../../components/Orders/Payout/Payout';
+import ModalHover from '../../../components/UI/Modal/ModalHover/ModalHover';
+import IconF from '../../../components/UI/Icons/IconF';
+import Btn from '../../../components/UI/Btn/Btn';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 
 const Payout = props => {
@@ -30,7 +33,7 @@ const Payout = props => {
   const payoutHandler = async e => {
     e.preventDefault();
 
-    const response = await props.stripe.createToken({
+    const { token } = await props.stripe.createToken({
       name: props.userData.name,
       address_line1: props.userData.address_1,
       address_line2: props.userData.address_2,
@@ -40,48 +43,86 @@ const Payout = props => {
     });
 
     const updateCC = {
-      credit_card: response.token.card.last4
-    };
- 
-    const orderChargeData = {
-      stripeToken: response.token.id,
-      order_id: parseInt(order_id),
-      description: `SHOPAHOLIC–ORDER#${order_id}`,
-      amount: parseFloat(orderDetail.total_amount),
-      currency: 'usd'
+      credit_card : token.card.last4
     }
 
-    console.log(response);
+    const amount = Math.trunc(orderDetail.total_amount);
+ 
+    const orderChargeData = {
+      stripeToken: 'tok_visa',
+      order_id: parseInt(order_id),
+      description: `SHOPAHOLIC–ORDER#${order_id}`,
+      amount: amount * 100 + ((orderDetail.total_amount - amount) * 100),
+      currency: 'usd'
+    }
+    //console.log('Order Charge Data\n', orderChargeData);
+    
     props.onUpdateCC(updateCC);
     props.onStripeCharge(orderChargeData);
   }
 
+  /* console.log('PROPS.CHARGE_ORDER STATE FROM REDUX: \n', props.chargeOrder);
+  console.log('PROPS.RECEIVED STATE FROM REDUX: \n', props.received); */
+
+  const confirmReceivedHandler = () => {
+    props.onConfirmReceived();
+
+    props.history.replace('/orders');
+  }
+
   return ( 
-    <Checkout 
-      order={orderDetail}
-      payout={payoutHandler}>
-      <div>
-        <label> Credit or Debit card </label>
-        <CardNumberElement />
-      </div>
-      <div>
+    <React.Fragment>
+      { props.received ? <ModalHover 
+        modalClosed={confirmReceivedHandler}
+        show={props.received}>
+        <h3>{props.chargeOrder.outcome.seller_message}</h3>
+        <h5>Order Status: <span>"{props.chargeOrder.outcome.network_status}"</span></h5>
+        <h5>ID #{props.chargeOrder.metadata.order_id}</h5>
+        <h4>
+          <a href={props.chargeOrder.receipt_url} target="__blank">
+            Your Receipt
+            <IconF 
+              type="fas"
+              icon="external-link-alt"
+              size="1rem"
+              color="inherit" />
+          </a>
+        </h4>
+        <Btn 
+          btnType="contained"
+          btnColor="primary"
+          clicked={confirmReceivedHandler}>
+          Confirm
+        </Btn>
+      </ModalHover> : null }
+      <Checkout 
+        order={orderDetail}
+        payout={payoutHandler}>
         <div>
-          <label> Expiration Date </label>
-          <CardExpiryElement />
+          <label> Credit or Debit card </label>
+          <CardNumberElement />
         </div>
         <div>
-          <label> CVC code </label>
-          <CardCVCElement />
+          <div>
+            <label> Expiration Date </label>
+            <CardExpiryElement />
+          </div>
+          <div>
+            <label> CVC code </label>
+            <CardCVCElement />
+          </div>
         </div>
-      </div>
-    </Checkout>
+      </Checkout>
+    </React.Fragment>
   )
 };
 
 const mapStateToProps = state => {
   return {
     orderDetail: state.orders.orderDetail,
-    userData: state.auth.userData
+    userData: state.auth.userData,
+    chargeOrder: state.stripe.chargeOrder,
+    received: state.stripe.received
   }
 };
 
@@ -89,7 +130,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onOrderShortDetail: orderId => dispatch(actions.orderShortDetail(orderId)),
     onStripeCharge: orderChargeData => dispatch(actions.stripeCharge(orderChargeData)),
-    onUpdateCC: cc => dispatch(actions.updateCC(cc))
+    onUpdateCC: cc => dispatch(actions.updateCC(cc)),
+    onConfirmReceived: () => dispatch(actions.confirmReceived()),
   }
 };
 

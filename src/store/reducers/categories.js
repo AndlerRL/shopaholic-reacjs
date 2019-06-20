@@ -13,12 +13,9 @@ const initState = {
     Irish: false,
     "Valentine's": false
   },
-  categoriesQuery: {},
   categories: [],
   category: [],
-  departments: [],
   categoryId: null,
-  departmentId: null,
   catInDept: []
 }
 
@@ -34,17 +31,6 @@ const fail = (state, action) => {
     error: action.error
   })
 };
-const categoriesQuerySuccess = (state, action) => {
-  return updateObject(state, {
-    isLoading: null,
-    error: null,
-    categoriesQuery: {
-      order: action.orderQuery,
-      page: action.pageQuery,
-      limit: action.limitQuery
-    }
-  })
-}
 const categoriesSuccess = (state, action) => {
   return updateObject(state, {
     isLoading: null,
@@ -82,6 +68,22 @@ const categoriesInDepartmentSuccess = (state, action) => {
     catInDept: action.products
   })
 };
+const clearCategories = (state, action) => {
+  const updateHasValue = updateObject(state.hasValue, {
+    Animal: false,
+    Christmas: false,
+    Flower: false,
+    French: false,
+    Italian: false,
+    Irish: false,
+    "Valentine's": false
+  })
+  return updateObject(state, {
+    category: [],
+    hasValue: updateHasValue,
+    categoryId: null
+  });
+}
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -95,10 +97,6 @@ const reducer = (state = initState, action) => {
       return categoryId(state, action);
     case actionTypes.CATEGORY_ID_FAIL:
       return fail(state, action)
-    case actionTypes.CATEGORIES_QUERY:
-      return categoriesQuerySuccess(state, action);
-    case actionTypes.CATEGORIES_QUERY_FAIL:
-      return fail(state, action);
     case actionTypes.CATEGORY_IN_DEPARTMENT_START:
       return start(state, action);
     case actionTypes.CATEGORY_IN_DEPARTMENT_SUCCESS:
@@ -111,6 +109,8 @@ const reducer = (state = initState, action) => {
       return categoriesInProductSuccess(state, action);
     case actionTypes.CATEGORY_IN_PRODUCT_FAIL:
       return fail(state, action);
+    case actionTypes.CLEAR_CATEGORIES:
+      return clearCategories(state, action);
     default:
       return state;
   }

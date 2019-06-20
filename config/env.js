@@ -77,9 +77,9 @@ function getClientEnvironment(publicUrl) {
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
-        API_KEY: "pk_test_Bd80bCRHqVOuOLdkyClLhgRV00nXWw0eC2",
-        API_SECRET: "sk_test_g40XadvEP2Oe0rF3ErcEolwg00qK3jEws6",
-        ENDPOINT_SECRET: "whsec_c7p6VKVrP1zvrE2uSCRXq4zumxKhqZL3",
+        API_KEY: "pk_test_5tDDXiUJgb8yAPRkksg4cCaP00EWwSiiDT",
+        API_SECRET: "sk_test_rI1dHUlP3cD4ZLuAXKaIkV4F00bGzIy2Zt",
+        ENDPOINT_SECRET: "whsec_VtlLvr4bXQN4JSGlrK2U1Ca4P4CVWxq3",
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin

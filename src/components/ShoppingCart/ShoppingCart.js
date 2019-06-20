@@ -90,37 +90,39 @@ const shoppingCart = props => {
           <p>If there is one, it should appear here.</p>
         </div>
       ) : (
-        <h5>{props.shoppingCart.length} items in your cart!</h5>,
-        <table>
-          <thead>
-            <tr>
-              <th> Item </th>
-              <th> Color & Size </th>
-              <th> Quantity </th>
-              <th> Price </th>
-            </tr>
-          </thead>
-          <tbody>
-            { cartProducts }
-          </tbody>
-          <tfoot>
-            <tr>
-              <td>
-                <BtnIcon
-                  btnType={null}
-                  icon="times"
-                  iconType="fas"
-                  iconSize="1rem"
-                  clicked={props.deleteCart}>
-                  Delete Cart
-                </BtnIcon>                
-              </td>
-              <td>
-                Total in Cart: USD ${ props.totalAmount }
-              </td>
-            </tr>
-          </tfoot>
-        </table>
+        <React.Fragment>
+          <h5>{props.shoppingCart.length} items in your cart!</h5>
+          <table>
+            <thead>
+              <tr>
+                <th> Item </th>
+                <th> Color & Size </th>
+                <th> Quantity </th>
+                <th> Price </th>
+              </tr>
+            </thead>
+            <tbody>
+              { cartProducts }
+            </tbody>
+            <tfoot>
+              <tr>
+                <td>
+                  <BtnIcon
+                    btnType={null}
+                    icon="times"
+                    iconType="fas"
+                    iconSize="1rem"
+                    clicked={props.deleteCart}>
+                    Delete Cart
+                  </BtnIcon>                
+                </td>
+                <td>
+                  Total in Cart: USD ${ props.totalAmount }
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </React.Fragment>
       )}
 
       <div className={css.Actions}>

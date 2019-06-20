@@ -45,3 +45,8 @@ export const stripeWebhooksFail = error => {
     error: error
   }
 }
+export const confirmReceived = () => {
+  return {
+    type: actionTypes.CONFIRM_CHARGE_RECEIVED_STRIPE
+  }
+}
