@@ -144,8 +144,6 @@ const orders = props => {
     
   if (props.isLoading && props.orders.length === 0)
     orders = <Loading />
-
-  console.log(props.orders)
   
   return (
     <div className={css.Orders}>
